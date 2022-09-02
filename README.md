@@ -14,11 +14,11 @@ For Windows users:<br />
 -Once you have downloaded the correct installer for your Windows computer, run the installer to install Python with Miniconda.<br />
 
 For Mac users:<br />
-	1. Make sure your default shell is set to Z shell:<br />
-		-Open the application "Terminal". You can find "Terminal" by searching for it at the top-right of the screen from the toolbar.<br />
-		-From the Terminal window, enter the following command:<br />
-			chsh -s /bin/zsh<br />
-		-You may be asked to enter your login password, which you should do. Don't worry, your keystrokes are being registered even if you can't read them.<br />
+1. Make sure your default shell is set to Z shell:<br /><br />
+-Open the application "Terminal". You can find "Terminal" by searching for it at the top-right of the screen from the toolbar.<br /><br />
+-From the Terminal window, enter the following command:<br /><br />
+&emsp;chsh -s /bin/zsh<br /><br />
+-You may be asked to enter your login password, which you should do. Don't worry, your keystrokes are being registered even if you can't read them.<br />
 		-Quit and restart Terminal<br />
 		-Type the following command:<br />
 			echo $0<br />
