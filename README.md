@@ -11,7 +11,7 @@ For Windows users:<br />
 &emsp;-Right-click on the entry that says "This PC".<br />
 &emsp;-Select "Properties".<br />
 &emsp;-Your operating system type (32-bit or 64-bit) will be displayed next to "System Type".<br /><br />
--Once you have downloaded the correct installer for your Windows computer, run the installer to install Python with Miniconda.<br />
+-Once you have downloaded the correct installer for your Windows computer, run the installer to install Python with Miniconda.<br /><br />
 
 For Mac users:<br />
 1. Make sure your default shell is set to Z shell:<br /><br />
