@@ -23,11 +23,11 @@ For Mac users:<br />
 -Type the following command:<br /><br />
 &emsp;echo $0<br /><br />
 -If Terminal returns the line "-zsh", then you have successfully set your shell to Z shell.<br /><br />
-2. Install Python 3:<br />
-		-It is highly recommended that you install a version of Python that includes conda (i.e. either Anaconda or Miniconda). If you have no other uses for Python and all you are looking to do is run this program, Miniconda will provide you with everything you need. You can download the Miniconda installer here: https://docs.conda.io/en/latest/miniconda.html.<br />
-		-Unless you know what you are doing, do not concern yourself with any of the installers that end in "bash". Only select from the installers that that end in "pkg".<br />
-		-There are installers for Intel Macs as well as M1 Macs. You should choose the installer that matches the type of processor your Mac has. To find out which type of processor your Mac has:<br />
-			-Click on the Apple logo in the top-left corner of your screen.<br />
-			-Select "About This Mac".<br />
-			-In the "Overview" tab, the field titled "Processor" should tell you what kind of processor your Mac has. Look for either "Intel" or "M1" in the Processor's name.<br />
-		-Once you have downloaded the correct installer for your Mac computer, run the installer to install Python with Miniconda.<br />
+2. Install Python 3:<br /><br />
+-It is highly recommended that you install a version of Python that includes conda (i.e. either Anaconda or Miniconda). If you have no other uses for Python and all you are looking to do is run this program, Miniconda will provide you with everything you need. You can download the Miniconda installer here: https://docs.conda.io/en/latest/miniconda.html.<br /><br />
+-Unless you know what you are doing, do not concern yourself with any of the installers that end in "bash". Only select from the installers that that end in "pkg".<br /><br />
+-There are installers for Intel Macs as well as M1 Macs. You should choose the installer that matches the type of processor your Mac has. To find out which type of processor your Mac has:<br /><br />
+&emsp;-Click on the Apple logo in the top-left corner of your screen.<br />
+&emsp;-Select "About This Mac".<br />
+&emsp;-In the "Overview" tab, the field titled "Processor" should tell you what kind of processor your Mac has. Look for either "Intel" or "M1" in the Processor's name.<br /><br />
+-Once you have downloaded the correct installer for your Mac computer, run the installer to install Python with Miniconda.<br />
