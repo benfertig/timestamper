@@ -5,7 +5,7 @@ There are a few steps you need to follow before you can run this program:<br />
 <br />
 For Windows users:<br />
 &emsp;1. Install Python 3:<br />
-		-It is highly recommended that you install a version of Python that includes conda (i.e. either Anaconda or Miniconda). If you have no other uses for Python and all you are looking to do is run this program, Miniconda will provide you with everything you need. You can download the Miniconda installer here: https://docs.conda.io/en/latest/miniconda.html.<br />
+&emsp;&emsp;-It is highly recommended that you install a version of Python that includes conda (i.e. either Anaconda or Miniconda). If you have no other uses for Python and all you are looking to do is run this program, Miniconda will provide you with everything you need. You can download the Miniconda installer here: https://docs.conda.io/en/latest/miniconda.html.<br />
 		-You will be downloading one of the Windows installers. There is a 32-bit and a 64-bit installer. You should download the installer that matches your operating system type. To find out whether your Windows computer is 32-bit or 64-bit:<br />
 			-Search for "This PC" from the Windows search bar.<br />
 			-Right-click on the entry that says "This PC".<br />
