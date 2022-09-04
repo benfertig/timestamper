@@ -37,7 +37,7 @@ The Time Stamper program should now open in a new Window. Congratulations, you a
 If you would like to build your own standalone executable (.exe) of the Time Stamper program from the source code, follow the instructions below.
 
 ### Building from source on Windows
-The Windows executable (.exe) for the Time Stamper program was made using auto-py-to-exe, which you can install with pip. Type the following command from a Command Prompt window:
+The Windows executable (.exe) for the Time Stamper program was made using auto-py-to-exe, which you can install through pip. Type the following command from a Command Prompt window:
 ```
 pip install auto-py-to-exe
 ```
@@ -134,7 +134,7 @@ From the Terminal window, enter the following command:
 ```
 chsh -s /bin/zsh
 ```
-You may be asked to enter your login password, which you should do. If you do not see any text being printed to the terminal window when you type, do not worry. Your keystrokes are being registered even if you cannot read them.<br />
+You may be asked to enter your login password, which you should do. If you do not see any text being printed to the Terminal window when you type, do not worry. Your keystrokes are being registered even if you cannot read them.<br />
 
 Once you have successfully entered your password, quit and restart Terminal<br />
 
@@ -143,6 +143,7 @@ From a fresh Terminal window, enter the following command:
 echo $0
 ```
 If Terminal returns the line "-zsh", then you have successfully set your shell to Z shell.<br />
+
 ### Install Python 3
 It is highly recommended that you install a version of Python that includes conda (i.e. either Anaconda or Miniconda). If you have no other uses for Python and all you are looking to do is run/build the Time Stamper program from the source code, Miniconda will provide everything you need. You can download the latest Miniconda installer [here](https://docs.conda.io/en/latest/miniconda.html).<br />
 
@@ -154,3 +155,25 @@ There are installers for Intel Macs as well as M1 Macs. You should choose the in
 * In the "Overview" tab, look for either "Intel" or "M1" in the field titled "Processor".<br />
 
 Once you have downloaded the correct Miniconda installer for your Mac computer, run the installer to install Python with Miniconda.<br />
+
+### Activate your conda environment
+Newer Macintosh computers come with a preinstalled distribution of Python 3. If you have such a Macintosh, it is imperative that you make sure your computer **IS NOT** relying on this preinstalled Python 3 distribution when invoking the remaining commands throughout this README.<br />
+
+Even if your Mac does not have a preinstalled Python 3 distribution that is separate from the Python 3 distribution that you (should have) just installed through Anaconda/Miniconda, you still need to make sure that you are pointing your computer to the correct Python interpreter when you invoke the remaining conda/pip/python commands in this guide.<br />
+
+Therefore, when entering any Terminal commands throughout the remainder of this README, you always need to make sure that the prefix of your Terminal input reads "(base)". This is an indication that all conda/pip/python commands will default to your custom Anaconda/Miniconda installation, unless instructed otherwise.<br />
+
+If you *do not* see "(base)" in your Terminal command prefix, then you must **ALWAYS** make sure that you enter the following command before typing any other commands that begin with "conda", "pip" or "python":
+```
+conda activate
+```
+
+### Install Py2App
+The Mac application (.app) for the Time Stamper program was made using Py2App, which you can install through either pip or conda. If you installed Python through Anaconda/Miniconda, it is recommended that you install Py2App through **conda**, which you can do by entering the following command from a Terminal window:
+```
+conda install -c conda-forge py2app
+```
+Alternatively, you can install Py2App through **pip** by entering the following command from a Terminal window:
+```
+pip3 install py2app
+```
