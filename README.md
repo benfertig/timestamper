@@ -59,7 +59,7 @@ This option is up to you. Selecting the "One File" option will package the entir
 #### Icon
 You can provide a .ico file here to set the executable's icon image. Suitable icons of different sizes can be found under src/file_icons/Windows.<br />
 
-However, the icon for the precompiled release of this program was not set using this option. Instead, the icon was set using [Resource Tuner](http://www.restuner.com/download.htm) after the executable was generated.<br />
+However, the icon for the precompiled release of this program was not set using this option. Instead, the icon was set using [Resource Tuner](http://www.restuner.com/download.htm), *after* the executable was generated.<br />
 
 Resource Tuner was used to set the icon images because auto-py-to-exe only allows the user to set one icon image, whose dimensions will be scaled up or down depending on the context in which the user is viewing the program, while Resource Tuner allows one to set multiple icons of different sizes, allowing Windows to display the most appropriately sized icon for the given context.<br />
 
