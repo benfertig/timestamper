@@ -50,7 +50,7 @@ A new tab should open in your internet browser.<br />
 You should complete the following steps within the auto-py-to-exe browser tab that has appeared. The following steps are labeled with their corresponding section in the auto-py-to-exe browser tab.
 
 #### Script location
-This should point to the Python file titled "TimeStamper.py" in the respository's "src" directory. Refer to the general template below (replacing {path_to_repository} with the directory that you have saved the timestamper repository to).
+This should point to the Python file titled "TimeStamper.py" in the timestamper respository's "src" directory. Refer to the general template below (replacing {path_to_repository} with the directory that you have saved the timestamper repository to).
 ```
 {path_to_repository}/src/TimeStamper.py
 ```
