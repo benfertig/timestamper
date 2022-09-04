@@ -64,7 +64,7 @@ Selecting "Console Based" will cause a command window to appear each time you ru
 Selecting "Window Based" will suppress the command window when the Time Stamper program is run.
 
 #### Icon
-You can provide a .ico file here to set the executable's icon image. Suitable icons of different sizes can be found under src/file_icons/Windows.<br />
+You can provide a .ico file here to set the executable's icon. Suitable icons of different sizes can be found under src/file_icons/Windows.<br />
 
 However, the icons for the precompiled release of the Time Stamper program were not set using this option. Instead, the icons were set using [Resource Tuner](http://www.restuner.com/download.htm), *after* the executable was generated.<br />
 
