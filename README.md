@@ -19,10 +19,10 @@ You will be downloading one of the Windows installers. There is a 32-bit and a 6
 
 Once you have downloaded the correct Miniconda installer for your Windows computer, run the installer to install Python through Miniconda.
 
-### Running the program from source on Windows
+### Running from source on Windows
 Download this repository if you have not downloaded it already.<br />
 
-Open a new Command Prompt window and navigate to the source code directory. Enter the command below, replace {path_to_repository} with the location on your hard drive where you have saved this repository.
+Open a new Command Prompt window and navigate to the source code directory. Enter the command below, replacing {path_to_repository} with the directory that you have saved this repository to.
 ```
 cd {path_to_repository}\src
 ```
@@ -30,6 +30,14 @@ cd {path_to_repository}\src
 Then, type the following command:
 ```
 python -u TimeStamper.py
+```
+
+The program should now open in a new Window. If you would like to build your own executable (.exe) from this code, continue with the instructions below.
+
+### Building from source on Windows
+The Windows executable for this program was made using *Auto PY to EXE*, which you can install using pip. Type the following command from Command Prompt:
+```
+pip install auto-py-to-exe
 ```
 
 ## Mac
