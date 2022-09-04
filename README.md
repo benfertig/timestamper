@@ -57,7 +57,17 @@ This should point to the Python file titled "TimeStamper.py" in the respository'
 This option is up to you. Selecting the "One File" option will package the entire program into a single .exe file, providing maximum portability and convenience.
 
 #### Icon
-You can provide a .ico file here to set the executable's icon image. However, the icon for the precompiled release of this program was not set here. Instead, the icon was set using [Resource Tuner](http://www.restuner.com/download.htm) after the executable was generated.
+You can provide a .ico file here to set the executable's icon image. Suitable icons of different sizes can be found under src/file_icons/Windows.<br />
+
+However, the icon for the precompiled release of this program was not set here. Instead, the icon was set using [Resource Tuner](http://www.restuner.com/download.htm) after the executable was generated.<br />
+
+Resource Tuner was used to set the icon images because auto-py-to-exe only allows the user to set one icon image, whose dimensions will be scaled up or down depending on the context in which the user is viewing the program, while Resource Tuner allows one to set multiple icons of different sizes, allowing Windows to display the most appropriately sized icon for the given context.<br />
+
+For example, from the Desktop, icons are typically 48x48 pixels in size, but from a list view in File Explorer, icons are typically 16x16 pixels in size. If only one icon is provided for the executable, Windows will distort that icon from its original size to match the current needs of the display, which will often appear ugly.<br/>
+
+If you do not want to bother with setting multiple icons and would simply like to select one icon within auto-py-to-exe, the best icon to use would probably be the icon titled "timestamp_48x48_32b.ico" under src/file_icons/Windows. This icon will look nice from the Windows Desktop.<br />
+
+If you would like to set multiple icons for the executable for maximum aesthetic appeal, instructions for changing icon using Resource Tuner are provided at the end of this section.
 
 ## Mac
 ### Make sure your default shell is set to Z shell
