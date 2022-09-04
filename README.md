@@ -173,7 +173,7 @@ Once you have typed the above command, ensure that your Terminal command prefix 
 
 ### Running from source on Mac
 #### Install Tkmacosx
-One additional package, Tkmacosx, is needed to make the Time Stamper program function on Macs. If you installed Python through Anaconda/Miniconda, it is **recommended** that you install Tkmacosx through **conda**, which you can do by entering the following command from a Terminal window:
+To make the Time Stamper program function on a Macintosh computer, you will need to install one additional package called Tkmacosx. If you installed Python through Anaconda/Miniconda, it is **recommended** that you install Tkmacosx through **conda**, which you can do by entering the following command from a Terminal window:
 ```
 conda install -c saad_7 tkmacosx
 ```
