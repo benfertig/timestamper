@@ -79,7 +79,7 @@ If you do not want your icons to appear distorted some of the time, and do not m
 #### Additional files
 This is the most crucial section. You *must* provide all of the necessary dependencies here for your Time Stamper executable (.exe) to work.<br />
 
-For the following steps, replace {path_to_repository} with the directory that you have saved this repository to.<br />
+For the following steps, replace {path_to_repository} with the directory that you have saved the timestamper repository to.<br />
 
 First, select "Add files" and add the following file:
 ```
@@ -117,7 +117,7 @@ A folder hierarchy will appear on the left side of the window. Expand the folder
 ##### Repeat these steps until you have replaced all of the icons
 * Right-click on one of the entries in the "Icon" folder and select "Resource Tools" -> "Add or Replace Icon within Icon Group".
 * In the new window that appears, next to the field labeled "Path to file:" and click the button labeled "Open".
-* In the new File Explorer window that appears, navigate to the following directory, replacing {path_to_repository} with the directory that you have saved this repository to:
+* In the new File Explorer window that appears, navigate to the following directory, replacing {path_to_repository} with the directory that you have saved the timestamper repository to:
 ```
 {path_to_repository}\src\file_icons\Windows
 ```
