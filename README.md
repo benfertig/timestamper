@@ -66,7 +66,7 @@ Selecting "Window Based" will suppress the command window when the Time Stamper 
 #### Icon
 You can provide a .ico file here to set the executable's icon. Suitable icons of different sizes can be found under src/file_icons/Windows.<br />
 
-However, the icons for the precompiled release of the Time Stamper program were not set using this option. Instead, the icons were set using [Resource Tuner](http://www.restuner.com/download.htm), *after* the executable was generated.<br />
+However, the icons for the precompiled release of the Time Stamper program were not set using the "Icon" option in auto-py-to-exe. Instead, the icons were set using [Resource Tuner](http://www.restuner.com/download.htm) *after* the executable was generated.<br />
 
 Resource Tuner was used to set the icon images because auto-py-to-exe only allows the user to set one icon image, whose dimensions will be scaled up or down depending on the context in which the user is viewing the icon, while Resource Tuner allows one to set multiple icons of different sizes, allowing Windows to display the most appropriately sized icon for the given context.<br />
 
