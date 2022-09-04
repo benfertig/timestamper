@@ -59,7 +59,7 @@ This option is up to you. Selecting the "One File" option will package the entir
 #### Console Window
 Selecting "Console Based" will cause a command window to appear each time you run the program. If you are interested in running the program in "debug" mode to view any error messages, this option is for you.<br />
 
-Selecting "Window Based" will suppress the command window whenever the program is run.
+Selecting "Window Based" will suppress the command window when the program is run.
 
 #### Icon
 You can provide a .ico file here to set the executable's icon image. Suitable icons of different sizes can be found under src/file_icons/Windows.<br />
