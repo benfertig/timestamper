@@ -27,7 +27,7 @@ from tkinter import NORMAL, DISABLED
 @dataclass
 class Texts():
     """This module, which is called upon by the constructor of the Fields class,
-    should be seen as an extension of the TimeStamperShell class, with attributes
+    should be seen as an extension of the TimeStamperTemplate class, with attributes
     pertaining specifically to objects of type tkinter.Text in the Time Stamper program."""
 
     def __init__(self):
@@ -35,7 +35,7 @@ class Texts():
         self.log = self.TextLog()
         self.current_note = self.TextCurrentNote()
 
-        self.all_shells = (
+        self.all_templates = (
             self.log, self.current_note
         )
 

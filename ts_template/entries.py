@@ -27,7 +27,7 @@ from tkinter import NORMAL
 @dataclass
 class Entries():
     """This class, which is called upon by the constructor of the Fields class,
-    should be seen as an extension of the TimeStamperShell class, with attributes
+    should be seen as an extension of the TimeStamperTemplate class, with attributes
     pertaining specifically to objects of type tkinter.Entry in the Time Stamper program."""
 
     def __init__(self):
@@ -36,7 +36,7 @@ class Entries():
         self.rewind = self.EntryRewind()
         self.fast_forward = self.EntryFastForward()
 
-        self.all_shells = (
+        self.all_templates = (
             self.timer.num_hours, self.timer.num_minutes, self.timer.num_seconds, \
             self.timer.num_subseconds, self.rewind, self.fast_forward
         )

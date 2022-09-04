@@ -26,7 +26,7 @@ from dataclasses import dataclass
 @dataclass
 class Labels():
     """This module, which is called upon by the constructor of the Fields class,
-    should be seen as an extension of the TimeStamperShell class, with attributes
+    should be seen as an extension of the TimeStamperTemplate class, with attributes
     pertaining specifically to objects of type tkinter.Label in the Time Stamper program."""
 
     def __init__(self):
@@ -39,11 +39,12 @@ class Labels():
 
         self.separate_windows = self.LabelsSeparateWindows()
 
-        # Do not include any labels from the LabelsSeparateWindows class in self.all_shells because
-        # self.all_shells is only meant to store the shells for objects that we would like to create
-        # immediately when the program starts. Any objects that are part of separate windows will
-        # only be created when the user performs an action that triggers that window's creation.
-        self.all_shells = (
+        # Do not include any labels from the LabelsSeparateWindows class in
+        # self.all_templates because self.all_templates is only meant to store the
+        # templates for objects that we would like to create immediately when the
+        # program starts. Any objects that are part of separate windows will only be
+        # created when the user performs an action that triggers that window's creation.
+        self.all_templates = (
             self.timer.hrs, self.timer.min, self.timer.dot, self.timer.sec, \
             self.output_path, self.rewind_sec, self.fast_forward_sec, self.timestamp
         )

@@ -30,9 +30,9 @@ class TimeStamperTimer():
     are created, they should be passed to this class through the pass_objects method."""
 
     class Timing():
-        """This class stores the variables that are not part of a Tkinter window. The
-        variables in this class will be updated throughout the TimeStamper run() function.
-        This can be accomplished wiothout global variables because an instance of the
+        """This class stores the variables of TimeStamperTimer that are not part of a Tkinter
+        window. The variables in this class will be updated throughout the TimeStamper run()
+        function. This can be accomplished without global variables because an instance of the
         TimeStamperTimer class is created in the main TimeStamper class before the creation of
         the root window. By creating an instance of the TimeStamperTimer class before creating
         the applicable Tkinter window, the TimeStamperTimer class will not be re-initialized on
@@ -220,8 +220,8 @@ class TimeStamperTimer():
             # If the timer's currently displayed time is not less
             # than the maximum displayable time, stop the timer.
             else:
-                macro_mapping = self.time_stamper.macros.macro_mapping
-                button_stop_str_key = self.time_stamper.shell.fields.buttons.media.stop.str_key
+                macro_mapping = self.time_stamper.macros.button_macros.mapping
+                button_stop_str_key = self.time_stamper.template.fields.buttons.media.stop.str_key
                 macro_mapping[button_stop_str_key]()
 
     def pause(self):
@@ -272,8 +272,8 @@ class TimeStamperTimer():
         # If the timer's currently displayed time is not less
         # than the maximum displayable time, stop the timer.
         else:
-            macro_mapping = self.time_stamper.macros.macro_mapping
-            button_stop_str_key = self.time_stamper.shell.fields.buttons.media.stop.str_key
+            macro_mapping = self.time_stamper.macros.button_macros.mapping
+            button_stop_str_key = self.time_stamper.template.fields.buttons.media.stop.str_key
             macro_mapping[button_stop_str_key]()
 
     def stop(self):
@@ -386,6 +386,6 @@ class TimeStamperTimer():
         # If the timer's currently displayed time is not less
         # than the maximum displayable time, stop the timer.
         else:
-            macro_mapping = self.time_stamper.macros.macro_mapping
-            button_stop_str_key = self.time_stamper.shell.fields.buttons.media.stop.str_key
+            macro_mapping = self.time_stamper.macros.button_macros.mapping
+            button_stop_str_key = self.time_stamper.template.fields.buttons.media.stop.str_key
             macro_mapping[button_stop_str_key]()

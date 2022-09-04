@@ -20,9 +20,9 @@
 # Contact: github.cqrde@simplelogin.com
 
 
-from time_stamper import TimeStamper
-from time_stamper_shell import TimeStamperShell
+from time_stamper_class import TimeStamper
+from ts_template.time_stamper_template import TimeStamperTemplate
 
-shell = TimeStamperShell()
-tstmpr = TimeStamper(shell)
+template = TimeStamperTemplate()
+tstmpr = TimeStamper(template)
 tstmpr.run()
