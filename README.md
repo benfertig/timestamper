@@ -105,7 +105,7 @@ You should now be ready to build the Time Stamper program. Click the "CONVERT .P
 #### Changing the icons on Windows (optional step)
 **NOTE:** If you decide to set a custom icon for the .exe file you generated with auto-py-to-exe, you may run into a glitch where the icon will not change *unless* you change the name of the .exe file. Why this glitch occurs is unclear, but it is not a big deal. Just change the name of "TimeStamper.exe" to literally anything else. You can even make a change as small as calling the file "Time Stamper.exe" or "timestamper.exe" instead of "TimeStamper.exe".<br />
 
-If you want to set multiple icons for your .exe file in order to achieve maximum aesthetic appeal under any viewing conditions, make sure that you have generated the .exe file using auto-py-to-exe *without* changing the icon (i.e., without having selected a file under the "Icon" section in auto-py-to-exe).<br />
+If you want to set multiple icons for your .exe file in order to achieve maximum aesthetic appeal under any viewing conditions, make sure that you have generated the .exe file *without* changing the icon i.e., without having selected a file under the "Icon" section in auto-py-to-exe.<br />
 
 [Download and install Resource Tuner from here](http://www.restuner.com/download.htm).<br />
 
