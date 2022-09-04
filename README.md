@@ -68,7 +68,7 @@ You can provide a .ico file here to set the executable's icon. Suitable icons of
 
 However, the icons for the precompiled release of the Time Stamper program were not set using the "Icon" setting in auto-py-to-exe. Instead, the icons were set using [Resource Tuner](http://www.restuner.com/download.htm) *after* the executable was generated.<br />
 
-Resource Tuner was used to set the icon images for the Time Stamper executable (.exe) because auto-py-to-exe only allows the user to set one icon image for the generated executable file, whose dimensions will be scaled up or down depending on the context in which the user is viewing the icon, while Resource Tuner allows one to set multiple icons of different sizes, allowing Windows to display the most appropriately sized icon for the given context.<br />
+Resource Tuner was used to set the icon images for the Time Stamper executable (.exe) because auto-py-to-exe only allows the user to generate an executable with one custom one icon image, whose dimensions will be scaled up or down depending on the context in which the user is viewing the icon, while Resource Tuner allows one to set multiple icons of different sizes, allowing Windows to display the most appropriately sized icon for the given context.<br />
 
 For example, from the Desktop, icons are typically 48x48 pixels in size, but from a list view in File Explorer, icons are typically 16x16 pixels in size. If only one icon is provided for the executable, Windows will distort that icon from its original size to match the current needs of the display, which will often make the icon appear ugly.<br/>
 
