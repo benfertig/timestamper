@@ -75,7 +75,7 @@ If you do not want to bother with setting multiple icons and would simply like t
 If you would like to set multiple icons for the program for maximum aesthetic appeal, instructions for changing icons using Resource Tuner are provided at the end of this section.
 
 #### Additional files
-This is the most crucial option. You *must* provide all of the necessary dependencies for the program here.<br />
+This is the most crucial option. You *must* provide all of the necessary dependencies here for the program to work.<br />
 
 For the following steps, replace {path_to_repository} with the directory that you have saved this repository to.<br />
 
@@ -83,7 +83,7 @@ First, select "Add files" and add the following file:
 ```
 {path_to_repository}/src/time_stamper_class.py
 ```
-Now, you must add four folders. Select "Add folder" four times, adding one of each of these folders every time:
+Now, you must add four folders. Select "Add folder" and add one of the following folders. Repeat the process until you have added all four folders.
 ```
 {path_to_repository}/src/ts_images
 {path_to_repository}/src/ts_macros
