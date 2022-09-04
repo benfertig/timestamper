@@ -1,4 +1,4 @@
-# timestamper <br />
+# Time Stamper <br />
  Run a timer and write automatically timestamped notes.<br />
 <br />
 There are a few steps you need to follow before you can run this program:<br />
