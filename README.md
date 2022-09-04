@@ -66,7 +66,7 @@ Selecting "Window Based" will suppress the command window when the Time Stamper 
 #### Icon
 You can provide a .ico file here to set the executable's icon. Suitable icons of different sizes can be found under src/file_icons/Windows.<br />
 
-However, the icons for the precompiled release of the Time Stamper program were not set using the "Icon" option in auto-py-to-exe. Instead, the icons were set using [Resource Tuner](http://www.restuner.com/download.htm) *after* the executable was generated.<br />
+However, the icons for the precompiled release of the Time Stamper program were not set using the "Icon" setting in auto-py-to-exe. Instead, the icons were set using [Resource Tuner](http://www.restuner.com/download.htm) *after* the executable was generated.<br />
 
 Resource Tuner was used to set the icon images for the Time Stamper executable (.exe) because auto-py-to-exe only allows the user to set one icon image for the generated executable file, whose dimensions will be scaled up or down depending on the context in which the user is viewing the icon, while Resource Tuner allows one to set multiple icons of different sizes, allowing Windows to display the most appropriately sized icon for the given context.<br />
 
@@ -74,7 +74,7 @@ For example, from the Desktop, icons are typically 48x48 pixels in size, but fro
 
 If you do not want to bother with setting multiple icons and would simply like to select one icon within auto-py-to-exe, the best icon to use would probably be the icon titled "timestamp_48x48_32b.ico" under src/file_icons/Windows. This icon will look nice from the Windows Desktop and won't look too ugly from a list view in File Explorer.<br />
 
-If you do not want your icons to appear distorted some of the time, and do not mind taking an extra step to set multiple icons for the Time Stamper program after you have generated the .exe file, then **do not change the icon here**. Leave the icon as is for now. Instructions for changing icons using Resource Tuner are provided at the end of this section.
+If you do not want your icons to appear distorted some of the time, and do not mind taking an extra step to set multiple icons for the Time Stamper program after you have generated the .exe file, then **do not change the icon using the "Icon" setting in auto-py-to-exe**. Leave the icon as is for now. Instructions for changing icons using Resource Tuner are provided at the end of this section.
 
 #### Additional files
 This is the most crucial section. You *must* provide all of the necessary dependencies here for your Time Stamper executable (.exe) to work.<br />
