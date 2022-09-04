@@ -180,7 +180,7 @@ conda install -c saad_7 tkmacosx
 
 Alternatively, you can install Tkmacosx through pip by entering the following command from a Terminal window:
 ```
-pip install tkmacosx
+pip3 install tkmacosx
 ```
 
 #### Run TimeStamper.py
