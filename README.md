@@ -14,7 +14,7 @@ You will be downloading one of the Windows installers. There is a 32-bit and a 6
 * Select "Properties".<br />
 * Your operating system type (32-bit or 64-bit) will be displayed next to "System Type".<br />
 
--Once you have downloaded the correct installer for your Windows computer, run the installer to install Python with Miniconda.<br /><br />
+Once you have downloaded the correct installer for your Windows computer, run the installer to install Python with Miniconda.<br /><br />
 
 ## Build from source on Mac
 ### Make sure your default shell is set to Z shell
