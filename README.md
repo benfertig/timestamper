@@ -22,7 +22,7 @@ Once you have downloaded the correct Miniconda installer for your Windows comput
 ### Running from source on Windows
 Download the timestamper repository to your computer if you have not done so already.<br />
 
-Open a new Command Prompt window and navigate to the source code directory. To do so, enter the command below, replacing {path_to_repository} with the directory that you have saved the timestamper repository to.
+Open a new Command Prompt window and navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the timestamper repository to.
 ```
 cd {path_to_repository}\src
 ```
