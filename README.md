@@ -209,7 +209,7 @@ If you installed Python through Anaconda/Miniconda, it is **recommended** that y
 conda install -c conda-forge py2app
 ```
 
-**Alternatively**, you can install Py2App through pip by entering the following command from a Terminal window:
+Alternatively, you can install Py2App through pip by entering the following command from a Terminal window:
 ```
 pip3 install py2app
 ```
