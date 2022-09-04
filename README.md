@@ -39,7 +39,7 @@ The Windows executable for this program was made using auto-py-to-exe, which you
 ```
 pip install auto-py-to-exe
 ```
-This next step must be done from an Administrator Command Prompt Window. Right-click on the Command Prompt program and select "Run as administrator". Then, type the following command.
+This next step must be done from an Administrator Command Prompt Window. Right-click on Command Prompt and select "Run as administrator". Then, type the following command.
 ```
 auto-py-to-exe
 ```
