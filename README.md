@@ -165,7 +165,7 @@ Even if your Mac does not have a preinstalled Python 3 distribution that is sepa
 
 Therefore, when entering any Terminal commands throughout the remainder of this README, you **ALWAYS** need to make sure that the prefix of your Terminal input reads "(base)". This is an indication that all conda/pip/python commands will default to your custom Anaconda/Miniconda installation unless instructed otherwise.<br />
 
-If you *do not* see "(base)" in your Terminal command prefix, then you must **ALWAYS** make sure that you enter the following command before typing any other commands that begin with "conda", "pip" or "python" while following along with the remainder of this README:
+If you *do not* see "(base)" in your Terminal command prefix, then you must **ALWAYS** make sure that you enter the following command before typing any other commands throughout the remainder of this README that begin with "conda", "pip" or "python":
 ```
 conda activate
 ```
