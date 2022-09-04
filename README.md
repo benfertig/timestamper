@@ -1,6 +1,7 @@
 # Time Stamper <br />
  Run a timer and write automatically timestamped notes.<br />
 <br />
+This is the source code, if you are simply looking for 
 There are a few steps you need to follow before you can run this program:<br />
 <br />
 For Windows users:<br />
