@@ -34,7 +34,7 @@ python -u TimeStamper.py
 
 The Time Stamper program should now open in a new Window. Congratulations, you are now running the Time Stamper program from the source code using your own pre-installed Python interpreter.<br />
 
-If you would like to build your own standalone executable (.exe) from this code, continue with the instructions below.
+If you would like to build your own standalone executable (.exe) from the source code, follow the instructions below.
 
 ### Building from source on Windows
 The Windows executable (.exe) for the Time Stamper program was made using auto-py-to-exe, which you can install with pip. Type the following command from a Command Prompt window:
