@@ -56,18 +56,31 @@ This should point to the Python file titled "TimeStamper.py" in the respository'
 #### Onefile
 This option is up to you. Selecting the "One File" option will package the entire program into a single .exe file, providing maximum portability and convenience.
 
+#### Console Window
+Selecting "Console Based" will cause a command window to appear each time you run the program. Those who are interested in running the program in "debug" mode to view any error messages, this option is for you.<br />
+
+Selecting "Window Based" will suppress the command window whenever the program is run.
+
 #### Icon
 You can provide a .ico file here to set the executable's icon image. Suitable icons of different sizes can be found under src/file_icons/Windows.<br />
 
 However, the icon for the precompiled release of this program was not set using this option. Instead, the icon was set using [Resource Tuner](http://www.restuner.com/download.htm), *after* the executable was generated.<br />
 
-Resource Tuner was used to set the icon images because auto-py-to-exe only allows the user to set one icon image, whose dimensions will be scaled up or down depending on the context in which the user is viewing the program, while Resource Tuner allows one to set multiple icons of different sizes, allowing Windows to display the most appropriately sized icon for the given context.<br />
+Resource Tuner was used to set the icon images because auto-py-to-exe only allows the user to set one icon image, whose dimensions will be scaled up or down depending on the context in which the user is viewing the icon, while Resource Tuner allows one to set multiple icons of different sizes, allowing Windows to display the most appropriately sized icon for the given context.<br />
 
 For example, from the Desktop, icons are typically 48x48 pixels in size, but from a list view in File Explorer, icons are typically 16x16 pixels in size. If only one icon is provided for the executable, Windows will distort that icon from its original size to match the current needs of the display, which will often make the icon appear ugly.<br/>
 
-If you do not want to bother with setting multiple icons and would simply like to select one icon within auto-py-to-exe, the best icon to use would probably be the icon titled "timestamp_48x48_32b.ico" under src/file_icons/Windows. This icon will look nice from the Windows Desktop.<br />
+If you do not want to bother with setting multiple icons and would simply like to select one icon within auto-py-to-exe, the best icon to use would probably be the icon titled "timestamp_48x48_32b.ico" under src/file_icons/Windows. This icon will look nice from the Windows Desktop and won't look too ugly from a list view in File Explorer.<br />
 
-If you would like to set multiple icons for the executable for maximum aesthetic appeal, instructions for changing icon using Resource Tuner are provided at the end of this section.
+If you would like to set multiple icons for the program for maximum aesthetic appeal, instructions for changing icons using Resource Tuner are provided at the end of this section.
+
+#### Additional files
+This is the most crucial option. You *must* provide all of the necessary dependencies for the program here.<br />
+
+For the following steps, replace {path_to_repository} with the directory that you have saved this repository to.<br />
+
+First, select "Add files" and add the following file:
+{path_to_repository}/src/time_stamper_class.py
 
 ## Mac
 ### Make sure your default shell is set to Z shell
