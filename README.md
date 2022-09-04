@@ -48,10 +48,16 @@ A new tab should open in your internet browser.<br />
 You should complete the following steps within the auto-py-to-exe window that has appeared. The following steps are labeled with their corresponding section in the auto-py-to-exe window.
 
 #### Script location
-This should direct to the Python file titled "TimeStamper.py" in the respository's "src" directory. Replace {path_to_repository} below with the directory that you have saved this repository to.
+This should point to the Python file titled "TimeStamper.py" in the respository's "src" directory. Refer to the general template below (replacing {path_to_repository} with the directory that you have saved this repository to).
 ```
-{path_to_repository}\src\TimeStamper.py
+{path_to_repository}/src/TimeStamper.py
 ```
+
+#### Onefile
+This option is up to you. Selecting the "One File" option will package the entire program into a single .exe file, providing maximum portability and convenience.
+
+#### Icon
+You can provide a .ico file here to set the executable's icon image. However, the icon for the precompiled release of this program was not set here. Instead, the icon was set using [Resource Tuner](http://www.restuner.com/download.htm) after the executable was generated.
 
 ## Mac
 ### Make sure your default shell is set to Z shell
