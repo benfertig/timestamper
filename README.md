@@ -252,7 +252,7 @@ libffi.7.dylib
 libtcl8.6.dylib
 libtk8.6.dylib
 ```
-* Now navigate to the Time Stamper application (.app) you created earlier, right-click on it and select "Show Package Contents
+* Now navigate to the Time Stamper application (.app) you created earlier, right-click on it and select "Show Package Contents"
 * Then, go to "Contents" -> "Resources" -> "lib"
 * Paste the three .dylib files you copied into this "lib" folder.<br />
 
