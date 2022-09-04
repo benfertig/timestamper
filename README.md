@@ -15,7 +15,7 @@ There are a few steps you need to follow before you can run this program:<br />
 -Once you have downloaded the correct installer for your Windows computer, run the installer to install Python with Miniconda.<br /><br />
 
 # Build from source on Mac
-## Make sure your default shell is set to Z shell
+### Make sure your default shell is set to Z shell
 -Open the application "Terminal". You can find "Terminal" by searching for it at the top-right of the screen from the toolbar.<br /><br />
 -From the Terminal window, enter the following command:<br /><br />
 &emsp;chsh -s /bin/zsh<br /><br />
@@ -24,7 +24,7 @@ There are a few steps you need to follow before you can run this program:<br />
 -Type the following command:<br /><br />
 &emsp;echo $0<br /><br />
 -If Terminal returns the line "-zsh", then you have successfully set your shell to Z shell.<br /><br />
-2. Install Python 3:<br /><br />
+### Install Python 3
 -It is highly recommended that you install a version of Python that includes conda (i.e. either Anaconda or Miniconda). If you have no other uses for Python and all you are looking to do is run this program, Miniconda will provide you with everything you need. You can download the Miniconda installer here: https://docs.conda.io/en/latest/miniconda.html.<br /><br />
 -Unless you know what you are doing, do not concern yourself with any of the installers that end in "bash". Only select from the installers that that end in "pkg".<br /><br />
 -There are installers for Intel Macs as well as M1 Macs. You should choose the installer that matches the type of processor your Mac has. To find out which type of processor your Mac has:<br /><br />
