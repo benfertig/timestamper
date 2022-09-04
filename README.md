@@ -1,7 +1,8 @@
 # Time Stamper <br />
- Run a timer and write automatically timestamped notes.<br />
-This is the source code, if you are simply looking for the latest release, head over to the releases page.<br />
-<br />
+Run a timer and write automatically timestamped notes.<br />
+
+THIS IS THE SOURCE CODE. If you are simply looking for the latest release, head over to the releases page.<br />
+
 If you would like to run this program using the source code or build your own executables from the source code, follow the instructions below:<br />
 ## Run from source on Windows
 ### Install Python 3
