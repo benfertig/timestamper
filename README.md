@@ -72,7 +72,7 @@ For example, from the Desktop, icons are typically 48x48 pixels in size, but fro
 
 If you do not want to bother with setting multiple icons and would simply like to select one icon within auto-py-to-exe, the best icon to use would probably be the icon titled "timestamp_48x48_32b.ico" under src/file_icons/Windows. This icon will look nice from the Windows Desktop and won't look too ugly from a list view in File Explorer.<br />
 
-If you would like to set multiple icons for the program for maximum aesthetic appeal, instructions for changing icons using Resource Tuner are provided at the end of this section.
+If you do not want your icons to appear distorted some of the time, and do not mind taking an extra step to set multiple icons for the program after you have generated the .exe file, then **do not change the icon here**. Leave the icon as is for now. Instructions for changing icons using Resource Tuner are provided at the end of this section.
 
 #### Additional files
 This is the most crucial section. You *must* provide all of the necessary dependencies here for the program to work.<br />
@@ -98,7 +98,25 @@ You should not need to make any changes to this section.
 You should not need to make any changes to this section.
 
 #### CONVERT .PY TO .EXE
-You should now be ready to build the program. Click "CONVERT .PY TO .EXE" to generate the executable. Once the executable has been made, click the "OPEN OUTPUT FOLDER" to be directed to the location of the executable. This program should now run as a standalone executable (without needing to rely on any outside Python installations).
+You should now be ready to build the program. Click the "CONVERT .PY TO .EXE" button to generate the executable. Once the executable has been made, click the "OPEN OUTPUT FOLDER" button to be directed to the location of the executable. This program should now run as a standalone executable (without needing to rely on any outside Python installations). Congratulations, you have successfully built the program from source on Windows.
+
+#### Changing the icons on Windows (optional step)
+##### NOTE
+You may run into a glitch where the icon for the .exe file you generated will not change, even if you set a custom icon, **UNLESS** you change the name of the .exe file to anything other than "TimeStamper". Why this glitch occurs is unclear, but it is not a big deal. Just change the name of the .exe file to anything else. You can even make a change as small as calling the file "Time Stamper" or "timestamper" instead of "TimeStamper".<br />
+
+If you want to set multiple icons for your .exe file in order to achieve maximum aesthetic appeal under any viewing conditions, make sure that you have generated the .exe file without changing the icon (i.e., without having selected a file under the "Icon" section in auto-py-to-exe).<br />
+
+[Download and install Resource Tuner from here](http://www.restuner.com/download.htm).<br />
+
+Open Resource Tuner and go to "File" -> "Open File". Then open your Time Stamper executable.<br />
+
+A folder hierarchy will appear on the left side of the window. Expand the folder that says "Icon".<br />
+
+Right-click on one of the entries in the "Icon" folder and select "Resource Tools" -> "Add or Replace Icon within Icon Group". In the new window that appears, next to the field labeled "Path to file:", click the button labeled "Open". In the new File Explorer window that appears, navigate to the following directory, replacing {path_to_repository} with the directory that you have saved this repository to:
+```
+{path_to_repository}\src\file_icons\Windows
+```
+Select an icon file from the above folder. You should select a file whose name indicates an icon with a resolution and bit depth that **MATCHES** the resolution and bit depth of the icon you are replacing. For example, if you are replacing the icon that has a resolution of 48x48 with a bit depth of 8 (which would be marked as "48x48 8b" in the window labeled "Add or Replace Icon within Icon Group"), then you should select the file "timestamp_48x48_8b.ico". Now, make sure that you have highlighted the correct icon that you would like to replace from the left column (titled "Items to be replaced"), and that the icon you would like to replace it with appears in the right column (titled "New items"). The dimensions and bit depth of the icon you are removing and the icon you are replacing it with should match (check that the names of the entries in both columns match to be sure).
 
 ## Running/Building from Source on Mac
 ### Make sure your default shell is set to Z shell
