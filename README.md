@@ -221,7 +221,7 @@ pip3 install py2app
 Nonetheless, it will never hurt to install Py2App manually as outlined in this section. If you are feeling adventurous, you can go ahead and try following along with the rest of this README without installing Py2App (at your own peril).
 
 #### Build the Time Stamper application (.app)
-From a Terminal window, navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the timestamper repository to.
+From a Terminal window, navigate to the Time Stamper source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the timestamper repository to.
 ```
 cd {path_to_repository}/src
 ```
