@@ -19,14 +19,16 @@ There are a few steps you need to follow before you can run this program:<br />
 Open the application "Terminal". You can find "Terminal" by searching for it at the top-right of the screen from the toolbar.<br />
 
 From the Terminal window, enter the following command:
-> &nbsp;chsh -s /bin/zsh<br /><br />
+> &nbsp;chsh -s /bin/zsh<br />
+<br />
 
 You may be asked to enter your login password, which you should do. Don't worry, your keystrokes are being registered even if you can't read them.<br />
 
 Quit and restart Terminal<br />
 
 Type the following command:
-> &nbsp;echo $0<br /><br />
+> &nbsp;echo $0<br />
+<br />
 
 -If Terminal returns the line "-zsh", then you have successfully set your shell to Z shell.<br /><br />
 ### Install Python 3
