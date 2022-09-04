@@ -22,16 +22,15 @@ From the Terminal window, enter the following command:
 ```
 chsh -s /bin/zsh
 ```
-
 You may be asked to enter your login password, which you should do. Don't worry, your keystrokes are being registered even if you can't read them.<br />
 
 Quit and restart Terminal<br />
 
 Type the following command:
-> &nbsp;echo $0<br />
-<br />
-
--If Terminal returns the line "-zsh", then you have successfully set your shell to Z shell.<br /><br />
+```
+&nbsp;echo $0
+```
+If Terminal returns the line "-zsh", then you have successfully set your shell to Z shell.<br /><br />
 ### Install Python 3
 -It is highly recommended that you install a version of Python that includes conda (i.e. either Anaconda or Miniconda). If you have no other uses for Python and all you are looking to do is run this program, Miniconda will provide you with everything you need. You can download the Miniconda installer here: https://docs.conda.io/en/latest/miniconda.html.<br /><br />
 -Unless you know what you are doing, do not concern yourself with any of the installers that end in "bash". Only select from the installers that that end in "pkg".<br /><br />
