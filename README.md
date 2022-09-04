@@ -115,7 +115,7 @@ A folder hierarchy will appear on the left side of the window. Expand the folder
 
 ##### Repeat these steps until you have replaced all of the icons
 * Right-click on one of the entries in the "Icon" folder and select "Resource Tools" -> "Add or Replace Icon within Icon Group".
-* In the new window that appears, next to the field labeled "Path to file:" and click the button labeled "Open".
+* In the new window that appears, next to the field labeled "Path to file:", click the button labeled "Open".
 * In the new File Explorer window that appears, navigate to the following directory, replacing {path_to_repository} with the directory that you have saved the timestamper repository to:
 ```
 {path_to_repository}\src\file_icons\Windows
