@@ -32,7 +32,7 @@ Then, type the following command:
 python -u TimeStamper.py
 ```
 
-The program should now open in a new Window. If you would like to build your own executable (.exe) from this code, continue with the instructions below.
+The program should now open in a new Window. If you would like to build your own standalone executable (.exe) from this code, continue with the instructions below.
 
 ### Building from source on Windows
 The Windows executable for this program was made using auto-py-to-exe, which you can install with pip. Type the following command from a Command Prompt window:
