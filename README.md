@@ -92,7 +92,6 @@ Now, you must add four folders. Select "Add folder" four times and add one of ea
 {path_to_repository}/src/ts_template
 {path_to_repository}/src/ts_timer
 ```
-
 #### Advanced
 You should not need to make any changes to this section.
 
