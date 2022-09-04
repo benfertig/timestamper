@@ -4,12 +4,12 @@ Run a timer and write automatically timestamped notes.<br />
 **THIS IS THE SOURCE CODE. If you just want to run the Time Stamper program, simply download the latest executable from the releases page.**<br />
 
 Instructions are provided below for those who are interested in either:
-1. Running the program from the source code with their own Python interpreter
+1. Running the Time Stamper program from the source code with their own Python interpreter
 2. Building their own standalone executables from the source code
 
 ## Running/Building from Source on Windows
 ### Install Python 3
-It is highly recommended that you install a version of Python that includes conda (i.e. either Anaconda or Miniconda). If you have no other uses for Python and all you are looking to do is run this program, Miniconda will provide everything you need. You can download the latest Miniconda installer [here](https://docs.conda.io/en/latest/miniconda.html).<br />
+It is highly recommended that you install a version of Python that includes conda (i.e. either Anaconda or Miniconda). If you have no other uses for Python and all you are looking to do is run/build the Time Stamper program from the source code, Miniconda will provide everything you need. You can download the latest Miniconda installer [here](https://docs.conda.io/en/latest/miniconda.html).<br />
 
 You will be downloading one of the Windows installers. There is a 32-bit and a 64-bit installer. You should download the installer that matches your operating system type. To find out whether your Windows computer is 32-bit or 64-bit:<br />
 * Search for "This PC" from the Windows search bar.<br />
@@ -32,10 +32,12 @@ Then, type the following command:
 python -u TimeStamper.py
 ```
 
-The program should now open in a new Window. If you would like to build your own standalone executable (.exe) from this code, continue with the instructions below.
+The Time Stamper program should now open in a new Window. Congratulations, you are now running the Time Stamper program from the source code using your own pre-installed Python interpreter.<br />
+
+If you would like to build your own standalone executable (.exe) from this code, continue with the instructions below.
 
 ### Building from source on Windows
-The Windows executable for this program was made using auto-py-to-exe, which you can install with pip. Type the following command from a Command Prompt window:
+The Windows executable (.exe) for the Time Stamper program was made using auto-py-to-exe, which you can install with pip. Type the following command from a Command Prompt window:
 ```
 pip install auto-py-to-exe
 ```
@@ -54,17 +56,17 @@ This should point to the Python file titled "TimeStamper.py" in the respository'
 ```
 
 #### Onefile
-This option is up to you. Selecting the "One File" option will package the entire program into a single .exe file, providing maximum portability and convenience.
+This option is up to you. Selecting the "One File" option will package the entire Time Stamper program into a single .exe file, providing maximum portability and convenience.
 
 #### Console Window
-Selecting "Console Based" will cause a command window to appear each time you run the program. If you are interested in running the program in "debug" mode to view any error messages, this option is for you.<br />
+Selecting "Console Based" will cause a command window to appear each time you run the Time Stamper program. If you are interested in running the program in "debug" mode to view any error messages, this option is for you.<br />
 
-Selecting "Window Based" will suppress the command window when the program is run.
+Selecting "Window Based" will suppress the command window when the Time Stamper program is run.
 
 #### Icon
 You can provide a .ico file here to set the executable's icon image. Suitable icons of different sizes can be found under src/file_icons/Windows.<br />
 
-However, the icons for the precompiled release of this program were not set using this option. Instead, the icons were set using [Resource Tuner](http://www.restuner.com/download.htm), *after* the executable was generated.<br />
+However, the icons for the precompiled release of the Time Stamper program were not set using this option. Instead, the icons were set using [Resource Tuner](http://www.restuner.com/download.htm), *after* the executable was generated.<br />
 
 Resource Tuner was used to set the icon images because auto-py-to-exe only allows the user to set one icon image, whose dimensions will be scaled up or down depending on the context in which the user is viewing the icon, while Resource Tuner allows one to set multiple icons of different sizes, allowing Windows to display the most appropriately sized icon for the given context.<br />
 
@@ -72,10 +74,10 @@ For example, from the Desktop, icons are typically 48x48 pixels in size, but fro
 
 If you do not want to bother with setting multiple icons and would simply like to select one icon within auto-py-to-exe, the best icon to use would probably be the icon titled "timestamp_48x48_32b.ico" under src/file_icons/Windows. This icon will look nice from the Windows Desktop and won't look too ugly from a list view in File Explorer.<br />
 
-If you do not want your icons to appear distorted some of the time, and do not mind taking an extra step to set multiple icons for the program after you have generated the .exe file, then **do not change the icon here**. Leave the icon as is for now. Instructions for changing icons using Resource Tuner are provided at the end of this section.
+If you do not want your icons to appear distorted some of the time, and do not mind taking an extra step to set multiple icons for the Time Stamper program after you have generated the .exe file, then **do not change the icon here**. Leave the icon as is for now. Instructions for changing icons using Resource Tuner are provided at the end of this section.
 
 #### Additional files
-This is the most crucial section. You *must* provide all of the necessary dependencies here for the program to work.<br />
+This is the most crucial section. You *must* provide all of the necessary dependencies here for your Time Stamper executable (.exe) to work.<br />
 
 For the following steps, replace {path_to_repository} with the directory that you have saved this repository to.<br />
 
