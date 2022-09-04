@@ -169,7 +169,7 @@ If you *do not* see "(base)" in your Terminal command prefix, then you must **AL
 ```
 conda activate
 ```
-Once you have typed the above command, ensure that your Terminal command prefix reads "(base)". Unfortunately, it may be the case that you will need to retype the above command every time you open a new Terminal window. It all depends on whether the Terminal window reads "(base)".<br />
+Once you have typed the above command, ensure that your Terminal command prefix reads "(base)". It may be the case that you will only need to type the above command once. You will know this is the case if any subsequent Terminal windows you open automatically contain "(base)" in their command prefix. Unfortunately, it may be the case that you will need to retype the above command every time you open a new Terminal window.<br />
 
 ### Running from source on Mac
 #### Install Tkmacosx
