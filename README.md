@@ -7,7 +7,7 @@ Instructions are provided below for those who are interested in either:
 1. Running the Time Stamper program from the source code using their own Python interpreter
 2. Building their own standalone executables from the source code
 
-## Running/Building from Source on Windows
+## Run/Build from Source on Windows
 ### Install Python 3
 It is highly recommended that you install a version of Python that includes conda (i.e. either Anaconda or Miniconda). If you have no other uses for Python and all you are looking to do is run/build the Time Stamper program from the source code, Miniconda will provide everything you need. [You can download the latest Miniconda installer here](https://docs.conda.io/en/latest/miniconda.html).<br />
 
@@ -19,7 +19,7 @@ You will be downloading one of the Windows installers of Miniconda. There is a 3
 
 Once you have downloaded the correct Miniconda installer for your Windows computer, run the installer to install Python with Miniconda.
 
-### Running from source on Windows
+### Run from source on Windows
 Download the timestamper repository to your computer if you have not done so already.<br />
 
 Open a new Command Prompt window and navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the timestamper repository to.
@@ -36,7 +36,7 @@ The Time Stamper program should now open in a new window. Congratulations, you a
 
 If you would like to build your own standalone executable (.exe) of the Time Stamper program from the source code, follow the instructions below.
 
-### Building from source on Windows
+### Build from source on Windows
 The Windows executable (.exe) for the Time Stamper program was made using auto-py-to-exe, which you can install through pip. Type the following command from a Command Prompt window:
 ```
 pip install auto-py-to-exe
@@ -74,7 +74,7 @@ For example, from the Desktop, icons are typically 48x48 pixels in size, but fro
 
 If you do not want to bother with setting multiple icons and would simply like to select one icon within auto-py-to-exe, the best icon to use would probably be the icon titled "timestamp_48x48_32b.ico" under src/file_icons/Windows. This icon will look nice from the Windows Desktop and won't look too ugly from a list view in File Explorer.<br />
 
-If you do not want your icons to appear distorted some of the time, and do not mind taking an extra step to set multiple icons for the Time Stamper program after you have generated the .exe file, then **do not change the icon using the "Icon" setting in auto-py-to-exe**. Leave the icon as is for now. Instructions for changing icons using Resource Tuner are provided at the end of this section.
+If you do not want your icons to appear distorted some of the time, and do not mind taking an extra step to set multiple icons for the Time Stamper program after you have generated the .exe file, then **do not change the icon using the "Icon" setting in auto-py-to-exe**. Leave the default icon as-is for now. Instructions for changing icons using Resource Tuner are provided at the end of this section.
 
 #### Additional files
 This is the most crucial section. You *must* provide all of the necessary dependencies here for your Time Stamper executable (.exe) to work.<br />
@@ -102,7 +102,7 @@ You should not need to make any changes to this section.
 #### CONVERT .PY TO .EXE
 You should now be ready to build the Time Stamper program. Click the "CONVERT .PY TO .EXE" button to generate the Time Stamper executable. Once the executable has been made, click the "OPEN OUTPUT FOLDER" button to be directed to the location of the executable. The Time Stamper program should now run as a standalone executable (without needing to rely on any outside Python interpreters or packages). Congratulations, you have successfully built the Time Stamper program from the source code on Windows.
 
-#### Changing the icons on Windows (optional step)
+#### Change the icons on Windows using Resource Tuner (optional step)
 **NOTE:** If you decide to set a custom icon for the .exe file you generated with auto-py-to-exe, you may run into a glitch where the icon will not change *unless* you change the name of the .exe file. Why this glitch occurs is unclear, but it is not a big deal. Just change the name of "TimeStamper.exe" to literally anything else. You can even make a change as small as calling the file "Time Stamper.exe" or "timestamper.exe" instead of "TimeStamper.exe".<br />
 
 If you want to set multiple icons for your .exe file in order to achieve maximum aesthetic appeal under any viewing conditions, make sure that you have generated the .exe file *without* changing the icon i.e., without having selected a file under the "Icon" section in auto-py-to-exe.<br />
@@ -126,7 +126,7 @@ A folder hierarchy will appear on the left side of the window. Expand the folder
 
 Repeat the above bulleted steps until you have replaced all of the icons in the .exe file you generated.
 
-## Running/Building from Source on Mac
+## Run/Build from Source on Mac
 ### Make sure your default shell is set to Z shell
 Open the application "Terminal". You can find "Terminal" by searching for it at the top-right of the screen from the toolbar.<br />
 
@@ -171,7 +171,7 @@ conda activate
 ```
 Once you have typed the above command, ensure that your Terminal command prefix reads "(base)". It may be the case that you will only need to type the above command once. You will know this is the case if any subsequent Terminal windows you open automatically contain "(base)" in their command prefix. Unfortunately, it may be the case that you will need to retype the above command every time you open a new Terminal window.<br />
 
-### Running from source on Mac
+### Run from source on Mac
 #### Install Tkmacosx
 To make the Time Stamper program function on a Macintosh computer, you will need to install one additional package called Tkmacosx. If you installed Python through Anaconda/Miniconda, it is **recommended** that you install Tkmacosx through **conda**, which you can do by entering the following command from a Terminal window:
 ```
@@ -200,7 +200,10 @@ The Time Stamper program should now open in a new window. Congratulations, you a
 
 If you would like to build your own standalone application (.app) of the Time Stamper program from the source code, follow the instructions below.
 
-### Building from source on Mac
+### Build from source on Mac
+#### Tkmacosx
+If you have been following along with these instructions since the section titled **Run from source on Mac**, then you should have already installed Tkmacosx. If you have not installed Tkmacosx yet, go ahead and refer to the above section titled **Install Tkmacosx** before returning back here.
+
 #### Install Py2App
 The Mac application (.app) for the Time Stamper program was made using Py2App, which you can install through either pip or conda.<br />
 
