@@ -1,7 +1,7 @@
 # Time Stamper <br />
 Run a timer and write automatically timestamped notes.<br />
 
-**THIS IS THE SOURCE CODE. If you just want to run the Time Stamper program, download the latest executable from the releases page.**<br />
+**THIS IS THE SOURCE CODE. If you just want to run the Time Stamper program, you should download the latest executable from the releases page.**<br />
 
 Instructions are provided below for those who are interested in either:
 1. Running the Time Stamper program from the source code using their own Python interpreter
