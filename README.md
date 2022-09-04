@@ -233,7 +233,11 @@ Your new Time Stamper application (.app) will be created in the "dist" folder. T
 #### Copy some extra libraries to the Time Stamper application package
 On the particular Macintosh computer where the Time Stamper application was initially built, a glitch was causing the application not to run if the preconfigured Anaconda/Miniconda distribution from earlier had not been installed on the computer.<br />
 
-This obviously defeats the purpose of creating a Time Stamper application (.app) package, as the standalone version of application is designed so that it should not need to rely on any outside libraries that do not already come preinstalled on any modern Macintosh computer.<br />
+This obviously defeats the purpose of creating a Time Stamper application (.app) package, as the standalone version of the Time Stamper application is meant not to rely on any outside libraries that do not already come preinstalled on any modern Macintosh computer.<br />
 
 There is a workaround for this problem which involves copying a few libraries from your anaconda3/miniconda3 folder:
-* Find your anaconda3/miniconda3 directory
+* Find your anaconda3/miniconda3 directory by entering the following command from Terminal:
+```
+which python
+```
+* A file path should be displayed to you that contains either "anaconda3" (if you installed Python through Anaconda) or "miniconda3" (if you installed Python through 
