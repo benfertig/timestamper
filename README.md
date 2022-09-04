@@ -157,7 +157,7 @@ There are installers for Intel Macs as well as M1 Macs. You should choose the in
 Once you have downloaded the correct Miniconda installer for your Mac, run the installer to install Python with Miniconda.<br />
 
 ### Activate your conda environment
-**NOTE:** This section will probably not apply to most people, since Z shell typically defaults to Anaconda/Miniconda as its base Python distribution (provided that you installed Anaconda/Miniconda in the default location), but your results may vary. If you *do not* see "(base)" in your command prefix when you open a new Terminal window, then this section is for you. Otherwise, you can skip to the section titled **Install Py2App**.
+**NOTE:** This section will probably not apply to most people, since Z shell typically defaults to Anaconda/Miniconda as its base Python distribution (provided that you installed Anaconda/Miniconda in the default location), but your results may vary. If you *do not* see "(base)" in your command prefix when you open a new Terminal window, then this section is for you. Otherwise, you can skip to the section titled **Running from source on Mac**.
 
 Newer Macintosh computers come with a preinstalled distribution of Python 3. If you have such a Macintosh, it is imperative that you make sure your computer **IS NOT** relying on this preinstalled Python 3 distribution when invoking the remaining commands throughout this README.<br />
 
