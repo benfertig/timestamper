@@ -161,7 +161,7 @@ Newer Macintosh computers come with a preinstalled distribution of Python 3. If 
 
 Even if your Mac does not have a preinstalled Python 3 distribution that is separate from the Python 3 distribution that you (should have) just installed through Anaconda/Miniconda, you should still make sure that, while you invoke the remaining conda/pip/python commands in this README, you are **ALWAYS** pointing your computer to the correct Python distribution (which is the one that you installed with Anaconda/Miniconda).<br />
 
-Therefore, when entering any Terminal commands throughout the remainder of this README, you always need to make sure that the prefix of your Terminal input reads "(base)". This is an indication that all conda/pip/python commands will default to your custom Anaconda/Miniconda installation, unless instructed otherwise.<br />
+Therefore, when entering any Terminal commands throughout the remainder of this README, you **ALWAYS** need to make sure that the prefix of your Terminal input reads "(base)". This is an indication that all conda/pip/python commands will default to your custom Anaconda/Miniconda installation unless instructed otherwise.<br />
 
 If you *do not* see "(base)" in your Terminal command prefix, then you must **ALWAYS** make sure that you enter the following command before typing any other commands that begin with "conda", "pip" or "python":
 ```
