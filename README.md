@@ -1,10 +1,12 @@
 # Time Stamper <br />
 Run a timer and write automatically timestamped notes.<br />
 
-THIS IS THE SOURCE CODE. If you are simply looking for the latest release, head over to the releases page.<br />
+THIS IS THE SOURCE CODE. If you just want to run the Time Stamper program, you can simply download the latest executable from the releases page.<br />
 
-If you would like to run this program using the source code or build your own executables from the source code, follow the instructions below:<br />
-## Run from source on Windows
+Instructions are provided below for those who are interested in either:
+1. Running the program from the source code with their own Python interpreter
+2. Building their own standalone executables from the source code
+## sdgsdfgsd
 ### Install Python 3
 It is highly recommended that you install a version of Python that includes conda (i.e. either Anaconda or Miniconda). If you have no other uses for Python and all you are looking to do is run this program, Miniconda will provide you with everything you need. You can download the Miniconda installer here: https://docs.conda.io/en/latest/miniconda.html.<br />
 
