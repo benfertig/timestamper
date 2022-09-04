@@ -24,7 +24,7 @@ Download this repository if you have not downloaded it already.<br />
 
 Open a new Command Prompt window and navigate to the source code directory:
 ```
-cd _path_to_repository_\src
+cd {path_to_repository}\src
 ```
 
 ## Mac
