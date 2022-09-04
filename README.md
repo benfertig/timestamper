@@ -35,21 +35,19 @@ python -u TimeStamper.py
 The program should now open in a new Window. If you would like to build your own standalone executable (.exe) from this code, continue with the instructions below.
 
 ### Building from source on Windows
-#### Install auto-py-to-exe
 The Windows executable for this program was made using auto-py-to-exe, which you can install with pip. Type the following command from a Command Prompt window:
 ```
 pip install auto-py-to-exe
 ```
-#### Run auto-py-to-exe
 This next step must be done from an Administrator Command Prompt Window. Right-click on the Command Prompt program and select "Run as administrator". Then, type the following command.
 ```
 auto-py-to-exe
 ```
-A new tab should open in your internet browser.
-#### Build the Windows executable using auto-py-to-exe
+A new tab should open in your internet browser.<br />
+
 You should complete the following steps within the auto-py-to-exe window that has appeared. The following steps are labeled with their corresponding section in the auto-py-to-exe window.
 
-##### Script location
+#### Script location
 This should direct to the Python file titled "TimeStamper.py" in the respository's "src" directory. Replace {path_to_repository} below with the directory that you have saved this repository to.
 ```
 {path_to_repository}\src\TimeStamper.py
