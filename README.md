@@ -243,7 +243,7 @@ There is a workaround for this problem which involves copying a few libraries fr
 which python
 ```
 * A file path should be displayed to you that has either "anaconda3" (if you installed Python 3 through Anaconda) or "miniconda3" (if you installed Python 3 through Miniconda) somewhere in its name.
-* Navigate to the displayed anaconda3/miniconda3 directory from a Finder window, disregarding the part of the file path that comes after "anaconda3"/"miniconda3"
+* Navigate to the displayed anaconda3/miniconda3 directory from a Finder window, disregarding the part of the file path that comes after "anaconda3"/"miniconda3".
 * Your anaconda3/miniconda3 directory may very well be hidden in Finder, but you can make Finder display hidden files and folders by pressing command+shift+. (command + shift + dot). You can hide these files and folders again using the same command.
 * Once you have navigated to your anaconda3/miniconda3 folder, enter the folder named "lib"
 * Copy the following three files to your clipboard
