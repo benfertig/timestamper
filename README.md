@@ -17,7 +17,7 @@ You will be downloading one of the Windows installers. There is a 32-bit and a 6
 * Select "Properties".<br />
 * Your operating system type (32-bit or 64-bit) will be displayed next to "System Type".<br />
 
-Once you have downloaded the correct Miniconda installer for your Windows computer, run the installer to install Python through Miniconda.
+Once you have downloaded the correct Miniconda installer for your Windows computer, run the installer to install Python with Miniconda.
 
 ### Running from source on Windows
 Download this repository to your computer if you have not done so already.<br />
@@ -74,4 +74,4 @@ There are installers for Intel Macs as well as M1 Macs. You should choose the in
 * Select "About This Mac".<br />
 * In the "Overview" tab, look for either "Intel" or "M1" in the field titled "Processor".<br />
 
-Once you have downloaded the correct Miniconda installer for your Mac computer, run the installer to install Python through Miniconda.<br />
+Once you have downloaded the correct Miniconda installer for your Mac computer, run the installer to install Python with Miniconda.<br />
