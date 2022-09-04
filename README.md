@@ -136,7 +136,7 @@ chsh -s /bin/zsh
 ```
 You may be asked to enter your login password, which you should do. If you do not see any text being printed to the terminal window when you type, do not worry. Your keystrokes are being registered even if you cannot read them.<br />
 
-Quit and restart Terminal<br />
+Once you have successfully entered your password, quit and restart Terminal<br />
 
 Type the following command:
 ```
