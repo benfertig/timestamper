@@ -217,6 +217,7 @@ pip3 install py2app
 **NOTE:** In recreating the steps for this build so that I could list them in detail here in this README, I was able to build the Time Stamper application (.app) without ever needing to explicitly download py2app through pip or conda, which is peculiar. I can think of two possible reasons for why this worked: <br />
 * One possibility is that, by simply including "py2app" in the "setup_requires" field in "setup.py" under the "src" directory of this repository, we have indicated that py2app is required to build the Time Stamper application, which provides enough of a heads-up to Python to be able to fetch the necessary Py2App scripts from the internet without ever needing to store the Py2App package files locally.<br />
 * Another possibility is that Python relied on some old Py2App package files that were cached somewhere on my computer as leftovers from a previously uninstalled copy of Py2App in order to build the Time Stamper application (.app).
+* Nonetheless, it will never hurt to install Py2App manually as outlined in this section. If you are feeling adventurous, you can go ahead and try following along with the rest of this README without installing Py2App (at your own peril).
 
 #### Build the Time Stamper application (.app)
 From a Terminal window, navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the timestamper repository to.
