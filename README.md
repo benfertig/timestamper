@@ -240,4 +240,17 @@ There is a workaround for this problem which involves copying a few libraries fr
 ```
 which python
 ```
-* A file path should be displayed to you that contains either "anaconda3" (if you installed Python through Anaconda) or "miniconda3" (if you installed Python through 
+* A file path should be displayed to you that contains either "anaconda3" (if you installed Python 3 through Anaconda) or "miniconda3" (if you installed Python 3 through Miniconda).
+* Navigate to the displayed anaconda3/miniconda3 directory from a Finder window (you do not need to worry about the part of the path name that comes after anaconda3/miniconda3).
+* Your anaconda3/miniconda3 directory may very well be hidden in Finder, but you can make Finder display hidden files and folders by pressing command+shift+. (command + shift + dot). You can hide these files and folders again using the same command.
+* Once you have navigated to your anaconda3/miniconda3 folder, enter the folder named "lib"
+* Copy the following three files to your clipboard
+```
+libffi.7.dylib
+libtcl8.6.dylib
+libtk8.6.dylib
+```
+* Now navigate to the Time Stamper application (.app) you created earlier, right-click on it and select "Show Package Contents
+* Then, go to "Contents" -> "Resources" -> "lib"
+* Paste the three .dylib files you copied into this "lib" folder.
+You can now exit out of all Finder windows. You should now be able to run Time Stamper application (.app) as a standalone program. Congratulations, you have successfully built the Time Stamper program from the source code on a Mac.
