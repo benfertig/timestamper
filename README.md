@@ -19,7 +19,7 @@ You will be downloading one of the Windows installers. There is a 32-bit and a 6
 
 Once you have downloaded the correct installer for your Windows computer, run the installer to install Python with Miniconda.<br /><br />
 
-### Msc
+### Mac
 #### Make sure your default shell is set to Z shell
 Open the application "Terminal". You can find "Terminal" by searching for it at the top-right of the screen from the toolbar.<br />
 
