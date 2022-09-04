@@ -123,7 +123,7 @@ A folder hierarchy will appear on the left side of the window. Expand the folder
 * Select an icon file from the above folder. You should select a file whose name indicates an icon with a resolution and bit depth that **MATCHES** the resolution and bit depth of the icon you are replacing. For example, if you are replacing the icon that has a resolution of 48x48 and a bit depth of 8 (which would be marked as "48x48 8b" in the window labeled "Add or Replace Icon within Icon Group"), then you should select the file "timestamp_48x48_8b.ico".
 * Now, make sure that you have highlighted the correct icon that you would like to remove from the left column (titled "Items to be replaced:"), and that the icon you would like to replace it with appears in the right column (titled "New items:"). The dimensions and bit depth of the icon you are removing and the icon you are replacing it with should match (which you can check by making sure that the names of the entries in both columns match).
 * Click "OK"
-* Repeat the above bulleted steps until you have replaced all of the icons in the .exe file you generated.
+Repeat the above bulleted steps until you have replaced all of the icons in the .exe file you generated.
 
 ## Running/Building from Source on Mac
 ### Make sure your default shell is set to Z shell
