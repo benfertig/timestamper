@@ -19,12 +19,17 @@ You will be downloading one of the Windows installers. There is a 32-bit and a 6
 
 Once you have downloaded the correct Miniconda installer for your Windows computer, run the installer to install Python through Miniconda.
 
-### Runrning the program from source on Windows
+### Running the program from source on Windows
 Download this repository if you have not downloaded it already.<br />
 
-Open a new Command Prompt window and navigate to the source code directory:
+Open a new Command Prompt window and navigate to the source code directory. Enter the command below, replace {path_to_repository} with the location on your hard drive where you have saved this repository.
 ```
 cd {path_to_repository}\src
+```
+
+Then, type the following command:
+```
+python -u TimeStamper.py
 ```
 
 ## Mac
