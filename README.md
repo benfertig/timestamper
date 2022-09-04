@@ -80,7 +80,16 @@ This is the most crucial option. You *must* provide all of the necessary depende
 For the following steps, replace {path_to_repository} with the directory that you have saved this repository to.<br />
 
 First, select "Add files" and add the following file:
+```
 {path_to_repository}/src/time_stamper_class.py
+```
+Now, you must add four folders. Select "Add folder" four times, adding one of each of these folders every time:
+```
+{path_to_repository}/src/ts_images
+{path_to_repository}/src/ts_macros
+{path_to_repository}/src/ts_template
+{path_to_repository}/src/ts_timer
+```
 
 ## Mac
 ### Make sure your default shell is set to Z shell
