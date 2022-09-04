@@ -57,7 +57,7 @@ This should point to the Python file titled "TimeStamper.py" in the respository'
 This option is up to you. Selecting the "One File" option will package the entire program into a single .exe file, providing maximum portability and convenience.
 
 #### Console Window
-Selecting "Console Based" will cause a command window to appear each time you run the program. Those who are interested in running the program in "debug" mode to view any error messages, this option is for you.<br />
+Selecting "Console Based" will cause a command window to appear each time you run the program. If you are interested in running the program in "debug" mode to view any error messages, this option is for you.<br />
 
 Selecting "Window Based" will suppress the command window whenever the program is run.
 
