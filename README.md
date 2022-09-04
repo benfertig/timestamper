@@ -178,7 +178,7 @@ To make the Time Stamper program function on a Macintosh computer, you will need
 conda install -c saad_7 tkmacosx
 ```
 
-**Alternatively**, you can install Tkmacosx through pip by entering the following command from a Terminal window:
+Alternatively, you can install Tkmacosx through pip by entering the following command from a Terminal window:
 ```
 pip install tkmacosx
 ```
