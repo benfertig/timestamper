@@ -100,7 +100,7 @@ You should not need to make any changes to this section.
 You should not need to make any changes to this section.
 
 #### CONVERT .PY TO .EXE
-You should now be ready to build the program. Click the "CONVERT .PY TO .EXE" button to generate the executable. Once the executable has been made, click the "OPEN OUTPUT FOLDER" button to be directed to the location of the executable. This program should now run as a standalone executable (without needing to rely on any outside Python installations). Congratulations, you have successfully built the program from source on Windows.
+You should now be ready to build the Time Stamper program. Click the "CONVERT .PY TO .EXE" button to generate the executable. Once the executable has been made, click the "OPEN OUTPUT FOLDER" button to be directed to the location of the executable. This program should now run as a standalone executable (without needing to rely on any outside Python installations). Congratulations, you have successfully built the program from source on Windows.
 
 #### Changing the icons on Windows (optional step)
 ##### NOTE
