@@ -20,7 +20,7 @@ You will be downloading one of the Windows installers. There is a 32-bit and a 6
 Once you have downloaded the correct Miniconda installer for your Windows computer, run the installer to install Python through Miniconda.
 
 ### Running from source on Windows
-Download this repository to your computer if you have not downloaded it already.<br />
+Download this repository to your computer if you have not done so already.<br />
 
 Open a new Command Prompt window and navigate to the source code directory. Enter the command below, replacing {path_to_repository} with the directory that you have saved this repository to.
 ```
