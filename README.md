@@ -100,7 +100,7 @@ You should not need to make any changes to this section.
 You should not need to make any changes to this section.
 
 #### CONVERT .PY TO .EXE
-You should now be ready to build the Time Stamper program. Click the "CONVERT .PY TO .EXE" button to generate the executable. Once the executable has been made, click the "OPEN OUTPUT FOLDER" button to be directed to the location of the executable. The Time Stamper program should now run as a standalone executable (without needing to rely on any outside Python interpreters or packages). Congratulations, you have successfully built the Time Stamper program from the source code on Windows.
+You should now be ready to build the Time Stamper program. Click the "CONVERT .PY TO .EXE" button to generate the Time Stamper executable. Once the executable has been made, click the "OPEN OUTPUT FOLDER" button to be directed to the location of the executable. The Time Stamper program should now run as a standalone executable (without needing to rely on any outside Python interpreters or packages). Congratulations, you have successfully built the Time Stamper program from the source code on Windows.
 
 #### Changing the icons on Windows (optional step)
 **NOTE:** If you decide to set a custom icon for the .exe file you generated with auto-py-to-exe, you may run into a glitch where the icon will not change *unless* you change the name of the .exe file. Why this glitch occurs is unclear, but it is not a big deal. Just change the name of "TimeStamper.exe" to literally anything else. You can even make a change as small as calling the file "Time Stamper.exe" or "timestamper.exe" instead of "TimeStamper.exe".<br />
