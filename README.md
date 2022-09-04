@@ -114,13 +114,13 @@ A folder hierarchy will appear on the left side of the window. Expand the folder
 
 ##### Repeat these steps until you have replaced all of the icons
 * Right-click on one of the entries in the "Icon" folder and select "Resource Tools" -> "Add or Replace Icon within Icon Group".
-* In the new window that appears, next to the field labeled "Path to file:", click the button labeled "Open".
+* In the new window that appears, next to the field labeled "Path to file:" and click the button labeled "Open".
 * In the new File Explorer window that appears, navigate to the following directory, replacing {path_to_repository} with the directory that you have saved this repository to:
 ```
 {path_to_repository}\src\file_icons\Windows
 ```
-* Select an icon file from the above folder. You should select a file whose name indicates an icon with a resolution and bit depth that **MATCHES** the resolution and bit depth of the icon you are replacing. For example, if you are replacing the icon that has a resolution of 48x48 with a bit depth of 8 (which would be marked as "48x48 8b" in the window labeled "Add or Replace Icon within Icon Group"), then you should select the file "timestamp_48x48_8b.ico".
-* Now, make sure that you have highlighted the correct icon that you would like to replace from the left column (titled "Items to be replaced"), and that the icon you would like to replace it with appears in the right column (titled "New items"). The dimensions and bit depth of the icon you are removing and the icon you are replacing it with should match (check that the names of the entries in both columns match to be sure).
+* Select an icon file from the above folder. You should select a file whose name indicates an icon with a resolution and bit depth that **MATCHES** the resolution and bit depth of the icon you are replacing. For example, if you are replacing the icon that has a resolution of 48x48 and a bit depth of 8 (which would be marked as "48x48 8b" in the window labeled "Add or Replace Icon within Icon Group"), then you should select the file "timestamp_48x48_8b.ico".
+* Now, make sure that you have highlighted the correct icon that you would like to remove from the left column (titled "Items to be replaced"), and that the icon you would like to replace it with appears in the right column (titled "New items"). The dimensions and bit depth of the icon you are removing and the icon you are replacing it with should match (check that the names of the entries in both columns match to be sure of this).
 
 ## Running/Building from Source on Mac
 ### Make sure your default shell is set to Z shell
