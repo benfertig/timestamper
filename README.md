@@ -45,9 +45,15 @@ This next step must be done from an Administrator Command Prompt Window. Right-c
 ```
 auto-py-to-exe
 ```
-A new window should open in your internet browser.
-#### Build the Windows executable (.exe)
+A new tab should open in your internet browser.
+#### Build the Windows executable using auto-py-to-exe
+You should complete the following steps within the auto-py-to-exe window that has appeared. The following steps are labeled with their corresponding section in the auto-py-to-exe window.
 
+##### Script location
+This should direct to the Python file titled "TimeStamper.py" in the respository's "src" directory. Replace {path_to_repository} below with the directory that you have saved this repository to.
+```
+{path_to_repository}\src\TimeStamper.py
+```
 
 ## Mac
 ### Make sure your default shell is set to Z shell
@@ -63,7 +69,7 @@ Quit and restart Terminal<br />
 
 Type the following command:
 ```
-&nbsp;echo $0
+echo $0
 ```
 If Terminal returns the line "-zsh", then you have successfully set your shell to Z shell.<br />
 ### Install Python 3
