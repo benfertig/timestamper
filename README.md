@@ -6,6 +6,7 @@ Run a timer and write automatically timestamped notes.<br />
 Instructions are provided below for those who are interested in either:
 1. Running the program from the source code with their own Python interpreter
 2. Building their own standalone executables from the source code
+
 ## Windows
 ### Install Python 3
 It is highly recommended that you install a version of Python that includes conda (i.e. either Anaconda or Miniconda). If you have no other uses for Python and all you are looking to do is run this program, Miniconda will provide you with everything you need. You can download the latest Miniconda installer here: https://docs.conda.io/en/latest/miniconda.html.<br />
@@ -16,7 +17,7 @@ You will be downloading one of the Windows installers. There is a 32-bit and a 6
 * Select "Properties".<br />
 * Your operating system type (32-bit or 64-bit) will be displayed next to "System Type".<br />
 
-Once you have downloaded the correct installer for your Windows computer, run the installer to install Python with Miniconda.<br />
+Once you have downloaded the correct installer for your Windows computer, run the installer to install Python with Miniconda.
 
 ## Mac
 ### Make sure your default shell is set to Z shell
