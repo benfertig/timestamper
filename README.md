@@ -2,8 +2,8 @@
  Run a timer and write automatically timestamped notes.<br />
 This is the source code, if you are simply looking for the latest release, head over to the releases page.<br />
 <br />
-There are a few steps you need to follow before you can run this program:<br />
-## Build from source on Windows
+If you would like to run this program using the source code or build your own executables from the source code, follow the instructions below:<br />
+## Run from source on Windows
 ### Install Python 3
 It is highly recommended that you install a version of Python that includes conda (i.e. either Anaconda or Miniconda). If you have no other uses for Python and all you are looking to do is run this program, Miniconda will provide you with everything you need. You can download the Miniconda installer here: https://docs.conda.io/en/latest/miniconda.html.<br />
 
@@ -15,7 +15,7 @@ You will be downloading one of the Windows installers. There is a 32-bit and a 6
 
 Once you have downloaded the correct installer for your Windows computer, run the installer to install Python with Miniconda.<br /><br />
 
-## Build from source on Mac
+## Run from source on Mac
 ### Make sure your default shell is set to Z shell
 Open the application "Terminal". You can find "Terminal" by searching for it at the top-right of the screen from the toolbar.<br />
 
