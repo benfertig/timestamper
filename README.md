@@ -172,6 +172,18 @@ conda activate
 Once you have typed the above command, ensure that your Terminal command prefix reads "(base)". Unfortunately, it may be the case that you will need to retype the above command every time you open a new Terminal window. It all depends on whether the Terminal window reads "(base)".<br />
 
 ### Running from source on Mac
+#### Install Tkmacosx
+One additional package, Tkmacosx, is needed to make the Time Stamper program function on Macs. If you installed Python through Anaconda/Miniconda, it is **recommended** that you install Tkmacosx through **conda**, which you can do by entering the following command from a Terminal window:
+```
+conda install -c saad_7 tkmacosx
+```
+
+**Alternatively**, you can install Tkmacosx through pip by entering the following command from a Terminal window:
+```
+pip install tkmacosx
+```
+
+#### Run TimeStamper.py
 Download the timestamper repository to your computer if you have not done so already.<br />
 
 From a Terminal window, navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the timestamper repository to.
@@ -204,7 +216,8 @@ pip3 install py2app
 
 **NOTE:** In recreating the steps for this build so that I could list them in detail here in this README, I was able to build the Time Stamper application (.app) without ever needing to explicitly download py2app through pip or conda, which is peculiar. I can think of two possible reasons for why this worked:
 
-* One possibility is that, by simply including "py2app" in the "setup_requires" field in "setup.py" under the "src" directory of this repository, we have indicated that py2app is required to build the Time Stamper application, which provides enough of a heads-up to Python to be able to fetch the necessary Py2App scripts from the internet without ever needing to store the Py2App package files locally.<br />
+* One possibility is that, by simply including "py2app" in the "setup_requires" field in "setup.py" under the "src" directory of this repository, we have indicated that py2app is required to build the Time Stamper application, which provides enough of a heads-up to Python to be able to fetch the necessary Py2App scripts from the internet without ever needing to store the Py2App package files locally.
+
 * Another possibility is that Python relied on some old Py2App package files that were cached somewhere on my computer as leftovers from a previously uninstalled copy of Py2App in order to build the Time Stamper application (.app).
 
 #### Build the Time Stamper application (.app)
