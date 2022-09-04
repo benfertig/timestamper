@@ -3,7 +3,6 @@
 This is the source code, if you are simply looking for the latest release, head over to the releases page.<br />
 <br />
 There are a few steps you need to follow before you can run this program:<br />
-<br />
 ## Build from source on Windows
 ### Install Python 3
 It is highly recommended that you install a version of Python that includes conda (i.e. either Anaconda or Miniconda). If you have no other uses for Python and all you are looking to do is run this program, Miniconda will provide you with everything you need. You can download the Miniconda installer here: https://docs.conda.io/en/latest/miniconda.html.<br />
