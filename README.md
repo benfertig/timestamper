@@ -138,7 +138,7 @@ You may be asked to enter your login password, which you should do. If you do no
 
 Once you have successfully entered your password, quit and restart Terminal<br />
 
-Type the following command:
+From a fresh Terminal window, type the following command:
 ```
 echo $0
 ```
