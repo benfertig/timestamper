@@ -7,7 +7,7 @@ Instructions are provided below for those who are interested in either:
 1. Running the program from the source code with their own Python interpreter
 2. Building their own standalone executables from the source code
 
-## Windows
+## Running/Building from Source on Windows
 ### Install Python 3
 It is highly recommended that you install a version of Python that includes conda (i.e. either Anaconda or Miniconda). If you have no other uses for Python and all you are looking to do is run this program, Miniconda will provide everything you need. You can download the latest Miniconda installer here: https://docs.conda.io/en/latest/miniconda.html.<br />
 
@@ -100,7 +100,7 @@ You should not need to make any changes to this section.
 #### CONVERT .PY TO .EXE
 You should now be ready to build the program. Click "CONVERT .PY TO .EXE" to generate the executable. Once the executable has been made, click the "OPEN OUTPUT FOLDER" to be directed to the location of the executable. This program should now run as a standalone executable (without needing to rely on any outside Python installations).
 
-## Mac
+## Running/Building from Source on Mac
 ### Make sure your default shell is set to Z shell
 Open the application "Terminal". You can find "Terminal" by searching for it at the top-right of the screen from the toolbar.<br />
 
