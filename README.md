@@ -157,6 +157,8 @@ There are installers for Intel Macs as well as M1 Macs. You should choose the in
 Once you have downloaded the correct Miniconda installer for your Mac computer, run the installer to install Python with Miniconda.<br />
 
 ### Activate your conda environment
+**NOTE:** This section will probably not apply to most people, since Z shell typically defaults to Anaconda/Miniconda as its base Python distribution (provided that you installed Anaconda/Miniconda in the default location), but your results may vary. If you *do not* see "(base)" in your command prefix when you open a new Terminal window, then this section is for you. Otherwise, you can skip to the section titled **Install Py2App**.
+
 Newer Macintosh computers come with a preinstalled distribution of Python 3. If you have such a Macintosh, it is imperative that you make sure your computer **IS NOT** relying on this preinstalled Python 3 distribution when invoking the remaining commands throughout this README.<br />
 
 Even if your Mac does not have a preinstalled Python 3 distribution that is separate from the Python 3 distribution that you (should have) just installed through Anaconda/Miniconda, you should still make sure that, while you invoke the remaining conda/pip/python commands in this README, you are **ALWAYS** pointing your computer to the correct Python distribution (which is the one that you installed with Anaconda/Miniconda).<br />
@@ -167,13 +169,14 @@ If you *do not* see "(base)" in your Terminal command prefix, then you must **AL
 ```
 conda activate
 ```
+Once you have typed the above command, ensure that your Terminal command prefix reads "(base)". Unfortunately, it may be the case that you will need to retype the above command every time you open a new Terminal window. It all depends on whether the Terminal window reads "(base)".<br />
 
 ### Install Py2App
-The Mac application (.app) for the Time Stamper program was made using Py2App, which you can install through either pip or conda. If you installed Python through Anaconda/Miniconda, it is recommended that you install Py2App through **conda**, which you can do by entering the following command from a Terminal window:
+The Mac application (.app) for the Time Stamper program was made using Py2App, which you can install through either pip or conda. If you installed Python through Anaconda/Miniconda, it is **recommended** that you install Py2App through **conda**, which you can do by entering the following command from a Terminal window:
 ```
 conda install -c conda-forge py2app
 ```
-Alternatively, you can install Py2App through **pip** by entering the following command from a Terminal window:
+**Alternatively**, you can install Py2App through pip by entering the following command from a Terminal window:
 ```
 pip3 install py2app
 ```
