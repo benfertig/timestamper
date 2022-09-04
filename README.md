@@ -32,7 +32,7 @@ Then, type the following command:
 python -u TimeStamper.py
 ```
 
-The Time Stamper program should now open in a new Window. Congratulations, you are now running the Time Stamper program from the source code using your own pre-installed Python interpreter.<br />
+The Time Stamper program should now open in a new window. Congratulations, you are now running the Time Stamper program from the source code on Windows using your own pre-installed Python interpreter.<br />
 
 If you would like to build your own standalone executable (.exe) of the Time Stamper program from the source code, follow the instructions below.
 
@@ -136,7 +136,7 @@ chsh -s /bin/zsh
 ```
 You may be asked to enter your login password, which you should do. If you do not see any text being printed to the Terminal window when you type, do not worry. Your keystrokes are being registered even if you cannot read them.<br />
 
-Once you have successfully entered your password, quit and restart Terminal<br />
+Once you have successfully entered your password, quit and restart Terminal.<br />
 
 From a fresh Terminal window, enter the following command:
 ```
@@ -171,12 +171,37 @@ conda activate
 ```
 Once you have typed the above command, ensure that your Terminal command prefix reads "(base)". Unfortunately, it may be the case that you will need to retype the above command every time you open a new Terminal window. It all depends on whether the Terminal window reads "(base)".<br />
 
-### Install Py2App
-The Mac application (.app) for the Time Stamper program was made using Py2App, which you can install through either pip or conda. If you installed Python through Anaconda/Miniconda, it is **recommended** that you install Py2App through **conda**, which you can do by entering the following command from a Terminal window:
+### Running from source on Mac
+Download the timestamper repository to your computer if you have not done so already.<br />
+
+From a Terminal window, navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the timestamper repository to.
+```
+cd {path_to_repository}/src
+```
+
+Then, type the following command:
+```
+python3 -u TimeStamper.py
+```
+
+The Time Stamper program should now open in a new window. Congratulations, you are now running the Time Stamper program from the source code on a Mac using your own pre-installed Python interpreter.<br />
+
+If you would like to build your own standalone application (.app) of the Time Stamper program from the source code, follow the instructions below.
+
+### Building from source on Mac
+#### Install Py2App
+The Mac application (.app) for the Time Stamper program was made using Py2App, which you can install through either pip or conda.<br />
+
+If you installed Python through Anaconda/Miniconda, it is **recommended** that you install Py2App through **conda**, which you can do by entering the following command from a Terminal window:
 ```
 conda install -c conda-forge py2app
 ```
+
 **Alternatively**, you can install Py2App through pip by entering the following command from a Terminal window:
 ```
 pip3 install py2app
 ```
+
+**NOTE:** In recreating the steps for this build so that I could list them in detail here in this README, I was able to build the Time Stamper application (.app) successfuly without ever needing to explicitly download py2app through pip or conda, which is peculiar. It could be that, by simply including "py2app" in the "setup_requires" field in "setup.py" under the "src" directory of this repository, we have indicated that py2app is required to build the Time Stamper application, which provides enough of a heads-up to Python to be able to fetch the necessary Py2App scripts from the internet without ever needing to store the Py2App package files locally. Another possibility is that Python relied on some old Py2App package files that were cached somewhere on my computer as leftovers from a previously uninstalled copy of Py2App in order to build the Time Stamper application (.app).
+
+####
