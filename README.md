@@ -256,4 +256,4 @@ libtk8.6.dylib
 * Then, go to "Contents" -> "Resources" -> "lib"
 * Paste the three .dylib files you just copied into this "lib" folder.<br />
 
-You can now exit out of all Finder windows. You should now be able to run Time Stamper application (.app) as a standalone program. Congratulations, you have successfully built the Time Stamper program from the source code on a Mac.
+You can now exit out of all Finder windows. You should now be able to run the Time Stamper application (.app) as a standalone program that does not require any external libraries. Congratulations, you have successfully built the Time Stamper program from the source code on a Mac.
