@@ -134,7 +134,7 @@ From the Terminal window, enter the following command:
 ```
 chsh -s /bin/zsh
 ```
-You may be asked to enter your login password, which you should do. Don't worry, your keystrokes are being registered even if you can't read them.<br />
+You may be asked to enter your login password, which you should do. If you do not see any text being printed to the terminal window when you type, do not worry. Your keystrokes are being registered even if you cannot read them.<br />
 
 Quit and restart Terminal<br />
 
