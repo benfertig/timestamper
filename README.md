@@ -8,17 +8,19 @@ Instructions are provided below for those who are interested in either:
 2. Building their own standalone *Time Stamper* executables from the source code
 
 ## Attribution
-### Images
-#### Flaticon
+### Visuals
+#### Images
+*Flaticon*
 <a href="https://www.flaticon.com/free-icons/timestamp" title="timestamp icons">Timestamp icons created by Freepik - Flaticon</a>
 * License
-    * The *Flaticon* timestamp images are licensed under the *Flaticon License* ([see section 8 of the Freepik Company Terms of Use](https://www.freepikcompany.com/legal#nav-flaticon)).
-#### Iconfinder
+    * The *Flaticon* timestamp images are licensed under the *Flaticon License* ([see section 8 of the Freepik Company Terms of Use](https://www.freepikcompany.com/legal#nav-flaticon)).<br /.
+
+*Iconfinder*
 https://www.iconfinder.com/iconsets/ionicons
 * License
     * The *Ionicions* pack from *Iconfinder* is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
-### Image conversion
+#### Image conversion
 *FreeConvert*
 * [Home page](https://www.freeconvert.com/)
 * Specifically, the [PNG to ICO Converter](https://www.freeconvert.com/png-to-ico) was used.
@@ -29,9 +31,15 @@ https://www.iconfinder.com/iconsets/ionicons
 
 ### Software
 #### Python distributions
-[Python](https://www.python.org/)<br />
-[Anaconda](https://docs.conda.io/en/latest/miniconda.html)<br />
-[Miniconda](https://docs.conda.io/en/latest/miniconda.html)
+Python
+* [Home page](https://www.python.org/)<br />
+
+Anaconda
+* [Home page](https://docs.conda.io/en/latest/miniconda.html)<br />
+
+Miniconda
+* [Home page](https://docs.conda.io/en/latest/miniconda.html)
+
 #### Python packages
 *Auto PY to EXE*
 * [GitHub](https://github.com/brentvollebregt/auto-py-to-exe)
