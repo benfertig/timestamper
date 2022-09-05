@@ -10,12 +10,12 @@ Instructions are provided below for those who are interested in either:
 ## Attribution
 ### Visuals
 #### Images
-*Flaticon*
+*Flaticon*<br />
 <a href="https://www.flaticon.com/free-icons/timestamp" title="timestamp icons">Timestamp icons created by Freepik - Flaticon</a>
 * License
     * The *Flaticon* timestamp images are licensed under the *Flaticon License* ([see section 8 of the Freepik Company Terms of Use](https://www.freepikcompany.com/legal#nav-flaticon)).<br /.
 
-*Iconfinder*
+*Iconfinder*<br />
 https://www.iconfinder.com/iconsets/ionicons
 * License
     * The *Ionicions* pack from *Iconfinder* is licensed under the [MIT License](https://opensource.org/licenses/MIT).
