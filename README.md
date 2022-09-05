@@ -10,8 +10,8 @@ Instructions are provided below for those who are interested in either:
 ## Attribution
 ### Visuals
 * #### Images
-*Flaticon*<br />
-<a href="https://www.flaticon.com/free-icons/timestamp" title="timestamp icons">Timestamp icons created by Freepik - Flaticon</a>
+    * *Flaticon*<br />
+        * <a href="https://www.flaticon.com/free-icons/timestamp" title="timestamp icons">Timestamp icons created by Freepik - Flaticon</a>
 * License
     * The *Flaticon* timestamp images are licensed under the *Flaticon License* ([see section 8 of the Freepik Company Terms of Use](https://www.freepikcompany.com/legal#nav-flaticon)).
 
