@@ -3,9 +3,9 @@ Run a timer and write automatically timestamped notes.<br />
 
 **THIS IS THE SOURCE CODE. If you just want to run the *Time Stamper* program, download the latest executable from the releases page.**<br />
 
-Instructions are provided below for those who are interested in either:
-1. Running the *Time Stamper* program from the source code using their own *Python* interpreter
-2. Building their own standalone *Time Stamper* executables from the source code
+If you would like to run and build this program from the source code, check out the instructions for:
+* Running/building from source on Windows
+* Running/building from source on Mac
 
 ## Attribution
 ### Visuals
