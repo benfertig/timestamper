@@ -22,34 +22,43 @@ https://www.iconfinder.com/iconsets/ionicons
 [Anaconda](https://docs.conda.io/en/latest/miniconda.html)<br />
 [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
 #### Python packages
-Auto PY to EXE
+*Auto PY to EXE*
 * [GitHub](https://github.com/brentvollebregt/auto-py-to-exe)
 * [PyPI](https://pypi.org/project/auto-py-to-exe/)
 * License
-    * This software is licensed under the [MIT License](https://opensource.org/licenses/MIT).<br />
+    * *Auto PY to EXE* is licensed under the terms of the [MIT License](https://github.com/brentvollebregt/auto-py-to-exe/blob/master/LICENSE).<br />
 
-Tkmacosx
+*Tkmacosx*
 * [GitHub](https://github.com/Saadmairaj/tkmacosx)
 * [conda](https://anaconda.org/saad_7/tkmacosx)
 * [PyPI](https://pypi.org/project/tkmacosx/)
 * License
-    * This software is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)<br />
+    * *Tkmacosx* is licensed under the terms of the [Apache License 2.0](https://github.com/Saadmairaj/tkmacosx/blob/master/LICENSE)<br />
 
-Py2App
+*Py2App*
 * [GitHub](https://github.com/ronaldoussoren/py2app)
 * [conda](https://anaconda.org/conda-forge/py2app)
 * [PyPI](https://pypi.org/project/py2app/)
 * License
-    * This software is licensed under the [MIT License](https://opensource.org/licenses/MIT).<br />
+    * *Py2App* is licensed under the terms of the [MIT License](https://github.com/ronaldoussoren/py2app/blob/master/LICENSE.txt).<br />
 
 #### Image editing
-GIMP
+*GIMP*
 * [Home page](https://www.gimp.org/)
 * License
-    * This software is licensed under the [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.en.html) and later.
+    * *GIMP* is licensed under the terms of the [GNU General Public License v3](https://www.gimp.org/docs/userfaq.html#whats-the-gimps-license-and-how-do-i-comply-with-it) and later.<br />
 
 #### File editing
+*Resource Hacker*
+* [Home page](http://www.angusj.com/resourcehacker/)
+* License
+    * The *Resource Hacker* license can be found on the webpage linked above under the section titled "Licence to Use - Terms and Conditions:"
 
+*RisohEditor*
+* [Home page](https://katahiromz.web.fc2.com/re/en/)
+* [GitHub](https://github.com/katahiromz/RisohEditor)
+* License
+    * *RisohEditor* is licensed under the terms of the [GNU General Public License v3](https://github.com/katahiromz/RisohEditor/blob/master/LICENSE.txt).<br />
 
 ## Run/Build from Source on Windows
 To jump down to the Mac instructions, [click here](https://github.com/benfertig/timestamper/blob/main/README.md#runbuild-from-source-on-mac).
