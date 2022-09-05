@@ -67,7 +67,7 @@ First, select "Add files" and add the following file:
 ```
 {path_to_repository}/src/time_stamper_class.py
 ```
-Now, you must add four folders. Select "Add folder" four times and add one of each of the following folders each time:
+Now, you must add four folders. Select "Add folder" four times and add one of each of the following folders each time.
 ```
 {path_to_repository}/src/ts_images
 {path_to_repository}/src/ts_macros
