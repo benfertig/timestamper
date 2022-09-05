@@ -171,7 +171,7 @@ Whenever you *do not* see "(base)" in your *Terminal* command prefix, you must *
 ```
 conda activate
 ```
-Once you have typed the above command, ensure that your *Terminal* command prefix reads "(base)". It may be the case that you will only need to type the above command once. You will know this is the case if any subsequent *Terminal* windows you open automatically contain "(base)" in their command prefix. Unfortunately, it may be that "(base)" does not appear in your *Terminal* command prefix whenever you open a new *Terminal* window, in which case you will need to retype the above command in every new *Terminal* window you open (until, at the very least, you have finished following along with this README, and even then, ensuring that "(base)" appears in your *Terminal* command prefix is really only necessary when you plan on entering a *conda*/*pip*/*python* command).<br />
+Once you have typed the above command, ensure that your *Terminal* command prefix reads "(base)". It may be the case that you will only need to type the above command once. You will know this is the case if any subsequent *Terminal* windows you open automatically contain "(base)" in their command prefix. Unfortunately, it may be that "(base)" does not appear in your *Terminal* command prefix whenever you open a new *Terminal* window, in which case you will need to retype the above command in every new *Terminal* window you open (until, at the very least, you have finished following along with this README, and even then, ensuring that "(base)" appears in your *Terminal* command prefix is really only necessary when you plan on entering a command that starts with "conda", "pip" or "python").<br />
 
 ### Run from source on Mac
 #### Install Tkmacosx
