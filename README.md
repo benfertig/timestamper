@@ -15,30 +15,28 @@ Instructions are provided below for those who are interested in either:
         * License
             * The *Flaticon* timestamp images are licensed under the *Flaticon License* ([see section 8 of the Freepik Company Terms of Use](https://www.freepikcompany.com/legal#nav-flaticon)).
 
-*Iconfinder*<br />
-https://www.iconfinder.com/iconsets/ionicons
-* License
-    * The *Ionicions* pack from *Iconfinder* is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+    * *Iconfinder*<br />
+        * https://www.iconfinder.com/iconsets/ionicons
+        * License
+            * The *Ionicions* pack from *Iconfinder* is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
-#### Image conversion
-[*FreeConvert*](https://www.freeconvert.com/)
-* Specifically, the [PNG to ICO Converter](https://www.freeconvert.com/png-to-ico) was used.
+* #### Image conversion
+    * [*FreeConvert*](https://www.freeconvert.com/)
+        * Specifically, the [PNG to ICO Converter](https://www.freeconvert.com/png-to-ico) was used.
 
-[*CloudConvert*](https://cloudconvert.com/)
-* Specifically, the [PNG to ICNS Converter](https://cloudconvert.com/png-to-icns) was used.
+    * [*CloudConvert*](https://cloudconvert.com/)
+        * Specifically, the [PNG to ICNS Converter](https://cloudconvert.com/png-to-icns) was used.
 
 ### Software
-#### Python distributions
-[Python](https://www.python.org/)<br />
-[Anaconda](https://docs.conda.io/en/latest/miniconda.html)<br />
-[Miniconda](https://docs.conda.io/en/latest/miniconda.html)
+* #### Python distributions
+    * [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
 
-#### Python packages
-*Auto PY to EXE*
-* [GitHub](https://github.com/brentvollebregt/auto-py-to-exe)
-* [PyPI](https://pypi.org/project/auto-py-to-exe/)
-* License
-    * *Auto PY to EXE* is licensed under the terms of the [MIT License](https://github.com/brentvollebregt/auto-py-to-exe/blob/master/LICENSE).<br />
+* #### Python packages
+    *Auto PY to EXE*
+        * [GitHub](https://github.com/brentvollebregt/auto-py-to-exe)
+        * [PyPI](https://pypi.org/project/auto-py-to-exe/)
+        * License
+            * *Auto PY to EXE* is licensed under the terms of the [MIT License](https://github.com/brentvollebregt/auto-py-to-exe/blob/master/LICENSE).<br />
 
 *Tkmacosx*
 * [GitHub](https://github.com/Saadmairaj/tkmacosx)
