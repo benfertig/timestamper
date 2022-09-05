@@ -7,6 +7,31 @@ Instructions are provided below for those who are interested in either:
 1. Running the *Time Stamper* program from the source code using their own *Python* interpreter
 2. Building their own standalone *Time Stamper* executables from the source code
 
+## Attribution
+### Images
+#### Flaticon
+<a href="https://www.flaticon.com/free-icons/timestamp" title="timestamp icons">Timestamp icons created by Freepik - Flaticon</a>
+* These images are licensed under the [Flaticon License](https://www.freepikcompany.com/legal#nav-flaticon).
+#### Iconfinder
+https://www.iconfinder.com/iconsets/ionicons
+* These images are licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+### Software
+#### Python distributions
+[Python](https://www.python.org/)
+[Anaconda](https://docs.conda.io/en/latest/miniconda.html)
+[Miniconda](https://docs.conda.io/en/latest/miniconda.html)
+#### Python packages
+[Auto PY to EXE](https://pypi.org/project/auto-py-to-exe/)
+[Tkmacosx]
+* [conda](https://anaconda.org/saad_7/tkmacosx)
+* [PyPI](https://pypi.org/project/tkmacosx/)<br /><br />
+[Py2App](https://py2app.readthedocs.io/en/latest/)
+* [GitHub](https://github.com/ronaldoussoren/py2app)
+* [conda](https://anaconda.org/conda-forge/py2app)
+* [PyPI](https://pypi.org/project/py2app/)
+
+
 ## Run/Build from Source on Windows
 To jump down to the Mac instructions, [click here](https://github.com/benfertig/timestamper/blob/main/README.md#runbuild-from-source-on-mac).
 ### Install Python 3
