@@ -52,7 +52,7 @@ https://www.iconfinder.com/iconsets/ionicons
 *Resource Hacker*
 * [Home page](http://www.angusj.com/resourcehacker/)
 * License
-    * The *Resource Hacker* license can be found on the webpage linked above under the section titled "Licence to Use - Terms and Conditions:"
+    * The *Resource Hacker* license can be found on the webpage linked above under the section titled "Licence to Use - Terms and Conditions:".
 
 *RisohEditor*
 * [Home page](https://katahiromz.web.fc2.com/re/en/)
