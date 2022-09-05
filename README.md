@@ -60,8 +60,7 @@ https://www.iconfinder.com/iconsets/ionicons
     * *GIMP* is licensed under the terms of the [GNU General Public License v3](https://www.gimp.org/docs/userfaq.html#whats-the-gimps-license-and-how-do-i-comply-with-it) and later.<br />
 
 #### File editing
-*Resource Hacker*
-* [Home page](http://www.angusj.com/resourcehacker/)
+[*Resource Hacker*](http://www.angusj.com/resourcehacker/)
 * License
     * The *Resource Hacker* license can be found on the webpage linked above under the section titled "Licence to Use - Terms and Conditions:".
 
