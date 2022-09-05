@@ -14,7 +14,7 @@ Once you have downloaded the correct *Miniconda* installer for your *Windows* co
 ## Run from source on Windows
 Download the *timestamper* repository to your computer if you have not done so already.<br />
 
-Open a new *Command Prompt* window and navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer.
+Open a new *Command Prompt* window and navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer:
 ```
 cd {path_to_repository}\src
 ```
@@ -33,7 +33,7 @@ The *Windows* executable (.exe) for the *Time Stamper* program was made using [*
 ```
 pip install auto-py-to-exe
 ```
-This next step must be done from an Administrator *Command Prompt* Window. Right-click on *Command Prompt* and select "Run as administrator". Then, type the following command.
+This next step must be done from an Administrator *Command Prompt* Window. Right-click on *Command Prompt* and select "Run as administrator". Then, type the following command:
 ```
 auto-py-to-exe
 ```
@@ -67,7 +67,7 @@ First, select "Add files" and add the following file:
 ```
 {path_to_repository}/src/time_stamper_class.py
 ```
-Now, you must add four folders. Select "Add folder" four times and add one of each of the following folders each time.
+Now, you must add four folders. Select "Add folder" four times and add one of each of the following folders each time:
 ```
 {path_to_repository}/src/ts_images
 {path_to_repository}/src/ts_macros
