@@ -9,7 +9,7 @@ Instructions are provided below for those who are interested in either:
 
 ## Attribution
 ### Visuals
-#### Images
+* #### Images
 *Flaticon*<br />
 <a href="https://www.flaticon.com/free-icons/timestamp" title="timestamp icons">Timestamp icons created by Freepik - Flaticon</a>
 * License
