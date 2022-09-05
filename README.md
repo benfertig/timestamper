@@ -7,6 +7,9 @@ If you would like to run and build this program from the source code, check out 
 * [Running/building from source on Windows](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md)
 * [Running/building from source on Mac](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md)
 
+## Instructions
+WIP
+
 ## Attribution
 ### Visuals
 * #### Images
