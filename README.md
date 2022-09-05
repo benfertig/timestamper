@@ -27,7 +27,12 @@ Instructions are provided below for those who are interested in either:
     * [*CloudConvert*](https://cloudconvert.com/)
         * Specifically, the [PNG to ICNS Converter](https://cloudconvert.com/png-to-icns) was used.
 
-### Software
+* #### Image editing
+    * [*GIMP*](https://www.gimp.org/)
+        * License
+            * *GIMP* is licensed under the terms of the [GNU General Public License v3](https://www.gimp.org/docs/userfaq.html#whats-the-gimps-license-and-how-do-i-comply-with-it) and later.<br />
+
+### Libraries
 * #### Python distributions
     * [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
 
@@ -52,20 +57,15 @@ Instructions are provided below for those who are interested in either:
         * License
             * *Py2App* is licensed under the terms of the [MIT License](https://github.com/ronaldoussoren/py2app/blob/master/LICENSE.txt).<br />
 
-* #### Image editing
-    * [*GIMP*](https://www.gimp.org/)
-        * License
-            * *GIMP* is licensed under the terms of the [GNU General Public License v3](https://www.gimp.org/docs/userfaq.html#whats-the-gimps-license-and-how-do-i-comply-with-it) and later.<br />
+### File editing
+* [*Resource Hacker*](http://www.angusj.com/resourcehacker/)
+    * License
+        * The *Resource Hacker* license can be found on the webpage linked above under the section titled "Licence to Use - Terms and Conditions:".
 
-* #### File editing
-    * [*Resource Hacker*](http://www.angusj.com/resourcehacker/)
-        * License
-            * The *Resource Hacker* license can be found on the webpage linked above under the section titled "Licence to Use - Terms and Conditions:".
-
-    * [*RisohEditor*](https://katahiromz.web.fc2.com/re/en/)
-        * [GitHub](https://github.com/katahiromz/RisohEditor)
-        * License
-            * *RisohEditor* is licensed under the terms of the [GNU General Public License v3](https://github.com/katahiromz/RisohEditor/blob/master/LICENSE.txt).<br />
+* [*RisohEditor*](https://katahiromz.web.fc2.com/re/en/)
+    * [GitHub](https://github.com/katahiromz/RisohEditor)
+    * License
+        * *RisohEditor* is licensed under the terms of the [GNU General Public License v3](https://github.com/katahiromz/RisohEditor/blob/master/LICENSE.txt).<br />
 
 ## Run/Build from Source on Windows
 To jump down to the Mac instructions, [click here](https://github.com/benfertig/timestamper/blob/main/README.md#runbuild-from-source-on-mac).
