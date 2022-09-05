@@ -37,7 +37,7 @@ Py2App
 * [GitHub](https://github.com/ronaldoussoren/py2app)
 * [conda](https://anaconda.org/conda-forge/py2app)
 * [PyPI](https://pypi.org/project/py2app/)
-** This software is licensed under the [MIT License](https://opensource.org/licenses/MIT).<br />
+    * This software is licensed under the [MIT License](https://opensource.org/licenses/MIT).<br />
 
 #### Image editing
 GIMP
