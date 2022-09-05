@@ -25,24 +25,28 @@ https://www.iconfinder.com/iconsets/ionicons
 Auto PY to EXE
 * [GitHub](https://github.com/brentvollebregt/auto-py-to-exe)
 * [PyPI](https://pypi.org/project/auto-py-to-exe/)
-* This software is licensed under the [MIT License](https://opensource.org/licenses/MIT).<br />
+* License
+    * This software is licensed under the [MIT License](https://opensource.org/licenses/MIT).<br />
 
 Tkmacosx
 * [GitHub](https://github.com/Saadmairaj/tkmacosx)
 * [conda](https://anaconda.org/saad_7/tkmacosx)
 * [PyPI](https://pypi.org/project/tkmacosx/)
-* This software is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)<br />
+* License
+    * This software is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)<br />
 
 Py2App
 * [GitHub](https://github.com/ronaldoussoren/py2app)
 * [conda](https://anaconda.org/conda-forge/py2app)
 * [PyPI](https://pypi.org/project/py2app/)
+* License
     * This software is licensed under the [MIT License](https://opensource.org/licenses/MIT).<br />
 
 #### Image editing
 GIMP
 * [Home page](https://www.gimp.org/)
-* This software is licensed under the [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.en.html) and later.
+* License
+    * This software is licensed under the [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.en.html) and later.
 
 #### File editing
 
