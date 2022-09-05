@@ -67,9 +67,9 @@ Instructions are provided below for those who are interested in either:
     * License
         * *RisohEditor* is licensed under the terms of the [GNU General Public License v3](https://github.com/katahiromz/RisohEditor/blob/master/LICENSE.txt).<br />
 
-## Run/Build from Source on Windows
+# Run/Build from Source on Windows
 To jump down to the Mac instructions, [click here](https://github.com/benfertig/timestamper/blob/main/README.md#runbuild-from-source-on-mac).
-### Install Python 3
+## Install Python 3
 It is highly recommended that you install a version of *Python* that includes *conda* i.e., *Anaconda* or *Miniconda*. If you have no other uses for *Python* and all you are looking to do is run/build the *Time Stamper* program from the source code, *Miniconda* will provide everything you need. [You can download the latest *Miniconda* installer here](https://docs.conda.io/en/latest/miniconda.html).<br />
 
 You will be downloading one of the *Windows* installers for *Miniconda*. There is a 32-bit and a 64-bit *Miniconda* installer. You should download the installer that matches your operating system type. To find out whether your *Windows* computer is 32-bit or 64-bit:<br />
@@ -80,7 +80,7 @@ You will be downloading one of the *Windows* installers for *Miniconda*. There i
 
 Once you have downloaded the correct *Miniconda* installer for your *Windows* computer, run the installer to install *Python* with *Miniconda*.
 
-### Run from source on Windows
+## Run from source on Windows
 Download the *timestamper* repository to your computer if you have not done so already.<br />
 
 Open a new *Command Prompt* window and navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer.
@@ -97,7 +97,7 @@ The *Time Stamper* program should now open in a new window. Congratulations, you
 
 If you would like to build your own standalone executable (.exe) of the *Time Stamper* program from the source code, follow the instructions below.
 
-### Build from source on Windows
+## Build from source on Windows
 The *Windows* executable (.exe) for the *Time Stamper* program was made using [*Auto PY to EXE*](https://pypi.org/project/auto-py-to-exe/), which you can install through *pip*. Type the following command from a *Command Prompt* window:
 ```
 pip install auto-py-to-exe
@@ -110,24 +110,24 @@ A new tab should open in your internet browser.<br />
 
 You should complete the following steps within the *Auto PY to EXE* browser tab that has appeared. The following steps are labeled with their corresponding section in the *Auto PY to EXE* browser tab.
 
-#### Script location
+### Script location
 This should point to the *Python* file titled "TimeStamper.py" in the *timestamper* respository's "src" directory. Refer to the general template below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to.
 ```
 {path_to_repository}/src/TimeStamper.py
 ```
 
-#### Onefile
+### Onefile
 This option is up to you. Selecting the "One File" option will package the entire *Time Stamper* program into a single .exe file, providing maximum portability and convenience.
 
-#### Console Window
+### Console Window
 Selecting "Console Based" will cause a *Command Prompt* window to appear each time you run the *Time Stamper* program. If you are interested in running the program in "debug" mode to view any error messages, this option is for you.<br />
 
 Selecting "Window Based" will suppress the *Command Prompt* window when the *Time Stamper* program is run.
 
-#### Icon
+### Icon
 You can provide a .ico file here to set the *Time Stamper* executable's icon. A pregenerated icon can be found under src/file_icons/file_icon_windows.ico
 
-#### Additional files
+### Additional files
 This is the most crucial section. You *must* provide all of the necessary dependencies here for your *Time Stamper* executable (.exe) to run properly.<br />
 
 For the following steps, replace {path_to_repository} with the directory that you have saved the *timestamper* repository to.<br />
@@ -144,18 +144,18 @@ Now, you must add four folders. Select "Add folder" four times and add one of ea
 {path_to_repository}/src/ts_timer
 ```
 
-#### Advanced
+### Advanced
 You should not need to make any changes to this section.
 
-#### Settings
+### Settings
 You should not need to make any changes to this section.
 
-#### CONVERT .PY TO .EXE
+### CONVERT .PY TO .EXE
 You should now be ready to build the *Time Stamper* program. Click the "CONVERT .PY TO .EXE" button to generate the *Time Stamper* executable. Once the executable has been made, click the "OPEN OUTPUT FOLDER" button to be directed to the location of the executable. The *Time Stamper* program should now run as a standalone executable (without needing to rely on any outside Python interpreters or packages). Congratulations, you have successfully built the *Time Stamper* program from the source code on *Windows*.
 
-## Run/Build from Source on Mac
+# Run/Build from Source on Mac
 To jump back up to the Windows instructions, [click here](https://github.com/benfertig/timestamper/blob/main/README.md#runbuild-from-source-on-windows).
-### Make sure your default shell is set to Z shell
+## Make sure your default shell is set to Z shell
 Open the application *Terminal*. You can find *Terminal* by searching for it at the top-right of the screen from the toolbar.<br />
 
 From the *Terminal* window, enter the following command:
@@ -172,7 +172,7 @@ echo $0
 ```
 If *Terminal* returns the line "-zsh", then you have successfully set your shell to *Z shell*.<br />
 
-### Install Python 3
+## Install Python 3
 It is highly recommended that you install a version of *Python* that includes *conda* i.e., *Anaconda* or *Miniconda*. In fact, later steps in this README assume that you have installed a *conda*-based distribution of *Python*. If you insist on using a *Python* distribution that you acquired through other means, then it is not guaranteed that you will be able to follow along with the rest of this README without running into additional problems.<br />
 
 If you have no other uses for *Python* and all you are looking to do is run/build the *Time Stamper* program from the source code, *Miniconda* will provide everything you need. [You can download the latest *Miniconda* installer here](https://docs.conda.io/en/latest/miniconda.html).<br />
@@ -186,7 +186,7 @@ There are *Miniconda* installers for ***Intel*** *Macs* as well as ***M1*** *Mac
 
 Once you have downloaded the correct *Miniconda* installer for your *Mac*, run the installer to install *Python* with *Miniconda*.<br />
 
-### Activate your conda environment
+## Activate your conda environment
 **NOTE:** This section will probably not apply to most people. Since *Z shell* typically defaults to *Anaconda*/*Miniconda* as its base *Python* distribution, your base *conda* environment will probably be activated automatically whenever you start *Terminal*. You can find out whether your base *conda* environment is activated by seeing whether the text "(base)" appears in your command prefix when you open a new *Terminal* window. If you *do not* see "(base)" in your command prefix when you open a new *Terminal* window, then this section is for you. Otherwise, you can skip to the section titled **Running from source on Mac**.
 
 When entering any *Terminal* commands found throughout the rest of this README, you **ALWAYS** need to make sure that the prefix of your Terminal input reads "(base)". This is an indication that all *conda*/*pip*/*python* commands will default to your custom *Anaconda*/*Miniconda* installation unless instructed otherwise.<br />
@@ -197,8 +197,8 @@ conda activate
 ```
 Once you have typed the above command, ensure that your *Terminal* command prefix reads "(base)". It may be the case that you will only need to type the above command once. You will know this is the case if any subsequent *Terminal* windows you open automatically contain "(base)" in their command prefix. Unfortunately, it may be that "(base)" does not appear in your *Terminal* command prefix whenever you open a new *Terminal* window, in which case you will need to retype the above command in every new *Terminal* window you open (until, at the very least, you have finished following along with this README, and even then, ensuring that "(base)" appears in your *Terminal* command prefix is really only necessary when you plan on entering a command that starts with "conda", "pip" or "python").<br />
 
-### Run from source on Mac
-#### Install Tkmacosx
+## Run from source on Mac
+### Install Tkmacosx
 To make the *Time Stamper* program function on a *Macintosh* computer, you will need to install one additional *Python* package called *Tkmacosx*. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you [install *Tkmacosx* through *conda*](https://anaconda.org/saad_7/tkmacosx), which you can do by entering the following command from a *Terminal* window:
 ```
 conda install -c saad_7 tkmacosx
@@ -209,7 +209,7 @@ Alternatively, you can [install *Tkmacosx* through *pip*](https://pypi.org/proje
 pip3 install tkmacosx
 ```
 
-#### Run TimeStamper.py
+### Run TimeStamper.py
 Download the *timestamper* repository to your computer if you have not done so already.<br />
 
 From a *Terminal* window, navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to.
@@ -226,11 +226,11 @@ The *Time Stamper* program should now open in a new window. Congratulations, you
 
 If you would like to build your own standalone application (.app) of the *Time Stamper* program from the source code, follow the instructions below.
 
-### Build from source on Mac
-#### Tkmacosx
+## Build from source on Mac
+### Tkmacosx
 If you have been following along with these instructions since the section titled **Run from source on Mac**, then you should have already installed *Tkmacosx*. If you have not yet installed *Tkmacosx*, [go ahead and refer to the above section titled **Install Tkmacosx**](https://github.com/benfertig/timestamper/blob/main/README.md#install-tkmacosx) before coming back here.
 
-#### Install Py2App
+### Install Py2App
 The *Mac* application (.app) for the *Time Stamper* program was made using *Py2App*, which you can install through either *conda* or *pip*.<br />
 
 If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you [install Py2App through *conda*](https://anaconda.org/conda-forge/py2app), which you can do by entering the following command from a *Terminal* window:
@@ -245,7 +245,7 @@ pip3 install py2app
 
 **NOTE:** In recreating the steps for this build so that I could list them in detail here in this README, I was able to build the *Time Stamper* application (.app) without ever needing to explicitly download *Py2App* through *conda* or *pip*, which is peculiar. There is clearly something I do not quite understand about the way *Py2App* works. Nonetheless, it will not hurt to install *Py2App* manually as outlined in this section. If you are feeling adventurous, you can go ahead and try following along with the rest of this README without installing *Py2App* (at your own peril).
 
-#### Build the Time Stamper application (.app)
+### Build the Time Stamper application (.app)
 From a *Terminal* window, navigate to the *Time Stamper* source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to.
 ```
 cd {path_to_repository}/src
@@ -258,7 +258,7 @@ python3 setup.py py2app
 
 Your new *Time Stamper* application (.app) will be created in a directory called "dist" within the "src" directory. This program should run when you double-click on it. However, you will likely need to follow one additional step in order to make the *Time Stamper* application you built a truly standalone program.<br />
 
-#### Copy some extra libraries to the Time Stamper application (.app) package
+### Copy some extra libraries to the Time Stamper application (.app) package
 On the particular *Macintosh* computer where the *Time Stamper* application (.app) was initially built, a glitch was causing the *Time Stamper* application not to run if the preconfigured *Anaconda*/*Miniconda* distribution from earlier had not been installed on the computer.<br />
 
 This obviously defeats the purpose of creating a *Time Stamper* application (.app) package, as the standalone *Time Stamper* application is meant to be truly standalone in the sense that it should not to rely on any outside libraries that do not already come preinstalled on any modern *Macintosh* computer.<br />
