@@ -22,7 +22,7 @@ https://www.iconfinder.com/iconsets/ionicons
 [Anaconda](https://docs.conda.io/en/latest/miniconda.html)<br />
 [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
 #### Python packages
-[Auto PY to EXE](https://pypi.org/project/auto-py-to-exe/)
+[Auto PY to EXE](https://pypi.org/project/auto-py-to-exe/)<br />
 [Tkmacosx]
 * [conda](https://anaconda.org/saad_7/tkmacosx)
 * [PyPI](https://pypi.org/project/tkmacosx/)<br /><br />
