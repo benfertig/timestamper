@@ -64,7 +64,7 @@ Selecting "Console Based" will cause a *Command Prompt* window to appear each ti
 Selecting "Window Based" will suppress the *Command Prompt* window when the *Time Stamper* program is run.
 
 #### Icon
-You can provide a .ico file here to set the *Time Stamper* executable's icon. Suitable icons of different sizes can be found under src/file_icons/Windows. [The original versions of these images were retrieved from this page](https://www.flaticon.com/free-icons/timestamp)<br />
+You can provide a .ico file here to set the *Time Stamper* executable's icon. Suitable icons of different sizes can be found under src/file_icons/Windows. [The original versions of these images were retrieved from this page.](https://www.flaticon.com/free-icons/timestamp)<br />
 
 However, the icons for the precompiled release of the *Time Stamper* program were not set using the "Icon" setting in *Auto PY to EXE*, and it is not recommended that you set the icon using this method if you want the *Time Stamper* entry in your File Explorer to be visually pleasing. Instead, you should consider setting icons with [*Resource Tuner*](http://www.restuner.com/download.htm) *after* you generate a *Time Stamper* executable.<br />
 
