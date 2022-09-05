@@ -36,6 +36,12 @@ Py2App
 * [conda](https://anaconda.org/conda-forge/py2app)
 * [PyPI](https://pypi.org/project/py2app/)<br />
 
+#### Image editing
+[GIMP](https://www.gimp.org/)
+
+#### File editing
+
+
 ## Run/Build from Source on Windows
 To jump down to the Mac instructions, [click here](https://github.com/benfertig/timestamper/blob/main/README.md#runbuild-from-source-on-mac).
 ### Install Python 3
