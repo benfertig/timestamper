@@ -12,11 +12,11 @@ Instructions are provided below for those who are interested in either:
 #### Flaticon
 <a href="https://www.flaticon.com/free-icons/timestamp" title="timestamp icons">Timestamp icons created by Freepik - Flaticon</a>
 * License
-    * These images are licensed under the Flaticon License ([see section 8 of the Freepik Company Terms of Use](https://www.freepikcompany.com/legal#nav-flaticon)).
+    * The *Flaticon* timestamp images are licensed under the Flaticon License ([see section 8 of the Freepik Company Terms of Use](https://www.freepikcompany.com/legal#nav-flaticon)).
 #### Iconfinder
 https://www.iconfinder.com/iconsets/ionicons
 * License
-    * These images are licensed under the [MIT License](https://opensource.org/licenses/MIT).
+    * The *Ionicions* pack from *Iconfinder* is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 ### Software
 #### Python distributions
