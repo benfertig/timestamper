@@ -21,12 +21,10 @@ https://www.iconfinder.com/iconsets/ionicons
     * The *Ionicions* pack from *Iconfinder* is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 #### Image conversion
-*FreeConvert*
-* [Home page](https://www.freeconvert.com/)
+[*FreeConvert*](https://www.freeconvert.com/)
 * Specifically, the [PNG to ICO Converter](https://www.freeconvert.com/png-to-ico) was used.
 
-*CloudConvert*
-* [Home page](https://cloudconvert.com/)
+[CloudConvert*](https://cloudconvert.com/)
 * Specifically, the [PNG to ICNS Converter](https://cloudconvert.com/png-to-icns) was used.
 
 ### Software
@@ -57,8 +55,7 @@ https://www.iconfinder.com/iconsets/ionicons
     * *Py2App* is licensed under the terms of the [MIT License](https://github.com/ronaldoussoren/py2app/blob/master/LICENSE.txt).<br />
 
 #### Image editing
-*GIMP*
-* [Home page](https://www.gimp.org/)
+[*GIMP*](https://www.gimp.org/)
 * License
     * *GIMP* is licensed under the terms of the [GNU General Public License v3](https://www.gimp.org/docs/userfaq.html#whats-the-gimps-license-and-how-do-i-comply-with-it) and later.<br />
 
@@ -68,8 +65,7 @@ https://www.iconfinder.com/iconsets/ionicons
 * License
     * The *Resource Hacker* license can be found on the webpage linked above under the section titled "Licence to Use - Terms and Conditions:".
 
-*RisohEditor*
-* [Home page](https://katahiromz.web.fc2.com/re/en/)
+[*RisohEditor*](https://katahiromz.web.fc2.com/re/en/)
 * [GitHub](https://github.com/katahiromz/RisohEditor)
 * License
     * *RisohEditor* is licensed under the terms of the [GNU General Public License v3](https://github.com/katahiromz/RisohEditor/blob/master/LICENSE.txt).<br />
