@@ -9,7 +9,7 @@ Instructions are provided below for those who are interested in either:
 
 ## Run/Build from Source on Windows
 ### Install Python 3
-It is highly recommended that you install a version of Python that includes conda i.e., either Anaconda or Miniconda. If you have no other uses for Python and all you are looking to do is run/build the Time Stamper program from the source code, Miniconda will provide everything you need. [You can download the latest Miniconda installer here](https://docs.conda.io/en/latest/miniconda.html).<br />
+It is highly recommended that you install a version of Python that includes conda i.e., Anaconda or Miniconda. If you have no other uses for Python and all you are looking to do is run/build the Time Stamper program from the source code, Miniconda will provide everything you need. [You can download the latest Miniconda installer here](https://docs.conda.io/en/latest/miniconda.html).<br />
 
 You will be downloading one of the Windows installers of Miniconda. There is a 32-bit and a 64-bit Miniconda installer. You should download the installer that matches your operating system type. To find out whether your Windows computer is 32-bit or 64-bit:<br />
 * Search for "This PC" from the Windows search bar.<br />
