@@ -128,6 +128,7 @@ A folder hierarchy will appear on the left side of the window. Expand the folder
 Repeat the above bulleted steps until you have replaced all of the icons in the .exe file you generated.
 
 ## Run/Build from Source on Mac
+For the Windows instructions, [click here](https://github.com/benfertig/timestamper/blob/main/README.md#runbuild-from-source-on-windows).
 ### Make sure your default shell is set to Z shell
 Open the application *Terminal*. You can find *Terminal* by searching for it at the top-right of the screen from the toolbar.<br />
 
