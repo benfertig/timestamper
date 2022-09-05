@@ -31,14 +31,9 @@ https://www.iconfinder.com/iconsets/ionicons
 
 ### Software
 #### Python distributions
-Python
-* [Home page](https://www.python.org/)<br />
-
-Anaconda
-* [Home page](https://docs.conda.io/en/latest/miniconda.html)<br />
-
-Miniconda
-* [Home page](https://docs.conda.io/en/latest/miniconda.html)
+[Python](https://www.python.org/)<br />
+[Anaconda](https://docs.conda.io/en/latest/miniconda.html)<br />
+[Miniconda](https://docs.conda.io/en/latest/miniconda.html)
 
 #### Python packages
 *Auto PY to EXE*
