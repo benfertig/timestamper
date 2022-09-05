@@ -37,7 +37,7 @@ The *Time Stamper* program should now open in a new window. Congratulations, you
 If you would like to build your own standalone executable (.exe) of the *Time Stamper* program from the source code, follow the instructions below.
 
 ### Build from source on Windows
-The *Windows* executable (.exe) for the *Time Stamper* program was made using *Auto PY to EXE*, which you can install through *pip*. Type the following command from a *Command Prompt* window:
+The *Windows* executable (.exe) for the *Time Stamper* program was made using [*Auto PY to EXE*](https://pypi.org/project/auto-py-to-exe/), which you can install through *pip*. Type the following command from a *Command Prompt* window:
 ```
 pip install auto-py-to-exe
 ```
@@ -161,13 +161,9 @@ Once you have downloaded the correct *Miniconda* installer for your *Mac*, run t
 ### Activate your conda environment
 **NOTE:** This section will probably not apply to most people. Since *Z shell* typically defaults to *Anaconda*/*Miniconda* as its base *Python* distribution, your base *conda* environment may be automatically activated whenever you start *Terminal*. You can find out whether your base *conda* environment is activated by seeing whether the text "(base)" appears in your command prefix when you open a new *Terminal* window. If you *do not* see "(base)" in your command prefix when you open a new *Terminal* window, then this section is for you. Otherwise, you can skip to the section titled **Running from source on Mac**.
 
-Newer *Macintosh* computers come with a preinstalled distribution of *Python 3*. If you have such a *Macintosh*, it is imperative that you make sure your computer **IS NOT** relying on this preinstalled *Python 3* distribution when invoking the remaining commands throughout this README.<br />
+When entering any *Terminal* commands found throughout the rest of this README, you **ALWAYS** need to make sure that the prefix of your Terminal input reads "(base)". This is an indication that all *conda*/*pip*/*python* commands will default to your custom *Anaconda*/*Miniconda* installation unless instructed otherwise.<br />
 
-Even if your *Mac* does not have a preinstalled *Python 3* distribution that is separate from the *Python 3* distribution that you (should have) just installed through *Anaconda*/*Miniconda*, you should still make sure that, while you invoke the remaining *conda*/*pip*/*python* commands in this README, you are **ALWAYS** pointing your computer to the correct *Python 3* distribution (which is the one that you installed with *Anaconda*/*Miniconda*).<br />
-
-Therefore, when entering any *Terminal* commands throughout the remainder of this README, you **ALWAYS** need to make sure that the prefix of your Terminal input reads "(base)". This is an indication that all *conda*/*pip*/*python* commands will default to your custom *Anaconda*/*Miniconda* installation unless instructed otherwise.<br />
-
-Whenever you *do not* see "(base)" in your *Terminal* command prefix, you must **ALWAYS** make sure that you enter the following command before typing any other commands that begin with "conda", "pip" or "python" throughout the remainder of the README:
+Whenever you *do not* see "(base)" in your *Terminal* command prefix, you must **ALWAYS** make sure that you enter the following command before typing any other commands that begin with "conda", "pip" or "python":
 ```
 conda activate
 ```
@@ -175,12 +171,12 @@ Once you have typed the above command, ensure that your *Terminal* command prefi
 
 ### Run from source on Mac
 #### Install Tkmacosx
-To make the *Time Stamper* program function on a *Macintosh* computer, you will need to install one additional *Python* package called *Tkmacosx*. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you install *Tkmacosx* through *conda*, which you can do by entering the following command from a *Terminal* window:
+To make the *Time Stamper* program function on a *Macintosh* computer, you will need to install one additional *Python* package called *Tkmacosx*. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you [install *Tkmacosx* through *conda*](https://anaconda.org/saad_7/tkmacosx), which you can do by entering the following command from a *Terminal* window:
 ```
 conda install -c saad_7 tkmacosx
 ```
 
-Alternatively, you can install *Tkmacosx* through *pip* by entering the following command from a *Terminal* window:
+Alternatively, you can [install *Tkmacosx* through *pip*](https://pypi.org/project/tkmacosx/) by entering the following command from a *Terminal* window:
 ```
 pip3 install tkmacosx
 ```
@@ -209,12 +205,12 @@ If you have been following along with these instructions since the section title
 #### Install Py2App
 The *Mac* application (.app) for the *Time Stamper* program was made using *Py2App*, which you can install through either *conda* or *pip*.<br />
 
-If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you install Py2App through *conda*, which you can do by entering the following command from a *Terminal* window:
+If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you [install Py2App through *conda*](https://anaconda.org/conda-forge/py2app), which you can do by entering the following command from a *Terminal* window:
 ```
 conda install -c conda-forge py2app
 ```
 
-Alternatively, you can install *Py2App* through *pip* by entering the following command from a *Terminal* window:
+Alternatively, you can [install *Py2App* through *pip*](https://pypi.org/project/py2app/) by entering the following command from a *Terminal* window:
 ```
 pip3 install py2app
 ```
