@@ -18,8 +18,8 @@ https://www.iconfinder.com/iconsets/ionicons
 
 ### Software
 #### Python distributions
-[Python](https://www.python.org/)
-[Anaconda](https://docs.conda.io/en/latest/miniconda.html)
+[Python](https://www.python.org/)<br />
+[Anaconda](https://docs.conda.io/en/latest/miniconda.html)<br />
 [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
 #### Python packages
 [Auto PY to EXE](https://pypi.org/project/auto-py-to-exe/)
