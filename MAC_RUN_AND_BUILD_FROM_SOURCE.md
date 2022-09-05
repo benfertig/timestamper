@@ -57,7 +57,7 @@ pip3 install tkmacosx
 ### Run TimeStamper.py
 Download the *timestamper* repository to your computer if you have not done so already.<br />
 
-From a *Terminal* window, navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to.
+From a *Terminal* window, navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to:
 ```
 cd {path_to_repository}/src
 ```
@@ -91,7 +91,7 @@ pip3 install py2app
 **NOTE:** In recreating the steps for this build so that I could list them in detail here in this README, I was able to build the *Time Stamper* application (.app) without ever needing to explicitly download *Py2App* through *conda* or *pip*, which is peculiar. There is clearly something I do not quite understand about the way *Py2App* works. Nonetheless, it will not hurt to install *Py2App* manually as outlined in this section. If you are feeling adventurous, you can go ahead and try following along with the rest of this README without installing *Py2App* (at your own peril).
 
 ### Build the Time Stamper application (.app)
-From a *Terminal* window, navigate to the *Time Stamper* source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to.
+From a *Terminal* window, navigate to the *Time Stamper* source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to:
 ```
 cd {path_to_repository}/src
 ```
@@ -117,7 +117,7 @@ which python
 * Navigate to the displayed *anaconda3*/*miniconda3* directory from a *Finder* window, disregarding the part of the file path that comes after "anaconda3"/"miniconda3".
 * Your *anaconda3*/*miniconda3* directory may very well be hidden in *Finder*, but you can make *Finder* display hidden files and folders by pressing command+shift+. (command shift dot). You can hide these files and folders by pressing the same keys again.
 * Once you have navigated to your *anaconda3*/*miniconda3* folder, enter the folder named "lib"
-* Copy the following three files to your clipboard
+* Copy the following three files to your clipboard:
 ```
 libffi.7.dylib
 libtcl8.6.dylib
