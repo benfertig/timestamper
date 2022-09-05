@@ -24,7 +24,7 @@ https://www.iconfinder.com/iconsets/ionicons
 [*FreeConvert*](https://www.freeconvert.com/)
 * Specifically, the [PNG to ICO Converter](https://www.freeconvert.com/png-to-ico) was used.
 
-[CloudConvert*](https://cloudconvert.com/)
+[*CloudConvert*](https://cloudconvert.com/)
 * Specifically, the [PNG to ICNS Converter](https://cloudconvert.com/png-to-icns) was used.
 
 ### Software
