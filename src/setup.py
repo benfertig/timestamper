@@ -8,11 +8,11 @@ Usage:
 from glob import glob
 from setuptools import setup
 
-APP = ['TimeStamper.py']
+APP = ['Time Stamper.py']
 DATA_FILES = ["time_stamper_class.py", ("ts_images", glob("ts_images/*.*")), \
     ("ts_macros", glob("ts_macros/*.*")), ("ts_template", glob("ts_template/*.*")), \
     ("ts_timer", glob("ts_timer/*.*"))]
-OPTIONS = {"includes": ["tkmacosx"], "iconfile": "file_icons/Mac/timestamp_512x512.icns"}
+OPTIONS = {"includes": ["tkmacosx"], "iconfile": "file_icons/file_icon_mac.icns"}
 
 setup(
     app=APP,
