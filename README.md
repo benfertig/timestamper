@@ -23,16 +23,17 @@ https://www.iconfinder.com/iconsets/ionicons
 [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
 #### Python packages
 Auto PY to EXE
-* [PyPI](https://pypi.org/project/auto-py-to-exe/)<br /><br />
+* [PyPI](https://pypi.org/project/auto-py-to-exe/)<br />
+
 Tkmacosx
 * [GitHub](https://github.com/Saadmairaj/tkmacosx)
 * [conda](https://anaconda.org/saad_7/tkmacosx)
-* [PyPI](https://pypi.org/project/tkmacosx/)<br /><br />
+* [PyPI](https://pypi.org/project/tkmacosx/)<br />
+
 Py2App
 * [GitHub](https://github.com/ronaldoussoren/py2app)
 * [conda](https://anaconda.org/conda-forge/py2app)
-* [PyPI](https://pypi.org/project/py2app/)
-
+* [PyPI](https://pypi.org/project/py2app/)<br />
 
 ## Run/Build from Source on Windows
 To jump down to the Mac instructions, [click here](https://github.com/benfertig/timestamper/blob/main/README.md#runbuild-from-source-on-mac).
