@@ -32,7 +32,7 @@ Instructions are provided below for those who are interested in either:
     * [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
 
 * #### Python packages
-    *Auto PY to EXE*
+    * *Auto PY to EXE*
         * [GitHub](https://github.com/brentvollebregt/auto-py-to-exe)
         * [PyPI](https://pypi.org/project/auto-py-to-exe/)
         * License
