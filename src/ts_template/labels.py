@@ -327,10 +327,8 @@ class Labels():
                 "You should have received a copy of the GNU General Public License\n" \
                 "along with this program.  If not, see <https://www.gnu.org/licenses/>.\n\n" \
                 "Contact: github.cqrde@simplelogin.com\n\n" \
-                "Images used in this program were retrieved from the following sources:\n" \
-                "<a href=\"https://www.flaticon.com/free-icons/timestamp\" " \
-                "title=\"timestamp icons\">Timestamp icons created by Freepik - Flaticon</a>\n" \
-                "https://www.iconfinder.com/iconsets/ionicons"
+                "Please visit this program's GitHub repository for a full list of attributions:\n" \
+                "https://github.com/benfertig/timestamper"
 
             background = None
             foreground = None
