@@ -151,7 +151,7 @@ If you have no other uses for *Python* and all you are looking to do is run/buil
 
 Unless you know what you are doing, do not concern yourself with any of the installers that end in "bash". Only select from the installers that that end in "pkg".<br />
 
-There are installers for **Intel** *Macs* as well as **M1** *Macs*. You should choose the installer that matches the type of processor your *Mac* has. To find out which type of processor your *Mac* has:<br />
+There are *Miniconda* installers for **Intel** *Macs* as well as **M1** *Macs*. You should choose the installer that matches the type of processor your *Mac* has. To find out which type of processor your *Mac* has:<br />
 * Click on the *Apple* logo in the top-left corner of your screen.<br />
 * Select "About This Mac".<br />
 * In the "Overview" tab, look for either "Intel" or "M1" in the field titled "Processor".<br />
