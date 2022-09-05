@@ -11,7 +11,7 @@ Instructions are provided below for those who are interested in either:
 ### Images
 #### Flaticon
 <a href="https://www.flaticon.com/free-icons/timestamp" title="timestamp icons">Timestamp icons created by Freepik - Flaticon</a>
-* These images are licensed under the [Flaticon License](https://www.freepikcompany.com/legal#nav-flaticon).
+* These images are licensed under the [Flaticon License](https://www.freepikcompany.com/legal#nav-flaticon) (Section 8).
 #### Iconfinder
 https://www.iconfinder.com/iconsets/ionicons
 * These images are licensed under the [MIT License](https://opensource.org/licenses/MIT).
