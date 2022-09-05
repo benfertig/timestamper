@@ -38,34 +38,34 @@ Instructions are provided below for those who are interested in either:
         * License
             * *Auto PY to EXE* is licensed under the terms of the [MIT License](https://github.com/brentvollebregt/auto-py-to-exe/blob/master/LICENSE).<br />
 
-*Tkmacosx*
-* [GitHub](https://github.com/Saadmairaj/tkmacosx)
-* [conda](https://anaconda.org/saad_7/tkmacosx)
-* [PyPI](https://pypi.org/project/tkmacosx/)
-* License
-    * *Tkmacosx* is licensed under the terms of the [Apache License 2.0](https://github.com/Saadmairaj/tkmacosx/blob/master/LICENSE)<br />
+    * *Tkmacosx*
+        * [GitHub](https://github.com/Saadmairaj/tkmacosx)
+        * [conda](https://anaconda.org/saad_7/tkmacosx)
+        * [PyPI](https://pypi.org/project/tkmacosx/)
+        * License
+            * *Tkmacosx* is licensed under the terms of the [Apache License 2.0](https://github.com/Saadmairaj/tkmacosx/blob/master/LICENSE)<br />
 
-*Py2App*
-* [GitHub](https://github.com/ronaldoussoren/py2app)
-* [conda](https://anaconda.org/conda-forge/py2app)
-* [PyPI](https://pypi.org/project/py2app/)
-* License
-    * *Py2App* is licensed under the terms of the [MIT License](https://github.com/ronaldoussoren/py2app/blob/master/LICENSE.txt).<br />
+    * *Py2App*
+        * [GitHub](https://github.com/ronaldoussoren/py2app)
+        * [conda](https://anaconda.org/conda-forge/py2app)
+        * [PyPI](https://pypi.org/project/py2app/)
+        * License
+            * *Py2App* is licensed under the terms of the [MIT License](https://github.com/ronaldoussoren/py2app/blob/master/LICENSE.txt).<br />
 
-#### Image editing
-[*GIMP*](https://www.gimp.org/)
-* License
-    * *GIMP* is licensed under the terms of the [GNU General Public License v3](https://www.gimp.org/docs/userfaq.html#whats-the-gimps-license-and-how-do-i-comply-with-it) and later.<br />
+* #### Image editing
+    * [*GIMP*](https://www.gimp.org/)
+        * License
+            * *GIMP* is licensed under the terms of the [GNU General Public License v3](https://www.gimp.org/docs/userfaq.html#whats-the-gimps-license-and-how-do-i-comply-with-it) and later.<br />
 
-#### File editing
-[*Resource Hacker*](http://www.angusj.com/resourcehacker/)
-* License
-    * The *Resource Hacker* license can be found on the webpage linked above under the section titled "Licence to Use - Terms and Conditions:".
+* #### File editing
+    * [*Resource Hacker*](http://www.angusj.com/resourcehacker/)
+        * License
+            * The *Resource Hacker* license can be found on the webpage linked above under the section titled "Licence to Use - Terms and Conditions:".
 
-[*RisohEditor*](https://katahiromz.web.fc2.com/re/en/)
-* [GitHub](https://github.com/katahiromz/RisohEditor)
-* License
-    * *RisohEditor* is licensed under the terms of the [GNU General Public License v3](https://github.com/katahiromz/RisohEditor/blob/master/LICENSE.txt).<br />
+    * [*RisohEditor*](https://katahiromz.web.fc2.com/re/en/)
+        * [GitHub](https://github.com/katahiromz/RisohEditor)
+        * License
+            * *RisohEditor* is licensed under the terms of the [GNU General Public License v3](https://github.com/katahiromz/RisohEditor/blob/master/LICENSE.txt).<br />
 
 ## Run/Build from Source on Windows
 To jump down to the Mac instructions, [click here](https://github.com/benfertig/timestamper/blob/main/README.md#runbuild-from-source-on-mac).
