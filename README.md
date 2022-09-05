@@ -5,7 +5,7 @@ Run a timer and write automatically timestamped notes.<br />
 
 Instructions are provided below for those who are interested in either:
 1. Running the Time Stamper program from the source code using their own Python interpreter
-2. Building their own standalone executables from the source code
+2. Building their own standalone Time Stamper executables from the source code
 
 ## Run/Build from Source on Windows
 ### Install Python 3
