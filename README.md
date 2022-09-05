@@ -125,17 +125,7 @@ Selecting "Console Based" will cause a *Command Prompt* window to appear each ti
 Selecting "Window Based" will suppress the *Command Prompt* window when the *Time Stamper* program is run.
 
 #### Icon
-You can provide a .ico file here to set the *Time Stamper* executable's icon. Suitable icons of different sizes can be found under src/file_icons/Windows. [The original versions of these images were retrieved from this page.](https://www.flaticon.com/free-icons/timestamp)<br />
-
-However, the icons for the precompiled release of the *Time Stamper* program were not set using the "Icon" setting in *Auto PY to EXE*, and it is not recommended that you set the icon using this method if you want the *Time Stamper* entry in your File Explorer to be visually pleasing. Instead, you should consider setting icons with [*Resource Tuner*](http://www.restuner.com/download.htm) *after* you generate a *Time Stamper* executable.<br />
-
-*Resource Tuner* was used to set the icon images for the Time Stamper executable (.exe) because *Auto PY to EXE* only allows the user to generate an executable with **ONE** custom icon image whose dimensions will be scaled up or down depending on the context in which the user is viewing the icon, while *Resource Tuner* allows one to set multiple icons of different sizes, allowing *Windows* to display the most appropriately sized icon depending on the given context.<br />
-
-For example, from the desktop, icons are typically 48x48 pixels in size, but from a list view in *File Explorer*, icons are typically 16x16 pixels in size. If only one icon is provided for the executable, *Windows* will distort that icon from its original size to match the current needs of the display, which will often make the icon appear ugly.<br/>
-
-If you do not want to bother with setting multiple icons and would simply like to select one icon within *Auto PY to EXE*, the best icon to use would probably be the icon titled "timestamp_48x48_32b.ico" under src/file_icons/Windows. This icon will look nice from the *Windows* desktop and won't look too ugly from a list view in *File Explorer*.<br />
-
-If you do not want your icons to appear distorted some or all of the time, and do not mind taking an extra step to set multiple icons for the *Time Stamper* program after you have generated the *TimeStamper.exe* file, then **do not change the icon using the "Icon" setting in *Auto PY to EXE***. Leave the default icon as-is for now. Instructions for changing file icons using *Resource Tuner* are provided at the end of this section.
+You can provide a .ico file here to set the *Time Stamper* executable's icon. A pregenerated icon can be found under src/file_icons/file_icon_windows.ico
 
 #### Additional files
 This is the most crucial section. You *must* provide all of the necessary dependencies here for your *Time Stamper* executable (.exe) to run properly.<br />
@@ -162,30 +152,6 @@ You should not need to make any changes to this section.
 
 #### CONVERT .PY TO .EXE
 You should now be ready to build the *Time Stamper* program. Click the "CONVERT .PY TO .EXE" button to generate the *Time Stamper* executable. Once the executable has been made, click the "OPEN OUTPUT FOLDER" button to be directed to the location of the executable. The *Time Stamper* program should now run as a standalone executable (without needing to rely on any outside Python interpreters or packages). Congratulations, you have successfully built the *Time Stamper* program from the source code on *Windows*.
-
-#### Change the icons on Windows using Resource Tuner (optional step)
-**NOTE:** If you decide to set a custom icon for the *Auto PY to EXE* executable (.exe) file you generated, you may run into a glitch where the icon of the .exe file will not change *unless* you change the .exe file's name. Why this glitch occurs is unclear, but it is not a big deal. Just change the name of "TimeStamper.exe" to literally anything else. You can even make a change as small as calling the file "Time Stamper.exe" or "timestamper.exe" instead of "TimeStamper.exe".<br />
-
-If you want to set multiple icons for your .exe file in order to achieve maximum aesthetic appeal under any viewing conditions from *File Explorer*, make sure that you have generated the .exe file *without* changing the icon i.e., without having selected a file under the "Icon" section in *Auto PY to EXE*.<br />
-
-[Download and install *Resource Tuner* here](http://www.restuner.com/download.htm).<br />
-
-Open *Resource Tuner* and then go to "File" -> "Open File". Select your *Time Stamper* executable (.exe).<br />
-
-A folder hierarchy will appear on the left side of the window. Expand the folder that says "Icon".<br />
-
-##### Repeat these steps until you have replaced all of the icons in the .exe file you generated
-* Right-click on one of the entries in the "Icon" folder and select "Resource Tools" -> "Add or Replace Icon within Icon Group".
-* In the new window that appears, next to the field labeled "Path to file:", click the button labeled "Open".
-* In the new *File Explorer* window that appears, navigate to the following directory, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to:
-```
-{path_to_repository}\src\file_icons\Windows
-```
-* Select an icon file from the above folder. You should select a file whose name indicates a resolution and bit depth that **MATCHES** the resolution and bit depth of the icon you are replacing. For example, if you are replacing the icon that has a resolution of 48x48 and a bit depth of 8 (which would be marked as "48x48 8b" in the window labeled "Add or Replace Icon within Icon Group"), then you should select the file "timestamp_48x48_8b.ico".
-* Now, make sure that you have highlighted the correct icon that you would like to remove from the left column (titled "Items to be replaced:"), and that the icon you would like to replace it with appears in the right column (titled "New items:"). The dimensions and bit depth of the icon you are removing and the icon you are replacing it with should match (which you can check by making sure that the names of the entries in both columns match).
-* Click "OK"<br />
-
-Repeat the above bulleted steps until you have replaced all of the icons in the .exe file you generated.
 
 ## Run/Build from Source on Mac
 To jump back up to the Windows instructions, [click here](https://github.com/benfertig/timestamper/blob/main/README.md#runbuild-from-source-on-windows).
