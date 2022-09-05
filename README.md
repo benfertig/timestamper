@@ -18,6 +18,15 @@ https://www.iconfinder.com/iconsets/ionicons
 * License
     * The *Ionicions* pack from *Iconfinder* is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
+### Image conversion
+*FreeConvert*
+* [Home page](https://www.freeconvert.com/)
+* Specifically, the [PNG to ICO Converter](https://www.freeconvert.com/png-to-ico) was used.
+
+*CloudConvert*
+* [Home page](https://cloudconvert.com/)
+* Specifically, the [PNG to ICNS Converter](https://cloudconvert.com/png-to-icns) was used.
+
 ### Software
 #### Python distributions
 [Python](https://www.python.org/)<br />
