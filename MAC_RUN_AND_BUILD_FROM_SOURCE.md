@@ -1,17 +1,17 @@
 # Run and Build from Source on Mac
 
 ## Table of Contents
-* [Make sure your default shell is set to Z shell]()
-* [Install Python 3]()
-* [Activate your conda environment]()
-* [Run from source on Mac]()
-    * [Install Tkmacosx]()
-    * [Run TimeStamper.py]()
-* [Build from source on Mac]()
-    * [Tkmacosx]()
-    * [Install Py2App]()
-    * [Build the Time Stamper application (.app)]()
-    * [Copy some extra libraries to the Time Stamper application (.app) package]()
+* [Make sure your default shell is set to Z shell](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#make-sure-your-default-shell-is-set-to-z-shell)
+* [Install Python 3](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#install-python-3)
+* [Activate your conda environment](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#activate-your-conda-environment)
+* [Run from source on Mac](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#run-from-source-on-mac)
+    * [Install Tkmacosx](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#install-tkmacosx)
+    * [Run TimeStamper.py](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#run-timestamperpy)
+* [Build from source on Mac](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#build-from-source-on-mac)
+    * [Tkmacosx](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#tkmacosx)
+    * [Install Py2App](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#install-py2app)
+    * [Build the Time Stamper application (.app)](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#build-the-time-stamper-application-app)
+    * [Copy some extra libraries to the Time Stamper application (.app) package](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#copy-some-extra-libraries-to-the-time-stamper-application-app-package)
 
 ## Make sure your default shell is set to Z shell
 Open the application *Terminal*. You can find *Terminal* by searching for it at the top-right of the screen from the toolbar.<br />
