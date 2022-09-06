@@ -1,5 +1,10 @@
 # Run and Build from Source on Windows
 
+## Table of Contents
+* Install Python 3
+* Run from source on Windows
+* Build from source on Windows
+
 ## Install Python 3
 It is highly recommended that you install a version of *Python* that includes *conda* i.e., *Anaconda* or *Miniconda*. If you have no other uses for *Python* and all you are looking to do is run/build the *Time Stamper* program from the source code, *Miniconda* will provide everything you need. [You can download the latest *Miniconda* installer here](https://docs.conda.io/en/latest/miniconda.html).<br />
 
