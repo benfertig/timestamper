@@ -40,6 +40,7 @@ Whenever you *do not* see "(base)" in your *Terminal* command prefix, you must *
 ```
 conda activate
 ```
+This command should have activated your base *conda* environment. You will know if your base *conda* environment has been activated if you can see the text "(base)" in your *Terminal* command prefix. Remember, **ALWAYS** make sure that you enter any *conda*/*pip*/*python* commands from within your base *conda* environment.
 
 ## Run from source on Mac
 ### Install Tkmacosx
