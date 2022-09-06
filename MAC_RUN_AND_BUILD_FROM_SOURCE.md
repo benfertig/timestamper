@@ -32,7 +32,7 @@ There are *Miniconda* installers for ***Intel*** *Macs* as well as ***M1*** *Mac
 Once you have downloaded the correct *Miniconda* installer for your *Mac*, run the installer to install *Python* with *Miniconda*.<br />
 
 ## Activate your conda environment
-**NOTE:** This section will probably not apply to most people, since *Z shell* typically defaults to *Anaconda*/*Miniconda* as its base *Python* distribution, so your base *conda* environment will probably be activated automatically whenever you start *Terminal*. You can find out whether your base *conda* environment is activated by seeing whether the text "(base)" appears in your command prefix when you open a new *Terminal* window. If you *do not* see "(base)" in your command prefix when you open a new *Terminal* window, then this section is for you. Otherwise, you can skip to the section titled [**Run from source on Mac**](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#run-from-source-on-mac).
+**NOTE:** If you *do not* see "(base)" in your command prefix when you open a new *Terminal* window, then this section is for you. Otherwise, you can skip to the section titled [**Run from source on Mac**](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#run-from-source-on-mac).
 
 When entering any *Terminal* commands found throughout the rest of this README, you **ALWAYS** need to make sure that the prefix of your Terminal input reads "(base)". This is an indication that all *conda*/*pip*/*python* commands will default to your custom *Anaconda*/*Miniconda* installation unless instructed otherwise.<br />
 
@@ -40,7 +40,6 @@ Whenever you *do not* see "(base)" in your *Terminal* command prefix, you must *
 ```
 conda activate
 ```
-While following along with the rest of this guide, you should **ALWAYS** make sure that you can see the text "(base)" in your *Terminal* command prefix before typing any *conda*/*pip*/*python* commands. If you do not see "(base)", then you should be able to see it once you enter the above command.<br />
 
 ## Run from source on Mac
 ### Install Tkmacosx
