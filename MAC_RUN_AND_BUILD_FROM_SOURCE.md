@@ -32,7 +32,7 @@ There are *Miniconda* installers for ***Intel*** *Macs* as well as ***M1*** *Mac
 Once you have downloaded the correct *Miniconda* installer for your *Mac*, run the installer to install *Python* with *Miniconda*.<br />
 
 ## Activate your conda environment
-**NOTE:** This section will probably not apply to most people. Since *Z shell* typically defaults to *Anaconda*/*Miniconda* as its base *Python* distribution, your base *conda* environment will probably be activated automatically whenever you start *Terminal*. You can find out whether your base *conda* environment is activated by seeing whether the text "(base)" appears in your command prefix when you open a new *Terminal* window. If you *do not* see "(base)" in your command prefix when you open a new *Terminal* window, then this section is for you. Otherwise, you can skip to the section titled **Running from source on Mac**.
+**NOTE:** This section will probably not apply to most people. Since *Z shell* typically defaults to *Anaconda*/*Miniconda* as its base *Python* distribution, your base *conda* environment will probably be activated automatically whenever you start *Terminal*. You can find out whether your base *conda* environment is activated by seeing whether the text "(base)" appears in your command prefix when you open a new *Terminal* window. If you *do not* see "(base)" in your command prefix when you open a new *Terminal* window, then this section is for you. Otherwise, you can skip to the section titled **Run from source on Mac**.
 
 When entering any *Terminal* commands found throughout the rest of this README, you **ALWAYS** need to make sure that the prefix of your Terminal input reads "(base)". This is an indication that all *conda*/*pip*/*python* commands will default to your custom *Anaconda*/*Miniconda* installation unless instructed otherwise.<br />
 
@@ -106,7 +106,7 @@ Your new *Time Stamper* application (.app) will be created in a directory called
 ### Copy some extra libraries to the Time Stamper application (.app) package
 On the particular *Macintosh* computer where the *Time Stamper* application (.app) was initially built, a glitch was causing the *Time Stamper* application not to run if the preconfigured *Anaconda*/*Miniconda* distribution from earlier had not been installed on the computer.<br />
 
-This obviously defeats the purpose of creating a *Time Stamper* application (.app) package, as the standalone *Time Stamper* application is meant to be truly standalone in the sense that it should not to rely on any outside libraries that do not already come preinstalled on any modern *Macintosh* computer.<br />
+This obviously defeats the purpose of creating a *Time Stamper* application (.app) package, as the standalone *Time Stamper* application is meant to be truly standalone in the sense that it should not need to rely on any outside libraries that do not already come preinstalled on any modern *Macintosh* computer.<br />
 
 There is a workaround for this problem which involves copying a few libraries from your *anaconda3*/*miniconda3* folder to the *Time Stamper* .app package:
 * Find your *anaconda3*/*miniconda3* directory by entering the following command from *Terminal*:
