@@ -37,7 +37,7 @@ INSTRUCTIONS COMING SOON
 * #### Image editing
     * [*GIMP*](https://www.gimp.org/)
         * License
-            * *GIMP* is licensed under the terms of the [GNU General Public License v3](https://www.gimp.org/docs/userfaq.html#whats-the-gimps-license-and-how-do-i-comply-with-it) and later.<br />
+            * *GIMP* is licensed under the [GNU General Public License v3](https://www.gimp.org/docs/userfaq.html#whats-the-gimps-license-and-how-do-i-comply-with-it) and later.<br />
 
 ### Libraries
 * #### Python distributions
@@ -48,21 +48,21 @@ INSTRUCTIONS COMING SOON
         * [GitHub](https://github.com/brentvollebregt/auto-py-to-exe)
         * [PyPI](https://pypi.org/project/auto-py-to-exe/)
         * License
-            * *Auto PY to EXE* is licensed under the terms of the [MIT License](https://github.com/brentvollebregt/auto-py-to-exe/blob/master/LICENSE).<br />
+            * *Auto PY to EXE* is licensed under the [MIT License](https://github.com/brentvollebregt/auto-py-to-exe/blob/master/LICENSE).<br />
 
     * *Tkmacosx*
         * [GitHub](https://github.com/Saadmairaj/tkmacosx)
         * [conda](https://anaconda.org/saad_7/tkmacosx)
         * [PyPI](https://pypi.org/project/tkmacosx/)
         * License
-            * *Tkmacosx* is licensed under the terms of the [Apache License 2.0](https://github.com/Saadmairaj/tkmacosx/blob/master/LICENSE).<br />
+            * *Tkmacosx* is licensed under the [Apache License 2.0](https://github.com/Saadmairaj/tkmacosx/blob/master/LICENSE).<br />
 
     * *Py2App*
         * [GitHub](https://github.com/ronaldoussoren/py2app)
         * [conda](https://anaconda.org/conda-forge/py2app)
         * [PyPI](https://pypi.org/project/py2app/)
         * License
-            * *Py2App* is licensed under the terms of the [MIT License](https://github.com/ronaldoussoren/py2app/blob/master/LICENSE.txt).<br />
+            * *Py2App* is licensed under the [MIT License](https://github.com/ronaldoussoren/py2app/blob/master/LICENSE.txt).<br />
 
 ### File editing
 * [*Resource Hacker*](http://www.angusj.com/resourcehacker/)
@@ -72,4 +72,4 @@ INSTRUCTIONS COMING SOON
 * [*RisohEditor*](https://katahiromz.web.fc2.com/re/en/)
     * [GitHub](https://github.com/katahiromz/RisohEditor)
     * License
-        * *RisohEditor* is licensed under the terms of the [GNU General Public License v3](https://github.com/katahiromz/RisohEditor/blob/master/LICENSE.txt).
+        * *RisohEditor* is licensed under the [GNU General Public License v3](https://github.com/katahiromz/RisohEditor/blob/master/LICENSE.txt).
