@@ -3,9 +3,6 @@
 functions that are executed immediately when a button in the TimeStamper
 program is pressed. This module excludes external helper functions."""
 
-from os import path
-from sys import platform
-from tkinter import Grid, Tk, Label
 from tkinter import DISABLED, END, NORMAL, filedialog
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
