@@ -26,9 +26,11 @@ INSTRUCTIONS COMING SOON
 * #### Image conversion
     * [*FreeConvert*](https://www.freeconvert.com/)
         * Specifically, the [PNG to ICO Converter](https://www.freeconvert.com/png-to-ico) was used.
+        * [*FreeConvert* Terms of Service](https://www.freeconvert.com/terms)
 
     * [*CloudConvert*](https://cloudconvert.com/)
         * Specifically, the [PNG to ICNS Converter](https://cloudconvert.com/png-to-icns) was used.
+        * [*CloudConvert* Terms of Service](https://cloudconvert.com/terms)
 
 * #### Image editing
     * [*GIMP*](https://www.gimp.org/)
