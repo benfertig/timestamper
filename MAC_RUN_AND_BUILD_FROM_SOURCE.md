@@ -1,5 +1,18 @@
 # Run and Build from Source on Mac
 
+## Table of Contents
+* [Make sure your default shell is set to Z shell](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#make-sure-your-default-shell-is-set-to-z-shell)
+* [Install Python 3](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#install-python-3)
+* [Activate your conda environment](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#activate-your-conda-environment)
+* [Run from source on Mac](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#run-from-source-on-mac)
+    * [Install Tkmacosx](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#install-tkmacosx)
+    * [Run TimeStamper.py](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#run-timestamperpy)
+* [Build from source on Mac](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#build-from-source-on-mac)
+    * [Tkmacosx](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#tkmacosx)
+    * [Install Py2App](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#install-py2app)
+    * [Build the Time Stamper application (.app)](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#build-the-time-stamper-application-app)
+    * [Copy some extra libraries to the Time Stamper application (.app) package](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#copy-some-extra-libraries-to-the-time-stamper-application-app-package)
+
 ## Make sure your default shell is set to Z shell
 Open the application *Terminal*. You can find *Terminal* by searching for it at the top-right of the screen from the toolbar.<br />
 
@@ -32,7 +45,7 @@ There are *Miniconda* installers for ***Intel*** *Macs* as well as ***M1*** *Mac
 Once you have downloaded the correct *Miniconda* installer for your *Mac*, run the installer to install *Python* with *Miniconda*.<br />
 
 ## Activate your conda environment
-**NOTE:** This section will probably not apply to most people. Since *Z shell* typically defaults to *Anaconda*/*Miniconda* as its base *Python* distribution, your base *conda* environment will probably be activated automatically whenever you start *Terminal*. You can find out whether your base *conda* environment is activated by seeing whether the text "(base)" appears in your command prefix when you open a new *Terminal* window. If you *do not* see "(base)" in your command prefix when you open a new *Terminal* window, then this section is for you. Otherwise, you can skip to the section titled **Running from source on Mac**.
+**NOTE:** If you *do not* see "(base)" in your command prefix when you open a new *Terminal* window, then this section is for you. Otherwise, you can skip to the section titled [**Run from source on Mac**](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#run-from-source-on-mac).
 
 When entering any *Terminal* commands found throughout the rest of this README, you **ALWAYS** need to make sure that the prefix of your Terminal input reads "(base)". This is an indication that all *conda*/*pip*/*python* commands will default to your custom *Anaconda*/*Miniconda* installation unless instructed otherwise.<br />
 
@@ -40,7 +53,9 @@ Whenever you *do not* see "(base)" in your *Terminal* command prefix, you must *
 ```
 conda activate
 ```
-Once you have typed the above command, ensure that your *Terminal* command prefix reads "(base)". It may be the case that you will only need to type the above command once. You will know this is the case if any subsequent *Terminal* windows you open automatically contain "(base)" in their command prefix. Unfortunately, it may be that "(base)" does not appear in your *Terminal* command prefix whenever you open a new *Terminal* window, in which case you will need to retype the above command in every new *Terminal* window you open (until, at the very least, you have finished following along with this README, and even then, ensuring that "(base)" appears in your *Terminal* command prefix is really only necessary when you plan on entering a command that starts with "conda", "pip" or "python").<br />
+This command should have activated your base *conda* environment. You will know if your base *conda* environment has been activated if you can see the text "(base)" in your *Terminal* command prefix.<br />
+
+Remember, **ALWAYS** make sure that you enter any *conda*/*pip*/*python* commands from within your base *conda* environment.
 
 ## Run from source on Mac
 ### Install Tkmacosx
@@ -73,7 +88,7 @@ If you would like to build your own standalone application (.app) of the *Time S
 
 ## Build from source on Mac
 ### Tkmacosx
-If you have been following along with these instructions since the section titled **Run from source on Mac**, then you should have already installed *Tkmacosx*. If you have not yet installed *Tkmacosx*, [go ahead and refer to the above section titled **Install Tkmacosx**](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#install-tkmacosx) before coming back here.
+If you have been following along with these instructions since the section titled **Run from source on Mac**, then you should have already installed *Tkmacosx*. If you have not yet installed *Tkmacosx*, go ahead and refer to the above section titled [**Install Tkmacosx**](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#install-tkmacosx) before coming back here.
 
 ### Install Py2App
 The *Mac* application (.app) for the *Time Stamper* program was made using *Py2App*, which you can install through either *conda* or *pip*.<br />
@@ -106,7 +121,7 @@ Your new *Time Stamper* application (.app) will be created in a directory called
 ### Copy some extra libraries to the Time Stamper application (.app) package
 On the particular *Macintosh* computer where the *Time Stamper* application (.app) was initially built, a glitch was causing the *Time Stamper* application not to run if the preconfigured *Anaconda*/*Miniconda* distribution from earlier had not been installed on the computer.<br />
 
-This obviously defeats the purpose of creating a *Time Stamper* application (.app) package, as the standalone *Time Stamper* application is meant to be truly standalone in the sense that it should not to rely on any outside libraries that do not already come preinstalled on any modern *Macintosh* computer.<br />
+This obviously defeats the purpose of creating a *Time Stamper* application (.app) package, as the standalone *Time Stamper* application is meant to be truly standalone in the sense that it should not need to rely on any outside libraries that do not already come preinstalled on any modern *Macintosh* computer.<br />
 
 There is a workaround for this problem which involves copying a few libraries from your *anaconda3*/*miniconda3* folder to the *Time Stamper* .app package:
 * Find your *anaconda3*/*miniconda3* directory by entering the following command from *Terminal*:

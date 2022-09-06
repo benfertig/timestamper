@@ -1,11 +1,14 @@
 # Time Stamper <br />
 Run a timer and write automatically timestamped notes.<br />
 
-**THIS IS THE SOURCE CODE. If you just want to run the *Time Stamper* program, [download the latest executable from "Assets" on the releases page here](https://github.com/benfertig/timestamper/releases/).**<br />
+**THIS IS THE SOURCE CODE. If you just want to run the *Time Stamper* program, [download the executable from the "Assets" tab of the latest release here](https://github.com/benfertig/timestamper/releases/).**<br />
 
 If you would like to run and build this program from the source code, check out the instructions for:
 * [Running/building from source on Windows](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md)
 * [Running/building from source on Mac](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md)
+
+## Instructions
+INSTRUCTIONS COMING SOON
 
 ## Attribution
 ### Visuals
