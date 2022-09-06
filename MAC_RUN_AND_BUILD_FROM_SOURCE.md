@@ -1,5 +1,18 @@
 # Run and Build from Source on Mac
 
+## Table of Contents
+* [Make sure your default shell is set to Z shell]()
+* [Install Python 3]()
+* [Activate your conda environment]()
+* [Run from source on Mac]()
+    * [Install Tkmacosx]()
+    * [Run TimeStamper.py]()
+* [Build from source on Mac]()
+    * [Tkmacosx]()
+    * [Install Py2App]()
+    * [Build the Time Stamper application (.app)]()
+    * [Copy some extra libraries to the Time Stamper application (.app) package]()
+
 ## Make sure your default shell is set to Z shell
 Open the application *Terminal*. You can find *Terminal* by searching for it at the top-right of the screen from the toolbar.<br />
 
