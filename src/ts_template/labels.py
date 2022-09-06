@@ -249,7 +249,7 @@ class Labels():
                 "based on their timestamps, click the \"Merge output files\" " \
                 "button, then select all of the\n" \
                 "output files containing timestamped notes you would like to " \
-                "merge, and then click \"Open\".\n" \
+                "merge, and then click \"Open\"\n" \
                 "(you can select multiple files using ctrl+click " \
                 "on Windows or command+click on Macs).\n" \
                 "You will then be prompted to select another file. " \

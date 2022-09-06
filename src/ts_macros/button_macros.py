@@ -4,6 +4,7 @@ functions that are executed immediately when a button in the TimeStamper
 program is pressed. This module excludes external helper functions."""
 
 from os import path
+from sys import platform
 from tkinter import Grid, Tk, Label
 from tkinter import DISABLED, END, NORMAL, filedialog
 
@@ -278,17 +279,35 @@ class ButtonMacros():
     def button_help_macro(self):
         """This method will be executed when the "Help" button is pressed."""
 
+        # Store the objects (templates) containining attributes for the help
+        # window, along with its relevant label, into abbreviated variable names.
+        window_help = self.template.windows.help
+        label_help_message = self.labels.separate_windows.help_message
+
+        # Display the window containing the help message along with its relevant label.
+        self.parent.display_window(window_help, label_help_message)
+
+        """
         # Create the help window with the relevant title, dimensions, background and icon.
         window_help_template = self.template.windows.help
         window_help = Tk()
         window_help.title(window_help_template.title)
         window_help["background"] = window_help_template.background
         window_help["foreground"] = window_help_template.foreground
-        window_help.iconbitmap(path.join(self.template.path.images_dir, window_help_template.icon))
 
+        # If we are on a Mac, the window icon needs to be a .icns file.
+        # On Windows, the window icon needs to be a .ico file.
+        if platform == "darwin":
+            icon_file_name = window_help_template.icon_mac
+        else:
+            icon_file_name = window_help_template.icon_windows
+
+        # Set the window icon.
+        window_help.iconbitmap(path.join(self.template.path.images_dir, icon_file_name))
+
+        # Configure the window's columns and rows.
         for column_num in range(window_help_template.num_columns):
             Grid.columnconfigure(window_help, column_num, weight=1)
-
         for row_num in range(window_help_template.num_rows):
             Grid.rowconfigure(window_help, row_num, weight=1)
 
@@ -306,6 +325,7 @@ class ButtonMacros():
         sticky=label_help_template.sticky)
 
         window_help.mainloop()
+        """
 
     def button_license_macro(self):
         """This method will be executed when the License button is pressed."""
