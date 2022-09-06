@@ -287,46 +287,6 @@ class ButtonMacros():
         # Display the window containing the help message along with its relevant label.
         self.parent.display_window(window_help, label_help_message)
 
-        """
-        # Create the help window with the relevant title, dimensions, background and icon.
-        window_help_template = self.template.windows.help
-        window_help = Tk()
-        window_help.title(window_help_template.title)
-        window_help["background"] = window_help_template.background
-        window_help["foreground"] = window_help_template.foreground
-
-        # If we are on a Mac, the window icon needs to be a .icns file.
-        # On Windows, the window icon needs to be a .ico file.
-        if platform == "darwin":
-            icon_file_name = window_help_template.icon_mac
-        else:
-            icon_file_name = window_help_template.icon_windows
-
-        # Set the window icon.
-        window_help.iconbitmap(path.join(self.template.path.images_dir, icon_file_name))
-
-        # Configure the window's columns and rows.
-        for column_num in range(window_help_template.num_columns):
-            Grid.columnconfigure(window_help, column_num, weight=1)
-        for row_num in range(window_help_template.num_rows):
-            Grid.rowconfigure(window_help, row_num, weight=1)
-
-        # Create the Label that will display the message in the help window.
-        label_help_template = self.labels.separate_windows.help_message
-        label_help_font = (f"{label_help_template.font_family} {label_help_template.font_size}")
-        label_help = Label(window_help, height=label_help_template.height, \
-            width=label_help_template.width, background=label_help_template.background, \
-            foreground=label_help_template.foreground, text=label_help_template.text, \
-            justify=label_help_template.justify, font=label_help_font)
-        label_help.grid(column=label_help_template.column, row=label_help_template.row, \
-        columnspan=label_help_template.columnspan, rowspan=label_help_template.rowspan, \
-        padx=label_help_template.padx, pady=label_help_template.pady, \
-        ipadx=label_help_template.ipadx, ipady=label_help_template.ipady, \
-        sticky=label_help_template.sticky)
-
-        window_help.mainloop()
-        """
-
     def button_license_macro(self):
         """This method will be executed when the License button is pressed."""
 
