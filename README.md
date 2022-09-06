@@ -19,7 +19,7 @@ INSTRUCTIONS COMING SOON
             * The *Flaticon* timestamp images are licensed under the *Flaticon License* ([see section 8 of the Freepik Company Terms of Use](https://www.freepikcompany.com/legal#nav-flaticon)).
 
     * *Iconfinder*<br />
-        * https://www.iconfinder.com/iconsets/ionicons
+        * Specifically, the [*Ionicons*](https://www.iconfinder.com/iconsets/ionicons) pack was used.
         * License
             * The *Ionicions* pack from *Iconfinder* is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
