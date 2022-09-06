@@ -82,39 +82,30 @@ class TimeStamperTimer():
         hours, minutes, seconds, subseconds = self.read_current_time(raw=True)
         return f"[{hours}:{minutes}:{seconds}.{subseconds}]"
 
+    def print_to_field(self, field, to_print):
+        """This method displays the text stored in the argument to_print to the argument field."""
+
+        # Determine whether the field is enabled.
+        was_enabled = field["state"] == NORMAL
+
+        # Print the passed information to the field.
+        field["state"] = NORMAL
+        field.delete(0, END)
+        field.insert(0, to_print)
+
+        # Disable field if is was disabled to begin with.
+        if not was_enabled:
+            field["state"] = DISABLED
+
     def display_time(self, hours, minutes, seconds, subseconds):
         """This method displays the time passed to it as
         arguments to the timer fields of self.time_stamper."""
 
-        # Determine whether the time fields are enabled.
-        was_enabled = self.time_stamper.time_fields.hours_field["state"] == NORMAL
-
-        # Display the hours time.
-        self.time_stamper.time_fields.hours_field["state"] = NORMAL
-        self.time_stamper.time_fields.hours_field.delete(0, END)
-        self.time_stamper.time_fields.hours_field.insert(0, hours)
-
-        # Display the minutes time.
-        self.time_stamper.time_fields.minutes_field["state"] = NORMAL
-        self.time_stamper.time_fields.minutes_field.delete(0, END)
-        self.time_stamper.time_fields.minutes_field.insert(0, minutes)
-
-        # Display the seconds time.
-        self.time_stamper.time_fields.seconds_field["state"] = NORMAL
-        self.time_stamper.time_fields.seconds_field.delete(0, END)
-        self.time_stamper.time_fields.seconds_field.insert(0, seconds)
-
-        # Display the subseconds time.
-        self.time_stamper.time_fields.subseconds_field["state"] = NORMAL
-        self.time_stamper.time_fields.subseconds_field.delete(0, END)
-        self.time_stamper.time_fields.subseconds_field.insert(0, subseconds)
-
-        # Disable the time fields if they were disabled to begin with.
-        if not was_enabled:
-            self.time_stamper.time_fields.hours_field["state"] = DISABLED
-            self.time_stamper.time_fields.minutes_field["state"] = DISABLED
-            self.time_stamper.time_fields.seconds_field["state"] = DISABLED
-            self.time_stamper.time_fields.subseconds_field["state"] = DISABLED
+        # Print the hours, minutes, seconds and subseconds to their relevant Tkinter entries.
+        self.print_to_field(self.time_stamper.time_fields.hours_field, hours)
+        self.print_to_field(self.time_stamper.time_fields.minutes_field, minutes)
+        self.print_to_field(self.time_stamper.time_fields.seconds_field, seconds)
+        self.print_to_field(self.time_stamper.time_fields.subseconds_field, subseconds)
 
     def update_timer(self, seconds_to_add=0):
         """This method refreshes the timer. The optional argument seconds_to_add will add
