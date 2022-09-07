@@ -5,6 +5,7 @@ called upon by the constructor of the Fields class."""
 from dataclasses import dataclass
 from .timer_labels import TimerLabels
 from .separate_window_labels import SeparateWindowLabels
+from .other_labels import OtherLabels
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -36,10 +37,11 @@ class Labels():
         self.timer = TimerLabels()
         self.separate_windows = SeparateWindowLabels()
 
-        self.output_path = self.LabelOutputPath()
-        self.rewind_sec = self.LabelRewindSec()
-        self.fast_forward_sec = self.LabelFastForwardSec()
-        self.timestamp = self.LabelTimestamp()
+        other_labels = OtherLabels()
+        self.output_path = other_labels.LabelOutputPath()
+        self.rewind_sec = other_labels.LabelRewindSec()
+        self.fast_forward_sec = other_labels.LabelFastForwardSec()
+        self.timestamp = other_labels.LabelTimestamp()
 
         # Do not include any labels from the SeparateWindowLabels class in
         # self.all_templates because self.all_templates is only meant to store the
@@ -50,165 +52,3 @@ class Labels():
             self.timer.hrs, self.timer.min, self.timer.dot, self.timer.sec, \
             self.output_path, self.rewind_sec, self.fast_forward_sec, self.timestamp
         )
-
-    @dataclass
-    class LabelOutputPath():
-        """This class stores the attributes for the label
-        displaying the path to the current output file."""
-
-        display_path_prefix = "Saving notes to: "
-
-        text = "-----PLEASE SELECT AN OUTPUT FILE-----"
-
-        str_key = "label_output_path"
-
-        background = None
-        foreground = None
-
-        wraplength = 550
-
-        justify = "left"
-
-        width = None
-        height = 1
-
-        column = 9
-        row = 0
-
-        columnspan = 9
-        rowspan = 1
-
-        padx = None
-        pady = None
-
-        ipadx = None
-        ipady = None
-
-        sticky = "sw"
-
-        font_family = ""
-        font_size = 10
-        font_weight = "normal"
-        font_slant = "roman"
-        font_underline = 0
-        font_overstrike = 0
-
-    @dataclass
-    class LabelRewindSec():
-        """This class stores the attributes for the label (by default "sec") of
-        the entry where the desired number of seconds to rewind is entered."""
-
-        text = "sec"
-
-        str_key = "label_rewind_sec"
-
-        background = None
-        foreground = None
-
-        wraplength = None
-
-        justify = "left"
-
-        width = 3
-        height = 1
-
-        column = 4
-        row = 1
-
-        columnspan = 1
-        rowspan = 1
-
-        padx = None
-        pady = None
-
-        ipadx = None
-        ipady = None
-
-        sticky = "nw"
-
-        font_family = ""
-        font_size = 11
-        font_weight = "normal"
-        font_slant = "roman"
-        font_underline = 0
-        font_overstrike = 0
-
-    @dataclass
-    class LabelFastForwardSec():
-        """This class stores the attributes for the label (by default "sec") of the
-        entry where the desired number of seconds to fast-forward is entered."""
-
-        text = "sec"
-
-        str_key = "label_fast_forward_sec"
-
-        background = None
-        foreground = None
-
-        wraplength = None
-
-        justify = "left"
-
-        width = 3
-        height = 1
-
-        column = 6
-        row = 1
-
-        columnspan = 1
-        rowspan = 1
-
-        padx = None
-        pady = None
-
-        ipadx = None
-        ipady = None
-
-        sticky = "nw"
-
-        font_family = ""
-        font_size = 11
-        font_weight = "normal"
-        font_slant = "roman"
-        font_underline = 0
-        font_overstrike = 0
-
-    @dataclass
-    class LabelTimestamp():
-        """This class stores the attributes for the
-        label displaying the current timestamp."""
-
-        text = "[—:—:—.—]"
-
-        str_key = "label_timestamp"
-
-        background = None
-        foreground = None
-
-        wraplength = None
-
-        justify = "center"
-
-        width = None
-        height = None
-
-        column = 0
-        row = 3
-
-        columnspan = 2
-        rowspan = 1
-
-        padx = None
-        pady = (5, 0)
-
-        ipadx = None
-        ipady = None
-
-        sticky = "nsew"
-
-        font_family = ""
-        font_size = 12
-        font_weight = "normal"
-        font_slant = "roman"
-        font_underline = 0
-        font_overstrike = 0

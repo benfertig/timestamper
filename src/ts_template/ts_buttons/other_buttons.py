@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 """This module contains the OtherButtons class which is
-called upon by the constructor of the Fields class."""
+called upon by the constructor of the Buttons class."""
 
 from dataclasses import dataclass
 from os import getcwd

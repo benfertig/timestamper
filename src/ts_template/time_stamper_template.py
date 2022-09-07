@@ -6,10 +6,10 @@ TimeStamper run() method (the method that runs the Time Stamper program)."""
 from dataclasses import dataclass
 import sys
 from os import path
-from .buttons import Buttons
-from .entries import Entries
-from .labels import Labels
-from .texts import Texts
+from .ts_buttons.buttons import Buttons
+from .ts_entries.entries import Entries
+from .ts_labels.labels import Labels
+from .ts_texts.texts import Texts
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
