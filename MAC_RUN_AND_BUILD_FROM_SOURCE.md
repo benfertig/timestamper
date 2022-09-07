@@ -140,11 +140,11 @@ which python
 
 * **Alternatively, if your *Mac* has an *Intel* processor:**
     * Copy the following three files to your clipboard:
-    ```
-    libffi.7.dylib
-    libtcl8.6.dylib
-    libtk8.6.dylib
-    ```
+        ```
+        libffi.7.dylib
+        libtcl8.6.dylib
+        libtk8.6.dylib
+        ```
 * Now navigate to the *Time Stamper* application (.app) you created earlier, right-click on it and select "Show Package Contents"
 * Then, go to "Contents" -> "Resources" -> "lib"
 * Paste the three .dylib files you just copied into this "lib" folder.<br />
