@@ -136,12 +136,15 @@ which python
 * Navigate to the displayed *anaconda3*/*miniconda3* directory from a *Finder* window, disregarding the part of the file path that comes after "anaconda3"/"miniconda3".
 * Your *anaconda3*/*miniconda3* directory may very well be hidden in *Finder*, but you can make *Finder* display hidden files and folders by pressing command+shift+. (command shift dot). You can hide these files and folders by pressing the same keys again.
 * Once you have navigated to your *anaconda3*/*miniconda3* folder, enter the folder named "lib"
-* Copy the following three files to your clipboard:
-```
-libffi.7.dylib
-libtcl8.6.dylib
-libtk8.6.dylib
-```
+* **If your *Mac* has an *M1* processor:**
+
+* **Alternatively, if your *Mac* has an *Intel* processor:**
+    * Copy the following three files to your clipboard:
+    ```
+    libffi.7.dylib
+    libtcl8.6.dylib
+    libtk8.6.dylib
+    ```
 * Now navigate to the *Time Stamper* application (.app) you created earlier, right-click on it and select "Show Package Contents"
 * Then, go to "Contents" -> "Resources" -> "lib"
 * Paste the three .dylib files you just copied into this "lib" folder.<br />
