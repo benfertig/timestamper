@@ -40,7 +40,7 @@ Unless you know what you are doing, do not concern yourself with any of the inst
 There are *Miniconda* installers for ***Intel*** *Macs* as well as ***M1*** *Macs*. You should choose the installer that matches the type of processor your *Mac* has. To find out which type of processor your *Mac* has:<br />
 * Click on the *Apple* logo in the top-left corner of your screen.<br />
 * Select "About This Mac".<br />
-* In the "Overview" tab, look for a field labeled either "Chip" or "Processor"
+* In the "Overview" tab, look for a field labeled either "Chip" or "Processor".
     * If you see "M1", you should download the Miniconda installer with *M1* in its name.
     * If you see "Intel", you should download the Miniconda installer with *Intel* in its name.<br />
 
