@@ -27,8 +27,9 @@ from .timing import Timing
 
 class TimeStamperTimer():
     """This class runs a timer with pause, resume, rewind and fast-forward features.
-    Once the objects for the root window and the fields displaying the timer's current time
-    are created, they should be passed to this class through the pass_objects method."""
+    Once an instance of the TimeStamper class from the module time_stamper_class
+    is created, its constructor will create an instance of this TimeStamperTimer
+    class, passing itself to the TimeStamperTimer constructor."""
 
     def __init__(self, time_stamper):
         """The __init__ method of TimeStamperTimer takes one argument
