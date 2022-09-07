@@ -1,12 +1,12 @@
 # Run and Build from Source on Windows
 
 ## Table of Contents
-* [Install Python 3](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#install-python-3)
-* [Run from source on Windows](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#run-from-source-on-windows)
-* [Build from source on Windows](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#build-from-source-on-windows)
-     * [Install Auto PY to EXE](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#install-auto-py-to-exe)
-     * [Run Auto PY to EXE](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#run-auto-py-to-exe)
-     * [Auto PY to EXE configuration](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#auto-py-to-exe-configuration)
+* [Install *Python 3*](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#install-python-3)
+* [Run from source on *Windows*](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#run-from-source-on-windows)
+* [Build from source on *Windows*](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#build-from-source-on-windows)
+     * [Install *Auto PY to EXE*](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#install-auto-py-to-exe)
+     * [Run *Auto PY to EXE*](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#run-auto-py-to-exe)
+     * [*Auto PY to EXE* configuration](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#auto-py-to-exe-configuration)
          * [Script location](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#script-location)
          * [Onefile](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#onefile)
          * [Console Window](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#console-window)
@@ -16,7 +16,7 @@
          * [Settings](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#settings)
          * [CONVERT .PY TO .EXE](https://github.com/benfertig/timestamper/blob/main/WINDOWS_RUN_AND_BUILD_FROM_SOURCE.md#convert-py-to-exe)
 
-## Install Python 3
+## Install *Python 3*
 It is highly recommended that you install a version of *Python* that includes *conda* i.e., *Anaconda* or *Miniconda*. If you have no other uses for *Python* and all you are looking to do is run/build the *Time Stamper* program from the source code, *Miniconda* will provide everything you need. [You can download the latest *Miniconda* installer here](https://docs.conda.io/en/latest/miniconda.html).<br />
 
 You will be downloading one of the *Windows* installers for *Miniconda*. There is a 32-bit and a 64-bit *Miniconda* installer. You should download the installer that matches your operating system type. To find out whether your *Windows* computer is 32-bit or 64-bit:<br />
@@ -27,7 +27,7 @@ You will be downloading one of the *Windows* installers for *Miniconda*. There i
 
 Once you have downloaded the correct *Miniconda* installer for your *Windows* computer, run the installer to install *Python* with *Miniconda*.
 
-## Run from source on Windows
+## Run from source on *Windows*
 Download the *timestamper* repository to your computer if you have not done so already.<br />
 
 Open a new *Command Prompt* window and navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer:
@@ -44,14 +44,14 @@ The *Time Stamper* program should now open in a new window. Congratulations, you
 
 If you would like to build your own standalone executable (.exe) of the *Time Stamper* program from the source code, follow the instructions below.
 
-## Build from source on Windows
-### Install Auto PY to EXE
+## Build from source on *Windows*
+### Install *Auto PY to EXE*
 The *Windows* executable (.exe) for the *Time Stamper* program was made using [*Auto PY to EXE*](https://pypi.org/project/auto-py-to-exe/), which you can install through *pip*. Type the following command from a *Command Prompt* window:
 ```
 pip install auto-py-to-exe
 ```
 
-### Run Auto PY to EXE
+### Run *Auto PY to EXE*
 This next step must be done from an Administrator *Command Prompt* Window. Right-click on *Command Prompt* and select "Run as administrator". Then, type the following command:
 ```
 auto-py-to-exe
@@ -60,7 +60,7 @@ A new tab should open in your internet browser.<br />
 
 You should complete the following steps within the *Auto PY to EXE* browser tab that has appeared. The following steps are labeled with their corresponding section in the *Auto PY to EXE* browser tab.
 
-### Auto PY to EXE configuration
+### *Auto PY to EXE* configuration
 #### Script location
 This should point to the *Python* file titled "TimeStamper.py" in the *timestamper* respository's "src" directory. Refer to the general template below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to.
 ```
