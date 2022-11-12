@@ -37,7 +37,7 @@ cd {path_to_repository}\src
 
 Then, type the following command:
 ```
-python -u TimeStamper.py
+python -u Time Stamper.py
 ```
 
 The *Time Stamper* program should now open in a new window. Congratulations, you are now running the *Time Stamper* program from the source code on *Windows* using your own pre-installed *Python* interpreter.<br />
@@ -62,9 +62,9 @@ You should complete the following steps within the *Auto PY to EXE* browser tab 
 
 ### *Auto PY to EXE* configuration
 #### Script location
-This should point to the *Python* file titled "TimeStamper.py" in the *timestamper* respository's "src" directory. Refer to the general template below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to.
+This should point to the *Python* file titled "Time Stamper.py" in the *timestamper* respository's "src" directory. Refer to the general template below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to.
 ```
-{path_to_repository}/src/TimeStamper.py
+{path_to_repository}/src/Time Stamper.py
 ```
 
 #### Onefile
