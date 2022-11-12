@@ -32,7 +32,7 @@ if platform == "darwin":
 
 
 class Macros():
-    """This class stores all of the functions that are executed  when a button
+    """This class stores all of the functions that are executed when a button
     in the TimeStamper program is pressed. This class' constructor takes one
     argument, template, which should be an instance of the TimeStamperTemplate class."""
 
@@ -85,7 +85,7 @@ class Macros():
 
         # If 1) we are on a Mac, 2) the current button is a tkmacosx Button and
         # 3) the button has no text, then it will be hard to tell whether this button
-        # is disabled unless we change its appearance. Therefore, the tkmocosx button's
+        # is disabled unless we change its appearance. Therefore, the tkmacosx button's
         # background would be changed to the predetermined disabled color here.
         if platform == "darwin" and isinstance(button, MacButton) and not button.cget("text"):
             button["background"] = self.template.fields.mac_disabled_color
@@ -275,9 +275,10 @@ class Macros():
                 self.buttons.media.stop.print_on_press:
                 ends.append(i)
 
-        # Delete the timestamped notes indicating beginnings and endings
-        # of recordings EXCEPT FOR the earliest timestamped note indicating
-        # a beginning AND the last timestamped note indicating an ending.
+        # Prepare the timestamped notes indicating beginnings and endings
+        # of recordings for deletion by excluding from the deletion:
+        #   1) the earliest timestamped note indicating a beginning
+        #   2) the last timestamped note indicating an ending.
         beginnings.pop(0)
         ends.pop()
 
@@ -299,7 +300,7 @@ class Macros():
             elif j in ends:
                 note = note[14 + len(self.buttons.media.stop.print_on_press) + 1:]
 
-            # Add the note the updated notes list if there is a note to add.
+            # Add the note to the updated notes list if there is a note to add.
             if note:
                 all_notes_updated.append(note)
 
@@ -317,7 +318,7 @@ class Macros():
             except ValueError:
                 entry_text.set(entry_text.get()[:-1])
 
-            # Remove any digits from the entry that put it over max_val.
+            # Remove any digits from the entry that put the entry over max_val.
             if len(entry_text.get()) > 0:
                 if int(entry_text.get()) > max_val:
                     entry_text.set(entry_text.get()[:-1])
