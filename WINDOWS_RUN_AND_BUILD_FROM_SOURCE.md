@@ -37,7 +37,7 @@ cd {path_to_repository}\src
 
 Then, type the following command:
 ```
-python -u Time Stamper.py
+python -u "Time Stamper.py"
 ```
 
 The *Time Stamper* program should now open in a new window. Congratulations, you are now running the *Time Stamper* program from the source code on *Windows* using your own pre-installed *Python* interpreter.<br />
