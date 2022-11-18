@@ -61,6 +61,7 @@ class TimeStamperTemplate():
 
     def __init__(self):
 
+        self.timestamp_set = False
         self.fields = self.Fields()
         self.output_file = self.OutputFile()
         self.path = self.Path()

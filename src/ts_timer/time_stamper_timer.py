@@ -108,9 +108,18 @@ class TimeStamperTimer():
         self.print_to_field(self.time_stamper.time_fields.seconds_field, seconds)
         self.print_to_field(self.time_stamper.time_fields.subseconds_field, subseconds)
 
+        # If a timestamp has not been set, make the timestamp label reflect the current time.
+        if not self.time_stamper.template.timestamp_set:
+            label_timestamp_template = self.time_stamper.template.fields.labels.timestamp
+            obj_mapping = self.time_stamper.macros.object_mapping
+            obj_timestamp = obj_mapping[label_timestamp_template.str_key]
+            obj_timestamp["text"] = f"[{hours}:{minutes}:{seconds}.{subseconds}]"
+
     def update_timer(self, seconds_to_add=0):
-        """This method refreshes the timer. The optional argument seconds_to_add will add
-        to/subtract from the timer the specified amount of seconds. If a positive number is passed,
+        """This method refreshes the timer, but the refreshed time that this method returns
+        still needs to be converted to hours, minutes and seconds and displayed using
+        the "display_time" method. The optional argument "seconds_to_add "will add to/subtract
+        from the timer the specified amount of seconds. If a positive number is passed,
         seconds will be added. If a negative number is passed, seconds will be subtracted."""
 
         # If the timer is running, calculate the current time by using the time module.
@@ -167,16 +176,6 @@ class TimeStamperTimer():
         # Declare the timer as not running.
         self.timing.is_running = False
 
-        # Record the raw time of pause.
-        self.timing.pause_time = perf_counter()
-
-        # Get the current time from the time fields.
-        disp_hours, disp_minutes, disp_seconds, disp_subseconds = self.read_current_time()
-
-        # Save the currently displayed time as the timer's reading at pause.
-        self.timing.reading_at_pause = \
-            self.timing.h_m_s_to_seconds(disp_hours, disp_minutes, disp_seconds, disp_subseconds)
-
     def play(self):
         """This method resumes (unpauses) the timer and is
         typically run when the play button is pressed."""
@@ -187,11 +186,11 @@ class TimeStamperTimer():
         if self.timing.h_m_s_to_seconds(disp_hours, disp_minutes, \
             disp_seconds, disp_subseconds) < 359999.99:
 
+            # Save the raw time that the timer was started
+            self.timing.start_time = perf_counter()
+
             # Declare the timer as running.
             self.timing.is_running = True
-
-            # Calculate the amount of raw time that the timer has spent paused.
-            self.timing.total_pause_time += (perf_counter() - self.timing.pause_time)
 
             # Read the timer's current time from the time fields.
             disp_hours, disp_minutes, disp_seconds, disp_subseconds = self.read_current_time()
@@ -200,8 +199,8 @@ class TimeStamperTimer():
             # the timer was paused. If this is the case, factor the difference between
             # the reading of the timer when it resumed and the reading of the timer
             # when it was paused into future calculations of the timer's running time.
-            self.timing.offset += (self.timing.h_m_s_to_seconds(disp_hours, \
-                disp_minutes, disp_seconds, disp_subseconds) - self.timing.reading_at_pause)
+            self.timing.offset = self.timing.h_m_s_to_seconds(disp_hours, \
+                disp_minutes, disp_seconds, disp_subseconds)
 
             # Begin ticking the timer.
             self.timer_tick()
@@ -298,31 +297,6 @@ class TimeStamperTimer():
         """This method initially starts the timer and is
         typically run when the record button is pressed."""
 
-        # Only run the timer if the currently displayed time is less
-        # than the maximum time (99 hours, 59 minutes and 59.99 seconds).
-        disp_hours, disp_minutes, disp_seconds, disp_subseconds = self.read_current_time()
-        if self.timing.h_m_s_to_seconds(disp_hours, disp_minutes, \
-            disp_seconds, disp_subseconds) < 359999.99:
-
-            # Save the raw time as the timer's start time.
-            self.timing.start_time = perf_counter()
-
-            # Calculate the timer's initial offset by retrieving the timer's
-            # initial time from the time fields so that this can be
-            # factored into future calculations of the timer's running time.
-            disp_hours, disp_minutes, disp_seconds, disp_subseconds = self.read_current_time()
-            self.timing.offset += self.timing.h_m_s_to_seconds(\
-                disp_hours, disp_minutes, disp_seconds, disp_subseconds)
-
-            # Declare the timer as running.
-            self.timing.is_running = True
-
-            # Begin ticking the timer.
-            self.timer_tick()
-
-        # If the timer's currently displayed time is not less
-        # than the maximum displayable time, stop the timer.
-        else:
-            macro_mapping = self.time_stamper.macros.button_macros.mapping
-            button_stop_str_key = self.time_stamper.template.fields.buttons.media.stop.str_key
-            macro_mapping[button_stop_str_key]()
+        # The record method, in its current form, serves
+        # merely as a wrapper for the play method.
+        self.play()

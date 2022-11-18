@@ -189,6 +189,9 @@ class ButtonMacros():
     def button_timestamp_macro(self):
         """This method will be executed when the timestamp button is pressed."""
 
+        # Make note of the fact that a timestamp has been set.
+        self.template.timestamp_set = True
+
         # Set the timestamp to the current time.
         t_s_timer = self.parent.object_mapping[self.template.timer.str_key]
         obj_timestamp = self.parent.object_mapping[self.labels.timestamp.str_key]
@@ -269,9 +272,17 @@ class ButtonMacros():
     def button_clear_timestamp_macro(self):
         """This method will be executed when the "Clear timestamp" button is pressed."""
 
-        # Set the timestamp text to its default value.
+        # Make note of the fact that a timestamp has been cleared.
+        self.template.timestamp_set = False
+
+        # Set the timestamp text to the timer's current time.
         obj_timestamp = self.parent.object_mapping[self.labels.timestamp.str_key]
-        obj_timestamp["text"] = self.labels.timestamp.text
+        t_s_timer = self.parent.object_mapping[self.template.timer.str_key]
+        hours, minutes, seconds, subseconds = t_s_timer.read_current_time(raw=True)
+        obj_timestamp["text"] = f"[{hours}:{minutes}:{seconds}.{subseconds}]"
+
+        # Enable and disable the relevant buttons for when the clear timestamp button is pressed.
+        self.parent.button_enable_disable_macro(self.buttons.other.clear_timestamp)
 
     def button_help_macro(self):
         """This method will be executed when the "Help" button is pressed."""

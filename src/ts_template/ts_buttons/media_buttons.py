@@ -297,8 +297,8 @@ class MediaButtons():
 
         str_key = "button_timestamp"
 
-        to_enable = ()
-        to_disable = ()
+        to_enable = ("button_clear_timestamp",)
+        to_disable = ("button_timestamp",)
 
         background = None
         foreground = None

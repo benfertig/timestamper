@@ -39,15 +39,12 @@ class Timing():
 
         self.is_running = False
         self.start_time = 0.0
-        self.pause_time = 0.0
-        self.total_pause_time = 0.0
         self.offset = 0.0
-        self.reading_at_pause = 0.0
 
     def current_running_time(self):
         """This method returns the timer's time in seconds. This is the primary
         method that is used to retrieve the time while the timer is RUNNING."""
-        return perf_counter() - self.start_time - self.total_pause_time + self.offset
+        return perf_counter() - self.start_time + self.offset
 
 
     def pad_number(self, number, target_length):

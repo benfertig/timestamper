@@ -64,15 +64,12 @@ class SeparateWindowLabels():
             "timer will start at the time you entered.\n\n" \
             "The current timestamp is displayed to the left " \
             "of the input box at the bottom of the window.\n" \
-            "A timestamp of \"[—:—:—.—]\" indicates that no timestamp is set.\n" \
-            "When no timestamp is set, any notes you save will " \
-            "be timestamped with the timer's current time.\n\n" \
-            "To set a timestamp, press the timestamp button " \
-            "(to the right of the record button).\n" \
-            "All subsequent notes will be saved with the " \
-            "time that you pressed the timestamp button " \
-            "(until you clear the timestamp or set a new one).\n" \
-            "To clear a timestamp, press the \"Clear timestamp\" button.\n\n" \
+            "The current timestamp will be synchronized with the timer until you\n" \
+            "press the timestamp button (to the right of the record button).\n" \
+            "When you press the timestamp button, the timestamp will be set to the\n" \
+            "exact reading that the timer was at when you pressed the button.\n\n" \
+            "To clear a timestamp, press the \"Clear timestamp\" button.\n" \
+            "Doing so will unfreeze the timestamp reading, resynchronizing it with the timer.\n\n" \
             "To save a note, type it into the text box at the bottom of " \
             "the screen and then click on the \"Save note\" button.\n" \
             "To cancel a note, press the \"Cancel note\" button.\n" \

@@ -129,12 +129,15 @@ class OtherButtons():
     class ButtonClearTimestamp():
         """This class stores the attributes for the clear timestamp button."""
 
-        initial_state = NORMAL
+        initial_state = DISABLED
 
         text = "Clear timestamp"
         image_file_name = None
 
         str_key = "button_clear_timestamp"
+
+        to_enable = ("button_timestamp",)
+        to_disable = ("button_clear_timestamp",)
 
         background = None
         foreground = None

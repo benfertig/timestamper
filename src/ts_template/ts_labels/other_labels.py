@@ -155,7 +155,7 @@ class OtherLabels():
         """This class stores the attributes for the
         label displaying the current timestamp."""
 
-        text = "[—:—:—.—]"
+        text = "[00:00:00.00]"
 
         str_key = "label_timestamp"
 
