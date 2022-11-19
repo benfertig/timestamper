@@ -15,9 +15,9 @@ INSTRUCTIONS COMING SOON
 * #### Images
     * *Flaticon*<br />
         * <a href="https://www.flaticon.com/free-icons/timestamp" title="timestamp icons">Timestamp icons created by Freepik - Flaticon</a>
-            * Specifically, [this image was used](https://www.flaticon.com/free-icon/forbidden_2001386?related_id=2001386)
+            * Specifically, 
         * <a href="https://www.flaticon.com/free-icons/forbidden" title="forbidden icons">Forbidden icons created by prettycons - Flaticon</a>
-            * * Specifically, [this image was used](https://www.flaticon.com/free-icon/forbidden_2001386?related_id=2001386)
+            * Specifically, [this image was used](https://www.flaticon.com/free-icon/forbidden_2001386?related_id=2001386).
         * License
             * The *Timestamp* and *Forbidden* images from *Flaticon* are licensed under the *Flaticon License* ([see section 8 of the Freepik Company Terms of Use](https://www.freepikcompany.com/legal#nav-flaticon)).
 
