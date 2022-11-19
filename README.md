@@ -23,7 +23,14 @@ INSTRUCTIONS COMING SOON
             * The *Timestamp* and *Forbidden* images from *Flaticon* are licensed under the *Flaticon License* ([see section 8 of the Freepik Company Terms of Use](https://www.freepikcompany.com/legal#nav-flaticon)).
 
     * [*Iconfinder*](https://www.iconfinder.com/)<br />
-        * Specifically, the [*Ionicons*](https://www.iconfinder.com/iconsets/ionicons) pack was used.
+        * The [*Ionicons*](https://www.iconfinder.com/iconsets/ionicons) pack was used.
+            * Specifically, the following images were used:
+                * [Pause icon](https://www.iconfinder.com/icons/211871/pause_icon)
+                * [Play icon](https://www.iconfinder.com/icons/211801/play_icon)
+                * [Stop icon](https://www.iconfinder.com/icons/211931/stop_icon)
+                * [Rewind icon](https://www.iconfinder.com/icons/211816/rewind_icon)
+                * [Fast-forward icon](https://www.iconfinder.com/icons/211741/fastforward_icon)
+                * [Record icon](https://www.iconfinder.com/icons/211881/record_icon)
         * License
             * The *Ionicions* pack from *Iconfinder* is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
