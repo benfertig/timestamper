@@ -17,7 +17,7 @@ INSTRUCTIONS COMING SOON
         * <a href="https://www.flaticon.com/free-icons/timestamp" title="timestamp icons">Timestamp icons created by Freepik - Flaticon</a>
         * <a href="https://www.flaticon.com/free-icons/forbidden" title="forbidden icons">Forbidden icons created by prettycons - Flaticon</a>
         * License
-            * The *Flaticon* timestamp images are licensed under the *Flaticon License* ([see section 8 of the Freepik Company Terms of Use](https://www.freepikcompany.com/legal#nav-flaticon)).
+            * The *Timestamp* and *Forbidden* images from *Flaticon* are licensed under the *Flaticon License* ([see section 8 of the Freepik Company Terms of Use](https://www.freepikcompany.com/legal#nav-flaticon)).
 
     * [*Iconfinder*](https://www.iconfinder.com/)<br />
         * Specifically, the [*Ionicons*](https://www.iconfinder.com/iconsets/ionicons) pack was used.
