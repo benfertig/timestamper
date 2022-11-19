@@ -48,12 +48,12 @@ class ButtonMacros():
             self.buttons.media.rewind.str_key: self.button_rewind_macro, \
             self.buttons.media.fast_forward.str_key: self.button_fast_forward_macro, \
             self.buttons.media.record.str_key: self.button_record_macro, \
-            self.buttons.media.timestamp.str_key: self.button_timestamp_macro, \
 
             # Other buttons
             self.buttons.other.output_select.str_key: self.button_output_select_macro, \
             self.buttons.other.merge_output_files.str_key: \
                 self.button_merge_output_files_macro, \
+            self.buttons.other.timestamp.str_key: self.button_timestamp_macro, \
             self.buttons.other.clear_timestamp.str_key: self.button_clear_timestamp_macro, \
             self.buttons.other.help.str_key: self.button_help_macro, \
             self.buttons.other.license.str_key: self.button_license_macro, \
@@ -199,7 +199,7 @@ class ButtonMacros():
         obj_timestamp["text"] = current_timestamp
 
         # Enable and disable the relevant buttons for when the timestamp button is pressed.
-        self.parent.button_enable_disable_macro(self.buttons.media.timestamp)
+        self.parent.button_enable_disable_macro(self.buttons.other.timestamp)
 
     def button_output_select_macro(self):
         """This method will be executed when the "Choose output location" button is pressed."""

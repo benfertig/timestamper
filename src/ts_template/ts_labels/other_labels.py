@@ -49,7 +49,7 @@ class OtherLabels():
         width = None
         height = 1
 
-        column = 9
+        column = 8
         row = 0
 
         columnspan = 9

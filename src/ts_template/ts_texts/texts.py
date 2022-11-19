@@ -54,7 +54,7 @@ class Texts():
         column = 0
         row = 2
 
-        columnspan = 19
+        columnspan = 20
         rowspan = 1
 
         padx = (5, 5)
@@ -87,7 +87,7 @@ class Texts():
         column = 2
         row = 3
 
-        columnspan = 17
+        columnspan = 18
         rowspan = 2
 
         padx = (0, 5)

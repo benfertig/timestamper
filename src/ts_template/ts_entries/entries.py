@@ -71,13 +71,13 @@ class Entries():
 
             width = 2
 
-            column = 11
+            column = 12
             row = 5
 
             columnspan = 1
             rowspan = 2
 
-            padx = None
+            padx = (3, 0)
             pady = (8, 8)
 
             ipadx = None
@@ -110,7 +110,7 @@ class Entries():
             background = None
             foreground = None
 
-            column = 13
+            column = 14
             row = 5
 
             columnspan = 1
@@ -149,7 +149,7 @@ class Entries():
             background = None
             foreground = None
 
-            column = 15
+            column = 16
             row = 5
 
             columnspan = 1
@@ -188,7 +188,7 @@ class Entries():
             background = None
             foreground = None
 
-            column = 17
+            column = 18
             row = 5
 
             columnspan = 1

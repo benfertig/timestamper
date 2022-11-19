@@ -37,6 +37,7 @@ class OtherButtons():
         self.license = self.ButtonLicense()
         self.cancel_note = self.ButtonCancelNote()
         self.save_note = self.ButtonSaveNote()
+        self.timestamp = self.ButtonTimestamp()
         self.clear_timestamp = self.ButtonClearTimestamp()
 
     @dataclass
@@ -60,16 +61,16 @@ class OtherButtons():
         width = None
         height = 1
 
-        column = 9
+        column = 8
         row = 0
 
-        columnspan = 1
+        columnspan = 2
         rowspan = 1
 
         padx = None
         pady = (5, 26)
 
-        ipadx = None
+        ipadx = 15
         ipady = None
 
         sticky = "nsew"
@@ -126,13 +127,54 @@ class OtherButtons():
         font_overstrike = 0
 
     @dataclass
+    class ButtonTimestamp():
+        """This class stores the attributes for the timestamp button."""
+
+        initial_state = NORMAL
+
+        text = None
+        image_file_name = "timestamp.png"
+
+        str_key = "button_timestamp"
+
+        to_enable = ("button_clear_timestamp",)
+        to_disable = ("button_timestamp",)
+
+        background = None
+        foreground = None
+
+        width = None
+        height = None
+
+        column = 0
+        row = 4
+
+        columnspan = 1
+        rowspan = 1
+
+        padx = (10, 0)
+        pady = None
+
+        ipadx = None
+        ipady = None
+
+        sticky = "nsew"
+
+        font_family = ""
+        font_size = 12
+        font_weight = "normal"
+        font_slant = "roman"
+        font_underline = 0
+        font_overstrike = 0
+
+    @dataclass
     class ButtonClearTimestamp():
         """This class stores the attributes for the clear timestamp button."""
 
         initial_state = DISABLED
 
-        text = "Clear timestamp"
-        image_file_name = None
+        text = None
+        image_file_name = "clear_timestamp.png"
 
         str_key = "button_clear_timestamp"
 
@@ -145,14 +187,14 @@ class OtherButtons():
         width = None
         height = 1
 
-        column = 0
+        column = 1
         row = 4
 
-        columnspan = 2
+        columnspan = 1
         rowspan = 1
 
-        padx = (11, 11)
-        pady = (7, 7)
+        padx = (0, 10)
+        pady = None
 
         ipadx = None
         ipady = None
@@ -189,7 +231,7 @@ class OtherButtons():
         columnspan = 2
         rowspan = 1
 
-        padx = (11, 11)
+        padx = (10, 10)
         pady = (8, 0)
 
         ipadx = None
@@ -227,7 +269,7 @@ class OtherButtons():
         columnspan = 2
         rowspan = 1
 
-        padx = (11, 11)
+        padx = (10, 10)
         pady = (0, 8)
 
         ipadx = None
@@ -253,7 +295,7 @@ class OtherButtons():
 
         str_key = "button_cancel_note"
 
-        to_enable = ("button_timestamp",)
+        to_enable = ()
         to_disable = ()
 
         background = "#E06666"
@@ -265,10 +307,10 @@ class OtherButtons():
         column = 2
         row = 5
 
-        columnspan = 7
+        columnspan = 6
         rowspan = 2
 
-        padx = (14, 7)
+        padx = (0, 4)
         pady = (8, 8)
 
         ipadx = None
@@ -295,7 +337,7 @@ class OtherButtons():
 
         image_file_name = None
 
-        to_enable = ("button_timestamp",)
+        to_enable = ()
         to_disable = ()
 
         background = "#93C47D"
@@ -304,13 +346,13 @@ class OtherButtons():
         width = 12
         height = 1
 
-        column = 9
+        column = 8
         row = 5
 
-        columnspan = 2
+        columnspan = 4
         rowspan = 2
 
-        padx = (7, 14)
+        padx = (4, 3)
         pady = (8, 8)
 
         ipadx = None

@@ -27,7 +27,7 @@ from tkinter import DISABLED, NORMAL
 @dataclass
 class MediaButtons():
     """This class stores the attributes for the media buttons (pause, play, stop,
-    rewind, fast-foward, record and timestamp) in the Time Stamper program."""
+    rewind, fast-foward and record) in the Time Stamper program."""
 
     def __init__(self):
         self.pause = self.ButtonPause()
@@ -36,7 +36,6 @@ class MediaButtons():
         self.rewind = self.ButtonRewind()
         self.fast_forward = self.ButtonFastForward()
         self.record = self.ButtonRecord()
-        self.timestamp = self.ButtonTimestamp()
 
     @dataclass
     class ButtonPause():
@@ -255,7 +254,7 @@ class MediaButtons():
 
         print_on_press = "##### BEGIN #####"
 
-        to_enable = ("button_pause", "button_stop", "button_timestamp")
+        to_enable = ("button_pause", "button_stop")
         to_disable = ("button_record", "button_output_select", "button_merge_output_files", \
             "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds")
 
@@ -266,47 +265,6 @@ class MediaButtons():
         height = 48
 
         column = 7
-        row = 0
-
-        columnspan = 1
-        rowspan = 1
-
-        padx = None
-        pady = (5, 0)
-
-        ipadx = None
-        ipady = None
-
-        sticky = "nsew"
-
-        font_family = ""
-        font_size = 12
-        font_weight = "normal"
-        font_slant = "roman"
-        font_underline = 0
-        font_overstrike = 0
-
-    @dataclass
-    class ButtonTimestamp():
-        """This class stores the attributes for the timestamp button."""
-
-        initial_state = NORMAL
-
-        text = None
-        image_file_name = "timestamp.png"
-
-        str_key = "button_timestamp"
-
-        to_enable = ("button_clear_timestamp",)
-        to_disable = ("button_timestamp",)
-
-        background = None
-        foreground = None
-
-        width = 48
-        height = 48
-
-        column = 8
         row = 0
 
         columnspan = 1

@@ -4,6 +4,7 @@ that are executed when a button in the TimeStamper program is pressed."""
 
 from re import match
 from os import path
+from ntpath import basename
 from sys import platform
 from tkinter import Grid, Tk, Label
 from tkinter import DISABLED, NORMAL, filedialog
@@ -232,6 +233,8 @@ class Macros():
                 window_merge_success = self.template.windows.merge_output_files_success
                 label_merge_success = \
                     self.labels.separate_windows.merge_output_files_success
+                merged_notes_file = basename(merged_notes_path)
+                label_merge_success.text = label_merge_success.success_message(merged_notes_file)
                 self.display_window(window_merge_success, label_merge_success)
 
     def merge_notes(self, files_to_read):

@@ -54,7 +54,7 @@ class TimerLabels():
         width = 1
         height = 1
 
-        column = 12
+        column = 13
         row = 5
 
         columnspan = 1
@@ -94,7 +94,7 @@ class TimerLabels():
         width = 1
         height = 1
 
-        column = 14
+        column = 15
         row = 5
 
         columnspan = 1
@@ -134,7 +134,7 @@ class TimerLabels():
         width = 1
         height = 1
 
-        column = 16
+        column = 17
         row = 5
 
         columnspan = 1
@@ -174,7 +174,7 @@ class TimerLabels():
         width = 1
         height = 1
 
-        column = 18
+        column = 19
         row = 5
 
         columnspan = 1

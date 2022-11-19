@@ -65,10 +65,11 @@ class SeparateWindowLabels():
             "The current timestamp is displayed to the left " \
             "of the input box at the bottom of the window.\n" \
             "The current timestamp will be synchronized with the timer until you\n" \
-            "press the timestamp button (to the right of the record button).\n" \
+            "press the timestamp button (located directly below the timestamp).\n" \
             "When you press the timestamp button, the timestamp will be set to the\n" \
             "exact reading that the timer was at when you pressed the button.\n\n" \
-            "To clear a timestamp, press the \"Clear timestamp\" button.\n" \
+            "To clear a timestamp, press the clear timestamp button " \
+            "(located to the right of the timestamp button).\n" \
             "Doing so will unfreeze the timestamp reading, resynchronizing it with the timer.\n\n" \
             "To save a note, type it into the text box at the bottom of " \
             "the screen and then click on the \"Save note\" button.\n" \
@@ -162,8 +163,8 @@ class SeparateWindowLabels():
         text = \
             "On the next screen, select all of the Time Stamper\n" \
             "output files whose notes you would like to merge.\n" \
-            "You can select multiple files using ctrl+click\n" \
-            "(or command+click on Macs).\n\n" \
+            "You can select one file OR you can select multiple\n" \
+            "files using ctrl+click (or command+click on Macs).\n\n" \
             "Close this window to proceed."
 
         background = None
@@ -199,9 +200,7 @@ class SeparateWindowLabels():
         text = \
             "Next, select the file where the merged notes\n" \
             "should be saved to (just a single file this time).\n" \
-            "This should be a \".txt\" file.\n" \
-            "You can create a new \".txt\" file in the next\n" \
-            "window if you do not have one already.\n\n" \
+            "This should be a \".txt\" file.\n\n" \
             "Close this window to proceed."
 
         background = None
@@ -234,9 +233,17 @@ class SeparateWindowLabels():
         """This class stores the attributes for the label that displays the message
         notifying the user that the program successfully merged the selected output files."""
 
-        text = \
-            "MERGE SUCCESS\n\n" \
-            "Close this window to proceed."
+        def success_message(self, merged_output_file_name):
+            """This method returns the message stating that the merging
+            of the output files was a success, inserting the name of the
+            file storing the merged notes at the appropriate place."""
+
+            return "MERGE SUCCESS\n\n" \
+                "Your merged notes have been saved in:\n" \
+                f"\"{merged_output_file_name}\".\n\n" \
+                "Close this window to proceed."
+
+        text = ""
 
         background = None
         foreground = None
