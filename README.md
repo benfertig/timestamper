@@ -8,7 +8,6 @@ If you would like to run and build this program from the source code, check out 
 * [Running/building from source on Mac](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md)
 
 ## Instructions
-![src/ts_images/timestamper_window_labeled.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/timestamper_window_labeled.png?raw=true)
 
 ## Attribution
 ### Visuals
