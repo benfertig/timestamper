@@ -98,7 +98,8 @@ If you would like to run and build this program from the source code, check out 
 ![src/ts_images/help_images/timer.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/timer.png?raw=true)
 * This area displays the timer's current time. As long as the timer is not running, the user can edit these values. For example:
 ![src/ts_images/help_images/timer_edited.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/timer_edited.png?raw=true)
-* The minimum time supported by the timer is 00h 00m 00.00s and the maximum supported time is 99h 59m 59.99s.
+* The minimum time supported by the timer is 00h 00m 00.00s
+* The maximum time supported by the timer is 99h 59m 59.99s.
 
 ## Attribution
 ### Visuals
