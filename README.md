@@ -57,7 +57,7 @@ If you would like to run and build this program from the source code, check out 
     * Press this button to unfreeze the timestamp and resynchronize it with the timer.
 
 ### 12 - Help button
-* Press this button for instructions on how to use this program.
+* Press this button for instructions on how to use this program (which you probably won't have any need for, considering you are already reading this).
 
 ### 13 - License/Credit button
 * Press this button for information on this program's license and attribution for outside sources.
