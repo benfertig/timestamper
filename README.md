@@ -93,7 +93,7 @@ If you would like to run and build this program from the source code, check out 
                 * [Play icon](https://www.iconfinder.com/icons/211801/play_icon)
                 * [Stop icon](https://www.iconfinder.com/icons/211931/stop_icon)
                 * [Rewind icon](https://www.iconfinder.com/icons/211816/rewind_icon)
-                * [Fast-forward icon](https://www.iconfinder.com/icons/211741/fastforward_icon)
+                * [Fastforward icon](https://www.iconfinder.com/icons/211741/fastforward_icon)
                 * [Record icon](https://www.iconfinder.com/icons/211881/record_icon)
         * License
             * The *Ionicions* pack from *Iconfinder* is licensed under the [MIT License](https://opensource.org/licenses/MIT).
