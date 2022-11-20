@@ -12,37 +12,37 @@ If you would like to run and build this program from the source code, check out 
 
 ### 1 - Pause button
 
-### 2
+### 2 - Play button
 
-### 3
+### 3 - Stop button
 
-### 4
+### 4 - Rewind button
 
-### 5
+### 5 - Fast-forward button
 
-### 6
+### 6 - Record button
 
-### 7
+### 7 - Output select button
 
-### 8
+### 8 - Merge output files button
 
-### 9
+### 9 - Output path
 
-### 10
+### 10 - Notes log
 
 ### 11
 
-### 12
+### 12 - Help button
 
-### 13
+### 13 - License/Credit button
 
-### 14
+### 14 - Current note
 
-### 15
+### 15 - Cancel note button
 
-### 16
+### 16 - Save note button
 
-### 17
+### 17 - Timer
 
 ## Attribution
 ### Visuals
