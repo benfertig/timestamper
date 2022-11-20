@@ -60,7 +60,7 @@ If you would like to run and build this program from the source code, check out 
 * Press this button for instructions on how to use this program (which you probably won't have any need for, considering you are already reading this).
 
 ### 13 - License/Credit button
-* Press this button for information on this program's license and attribution for outside sources.
+* Press this button for this program's licensing information as well as information on attribution for outside sources.
 
 ### 14 - Current note
 * This is the area where the user should type their current note. Pressing the "Save note" button will clear this area and record the text displayed there, ALONG WITH the current timestamp, in the current output file as well as in the notes log (see 10).
