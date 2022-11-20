@@ -80,6 +80,7 @@ class TimeStamperTimer():
 
     def current_time_to_timestamp(self):
         """This method converts the currently diplayed time to a timestamp."""
+
         hours, minutes, seconds, subseconds = self.read_current_time(raw=True)
         return f"[{hours}:{minutes}:{seconds}.{subseconds}]"
 
