@@ -52,7 +52,7 @@ If you would like to run and build this program from the source code, check out 
     * The value displayed here will be added to the beginning of your next note.
 * the timestamp button (bottom-left).
     * Press this button to freeze the timestamp, setting it to the value currently displayed on the timer.
-    * Note: The timestamp button does NOT stop the timer
+    * Note: The timestamp button does NOT stop the timer.
 * the clear timestamp button (bottom-right).
     * Press this button to unfreeze the timestamp and resynchronize it with the timer.
 
