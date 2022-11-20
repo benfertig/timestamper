@@ -65,11 +65,11 @@ If you would like to run and build this program from the source code, check out 
 
 ### 11.1 - Timestamp button
 ![src/ts_images/help_images/button_timestamp.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_timestamp.png?raw=true)
-* Press this button to freeze the timestamp, setting it to the value currently displayed on the timer. The timestamp button does NOT stop the timer.
+* Press this button to freeze the timestamp (see 11), setting it to the value currently displayed on the timer (see 18). The timestamp button does NOT stop the timer.
 
 ### 11.2 - Clear timestamp button
 ![src/ts_images/help_images/button_clear_timestamp.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_clear_timestamp.png?raw=true)
-* Press this button to unfreeze the timestamp, resynchronizing it with the timer.
+* Press this button to unfreeze the timestamp (see 11), resynchronizing it with the timer (see 18).
 
 ### 12 - Help button
 ![src/ts_images/help_images/button_help.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_help.png?raw=true)
