@@ -10,6 +10,70 @@ If you would like to run and build this program from the source code, check out 
 ## Instructions
 ![src/ts_images/timestamper_window_labeled.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/timestamper_window_labeled.png?raw=true)
 
+### 1 - Pause button
+* This button pauses the timer. You must have already selected an output file and begun recording to be able to press the pause button.
+
+### 2 - Play button
+* This button resumes the timer. You must be already paused to be able to press the play button.
+
+### 3 - Stop button
+* This button stops the timer. Pressing the stop button will also record a new note, timestamped with the timer's current time, indicating that the user has finished entering notes, as well as allow the user to select a different output file. After you have pressed the stop button, you cannot enter new notes until you have pressed the record button again.
+
+### 4 - Rewind button
+* This button rewinds the timer the specified amount of seconds (see 4.1).
+
+### 4.1 - Rewind amount
+* Enter the number of seconds you would like to rewind the timer here.
+
+### 5 - Fast-forward button
+* This button fast-forwards the timer the specified amount of seconds (see 5.1).
+
+### 5.1 - Fast-forward amount
+* Enter the number of seconds you would like to fast-forward the timer here.
+
+### 6 - Record button
+* This button starts the timer. Pressing the record button will also record a new note, timestamped with the timer's current time, indicating that the user has begun entering notes. You must press the record button to be able to enter notes, and you cannot press the record button until you have selected an output file (see 7).
+
+### 7 - Output select button
+* Press this button to open a new file dialog window in which you can select an output file to save your notes to. Output file names normally end in ".txt". You must have selected an output file and pressed the record button to be able to enter notes.
+
+### 8 - Merge output files button
+* If you have multiple output files whose notes you would like to merge and sort based on their timestamps, press this button. You will first be prompted to select the output files whose notes you would like to merge. Then, you will be prompted to select file you would like to save the merged notes to.
+
+### 9 - Output path
+* If an output file is currently selected, the path to that file will be displayed here. If an output file is not currently selected, a message prompting the user to select an output file will be displayed here.
+
+### 10 - Notes log
+* All past notes will be displayed here. This area cannot be edited by the user.
+
+### 11 - Timestamp section
+#### This area contains...
+* the current timestamp (top).
+    * The value displayed here will be added to the beginning of your next note.
+* the timestamp button (bottom-left).
+    * Press this button to freeze the timestamp, setting it to the value currently displayed on the timer.
+    * Note: The timestamp button does NOT stop the timer.
+* the clear timestamp button (bottom-right).
+    * Press this button to unfreeze the timestamp and resynchronize it with the timer.
+
+### 12 - Help button
+* Press this button for instructions on how to use this program (which you probably won't have any need for, considering you are already reading this).
+
+### 13 - License/Credit button
+* Press this button for this program's licensing information as well as information on attribution for outside sources.
+
+### 14 - Current note
+* This is the area where the user should type their current note. Pressing the "Cancel note" button (see 15) will clear this area. Pressing the "Save note" button (see 16) will clear this area AND record the text previously entered, ALONG WITH the current timestamp (see 11), in the current output file as well as in the notes log (see 10).
+
+### 15 - Cancel note button
+* Press this button to clear the "Current note" box (see 14) WITHOUT RECORDING THE CURRENT NOTE in the notes log (see 10) or the current output file.
+
+### 16 - Save note button
+* Press this button to clear the "Current note" box (see 14) AND RECORD THE CURRENT NOTE in the notes log (see 10) and the current output file.
+
+### 17 - Timer
+* This area displays the timer's current time. As long as the timer is not running, the user can edit these values. The minimum time supported by this timer is 00:00:00.00 (zero hours, zero minutes and zero seconds) and the maximum supported time is 99:59:59.99 (99 hours, 59 minutes and 59.99 seconds).
+
 ## Attribution
 ### Visuals
 * #### Images
