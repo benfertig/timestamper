@@ -41,7 +41,7 @@ If you would like to run and build this program from the source code, check out 
 * If you have multiple output files whose notes you would like to merge and sort based on their timestamps, press this button. You will first be prompted to select the output files whose notes you would like to merge. Then, you will be prompted to select file you would like to save the merged notes to.
 
 ### 9 - Output path
-* If an output file is currently selected, the path to that file will be displayed here. If an output file is not currently selected, a message will be displayed here, prompting the user to select an output file.
+* If an output file is currently selected, the path to that file will be displayed here. If an output file is not currently selected, a message prompting the user to select an output file will be displayed here.
 
 ### 10 - Notes log
 * All past notes will be displayed here. This area cannot be edited by the user.
