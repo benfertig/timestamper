@@ -63,7 +63,7 @@ If you would like to run and build this program from the source code, check out 
 * Press this button for this program's licensing information as well as information on attribution for outside sources.
 
 ### 14 - Current note
-* This is the area where the user should type their current note. Pressing the "Save note" button will clear this area and record the text displayed there, ALONG WITH the current timestamp, in the current output file as well as in the notes log (see 10).
+* This is the area where the user should type their current note. Pressing the "Cancel note" button (see 15) will clear this area. Pressing the "Save note" button (see 16) will clear this area AND record the text previously entered, ALONG WITH the current timestamp (see 11), in the current output file as well as in the notes log (see 10).
 
 ### 15 - Cancel note button
 * This will clear the current note box (see 14) WITHOUT RECORDING THE CURRENT NOTE in the notes log (see 10) or the current output file.
