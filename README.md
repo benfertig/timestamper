@@ -8,7 +8,7 @@ If you would like to run and build this program from the source code, check out 
 * [Running/building from source on Mac](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md)
 
 ## Usage Instructions
-![src/ts_images/timestamper_window_labeled.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/timestamper_window_labeled.png?raw=true)
+![src/ts_images/timestamper_window_labeled.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/timestamper_window_labeled.png?raw=true)
 
 ### 1 - Pause button
 * This button pauses the timer. You must have already selected an output file and begun recording to be able to press the pause button.
