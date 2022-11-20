@@ -20,13 +20,13 @@ If you would like to run and build this program from the source code, check out 
 * This button stops the timer. Pressing the stop button will also record a new note, timestamped with the timer's current time, indicating that the user has finished entering notes, as well as allow the user to select a different output file. After you have pressed the stop button, you cannot enter new notes until you have pressed the record button again.
 
 ### 4 - Rewind button
-* This button rewinds the timer the specified amount of seconds (see 4.1).
+* This button rewinds the timer the specified number of seconds (see 4.1).
 
 ### 4.1 - Rewind amount
 * Enter the number of seconds you would like to rewind the timer here.
 
 ### 5 - Fast-forward button
-* This button fast-forwards the timer the specified amount of seconds (see 5.1).
+* This button fast-forwards the timer the specified number of seconds (see 5.1).
 
 ### 5.1 - Fast-forward amount
 * Enter the number of seconds you would like to fast-forward the timer here.
