@@ -72,7 +72,7 @@ If you would like to run and build this program from the source code, check out 
 * Press this button to clear the "Current note" box (see 14) AND RECORD THE CURRENT NOTE in the notes log (see 10) and the current output file.
 
 ### 17 - Timer
-* This area displays the timer's current time. As long as the timer is not running, these values can be edited. The minimum time supported by this timer is 00:00:00.00 (zero hours, zero minutes and zero seconds) and the maximum supported time is 99:59:59.99 (99 hours, 59 minutes and 59.99 seconds).
+* This area displays the timer's current time. As long as the timer is not running, the user can edit these values. The minimum time supported by this timer is 00:00:00.00 (zero hours, zero minutes and zero seconds) and the maximum supported time is 99:59:59.99 (99 hours, 59 minutes and 59.99 seconds).
 
 ## Attribution
 ### Visuals
