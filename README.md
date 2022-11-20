@@ -10,8 +10,7 @@ If you would like to run and build this program from the source code, check out 
 ## Instructions
 ![src/ts_images/timestamper_window_labeled.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/timestamper_window_labeled.png?raw=true)
 
-### 1
-#### Pause button
+### 1: Pause button
 
 ### 2
 
