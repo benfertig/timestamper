@@ -57,6 +57,7 @@ class ButtonMacros():
             self.buttons.other.clear_timestamp.str_key: self.button_clear_timestamp_macro, \
             self.buttons.other.help.str_key: self.button_help_macro, \
             self.buttons.other.license.str_key: self.button_license_macro, \
+            self.buttons.other.attribution.str_key: self.button_attribution_macro, \
             self.buttons.other.cancel_note.str_key: self.button_cancel_note_macro, \
             self.buttons.other.save_note.str_key: self.button_save_note_macro, \
         }
@@ -306,6 +307,11 @@ class ButtonMacros():
         # Display the window containing the license and
         # outside attributions along with its relevant label.
         self.parent.display_window(window_license, label_license_message)
+
+    def button_attribution_macro(self):
+        """This method will be executed when the Attribution button is pressed."""
+
+        pass
 
     def button_cancel_note_macro(self):
         """This method will be executed when the "Cancel note" button is pressed."""

@@ -41,5 +41,6 @@ class Buttons():
             self.media.pause, self.media.play, self.media.stop, self.media.rewind, \
             self.media.fast_forward, self.media.record, self.other.output_select, \
             self.other.merge_output_files, self.other.timestamp, self.other.clear_timestamp, \
-            self.other.help, self.other.license, self.other.cancel_note, self.other.save_note
+            self.other.help, self.other.license, self.other.attribution,\
+            self.other.cancel_note, self.other.save_note
         )

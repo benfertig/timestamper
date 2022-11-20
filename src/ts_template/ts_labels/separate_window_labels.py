@@ -126,9 +126,7 @@ class SeparateWindowLabels():
             "GNU General Public License for more details.\n" \
             "You should have received a copy of the GNU General Public License\n" \
             "along with this program.  If not, see <https://www.gnu.org/licenses/>.\n\n" \
-            "Contact: github.cqrde@simplelogin.com\n\n" \
-            "Please visit this program's GitHub repository for a full list of attributions:\n" \
-            "https://github.com/benfertig/timestamper"
+            "Contact: github.cqrde@simplelogin.com"
 
         background = None
         foreground = None

@@ -35,6 +35,7 @@ class OtherButtons():
         self.merge_output_files = self.ButtonMergeOutputFiles()
         self.help = self.ButtonHelp()
         self.license = self.ButtonLicense()
+        self.attribution = self.ButtonAttribution()
         self.cancel_note = self.ButtonCancelNote()
         self.save_note = self.ButtonSaveNote()
         self.timestamp = self.ButtonTimestamp()
@@ -228,10 +229,10 @@ class OtherButtons():
         column = 0
         row = 5
 
-        columnspan = 2
+        columnspan = 1
         rowspan = 1
 
-        padx = (10, 10)
+        padx = (10, 0)
         pady = (8, 0)
 
         ipadx = None
@@ -252,10 +253,48 @@ class OtherButtons():
 
         initial_state = NORMAL
 
-        text = "License/Credit"
+        text = "License"
         image_file_name = None
 
         str_key = "button_license"
+
+        background = None
+        foreground = None
+
+        width = 5
+        height = 1
+
+        column = 1
+        row = 5
+
+        columnspan = 1
+        rowspan = 1
+
+        padx = (0, 10)
+        pady = (8, 0)
+
+        ipadx = None
+        ipady = None
+
+        sticky = "nsew"
+
+        font_family = ""
+        font_size = 8
+        font_weight = "normal"
+        font_slant = "roman"
+        font_underline = 0
+        font_overstrike = 0
+
+    @dataclass
+    class ButtonAttribution():
+        """This class stores the attributes for the attribution button."""
+
+        initial_state = NORMAL
+
+        text = "Attribution"
+        image_file_name = None
+
+        str_key = "button_attribution"
 
         background = None
         foreground = None
