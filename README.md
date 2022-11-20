@@ -69,7 +69,7 @@ If you would like to run and build this program from the source code, check out 
 
 ### 11.2 - Clear timestamp button
 ![src/ts_images/help_images/button_clear_timestamp.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_clear_timestamp.png?raw=true)
-* Press this button to unfreeze the timestamp and resynchronize it with the timer.
+* Press this button to unfreeze the timestamp, resynchronizing it with the timer.
 
 ### 12 - Help button
 ![src/ts_images/help_images/button_help.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_help.png?raw=true)
