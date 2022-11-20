@@ -46,32 +46,34 @@ If you would like to run and build this program from the source code, check out 
 ### 10 - Notes log
 * All past notes will be displayed here. This area cannot be edited by the user.
 
-### 11 - Timestamp section
-#### This area contains...
-* the current timestamp (top).
-    * The value displayed here will be added to the beginning of your next note.
-* the timestamp button (bottom-left).
-    * Press this button to freeze the timestamp, setting it to the value currently displayed on the timer.
-    * Note: The timestamp button does NOT stop the timer.
-* the clear timestamp button (bottom-right).
-    * Press this button to unfreeze the timestamp and resynchronize it with the timer.
+### 11 - Timestamp
+* This displays the current timestamp. The value displayed here will be added to the beginning of your next note. To set a timestamp, press the timestamp button (see 11.1).
+
+### 11.1 - Timestamp button
+* Press this button to freeze the timestamp, setting it to the value currently displayed on the timer. The timestamp button does NOT stop the timer.
+
+### 11.2 - Clear timestamp button
+* Press this button to unfreeze the timestamp and resynchronize it with the timer.
 
 ### 12 - Help button
 * Press this button for instructions on how to use this program (which you probably won't have any need for, considering you are already reading this).
 
-### 13 - License/Credit button
-* Press this button for this program's licensing information as well as information on attribution for outside sources.
+### 13 - License button
+* Press this button to view this program's licensing information.
 
-### 14 - Current note
+### 14 - Attribution button
+* Press this button to view attribution for the outside sources used to help create this program.
+
+### 15 - Current note
 * This is the area where the user should type their current note. Pressing the "Cancel note" button (see 15) will clear this area. Pressing the "Save note" button (see 16) will clear this area AND record BOTH the previously entered text AS WELL AS the current timestamp (see 11) in the current output file as well as in the notes log (see 10).
 
-### 15 - Cancel note button
+### 16 - Cancel note button
 * Press this button to clear the "Current note" box (see 14) WITHOUT RECORDING THE CURRENT NOTE OR TIMESTAMP in the notes log (see 10) or the current output file.
 
-### 16 - Save note button
+### 17 - Save note button
 * Press this button to clear the "Current note" box (see 14) AND RECORD THE CURRENT NOTE WITH THE TIMESTAMP in the notes log (see 10) and the current output file.
 
-### 17 - Timer
+### 18 - Timer
 * This area displays the timer's current time. As long as the timer is not running, the user can edit these values. The minimum time supported by this timer is 00:00:00.00 (zero hours, zero minutes and zero seconds) and the maximum supported time is 99:59:59.99 (99 hours, 59 minutes and 59.99 seconds).
 
 ## Attribution
