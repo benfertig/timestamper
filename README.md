@@ -53,7 +53,7 @@ If you would like to run and build this program from the source code, check out 
 ### 9 - Output path
 * If an output file is currently selected, the path to that file will be displayed here. For example:</br>
 ![src/ts_images/help_images/label_output_path_selected.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/label_output_path_selected.png?raw=true)
-* If an output file is not currently selected, a message prompting the user to select an output file will be displayed here. For example:
+* If an output file is not currently selected, a message prompting the user to select an output file will be displayed here. For example:</br>
 ![src/ts_images/help_images/label_output_path_default.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/label_output_path_default.png?raw=true)
 
 ### 10 - Notes log
