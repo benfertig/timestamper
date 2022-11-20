@@ -66,10 +66,10 @@ If you would like to run and build this program from the source code, check out 
 * This is the area where the user should type their current note. Pressing the "Cancel note" button (see 15) will clear this area. Pressing the "Save note" button (see 16) will clear this area AND record BOTH the previously entered text AS WELL AS the current timestamp (see 11) in the current output file as well as in the notes log (see 10).
 
 ### 15 - Cancel note button
-* Press this button to clear the "Current note" box (see 14) WITHOUT RECORDING THE CURRENT NOTE in the notes log (see 10) or the current output file.
+* Press this button to clear the "Current note" box (see 14) WITHOUT RECORDING THE CURRENT NOTE OR TIMESTAMP in the notes log (see 10) or the current output file.
 
 ### 16 - Save note button
-* Press this button to clear the "Current note" box (see 14) AND RECORD THE CURRENT NOTE in the notes log (see 10) and the current output file.
+* Press this button to clear the "Current note" box (see 14) AND RECORD THE CURRENT NOTE WITH THE TIMESTAMP in the notes log (see 10) and the current output file.
 
 ### 17 - Timer
 * This area displays the timer's current time. As long as the timer is not running, the user can edit these values. The minimum time supported by this timer is 00:00:00.00 (zero hours, zero minutes and zero seconds) and the maximum supported time is 99:59:59.99 (99 hours, 59 minutes and 59.99 seconds).
