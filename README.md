@@ -28,7 +28,7 @@ If you would like to run and build this program from the source code, check out 
 ### 5 - Fast-forward button
 * This button fast-forwards the timer the specified amount of seconds (see 5.1).
 
-### 4.1 - Fast-forward amount
+### 5.1 - Fast-forward amount
 * Enter the number of seconds you would like to fast-forward the timer here.
 
 ### 6 - Record button
