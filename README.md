@@ -15,67 +15,90 @@ If you would like to run and build this program from the source code, check out 
 * This button pauses the timer. You must have already selected an output file and begun recording to be able to press the pause button.
 
 ### 2 - Play button
+![src/ts_images/help_images/button_play.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_play.png?raw=true)
 * This button resumes the timer. You must be already paused to be able to press the play button.
 
 ### 3 - Stop button
+![src/ts_images/help_images/button_stop.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_stop.png?raw=true)
 * This button stops the timer. Pressing the stop button will also record a new note, timestamped with the timer's current time, indicating that the user has finished entering notes, as well as allow the user to select a different output file. After you have pressed the stop button, you cannot enter new notes until you have pressed the record button again.
 
 ### 4 - Rewind button
+![src/ts_images/help_images/button_rewind.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_rewind.png?raw=true)
 * This button rewinds the timer the specified number of seconds (see 4.1).
 
 ### 4.1 - Rewind amount
+![src/ts_images/help_images/rewind_fast_forward_seconds.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/rewind_fast_forward_seconds.png?raw=true)
 * Enter the number of seconds you would like to rewind the timer here.
 
 ### 5 - Fast-forward button
+![src/ts_images/help_images/button_fast_forward.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_fast_forward.png?raw=true)
 * This button fast-forwards the timer the specified number of seconds (see 5.1).
 
 ### 5.1 - Fast-forward amount
+![src/ts_images/help_images/rewind_fast_forward_seconds.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/rewind_fast_forward_seconds.png?raw=true)
 * Enter the number of seconds you would like to fast-forward the timer here.
 
 ### 6 - Record button
+![src/ts_images/help_images/button_record.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_record.png?raw=true)
 * This button starts the timer. Pressing the record button will also record a new note, timestamped with the timer's current time, indicating that the user has begun entering notes. You must press the record button to be able to enter notes, and you cannot press the record button until you have selected an output file (see 7).
 
 ### 7 - Output select button
+![src/ts_images/help_images/button_output_select.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_output_select.png?raw=true)
 * Press this button to open a new file dialog window in which you can select an output file to save your notes to. Output file names normally end in ".txt". You must have selected an output file and pressed the record button to be able to enter notes.
 
 ### 8 - Merge output files button
+![src/ts_images/help_images/button_merge_output_files.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_merge_output_files.png?raw=true)
 * If you have multiple output files whose notes you would like to merge and sort based on their timestamps, press this button. You will first be prompted to select the output files whose notes you would like to merge. Then, you will be prompted to select file you would like to save the merged notes to.
 
 ### 9 - Output path
-* If an output file is currently selected, the path to that file will be displayed here. If an output file is not currently selected, a message prompting the user to select an output file will be displayed here.
+* If an output file is currently selected, the path to that file will be displayed here. For example:
+![src/ts_images/help_images/label_output_path_selected.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/label_output_path_selected.png?raw=true)
+* If an output file is not currently selected, a message prompting the user to select an output file will be displayed here. For example:
+![src/ts_images/help_images/label_output_path_default.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/label_output_path_default.png?raw=true)
 
 ### 10 - Notes log
 * All past notes will be displayed here. This area cannot be edited by the user.
 
 ### 11 - Timestamp
-* This displays the current timestamp. The value displayed here will be added to the beginning of your next note. To set a timestamp, press the timestamp button (see 11.1).
+![src/ts_images/help_images/label_timestamp.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/label_timestamp.png?raw=true)
+* This displays the current timestamp. The value displayed here will be added to the beginning of your next note. To set the timestamp to the timer's current reading, press the timestamp button (see 11.1).
 
 ### 11.1 - Timestamp button
+![src/ts_images/help_images/button_timestamp.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_timestamp.png?raw=true)
 * Press this button to freeze the timestamp, setting it to the value currently displayed on the timer. The timestamp button does NOT stop the timer.
 
 ### 11.2 - Clear timestamp button
+![src/ts_images/help_images/button_clear_timestamp.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_clear_timestamp.png?raw=true)
 * Press this button to unfreeze the timestamp and resynchronize it with the timer.
 
 ### 12 - Help button
+![src/ts_images/help_images/button_help.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_help.png?raw=true)
 * Press this button for instructions on how to use this program (which you probably won't have any need for, considering you are already reading this).
 
 ### 13 - License button
+![src/ts_images/help_images/button_license.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_license.png?raw=true)
 * Press this button to view this program's licensing information.
 
 ### 14 - Attribution button
+![src/ts_images/help_images/button_attribution.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_attribution.png?raw=true)
 * Press this button to view attribution for the outside sources used to help create this program.
 
 ### 15 - Current note
 * This is the area where the user should type their current note. Pressing the "Cancel note" button (see 15) will clear this area. Pressing the "Save note" button (see 16) will clear this area AND record BOTH the previously entered text AS WELL AS the current timestamp (see 11) in the current output file as well as in the notes log (see 10).
 
 ### 16 - Cancel note button
+![src/ts_images/help_images/button_cancel_note.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_cancel_note.png?raw=true)
 * Press this button to clear the "Current note" box (see 14) WITHOUT RECORDING THE CURRENT NOTE OR TIMESTAMP in the notes log (see 10) or the current output file.
 
 ### 17 - Save note button
+![src/ts_images/help_images/button_save_note.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_save_note.png?raw=true)
 * Press this button to clear the "Current note" box (see 14) AND RECORD THE CURRENT NOTE WITH THE TIMESTAMP in the notes log (see 10) and the current output file.
 
 ### 18 - Timer
-* This area displays the timer's current time. As long as the timer is not running, the user can edit these values. The minimum time supported by this timer is 00:00:00.00 (zero hours, zero minutes and zero seconds) and the maximum supported time is 99:59:59.99 (99 hours, 59 minutes and 59.99 seconds).
+![src/ts_images/help_images/timer.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/timer.png?raw=true)
+* This area displays the timer's current time. As long as the timer is not running, the user can edit these values. For example:
+![src/ts_images/help_images/timer_edited.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/timer_edited.png?raw=true)
+* The minimum time supported by this timer is 00:00:00.00 (zero hours, zero minutes and zero seconds) and the maximum supported time is 99:59:59.99 (99 hours, 59 minutes and 59.99 seconds).
 
 ## Attribution
 ### Visuals
