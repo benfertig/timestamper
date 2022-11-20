@@ -30,7 +30,12 @@ If you would like to run and build this program from the source code, check out 
 
 ### 10 - Notes log
 
-### 11
+### 11 - Timestamp section
+This area contains...
+* the current timestamp (top). The value displayed here will be added to the beginning of your next note.
+* The timestamp button (bottom-left). Press this button to set the current timestamp to the value currently displayed on the timer.
+    * Note: The timestamp button does NOT stop the timer
+* The clear timestamp button (bottom-right). Press this button to unfreeze the timestamp and resynchronize it with the timer.
 
 ### 12 - Help button
 
