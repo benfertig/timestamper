@@ -38,7 +38,7 @@ If you would like to run and build this program from the source code, check out 
 * Press this button to open a new file dialog window in which you can select an output file to save your notes to. Output file names normally end in ".txt". You must have selected an output file and pressed the record button to be able to enter notes.
 
 ### 8 - Merge output files button
-* If you have multiple output files whose notes you would like to merge and sort based on their timestamps, press this button. You will first be prompted to select the output files whose notes you would like to merge, followed by the file you would like to save the merged notes to.
+* If you have multiple output files whose notes you would like to merge and sort based on their timestamps, press this button. You will first be prompted to select the output files whose notes you would like to merge. Then, you will be prompted to select file you would like to save the merged notes to.
 
 ### 9 - Output path
 * If an output file is currently selected, the path to that file will be displayed here. If an output file is not currently selected, a message will be displayed here, prompting the user to select an output file.
