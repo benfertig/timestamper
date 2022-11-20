@@ -51,7 +51,7 @@ If you would like to run and build this program from the source code, check out 
 * If you have multiple output files whose notes you would like to merge and sort based on their timestamps, press this button. You will first be prompted to select the output files whose notes you would like to merge. Then, you will be prompted to select file you would like to save the merged notes to.
 
 ### 9 - Output path
-* If an output file is currently selected, the path to that file will be displayed here. For example:
+* If an output file is currently selected, the path to that file will be displayed here. For example:</br>
 ![src/ts_images/help_images/label_output_path_selected.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/label_output_path_selected.png?raw=true)
 * If an output file is not currently selected, a message prompting the user to select an output file will be displayed here. For example:
 ![src/ts_images/help_images/label_output_path_default.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/label_output_path_default.png?raw=true)
