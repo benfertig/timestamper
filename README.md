@@ -85,15 +85,15 @@ If you would like to run and build this program from the source code, check out 
 * Press this button to view attribution for the outside sources that were used to help create this program, which can also be found **[at the bottom of this README](https://github.com/benfertig/timestamper/blob/main/README.md#attribution)**.
 
 ### 15 - Current note
-* This is the area where the user should type their current note. Pressing the "Cancel note" button (see 15) will clear this area. Pressing the "Save note" button (see 16) will clear this area AND record BOTH the previously entered text AS WELL AS the current timestamp (see 11) in the current output file as well as in the notes log (see 10).
+* This is the area where the user should type their current note. Pressing the "Cancel note" button (see 16) will clear this area. Pressing the "Save note" button (see 17) will clear this area AND record BOTH the previously entered text AS WELL AS the current timestamp (see 11) in the current output file as well as in the notes log (see 10).
 
 ### 16 - Cancel note button
 ![src/ts_images/help_images/button_cancel_note.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_cancel_note.png?raw=true)
-* Press this button to clear the "Current note" box (see 14) WITHOUT RECORDING THE CURRENT NOTE OR TIMESTAMP in the notes log (see 10) or the current output file (see 9).
+* Press this button to clear the "Current note" box (see 15) WITHOUT RECORDING THE CURRENT NOTE OR TIMESTAMP (see 11) in the notes log (see 10) or the current output file (see 9).
 
 ### 17 - Save note button
 ![src/ts_images/help_images/button_save_note.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_save_note.png?raw=true)
-* Press this button to clear the "Current note" box (see 14) AND RECORD THE CURRENT NOTE WITH THE TIMESTAMP in the notes log (see 10) and the current output file (see 9).
+* Press this button to clear the "Current note" box (see 15) AND RECORD THE CURRENT NOTE WITH THE TIMESTAMP (see 11) in the notes log (see 10) and the current output file (see 9).
 
 ### 18 - Timer
 ![src/ts_images/help_images/timer.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/timer.png?raw=true)
