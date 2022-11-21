@@ -82,7 +82,7 @@ If you would like to run and build this program from the source code, check out 
 
 ### 14 - Attribution button
 ![src/ts_images/help_images/button_attribution.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_attribution.png?raw=true)
-* Press this button to view attribution for the outside sources that were used to help create this program, which can also be found [at the bottom of this README](https://github.com/benfertig/timestamper/blob/main/README.md#attribution).
+* Press this button to view attribution for the outside sources that were used to help create this program, **which can also be found [at the bottom of this README]**(https://github.com/benfertig/timestamper/blob/main/README.md#attribution).
 
 ### 15 - Current note
 * This is the area where the user should type their current note. Pressing the "Cancel note" button (see 15) will clear this area. Pressing the "Save note" button (see 16) will clear this area AND record BOTH the previously entered text AS WELL AS the current timestamp (see 11) in the current output file as well as in the notes log (see 10).
