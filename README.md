@@ -55,7 +55,7 @@ If you would like to run and build this program from the source code, check out 
 ![src/ts_images/help_images/label_output_path_selected.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/label_output_path_selected.png?raw=true)
 * If an output file is not currently selected, a message prompting the user to select an output file will be displayed here. For example:</br>
 ![src/ts_images/help_images/label_output_path_default.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/label_output_path_default.png?raw=true)
-* To select an output file, press the output select button (see 7).
+* If you have not selected an output file, you cannot write notes. To select an output file, press the output select button (see 7).
 
 ### 10 - Notes log
 * All past notes will be displayed here. This area cannot be edited by the user.
