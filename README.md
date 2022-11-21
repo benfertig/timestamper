@@ -62,7 +62,7 @@ If you would like to run and build this program from the source code, check out 
 
 ### 11 - Timestamp
 ![src/ts_images/help_images/label_timestamp.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/label_timestamp.png?raw=true)
-* This displays the current timestamp. The value displayed here will be added to the beginning of your next note. To set the timestamp to the timer's current value, press the timestamp button (see 11.1).
+* This displays the current timestamp. The value displayed here will be added to the beginning of your next note. To freeze the current timestamp and set it to the timer's current value, press the timestamp button (see 11.1). To unfreeze the current timestamp and resynchronize it with the timer, press the clear timestamp button (see 11.2).
 
 ### 11.1 - Timestamp button
 ![src/ts_images/help_images/button_timestamp.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_timestamp.png?raw=true)
