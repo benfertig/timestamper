@@ -28,7 +28,7 @@ You will be downloading one of the *Windows* installers for *Miniconda*. There i
 Once you have downloaded the correct *Miniconda* installer for your *Windows* computer, run the installer to install *Python* with *Miniconda*.
 
 ## Run from source on *Windows*
-[Download the *timestamper* repository to your computer](https://github.com/benfertig/timestamper/archive/refs/heads/main.zip) if you have not done so already.<br />
+[**Download the *timestamper* repository to your computer**](https://github.com/benfertig/timestamper/archive/refs/heads/main.zip) if you have not done so already.<br />
 
 Open a new *Command Prompt* window and navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer:
 ```
