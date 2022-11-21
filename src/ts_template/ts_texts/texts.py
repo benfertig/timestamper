@@ -34,6 +34,7 @@ class Texts():
 
         self.log = self.TextLog()
         self.current_note = self.TextCurrentNote()
+        self.attribution = self.TextAttribution()
 
         self.all_templates = (
             self.log, self.current_note
@@ -92,6 +93,45 @@ class Texts():
 
         padx = (0, 5)
         pady = (6, 0)
+
+        ipadx = None
+        ipady = None
+
+        sticky = "nsew"
+
+        font_family = ""
+        font_size = 12
+        font_weight = "normal"
+        font_slant = "roman"
+        font_underline = 0
+        font_overstrike = 0
+
+    @dataclass
+    class TextAttribution():
+        """This class stores the attributes for the text box in the "Attribution" window."""
+
+        attr_msg_file_name = "attribution_message.txt"
+        attr_msg_encoding = "utf-8"
+        text = ""
+
+        with open(attr_msg_file_name, "r", encoding=attr_msg_encoding) as attr_msg:
+            text = attr_msg.read()
+
+        initial_state = DISABLED
+
+        str_key = "text_attribution"
+
+        width = 107
+        height = 30
+
+        column = 1
+        row = 1
+
+        columnspan = 1
+        rowspan = 1
+
+        padx = (5, 5)
+        pady = (5, 5)
 
         ipadx = None
         ipady = None

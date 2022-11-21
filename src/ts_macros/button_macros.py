@@ -41,6 +41,15 @@ class ButtonMacros():
         # Map buttons to their macros.
         self.mapping = { \
 
+            # File buttons
+            self.buttons.file.output_select.str_key: self.button_output_select_macro, \
+            self.buttons.file.merge_output_files.str_key: self.button_merge_output_files_macro, \
+
+            # Info buttons
+            self.buttons.info.help.str_key: self.button_help_macro, \
+            self.buttons.info.license.str_key: self.button_license_macro, \
+            self.buttons.info.attribution.str_key: self.button_attribution_macro, \
+
             # Media buttons
             self.buttons.media.pause.str_key: self.button_pause_macro, \
             self.buttons.media.play.str_key: self.button_play_macro, \
@@ -49,17 +58,14 @@ class ButtonMacros():
             self.buttons.media.fast_forward.str_key: self.button_fast_forward_macro, \
             self.buttons.media.record.str_key: self.button_record_macro, \
 
-            # Other buttons
-            self.buttons.other.output_select.str_key: self.button_output_select_macro, \
-            self.buttons.other.merge_output_files.str_key: \
-                self.button_merge_output_files_macro, \
-            self.buttons.other.timestamp.str_key: self.button_timestamp_macro, \
-            self.buttons.other.clear_timestamp.str_key: self.button_clear_timestamp_macro, \
-            self.buttons.other.help.str_key: self.button_help_macro, \
-            self.buttons.other.license.str_key: self.button_license_macro, \
-            self.buttons.other.attribution.str_key: self.button_attribution_macro, \
-            self.buttons.other.cancel_note.str_key: self.button_cancel_note_macro, \
-            self.buttons.other.save_note.str_key: self.button_save_note_macro, \
+            # Note buttons
+            self.buttons.notes.cancel_note.str_key: self.button_cancel_note_macro, \
+            self.buttons.notes.save_note.str_key: self.button_save_note_macro, \
+
+            # Timestamping buttons
+            self.buttons.timestamping.timestamp.str_key: self.button_timestamp_macro, \
+            self.buttons.timestamping.clear_timestamp.str_key: self.button_clear_timestamp_macro, \
+
         }
 
     def button_pause_macro(self):
@@ -185,7 +191,7 @@ class ButtonMacros():
         self.parent.button_enable_disable_macro(self.buttons.media.record)
 
         # Start the timer.
-        t_s_timer.record()
+        t_s_timer.play()
 
     def button_timestamp_macro(self):
         """This method will be executed when the timestamp button is pressed."""
@@ -200,7 +206,7 @@ class ButtonMacros():
         obj_timestamp["text"] = current_timestamp
 
         # Enable and disable the relevant buttons for when the timestamp button is pressed.
-        self.parent.button_enable_disable_macro(self.buttons.other.timestamp)
+        self.parent.button_enable_disable_macro(self.buttons.timestamping.timestamp)
 
     def button_output_select_macro(self):
         """This method will be executed when the "Choose output location" button is pressed."""
@@ -208,7 +214,7 @@ class ButtonMacros():
         # Get the path to the selected output file.
         file_types = (("text files", "*.txt"), ('All files', '*.*'))
         file_full_path = filedialog.askopenfilename(title="Select a file", \
-            initialdir=self.buttons.other.output_select.starting_dir, filetypes=file_types)
+            initialdir=self.buttons.file.output_select.starting_dir, filetypes=file_types)
 
         # Only display the output file path, enable the relevant buttons and repopulate
         # the text displaying the notes log if an output file has been selected.
@@ -246,13 +252,14 @@ class ButtonMacros():
             # Indicate that the relevant buttons should be disabled.
             button_toggle_status = DISABLED
 
-        # Either enable or disable the relevant buttons,
-        # depending on whether an output file has been selected.
+        # Enable the relevant buttons if an output file has been selected.
         if button_toggle_status == NORMAL:
-            for str_button in self.buttons.other.output_select.to_enable_toggle:
+            for str_button in self.buttons.file.output_select.to_enable_toggle:
                 self.parent.enable_button(str_button)
+
+        # Disable the relevant buttons if an output file has not been selected.
         else:
-            for str_button in self.buttons.other.output_select.to_enable_toggle:
+            for str_button in self.buttons.file.output_select.to_enable_toggle:
                 self.parent.disable_button(str_button)
 
     def button_merge_output_files_macro(self):
@@ -260,8 +267,8 @@ class ButtonMacros():
 
         # Store the objects (templates) containining attributes for the first window with output
         # merge instructions, along with its relevant label, into abbreviated variable names.
-        window_merge_1 = self.template.windows.merge_output_files_first_message
-        label_merge_1 = self.labels.separate_windows.merge_output_files_first_message
+        window_merge_1 = self.template.windows.merge.output_files_first_message
+        label_merge_1 = self.labels.separate_windows.merge.output_files_first_message
 
         # Call the function that will display the first window with instructions
         # on how to merge output files, passing a macro that will make the first
@@ -283,7 +290,7 @@ class ButtonMacros():
         obj_timestamp["text"] = f"[{hours}:{minutes}:{seconds}.{subseconds}]"
 
         # Enable and disable the relevant buttons for when the clear timestamp button is pressed.
-        self.parent.button_enable_disable_macro(self.buttons.other.clear_timestamp)
+        self.parent.button_enable_disable_macro(self.buttons.timestamping.clear_timestamp)
 
     def button_help_macro(self):
         """This method will be executed when the "Help" button is pressed."""
@@ -311,7 +318,9 @@ class ButtonMacros():
     def button_attribution_macro(self):
         """This method will be executed when the Attribution button is pressed."""
 
-        pass
+        window_attribution = self.template.windows.attribution
+
+        self.parent.display_window(window_attribution, self.texts.attribution)
 
     def button_cancel_note_macro(self):
         """This method will be executed when the "Cancel note" button is pressed."""
@@ -321,7 +330,7 @@ class ButtonMacros():
         obj_current_note.delete(1.0, END)
 
         # Enable and disable the relevant buttons for when the cancel note button is pressed.
-        self.parent.button_enable_disable_macro(self.buttons.other.cancel_note)
+        self.parent.button_enable_disable_macro(self.buttons.notes.cancel_note)
 
     def button_save_note_macro(self):
         """This method will be executed when the "Save note" button is pressed."""
@@ -366,4 +375,4 @@ class ButtonMacros():
                 out_file.write(to_write)
 
         # Enable and disable the relevant buttons for when the save note button is pressed.
-        self.parent.button_enable_disable_macro(self.buttons.other.save_note)
+        self.parent.button_enable_disable_macro(self.buttons.notes.save_note)

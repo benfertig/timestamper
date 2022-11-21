@@ -93,7 +93,7 @@ class TimeStamperTemplate():
     class Path():
         """This class stores the attributes for file paths."""
 
-        images_dir = path.join(resource_path(), "ts_images")
+        images_dir = path.join(resource_path(), "ts_images", "program_images")
 
     @dataclass
     class Timer():
@@ -111,10 +111,82 @@ class TimeStamperTemplate():
             self.main = self.WindowMain()
             self.help = self.WindowHelp()
             self.license = self.WindowLicense()
-            self.merge_output_files_first_message = self.WindowMergeOutputFilesFirstMessage()
-            self.merge_output_files_second_message = self.WindowMergeOutputFilesSecondMessage()
-            self.merge_output_files_success = self.WindowMergeOutputFilesSuccess()
-            self.merge_output_files_failure = self.WindowMergeOutputFilesFailure()
+            self.attribution = self.WindowAttribution()
+            self.merge = self.WindowsMerge()
+
+        @dataclass
+        class WindowsMerge():
+            """This class stores the templates of all windows
+            associated with the "Merge output files" function."""
+
+            def __init__(self):
+                self.output_files_first_message = self.WindowMergeOutputFilesFirstMessage()
+                self.output_files_second_message = self.WindowMergeOutputFilesSecondMessage()
+                self.output_files_success = self.WindowMergeOutputFilesSuccess()
+                self.output_files_failure = self.WindowMergeOutputFilesFailure()
+
+            @dataclass
+            class WindowMergeOutputFilesFirstMessage():
+                """This class stores the attributes for the window that displays
+                the first instruction to the user on how to merge output files."""
+
+                title = "Step 1: Select files to merge"
+                icon_windows = "timestamp_icon.ico"
+                icon_mac = "timestamp_icon.icns"
+
+                background = None
+                foreground = None
+
+                num_columns = 1
+                num_rows = 1
+
+            @dataclass
+            class WindowMergeOutputFilesSecondMessage():
+                """This class stores the attributes for the window that displays
+                the second instruction to the user on how to merge output files."""
+
+                title = "Step 2: Store merge"
+                icon_windows = "timestamp_icon.ico"
+                icon_mac = "timestamp_icon.icns"
+
+                background = None
+                foreground = None
+
+                num_columns = 1
+                num_rows = 1
+
+            @dataclass
+            class WindowMergeOutputFilesSuccess():
+                """This class stores the attributes for the window that
+                displays the message notifying the user that the program
+                successfully merged the selected output files."""
+
+                title = "Merge success"
+                icon_windows = "timestamp_icon.ico"
+                icon_mac = "timestamp_icon.icns"
+
+                background = None
+                foreground = None
+
+                num_columns = 1
+                num_rows = 1
+
+            @dataclass
+            class WindowMergeOutputFilesFailure():
+                """This class stores the attributes for the window that displays
+                the message stating that the program failed to merge output files
+                (due to the fact that the user tried to send the merged notes to
+                a file whose notes would have already been part of the merge)."""
+
+                title = "Merge failure"
+                icon_windows = "timestamp_icon.ico"
+                icon_mac = "timestamp_icon.icns"
+
+                background = None
+                foreground = None
+
+                num_columns = 1
+                num_rows = 1
 
         @dataclass
         class WindowMain():
@@ -162,58 +234,11 @@ class TimeStamperTemplate():
             num_rows = 1
 
         @dataclass
-        class WindowMergeOutputFilesFirstMessage():
-            """This class stores the attributes for the window that displays
-            the first instruction to the user on how to merge output files."""
+        class WindowAttribution():
 
-            title = "Step 1: Select files to merge"
-            icon_windows = "timestamp_icon.ico"
-            icon_mac = "timestamp_icon.icns"
+            """This class stores the attributes for the attribution window."""
 
-            background = None
-            foreground = None
-
-            num_columns = 1
-            num_rows = 1
-
-        @dataclass
-        class WindowMergeOutputFilesSecondMessage():
-            """This class stores the attributes for the window that displays
-            the second instruction to the user on how to merge output files."""
-
-            title = "Step 2: Store merge"
-            icon_windows = "timestamp_icon.ico"
-            icon_mac = "timestamp_icon.icns"
-
-            background = None
-            foreground = None
-
-            num_columns = 1
-            num_rows = 1
-
-        @dataclass
-        class WindowMergeOutputFilesSuccess():
-            """This class stores the attributes for the window that displays the message
-            notifying the user that the program successfully merged the selected output files."""
-
-            title = "Merge success"
-            icon_windows = "timestamp_icon.ico"
-            icon_mac = "timestamp_icon.icns"
-
-            background = None
-            foreground = None
-
-            num_columns = 1
-            num_rows = 1
-
-        @dataclass
-        class WindowMergeOutputFilesFailure():
-            """This class stores the attributes for the window that displays
-            the message stating that the program failed to merge output files
-            (due to the fact that the user tried to send the merged notes to
-            a file whose notes would have already been part of the merge)."""
-
-            title = "Merge failure"
+            title = "Attribution"
             icon_windows = "timestamp_icon.ico"
             icon_mac = "timestamp_icon.icns"
 

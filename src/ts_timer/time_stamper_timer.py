@@ -293,11 +293,3 @@ class TimeStamperTimer():
         hours, minutes, seconds, subseconds = \
             self.timing.seconds_to_h_m_s(current_time_seconds, pad=2)
         self.display_time(hours, minutes, seconds, subseconds)
-
-    def record(self):
-        """This method initially starts the timer and is
-        typically run when the record button is pressed."""
-
-        # The record method, in its current form, serves
-        # merely as a wrapper for the play method.
-        self.play()

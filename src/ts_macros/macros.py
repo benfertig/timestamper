@@ -6,8 +6,8 @@ from re import match
 from os import path
 from ntpath import basename
 from sys import platform
-from tkinter import Grid, Tk, Label
-from tkinter import DISABLED, NORMAL, filedialog
+from tkinter import Grid, Tk
+from tkinter import DISABLED, NORMAL, END, filedialog
 from .button_macros import ButtonMacros
 
 if platform == "darwin":
@@ -37,18 +37,16 @@ class Macros():
     in the TimeStamper program is pressed. This class' constructor takes one
     argument, template, which should be an instance of the TimeStamperTemplate class."""
 
-    def __init__(self, template):
+    def __init__(self, template, widget_creators, widget_creators_separate_window):
         """The constructor initializes the Time Stamper template as well as dictionaries which
         map object string keys to their corresponding objects and corresponding macros."""
 
         self.template = template
 
-        self.button_macros = ButtonMacros(self)
+        self.widget_creators = widget_creators
+        self.widget_creators_separate_window = widget_creators_separate_window
 
-        # Create shortened references to the most common object templates used by this class.
-        self.buttons = self.template.fields.buttons
-        self.labels = self.template.fields.labels
-        self.texts = self.template.fields.texts
+        self.button_macros = ButtonMacros(self)
 
         # Create a dict to map object string keys to their objects.
         self.object_mapping = {}
@@ -96,8 +94,8 @@ class Macros():
 
     def button_enable_disable_macro(self, button_template):
         """This method, which is called upon by several button macros, will enable and
-        disable the buttons associated with the string keys from the to_enable and
-        to_disable attributes of a specific Button from the TimeStamperTemplate class."""
+        disable the buttons associated with the string keys from the "to_enable" and
+        "to_disable" attributes of a specific Button from the TimeStamperTemplate class."""
 
         # Enable the buttons stored in the button template's to_enable variable.
         for str_button in button_template.to_enable:
@@ -107,11 +105,11 @@ class Macros():
         for str_button in button_template.to_disable:
             self.disable_button(str_button)
 
-    def display_window(self, window_template, \
-        label_template, close_window_macro=None, macro_args=()):
-        """This method opens a window and displays a message. The attributes of the
-        window (window_template) and label (label_template) are passed as templates (see the
-        time_stamper_template module). This method also takes the following optional arguments:
+    def display_window(self, window_template, to_display_template, \
+        close_window_macro=None, macro_args=()):
+        """This method opens a window and displays a message. The attributes of the window
+        (window_template) and entry/label/text (to_display_template) are passed as templates (see
+        the time_stamper_template module). This method also takes the following optional arguments:
             1) close_window_macro: a method that will be executed when the window created by
                this method (whose characteristics are outlined in window_template) is closed.
             2) macro_args: a tuple containing any arguments for close_window_macro.
@@ -121,12 +119,11 @@ class Macros():
                close_window_macro takes any ADDITIONAL arguments besides the window itself.
         """
 
-        # Create the first output file merge window message with
-        # the relevant title, dimensions, background and icon.
-        window_merge = Tk()
-        window_merge.title(window_template.title)
-        window_merge["background"] = window_template.background
-        window_merge["foreground"] = window_template.foreground
+        # Create the window with the relevant title, dimensions, background and icon.
+        window = Tk()
+        window.title(window_template.title)
+        window["background"] = window_template.background
+        window["foreground"] = window_template.foreground
 
         # If we are on a Mac, the window icon needs to be a .icns file.
         # On Windows, the window icon needs to be a .ico file.
@@ -136,32 +133,41 @@ class Macros():
             icon_file_name = window_template.icon_windows
 
         # Set the window icon.
-        window_merge.iconbitmap(path.join(self.template.path.images_dir, icon_file_name))
+        window.iconbitmap(path.join(self.template.path.images_dir, icon_file_name))
 
         # Configure the window's columns and rows.
         for column_num in range(window_template.num_columns):
-            Grid.columnconfigure(window_merge, column_num, weight=1)
+            Grid.columnconfigure(window, column_num, weight=1)
         for row_num in range(window_template.num_rows):
-            Grid.rowconfigure(window_merge, row_num, weight=1)
+            Grid.rowconfigure(window, row_num, weight=1)
 
-        # Create the Label that will display the message
-        # in the first output file merge window.
-        label_merge_font = (f"{label_template.font_family} {label_template.font_size}")
-        label_merge = Label(window_merge, height=label_template.height, \
-            width=label_template.width, background=label_template.background, \
-            foreground=label_template.foreground, text=label_template.text, \
-            justify=label_template.justify, font=label_merge_font)
-        label_merge.grid(column=label_template.column, row=label_template.row, \
-        columnspan=label_template.columnspan, rowspan=label_template.rowspan, \
-        padx=label_template.padx, pady=label_template.pady, ipadx=label_template.ipadx, \
-        ipady=label_template.ipady, sticky=label_template.sticky)
+        # The method that will be used to create the widget in the new
+        # window changes depending on the type of widget we want to create.
+        # We can find the widget type from the widget template's string key.
+        widget_create_method_mapping = { \
+            "button": self.widget_creators_separate_window.create_button, \
+            "entry": self.widget_creators_separate_window.create_entry, \
+            "label": self.widget_creators_separate_window.create_label, \
+            "text": self.widget_creators_separate_window.create_text}
 
-        macro_args = (window_merge,) + macro_args
+        # Set the root for the widget_creators object to the new window.
+        self.widget_creators_separate_window.root = window
 
+        # Call the appropriate widget creation method based on the widget template's string key.
+        widget_type = to_display_template.str_key[:to_display_template.str_key.find("_")]
+        new_widget = widget_create_method_mapping[widget_type](to_display_template, self)
+
+        if widget_type == "text":
+            new_widget["state"] = NORMAL
+            new_widget.insert(END, to_display_template.text)
+            new_widget["state"] = DISABLED
+
+        # If a function should be executed when this new window is closed, set that function here.
         if close_window_macro:
-            window_merge.protocol("WM_DELETE_WINDOW", lambda: close_window_macro(*macro_args))
+            macro_args = (window,) + macro_args
+            window.protocol("WM_DELETE_WINDOW", lambda: close_window_macro(*macro_args))
 
-        window_merge.mainloop()
+        window.mainloop()
 
     def on_close_window_merge_1_macro(self, window_merge):
         """This method will be executed when the FIRST window displaying
@@ -172,7 +178,8 @@ class Macros():
         # The user will be prompted to select the files whose notes they wish to merge.
         file_types = (("text files", "*.txt"), ('All files', '*.*'))
         files_full_paths = filedialog.askopenfilenames(title="Select output files to merge", \
-            initialdir=self.buttons.other.output_select.starting_dir, filetypes=file_types)
+            initialdir=self.template.fields.buttons.file.output_select.starting_dir, \
+            filetypes=file_types)
 
         # Only merge the notes if at least one file was selected.
         if files_full_paths:
@@ -180,9 +187,9 @@ class Macros():
             # Store the objects (templates) containining attributes for
             # the second window with output merge instructions, along
             # with its relevant label, into abbreviated variable names.
-            window_merge_2 = self.template.windows.merge_output_files_second_message
+            window_merge_2 = self.template.windows.merge.output_files_second_message
             label_merge_2 = \
-                self.labels.separate_windows.merge_output_files_second_message
+                self.template.fields.labels.separate_windows.merge.output_files_second_message
 
             # Call the function that will display the second window with instructions
             # on how to merge output files, passing a macro that will make the second
@@ -201,7 +208,8 @@ class Macros():
         file_types = (("text files", "*.txt"), ('All files', '*.*'))
         merged_notes_path = \
             filedialog.askopenfilename(title="Select destination for merged outputs", \
-            initialdir=self.buttons.other.output_select.starting_dir, filetypes=file_types)
+            initialdir=self.template.fields.buttons.file.output_select.starting_dir, \
+            filetypes=file_types)
 
         # Only proceed with attempting to merge the notes if
         # the user selected a file to save the merged notes to.
@@ -211,9 +219,9 @@ class Macros():
             # be a part of the merge, do not merge the notes and instead display a failure message.
             if merged_notes_path in files_full_paths:
 
-                window_merge_fail = self.template.windows.merge_output_files_failure
+                window_merge_fail = self.template.windows.merge.output_files_failure
                 label_merge_fail = \
-                    self.labels.separate_windows.merge_output_files_failure
+                    self.template.fields.labels.separate_windows.merge.output_files_failure
                 self.display_window(window_merge_fail, label_merge_fail)
 
             # If the user chose a unique file to save the merged notes to that
@@ -230,22 +238,22 @@ class Macros():
                         out.write(note)
 
                 # Display a message that the notes were successfully merged.
-                window_merge_success = self.template.windows.merge_output_files_success
+                window_merge_success = self.template.windows.merge.output_files_success
                 label_merge_success = \
-                    self.labels.separate_windows.merge_output_files_success
+                    self.template.fields.labels.separate_windows.merge.output_files_success
                 merged_notes_file = basename(merged_notes_path)
                 label_merge_success.text = label_merge_success.success_message(merged_notes_file)
                 self.display_window(window_merge_success, label_merge_success)
 
-    def merge_notes(self, files_to_read):
-        """This method takes a list of file paths and merges the notes written
-        to those files into one list sorted by the time each note was written."""
+    def store_timestamper_output(self, output_file_paths):
+        """This method reads through timestamper output files saved in "all_files" (which should
+        be a list of file paths) and saves the notes stored in these files to a list."""
 
         all_notes = []
         cur_note = ""
 
-        # Read through the input files of notes and save the lines to a list.
-        for input_file in files_to_read:
+        # Iterate over every file specified in "output_file_paths".
+        for input_file in output_file_paths:
             with open(input_file, "r", encoding=self.template.output_file.encoding) as in_file:
                 for line in in_file:
 
@@ -264,26 +272,75 @@ class Macros():
         if cur_note:
             all_notes.append(cur_note)
 
+        return all_notes
+
+    def find_beginnings_and_ends(self, notes):
+        """This method takes raw timestamper outputs as an argument and returns all of
+        the lines from that output marking the beginnings and endings of recordings."""
+
+        beginnings, ends = [], []
+        for i, note in enumerate(notes):
+            min_length_to_check = 14 + len(self.template.fields.buttons.media.record.print_on_press)
+            if len(note) >= min_length_to_check:
+                if note[14:min_length_to_check] == \
+                    self.template.fields.buttons.media.record.print_on_press:
+                    beginnings.append(i)
+                elif note[14:min_length_to_check] == \
+                    self.template.fields.buttons.media.stop.print_on_press:
+                    ends.append(i)
+
+        return beginnings, ends
+
+    def remove_from_notes(self, notes, beginnings_to_remove, ends_to_remove):
+        """This method takes 3 arguments:
+            1)  "notes": raw timestamper output
+            2)  "beginnings_to_remove": a list of line indices that mark the beginnings of
+                timestamper recordings whose corresponding lines should be removed from "notes"
+            3)  "ends_to_remove": a list of line indices that mark the ends of timestamper
+                recordings whose corresponding lines should be removed from "notes"
+        This method then returns the data stored in "notes" with the lines at the
+        indices stored in "beginnings_to_remove" and "ends_to_remove" excluded."""
+
+        notes_updated = []
+
+        for j, note in enumerate(notes):
+
+            # Remove the timestamped notes indicating the beginning of a recording.
+            if j in beginnings_to_remove:
+                note = note[14 + len(self.template.fields.buttons.media.record.print_on_press) + 1:]
+
+            # Remove the timestamped notes indicating the ending of a recording.
+            elif j in ends_to_remove:
+                note = note[14 + len(self.template.fields.buttons.media.stop.print_on_press) + 1:]
+
+            # Add the note to the updated notes list if there is a note to add.
+            if note:
+                notes_updated.append(note)
+
+        return notes_updated
+
+    def merge_notes(self, files_to_read):
+        """This method takes a list of file paths and merges the notes written
+        to those files into one list sorted by the time each note was written."""
+
+        # Read through the input files of notes and save the lines to a list.
+        all_notes = self.store_timestamper_output(files_to_read)
+
         # Sort the list of notes gathered from all requested files.
         all_notes.sort()
 
         # Find the timestamped notes in the selected files
         # that indicate beginnings and endings of recordings.
-        beginnings, ends = [], []
-        for i, note in enumerate(all_notes):
-            if note[14:14+len(self.buttons.media.record.print_on_press)] == \
-                self.buttons.media.record.print_on_press:
-                beginnings.append(i)
-            elif note[14:14 + len(self.buttons.media.stop.print_on_press)] == \
-                self.buttons.media.stop.print_on_press:
-                ends.append(i)
+        beginnings, ends = self.find_beginnings_and_ends(all_notes)
 
         # Prepare the timestamped notes indicating beginnings and endings
         # of recordings for deletion by excluding from the deletion:
         #   1) the earliest timestamped note indicating a beginning
         #   2) the last timestamped note indicating an ending.
-        beginnings.pop(0)
-        ends.pop()
+        if beginnings:
+            beginnings.pop(0)
+        if ends:
+            ends.pop()
 
         # Convert the LISTS storing the indices of lines indicating beginnings
         # and endings of recordings to SETS to make lookup time faster.
@@ -292,20 +349,7 @@ class Macros():
 
         # Update the list of notes, removing redundant timestamped
         # notes indicating beginnings and endings of recordings.
-        all_notes_updated = []
-        for j, note in enumerate(all_notes):
-
-            # Remove the timestamped notes indicating the beginning of a recording.
-            if j in beginnings:
-                note = note[14 + len(self.buttons.media.record.print_on_press) + 1:]
-
-            # Remove the timestamped notes indicating the ending of a recording.
-            elif j in ends:
-                note = note[14 + len(self.buttons.media.stop.print_on_press) + 1:]
-
-            # Add the note to the updated notes list if there is a note to add.
-            if note:
-                all_notes_updated.append(note)
+        all_notes_updated = self.remove_from_notes(all_notes, beginnings, ends)
 
         return all_notes_updated
 
