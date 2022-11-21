@@ -89,11 +89,11 @@ If you would like to run and build this program from the source code, check out 
 
 ### 16 - Cancel note button
 ![src/ts_images/help_images/button_cancel_note.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_cancel_note.png?raw=true)
-* Press this button to clear the "Current note" box (see 14) WITHOUT RECORDING THE CURRENT NOTE OR TIMESTAMP in the notes log (see 10) or the current output file.
+* Press this button to clear the "Current note" box (see 14) WITHOUT RECORDING THE CURRENT NOTE OR TIMESTAMP in the notes log (see 10) or the current output file (see 9).
 
 ### 17 - Save note button
 ![src/ts_images/help_images/button_save_note.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_save_note.png?raw=true)
-* Press this button to clear the "Current note" box (see 14) AND RECORD THE CURRENT NOTE WITH THE TIMESTAMP in the notes log (see 10) and the current output file.
+* Press this button to clear the "Current note" box (see 14) AND RECORD THE CURRENT NOTE WITH THE TIMESTAMP in the notes log (see 10) and the current output file (see 9).
 
 ### 18 - Timer
 ![src/ts_images/help_images/timer.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/timer.png?raw=true)
