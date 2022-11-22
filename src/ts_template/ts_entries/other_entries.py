@@ -1,9 +1,9 @@
 #-*- coding: utf-8 -*-
-"""This module contains the TimestampingButtons class which is
-called upon by the constructor of the Buttons class."""
+"""This module contains the OtherEntries class which is
+called upon by the constructor of the Entries class."""
 
 from dataclasses import dataclass
-from tkinter import DISABLED, NORMAL
+from tkinter import NORMAL
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -23,92 +23,92 @@ from tkinter import DISABLED, NORMAL
 
 # Contact: github.cqrde@simplelogin.com
 
-
 @dataclass
-class TimestampingButtons():
-    """This class stores the attributes for buttons associated with the timestamp function."""
+class OtherEntries():
+    """This class contains subclasses storing attributes of Tkinter
+    entries that do not fall into any other category of entry."""
 
     def __init__(self):
-        self.timestamp = self.ButtonTimestamp()
-        self.clear_timestamp = self.ButtonClearTimestamp()
+        self.rewind = self.EntryRewind()
+        self.fast_forward = self.EntryFastForward()
 
     @dataclass
-    class ButtonTimestamp():
-        """This class stores the attributes for the timestamp button."""
+    class EntryRewind():
+        """This class stores the attributes for the entry
+        where the number of seconds to rewind is displayed."""
 
         initial_state = NORMAL
 
-        text = None
-        image_file_name = "timestamp.png"
+        max_digits = 2
 
-        str_key = "button_timestamp"
+        str_key = "entry_rewind"
 
-        to_enable = ("button_clear_timestamp",)
-        to_disable = ("button_timestamp",)
+        text = ""
+
+        max_val = 99
+
+        width = 2
 
         background = None
         foreground = None
 
-        width = None
-        height = None
-
-        column = 0
-        row = 4
+        column = 3
+        row = 1
 
         columnspan = 1
         rowspan = 1
 
-        padx = (10, 0)
-        pady = None
+        padx = None
+        pady = 2
 
         ipadx = None
         ipady = None
 
-        sticky = "nsew"
+        sticky = "ne"
 
         font_family = ""
-        font_size = 12
+        font_size = 11
         font_weight = "normal"
         font_slant = "roman"
         font_underline = 0
         font_overstrike = 0
 
     @dataclass
-    class ButtonClearTimestamp():
-        """This class stores the attributes for the clear timestamp button."""
+    class EntryFastForward():
+        """This class stores the attributes for the entry where
+        the number of seconds to fast-forward is displayed."""
 
-        initial_state = DISABLED
+        initial_state = NORMAL
 
-        text = None
-        image_file_name = "clear_timestamp.png"
+        max_digits = 2
 
-        str_key = "button_clear_timestamp"
+        str_key = "entry_fast_forward"
 
-        to_enable = ("button_timestamp",)
-        to_disable = ("button_clear_timestamp",)
+        text = ""
+
+        max_val = 99
+
+        width = 2
 
         background = None
         foreground = None
 
-        width = None
-        height = 1
-
-        column = 1
-        row = 4
+        column = 5
+        row = 1
 
         columnspan = 1
         rowspan = 1
 
-        padx = (0, 10)
-        pady = None
+        padx = None
+        pady = 2
 
         ipadx = None
         ipady = None
 
-        sticky = "nsew"
+        sticky = "ne"
 
         font_family = ""
-        font_size = 10
+        font_size = 11
         font_weight = "normal"
         font_slant = "roman"
         font_underline = 0

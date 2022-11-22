@@ -32,11 +32,18 @@ class Texts():
 
     def __init__(self):
 
+        self.str_key = "texts"
+
         self.log = self.TextLog()
         self.current_note = self.TextCurrentNote()
         self.attribution = self.TextAttribution()
 
-        self.all_templates = (
+        # Do not include the attribution text widget in self.main_window_templates
+        # because self.main_window_templates is only meant to store the templates for
+        # objects that we would like to create immediately when the program starts.
+        # Any objects that are part of separate windows will only be created
+        # when the user performs an action that triggers that window's creation.
+        self.main_window_templates = (
             self.log, self.current_note
         )
 

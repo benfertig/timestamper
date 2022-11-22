@@ -10,6 +10,7 @@ from .ts_buttons.buttons import Buttons
 from .ts_entries.entries import Entries
 from .ts_labels.labels import Labels
 from .ts_texts.texts import Texts
+from .ts_windows.windows import Windows
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -62,11 +63,11 @@ class TimeStamperTemplate():
     def __init__(self):
 
         self.timestamp_set = False
-        self.fields = self.Fields()
-        self.output_file = self.OutputFile()
-        self.path = self.Path()
-        self.timer = self.Timer()
-        self.windows = self.Windows()
+        self.output_file_encoding = "utf-8"
+        self.images_dir = path.join(resource_path(), "ts_images", "program_images")
+        self.mac_disabled_color = "#d3d3d3"
+
+        self.mapping = self.map_template_objects_to_string_keys()
 
     @dataclass
     class Fields():
@@ -76,174 +77,110 @@ class TimeStamperTemplate():
 
         def __init__(self):
 
-            self.mac_disabled_color = "#d3d3d3"
-
             self.buttons = Buttons()
             self.entries = Entries()
             self.labels = Labels()
             self.texts = Texts()
 
-    @dataclass
-    class OutputFile():
-        """This class stores the attributes for the output file."""
+    def map_template_objects_to_string_keys(self):
+        """This method creates a mapping of all templates
+        to their string keys and returns that mapping."""
 
-        encoding = "utf-8"
+        fields = self.Fields()
+        buttons = fields.buttons
+        entries = fields.entries
+        labels = fields.labels
+        texts = fields.texts
+        windows = Windows()
 
-    @dataclass
-    class Path():
-        """This class stores the attributes for file paths."""
+        # In a list, store all of the templates so that, immediately afterwards, we can use
+        # a dict comprehension to map the template objects to their string keys ("str_key").
+        all_templates = ( \
 
-        images_dir = path.join(resource_path(), "ts_images", "program_images")
+        ####################
+        # Buttons
+        ####################
 
-    @dataclass
-    class Timer():
-        """This class stores the attributes for timer."""
+            # Outer Buttons() template class
+            buttons, \
 
-        str_key = "time_stamper_timer"
+            # File buttons
+            buttons.file.output_select, buttons.file.merge_output_files, \
 
-    @dataclass
-    class Windows():
-        """This class, which is called upon by the constructor of the TimeStamperTemplate class,
-        should be seen as an extension of the TimeStamperTemplate class with attributes
-        pertaining specifically to objects of type tkinter.Tk in the Time Stamper program."""
+            # Info buttons
+            buttons.info.attribution, buttons.info.help, buttons.info.license, \
 
-        def __init__(self):
-            self.main = self.WindowMain()
-            self.help = self.WindowHelp()
-            self.license = self.WindowLicense()
-            self.attribution = self.WindowAttribution()
-            self.merge = self.WindowsMerge()
+            # Media buttons
+            buttons.media.pause,  buttons.media.play, buttons.media.stop, \
+            buttons.media.rewind, buttons.media.fast_forward, buttons.media.record, \
 
-        @dataclass
-        class WindowsMerge():
-            """This class stores the templates of all windows
-            associated with the "Merge output files" function."""
+            # Note buttons
+            buttons.notes.cancel_note, buttons.notes.save_note, \
 
-            def __init__(self):
-                self.output_files_first_message = self.WindowMergeOutputFilesFirstMessage()
-                self.output_files_second_message = self.WindowMergeOutputFilesSecondMessage()
-                self.output_files_success = self.WindowMergeOutputFilesSuccess()
-                self.output_files_failure = self.WindowMergeOutputFilesFailure()
+            # Timestamping buttons
+            buttons.timestamping.timestamp, buttons.timestamping.clear_timestamp, \
 
-            @dataclass
-            class WindowMergeOutputFilesFirstMessage():
-                """This class stores the attributes for the window that displays
-                the first instruction to the user on how to merge output files."""
+        ####################
+        # Entries
+        ####################
 
-                title = "Step 1: Select files to merge"
-                icon_windows = "timestamp_icon.ico"
-                icon_mac = "timestamp_icon.icns"
+            # Outer Entries() template class
+            entries, \
 
-                background = None
-                foreground = None
+            # Timer entries
+            entries.timer.num_hours,  entries.timer.num_minutes, \
+            entries.timer.num_seconds, entries.timer.num_subseconds, \
 
-                num_columns = 1
-                num_rows = 1
+            # Other entries
+            entries.other.rewind, entries.other.fast_forward, \
 
-            @dataclass
-            class WindowMergeOutputFilesSecondMessage():
-                """This class stores the attributes for the window that displays
-                the second instruction to the user on how to merge output files."""
+        ####################
+        # Labels
+        ####################
 
-                title = "Step 2: Store merge"
-                icon_windows = "timestamp_icon.ico"
-                icon_mac = "timestamp_icon.icns"
+            # Outer Labels() template class
+            labels, \
 
-                background = None
-                foreground = None
+            # Timer labels
+            labels.timer.hrs, labels.timer.min, labels.timer.dot, labels.timer.sec, \
 
-                num_columns = 1
-                num_rows = 1
+            # Info labels
+            labels.info.help_message, labels.info.license_message, \
 
-            @dataclass
-            class WindowMergeOutputFilesSuccess():
-                """This class stores the attributes for the window that
-                displays the message notifying the user that the program
-                successfully merged the selected output files."""
+            # Merge labels
+            labels.merge.first_message,  labels.merge.second_message, \
+            labels.merge.success, labels.merge.failure, \
 
-                title = "Merge success"
-                icon_windows = "timestamp_icon.ico"
-                icon_mac = "timestamp_icon.icns"
+            # Other labels
+            labels.other.output_path, labels.other.rewind_sec, \
+            labels.other.fast_forward_sec, labels.other.timestamp, \
 
-                background = None
-                foreground = None
+        ####################
+        # Texts
+        ####################
 
-                num_columns = 1
-                num_rows = 1
+            # Outer Texts() template class
+            texts, \
 
-            @dataclass
-            class WindowMergeOutputFilesFailure():
-                """This class stores the attributes for the window that displays
-                the message stating that the program failed to merge output files
-                (due to the fact that the user tried to send the merged notes to
-                a file whose notes would have already been part of the merge)."""
+            texts.log, texts.current_note, texts.attribution, \
 
-                title = "Merge failure"
-                icon_windows = "timestamp_icon.ico"
-                icon_mac = "timestamp_icon.icns"
+        ####################
+        # Windows
+        ####################
 
-                background = None
-                foreground = None
+            # Main window
+            windows.main, \
 
-                num_columns = 1
-                num_rows = 1
+            # Info windows
+            windows.info.attribution, windows.info.help, windows.info.license, \
 
-        @dataclass
-        class WindowMain():
-            """This class stores the attributes for the main window."""
+            # Windows associated with the "Merge output files" function
+            windows.merge.first_message, windows.merge.second_message, \
+            windows.merge.success, windows.merge.failure
 
-            title = "Time Stamper"
-            icon_windows = "timestamp_icon.ico"
-            icon_mac = "timestamp_icon.icns"
+        )
 
-            background = None
-            foreground = None
-
-            width = 960
-            height = 540
-
-            num_columns = 19
-            num_rows = 7
-
-        @dataclass
-        class WindowHelp():
-            """This class stores the attributes for the help window."""
-
-            title = "Help"
-            icon_windows = "timestamp_icon.ico"
-            icon_mac = "timestamp_icon.icns"
-
-            background = None
-            foreground = None
-
-            num_columns = 1
-            num_rows = 1
-
-        @dataclass
-        class WindowLicense():
-            """This class stores the attributes for the license window."""
-
-            title = "License"
-            icon_windows = "timestamp_icon.ico"
-            icon_mac = "timestamp_icon.icns"
-
-            background = None
-            foreground = None
-
-            num_columns = 1
-            num_rows = 1
-
-        @dataclass
-        class WindowAttribution():
-
-            """This class stores the attributes for the attribution window."""
-
-            title = "Attribution"
-            icon_windows = "timestamp_icon.ico"
-            icon_mac = "timestamp_icon.icns"
-
-            background = None
-            foreground = None
-
-            num_columns = 1
-            num_rows = 1
+        # Map the template objects to their string keys ("str_key") so that the template objects
+        # can be easily accessed elsewhere in the program. For example, to reference the pause
+        # button template, one should reference TimeStamperTemplate.mapping."button_pause".
+        return {template_obj.str_key: template_obj for template_obj in all_templates}

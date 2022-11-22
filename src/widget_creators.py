@@ -39,7 +39,7 @@ class WidgetCreators():
         """This method creates the main window for the Time Stamper program."""
 
         # Create the main window and set its characteristics.
-        window_template = self.template.windows.main
+        window_template = self.template.mapping["window_main"]
         self.root = Tk()
         self.root.title(window_template.title)
         self.root.geometry(f"{window_template.width}x{window_template.height}")
@@ -54,7 +54,7 @@ class WidgetCreators():
             icon_file_name = window_template.icon_windows
 
         # Set the main window icon.
-        self.root.iconbitmap(path.join(self.template.path.images_dir, icon_file_name))
+        self.root.iconbitmap(path.join(self.template.images_dir, icon_file_name))
 
         # Configure the main window's columns.
         for column_num in range(window_template.num_columns):
@@ -71,7 +71,7 @@ class WidgetCreators():
 
         # Return a PhotoImage only if there is an image associated with the object.
         if obj_template.image_file_name:
-            return PhotoImage(file=path.join(self.template.path.images_dir, \
+            return PhotoImage(file=path.join(self.template.images_dir, \
                 obj_template.image_file_name))
 
         # If there is no image associated with the object return None.
@@ -99,7 +99,7 @@ class WidgetCreators():
             width=button_template.width, text=button_template.text, \
             image=button_image, state=button_template.initial_state, font=button_font, \
             background=button_background, foreground=button_foreground, \
-            command=macros.button_macros.mapping[button_template.str_key])
+            command=macros.button.mapping[button_template.str_key])
 
         # Place the Button.
         button.grid(column=button_template.column, row=button_template.row, \
@@ -109,7 +109,7 @@ class WidgetCreators():
 
         # Map the Button object to the Button's string
         # key so that the Macros class can reference it.
-        macros.object_mapping[button_template.str_key] = button
+        macros.button.object_mapping[button_template.str_key] = button
 
         # Map the Button object's initial background to the Button's string key so that the
         # Button's background can be reset to this color upon reactivation (currently, this
@@ -126,7 +126,7 @@ class WidgetCreators():
         # button's initial background color to our predefined color for disabled fields on Macs.
         if platform == "darwin" and isinstance(button, MacButton) \
             and not button.cget("text") and button["state"] == DISABLED:
-            button["background"] = self.template.fields.mac_disabled_color
+            button["background"] = self.template.mac_disabled_color
 
         return button
 
@@ -158,7 +158,7 @@ class WidgetCreators():
             lambda *args: macros.entry_val_limit(entry_text, entry_template.max_val))
 
         # Map the Entry object to the Entry's string key so that the Macros class can reference it.
-        macros.object_mapping[entry_template.str_key] = entry
+        macros.button.object_mapping[entry_template.str_key] = entry
 
         # Map the Entry object's initial color to the Entry's string key (currently,
         # there is no need to have this mapping for any tkinter objects in this class
@@ -192,7 +192,7 @@ class WidgetCreators():
             ipadx=label_template.ipadx, ipady=label_template.ipady, sticky=label_template.sticky)
 
         # Map the Label object to the Label's string key so that the Macros class can reference it.
-        macros.object_mapping[label_template.str_key] = label
+        macros.button.object_mapping[label_template.str_key] = label
 
         # Map the Label object's initial color to the Label's string key (currently,
         # there is no need to have this mapping for any tkinter objects in this class
@@ -225,7 +225,7 @@ class WidgetCreators():
             ipadx=text_template.ipadx, ipady=text_template.ipady, sticky=text_template.sticky)
 
         # Map the Text object to the Text's string key so that the Macros class can reference it.
-        macros.object_mapping[text_template.str_key] = text
+        macros.button.object_mapping[text_template.str_key] = text
 
         # Map the Text object's initial color to the Texts's string key (currently,
         # there is no need to have this mapping for any tkinter objects in this class

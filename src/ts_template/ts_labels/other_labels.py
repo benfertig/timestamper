@@ -28,6 +28,12 @@ class OtherLabels():
     """This class contains subclasses storing attributes of Tkinter
     labels that do not fall under any other category of label."""
 
+    def __init__(self):
+        self.output_path = self.LabelOutputPath()
+        self.rewind_sec = self.LabelRewindSec()
+        self.fast_forward_sec = self.LabelFastForwardSec()
+        self.timestamp = self.LabelTimestamp()
+
     @dataclass
     class LabelOutputPath():
         """This class stores the attributes for the label

@@ -111,9 +111,7 @@ class TimeStamperTimer():
 
         # If a timestamp has not been set, make the timestamp label reflect the current time.
         if not self.time_stamper.template.timestamp_set:
-            label_timestamp_template = self.time_stamper.template.fields.labels.timestamp
-            obj_mapping = self.time_stamper.macros.object_mapping
-            obj_timestamp = obj_mapping[label_timestamp_template.str_key]
+            obj_timestamp = self.time_stamper.macros.button.object_mapping["label_timestamp"]
             obj_timestamp["text"] = f"[{hours}:{minutes}:{seconds}.{subseconds}]"
 
     def update_timer(self, seconds_to_add=0):
@@ -167,9 +165,8 @@ class TimeStamperTimer():
             # If the timer's currently displayed time is not less
             # than the maximum displayable time, stop the timer.
             else:
-                macro_mapping = self.time_stamper.macros.button_macros.mapping
-                button_stop_str_key = self.time_stamper.template.fields.buttons.media.stop.str_key
-                macro_mapping[button_stop_str_key]()
+                macro_mapping = self.time_stamper.macros.button.mapping
+                macro_mapping["button_stop"]()
 
     def pause(self):
         """This method pauses the timer and is typically run when the pause button is pressed."""
@@ -209,9 +206,8 @@ class TimeStamperTimer():
         # If the timer's currently displayed time is not less
         # than the maximum displayable time, stop the timer.
         else:
-            macro_mapping = self.time_stamper.macros.button_macros.mapping
-            button_stop_str_key = self.time_stamper.template.fields.buttons.media.stop.str_key
-            macro_mapping[button_stop_str_key]()
+            macro_mapping = self.time_stamper.macros.button.mapping
+            macro_mapping["button_stop"]()
 
     def stop(self):
         """This method stops the timer and is typically

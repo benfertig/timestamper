@@ -73,8 +73,8 @@ class TimeStamper():
     def create_buttons(self):
         """This method creates all of the buttons in the main window of the Time Stamper program."""
 
-        button_str_mapping = \
-            {btn.str_key: btn for btn in self.template.fields.buttons.all_templates}
+        button_templates = self.template.mapping["buttons"].main_window_templates
+        button_str_mapping = {btn.str_key: btn for btn in button_templates}
         self.stored_tk_objs.images = {str_key: self.widget_creators.create_tk_image(btn) \
             for str_key, btn in button_str_mapping.items()}
         assert [self.widget_creators.create_button(button_str_mapping[str_key], self.macros, img) \
@@ -83,21 +83,21 @@ class TimeStamper():
     def create_entries(self):
         """This method creates all of the entries in the main window of the Time Stamper program."""
 
-        self.stored_tk_objs.entries = \
-            {sh.str_key: self.widget_creators.create_entry(sh, self.macros) \
-                for sh in self.template.fields.entries.all_templates}
+        entry_templates = self.template.mapping["entries"].main_window_templates
+        self.stored_tk_objs.entries = {sh.str_key: \
+            self.widget_creators.create_entry(sh, self.macros) for sh in entry_templates}
 
     def create_labels(self):
         """This method creates all of the labels in the main window of the Time Stamper program."""
 
-        assert [self.widget_creators.create_label(sh, self.macros) \
-            for sh in self.template.fields.labels.all_templates]
+        label_templates = self.template.mapping["labels"].main_window_templates
+        assert [self.widget_creators.create_label(sh, self.macros) for sh in label_templates]
 
     def create_texts(self):
         """This method creates all of the texts in the main window of the Time Stamper program."""
 
-        assert [self.widget_creators.create_text(sh, self.macros) \
-            for sh in self.template.fields.texts.all_templates]
+        text_templates = self.template.mapping["texts"].main_window_templates
+        assert [self.widget_creators.create_text(sh, self.macros) for sh in text_templates]
 
     def run(self):
         """This method runs the Time Stamper program."""
@@ -109,17 +109,15 @@ class TimeStamper():
         self.create_labels()
         self.create_texts()
 
+        entries_mapping = self.stored_tk_objs.entries
+
         # Pass the entries containing the hours, minutes, seconds and subseconds to the timer.
-        self.time_fields.hours_field = \
-            self.stored_tk_objs.entries[self.template.fields.entries.timer.num_hours.str_key]
-        self.time_fields.minutes_field = \
-            self.stored_tk_objs.entries[self.template.fields.entries.timer.num_minutes.str_key]
-        self.time_fields.seconds_field = \
-            self.stored_tk_objs.entries[self.template.fields.entries.timer.num_seconds.str_key]
-        self.time_fields.subseconds_field = \
-            self.stored_tk_objs.entries[self.template.fields.entries.timer.num_subseconds.str_key]
+        self.time_fields.hours_field = entries_mapping["entry_hours"]
+        self.time_fields.minutes_field = entries_mapping["entry_minutes"]
+        self.time_fields.seconds_field = entries_mapping["entry_seconds"]
+        self.time_fields.subseconds_field = entries_mapping["entry_subseconds"]
 
         # Map the timer to the timer's string key so that the Macros class can reference it.
-        self.macros.object_mapping[self.template.timer.str_key] = self.timer
+        self.macros.button.object_mapping["time_stamper_timer"] = self.timer
 
         self.root.mainloop()

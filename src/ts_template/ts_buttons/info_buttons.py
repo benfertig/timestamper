@@ -28,9 +28,9 @@ class InfoButtons():
     """This class stores the attributes for buttons associated with information."""
 
     def __init__(self):
+        self.attribution = self.ButtonAttribution()
         self.help = self.ButtonHelp()
         self.license = self.ButtonLicense()
-        self.attribution = self.ButtonAttribution()
 
     @dataclass
     class ButtonHelp():

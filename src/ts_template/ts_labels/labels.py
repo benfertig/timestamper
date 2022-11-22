@@ -4,7 +4,8 @@ called upon by the constructor of the Fields class."""
 
 from dataclasses import dataclass
 from .timer_labels import TimerLabels
-from .separate_window_labels import SeparateWindowLabels
+from .info_labels import InfoLabels
+from .merge_labels import MergeLabels
 from .other_labels import OtherLabels
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
@@ -34,21 +35,20 @@ class Labels():
 
     def __init__(self):
 
+        self.str_key = "labels"
+
         self.timer = TimerLabels()
-        self.separate_windows = SeparateWindowLabels()
+        self.info = InfoLabels()
+        self.merge = MergeLabels()
+        self.other = OtherLabels()
 
-        other_labels = OtherLabels()
-        self.output_path = other_labels.LabelOutputPath()
-        self.rewind_sec = other_labels.LabelRewindSec()
-        self.fast_forward_sec = other_labels.LabelFastForwardSec()
-        self.timestamp = other_labels.LabelTimestamp()
-
-        # Do not include any labels from the SeparateWindowLabels class in
-        # self.all_templates because self.all_templates is only meant to store the
-        # templates for objects that we would like to create immediately when the
-        # program starts. Any objects that are part of separate windows will only be
+        # Do not include any labels from the InfoLabels or MergeLabels class in
+        # self.main_window_templates because self.main_window_templates is only meant
+        # to store the templates for objects that we would like to create immediately when
+        # the program starts. Any objects that are part of separate windows will only be
         # created when the user performs an action that triggers that window's creation.
-        self.all_templates = (
-            self.timer.hrs, self.timer.min, self.timer.dot, self.timer.sec, \
-            self.output_path, self.rewind_sec, self.fast_forward_sec, self.timestamp
+        self.main_window_templates = (
+            self.timer.hrs, self.timer.min, self.timer.dot,\
+            self.timer.sec, self.other.output_path, self.other.rewind_sec, \
+            self.other.fast_forward_sec, self.other.timestamp
         )

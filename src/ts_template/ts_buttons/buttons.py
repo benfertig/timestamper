@@ -36,14 +36,17 @@ class Buttons():
 
     def __init__(self):
 
+        self.str_key = "buttons"
+
         self.file = FileButtons()
         self.info = InfoButtons()
         self.media = MediaButtons()
         self.notes = NoteButtons()
         self.timestamping = TimestampingButtons()
 
-        # Save all of the templates in a list
-        self.all_templates = (
+        # In a tuple, save all of the templates for buttons that appear inside of the program's
+        # main window, which, in the program's current form, is all of the program's buttons.
+        self.main_window_templates = (
             self.media.pause, self.media.play, self.media.stop, self.media.rewind, \
             self.media.fast_forward, self.media.record, self.file.output_select, \
             self.file.merge_output_files, self.timestamping.timestamp, \

@@ -46,10 +46,7 @@ class Macros():
         self.widget_creators = widget_creators
         self.widget_creators_separate_window = widget_creators_separate_window
 
-        self.button_macros = ButtonMacros(self)
-
-        # Create a dict to map object string keys to their objects.
-        self.object_mapping = {}
+        self.button = ButtonMacros(self)
 
         # Create a dict to save the original colors of tkinter objects so
         # that those colors can be restored when an object is reactivated.
@@ -60,7 +57,7 @@ class Macros():
         are also made to the button to make it easier to tell that the button is enabled."""
 
         # Retrieve the button object associated with the passed string key.
-        button = self.object_mapping[str_button]
+        button = self.button.object_mapping[str_button]
 
         # Enable the button.
         button["state"] = NORMAL
@@ -77,7 +74,7 @@ class Macros():
         are also made to the button to make it easier to tell that the button is disabled."""
 
         # Retrieve the button object associated with the passed string key.
-        button = self.object_mapping[str_button]
+        button = self.button.object_mapping[str_button]
 
         # Enable the button temporarily.
         button["state"] = NORMAL
@@ -87,7 +84,7 @@ class Macros():
         # is disabled unless we change its appearance. Therefore, the tkmacosx button's
         # background would be changed to the predetermined disabled color here.
         if platform == "darwin" and isinstance(button, MacButton) and not button.cget("text"):
-            button["background"] = self.template.fields.mac_disabled_color
+            button["background"] = self.template.mac_disabled_color
 
         # Disable the button.
         button["state"] = DISABLED
@@ -133,7 +130,7 @@ class Macros():
             icon_file_name = window_template.icon_windows
 
         # Set the window icon.
-        window.iconbitmap(path.join(self.template.path.images_dir, icon_file_name))
+        window.iconbitmap(path.join(self.template.images_dir, icon_file_name))
 
         # Configure the window's columns and rows.
         for column_num in range(window_template.num_columns):
@@ -178,7 +175,7 @@ class Macros():
         # The user will be prompted to select the files whose notes they wish to merge.
         file_types = (("text files", "*.txt"), ('All files', '*.*'))
         files_full_paths = filedialog.askopenfilenames(title="Select output files to merge", \
-            initialdir=self.template.fields.buttons.file.output_select.starting_dir, \
+            initialdir=self.template.mapping["button_output_select"].starting_dir, \
             filetypes=file_types)
 
         # Only merge the notes if at least one file was selected.
@@ -187,9 +184,8 @@ class Macros():
             # Store the objects (templates) containining attributes for
             # the second window with output merge instructions, along
             # with its relevant label, into abbreviated variable names.
-            window_merge_2 = self.template.windows.merge.output_files_second_message
-            label_merge_2 = \
-                self.template.fields.labels.separate_windows.merge.output_files_second_message
+            window_merge_2 = self.template.mapping["window_merge_second_message"]
+            label_merge_2 = self.template.mapping["label_merge_second_message"]
 
             # Call the function that will display the second window with instructions
             # on how to merge output files, passing a macro that will make the second
@@ -208,7 +204,7 @@ class Macros():
         file_types = (("text files", "*.txt"), ('All files', '*.*'))
         merged_notes_path = \
             filedialog.askopenfilename(title="Select destination for merged outputs", \
-            initialdir=self.template.fields.buttons.file.output_select.starting_dir, \
+            initialdir=self.template.mapping["button_output_select"].starting_dir, \
             filetypes=file_types)
 
         # Only proceed with attempting to merge the notes if
@@ -219,9 +215,8 @@ class Macros():
             # be a part of the merge, do not merge the notes and instead display a failure message.
             if merged_notes_path in files_full_paths:
 
-                window_merge_fail = self.template.windows.merge.output_files_failure
-                label_merge_fail = \
-                    self.template.fields.labels.separate_windows.merge.output_files_failure
+                window_merge_fail = self.template.mapping["window_merge_failure"]
+                label_merge_fail = self.template.mapping["label_merge_failure"]
                 self.display_window(window_merge_fail, label_merge_fail)
 
             # If the user chose a unique file to save the merged notes to that
@@ -233,14 +228,13 @@ class Macros():
 
                 # Write the merged notes to the requested file.
                 with open(merged_notes_path, "a+", \
-                    encoding=self.template.output_file.encoding) as out:
+                    encoding=self.template.output_file_encoding) as out:
                     for note in merged_notes:
                         out.write(note)
 
                 # Display a message that the notes were successfully merged.
-                window_merge_success = self.template.windows.merge.output_files_success
-                label_merge_success = \
-                    self.template.fields.labels.separate_windows.merge.output_files_success
+                window_merge_success = self.template.mapping["window_merge_success"]
+                label_merge_success = self.template.mapping["label_merge_success"]
                 merged_notes_file = basename(merged_notes_path)
                 label_merge_success.text = label_merge_success.success_message(merged_notes_file)
                 self.display_window(window_merge_success, label_merge_success)
@@ -254,7 +248,7 @@ class Macros():
 
         # Iterate over every file specified in "output_file_paths".
         for input_file in output_file_paths:
-            with open(input_file, "r", encoding=self.template.output_file.encoding) as in_file:
+            with open(input_file, "r", encoding=self.template.output_file_encoding) as in_file:
                 for line in in_file:
 
                     # If we come across a line that begins with a timestamp, we should start with
@@ -278,25 +272,27 @@ class Macros():
         """This method takes raw timestamper outputs as an argument and returns all of
         the lines from that output marking the beginnings and endings of recordings."""
 
+        # Store the record and stop messages into abbreviated file names.
+        button_record_message = self.template.mapping["button_record"].print_on_press
+        button_stop_message = self.template.mapping["button_stop"].print_on_press
+
         beginnings, ends = [], []
         for i, note in enumerate(notes):
-            min_length_to_check = 14 + len(self.template.fields.buttons.media.record.print_on_press)
-            if len(note) >= min_length_to_check:
-                if note[14:min_length_to_check] == \
-                    self.template.fields.buttons.media.record.print_on_press:
-                    beginnings.append(i)
-                elif note[14:min_length_to_check] == \
-                    self.template.fields.buttons.media.stop.print_on_press:
-                    ends.append(i)
+            len_start_note = 14 + len(button_record_message)
+            len_end_note = 14 + len(button_stop_message)
+            if len(note) >= len_start_note and note[14:len_start_note] == button_record_message:
+                beginnings.append(i)
+            elif len(note) >= len_end_note and note[14:len_end_note] == button_stop_message:
+                ends.append(i)
 
         return beginnings, ends
 
     def remove_from_notes(self, notes, beginnings_to_remove, ends_to_remove):
         """This method takes 3 arguments:
-            1)  "notes": raw timestamper output
-            2)  "beginnings_to_remove": a list of line indices that mark the beginnings of
+            1)  "notes": raw timestamper output which has been stored in a list
+            2)  "beginnings_to_remove": a list of line indices marking the beginnings of
                 timestamper recordings whose corresponding lines should be removed from "notes"
-            3)  "ends_to_remove": a list of line indices that mark the ends of timestamper
+            3)  "ends_to_remove": a list of line indices marking the ends of timestamper
                 recordings whose corresponding lines should be removed from "notes"
         This method then returns the data stored in "notes" with the lines at the
         indices stored in "beginnings_to_remove" and "ends_to_remove" excluded."""
@@ -307,11 +303,11 @@ class Macros():
 
             # Remove the timestamped notes indicating the beginning of a recording.
             if j in beginnings_to_remove:
-                note = note[14 + len(self.template.fields.buttons.media.record.print_on_press) + 1:]
+                note = note[14 + len(self.template.mapping["button_record"].print_on_press) + 1:]
 
             # Remove the timestamped notes indicating the ending of a recording.
             elif j in ends_to_remove:
-                note = note[14 + len(self.template.fields.buttons.media.stop.print_on_press) + 1:]
+                note = note[14 + len(self.template.mapping["button_stop"].print_on_press) + 1:]
 
             # Add the note to the updated notes list if there is a note to add.
             if note:
