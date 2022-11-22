@@ -12,43 +12,43 @@ If you would like to run and build this program from the source code, check out 
 
 ### 1 - Pause button
 ![src/ts_images/help_images/button_pause.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_pause.png?raw=true)
-* This button pauses the timer. You must have already selected an output file and begun recording to be able to press the pause button.
+* This button pauses the timer. You must have already selected an output file (see 7) and begun recording (see 6) to be able to press the pause button.
 
 ### 2 - Play button
 ![src/ts_images/help_images/button_play.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_play.png?raw=true)
-* This button resumes the timer. You must be already paused to be able to press the play button.
+* This button resumes the timer (see 18). You must be already paused (see 1) to be able to press the play button.
 
 ### 3 - Stop button
 ![src/ts_images/help_images/button_stop.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_stop.png?raw=true)
-* This button stops the timer. Pressing the stop button will also record a new note, timestamped with the timer's current time, indicating that the user has finished entering notes, as well as allow the user to select a different output file. After you have pressed the stop button, you cannot enter new notes until you have pressed the record button again.
+* This button stops the timer (see 18). Pressing the stop button will also record a new note, timestamped with the timer's current time, indicating that the user has finished entering notes, as well as allow the user to select a different output file (see 7). After you have pressed the stop button, you cannot enter new notes until you have pressed the record button (see 6) again.
 
 ### 4 - Rewind button
 ![src/ts_images/help_images/button_rewind.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_rewind.png?raw=true)
-* This button rewinds the timer the specified number of seconds (see 4.1).
+* This button rewinds the timer (see 18) the number of seconds specified in the rewind amount field (see 4.1).
 
 ### 4.1 - Rewind amount
 ![src/ts_images/help_images/rewind_fast_forward_seconds.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/rewind_fast_forward_seconds.png?raw=true)
-* Enter the number of seconds you would like to rewind the timer here.
+* This is where you should enter the number of seconds you would like the timer (see 18) to rewind when you press the rewind button (see 4).
 
 ### 5 - Fast-forward button
 ![src/ts_images/help_images/button_fast_forward.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_fast_forward.png?raw=true)
-* This button fast-forwards the timer the specified number of seconds (see 5.1).
+* This button fast-forwards the timer (see 18) the number of seconds specified in the fast-forward amount field (see 5.1).
 
 ### 5.1 - Fast-forward amount
 ![src/ts_images/help_images/rewind_fast_forward_seconds.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/rewind_fast_forward_seconds.png?raw=true)
-* Enter the number of seconds you would like to fast-forward the timer here.
+* This is where you should enter the number of seconds you would like the timer (see 18) to fast-forward when you press the fast-forward button (see 5).
 
 ### 6 - Record button
 ![src/ts_images/help_images/button_record.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_record.png?raw=true)
-* This button starts the timer. Pressing the record button will also record a new note, timestamped with the timer's current time, indicating that the user has begun entering notes. You must press the record button to be able to enter notes, and you cannot press the record button until you have selected an output file (see 7).
+* This button starts the timer (see 18). Pressing the record button will also record a new note, timestamped with the timer's current time, indicating that the user has begun entering notes. You must press the record button to be able to enter notes, and you cannot press the record button until you have selected an output file (see 7).
 
 ### 7 - Output select button
 ![src/ts_images/help_images/button_output_select.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_output_select.png?raw=true)
-* Press this button to open a new file dialog window in which you can select an output file to save your notes to. Output file names normally end in ".txt". You must have selected an output file and pressed the record button to be able to enter notes.
+* Press this button to open a new file dialog window in which you can select an output file to save your notes to. Output file names normally end in ".txt". You must have selected an output file and pressed the record button (see 6) to be able to enter notes.
 
 ### 8 - Merge output files button
 ![src/ts_images/help_images/button_merge_output_files.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_merge_output_files.png?raw=true)
-* If you have multiple output files whose notes you would like to merge and sort based on their timestamps, press this button. You will first be prompted to select the output files whose notes you would like to merge. Then, you will be prompted to select file you would like to save the merged notes to.
+* If you have multiple output files whose notes you would like to merge and sort based on their timestamps, press this button. You will first be prompted to select the output files whose notes you would like to merge. Then, you will be prompted to select the file you would like to save the merged notes to.
 
 ### 9 - Output path
 * If an output file is currently selected, the path to that file will be displayed here. For example:</br>
@@ -62,7 +62,7 @@ If you would like to run and build this program from the source code, check out 
 
 ### 11 - Timestamp
 ![src/ts_images/help_images/label_timestamp.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/label_timestamp.png?raw=true)
-* This displays the current timestamp. The value displayed here will be added to the beginning of your next note. To freeze the current timestamp and set it to the timer's current value, press the timestamp button (see 11.1). To unfreeze the current timestamp and resynchronize it with the timer, press the clear timestamp button (see 11.2).
+* This displays the current timestamp. The value displayed here will be added to the beginning of your next note. To freeze the current timestamp and set it to the current value on the timer (see 18), press the timestamp button (see 11.1). To unfreeze the current timestamp and resynchronize it with the timer, press the clear timestamp button (see 11.2).
 
 ### 11.1 - Timestamp button
 ![src/ts_images/help_images/button_timestamp.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_timestamp.png?raw=true)
@@ -78,7 +78,7 @@ If you would like to run and build this program from the source code, check out 
 
 ### 13 - License button
 ![src/ts_images/help_images/button_license.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_license.png?raw=true)
-* Press this button to view this program's licensing information.
+* Press this button to view this program's licensing information, which can also be found **[here](https://www.gnu.org/licenses/gpl-3.0.en.html)**.
 
 ### 14 - Attribution button
 ![src/ts_images/help_images/button_attribution.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_attribution.png?raw=true)
