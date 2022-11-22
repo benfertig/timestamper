@@ -182,5 +182,5 @@ class TimeStamperTemplate():
 
         # Map the template objects to their string keys ("str_key") so that the template objects
         # can be easily accessed elsewhere in the program. For example, to reference the pause
-        # button template, one should reference TimeStamperTemplate.mapping."button_pause".
+        # button template, one should reference TimeStamperTemplate.mapping["button_pause"].
         return {template_obj.str_key: template_obj for template_obj in all_templates}
