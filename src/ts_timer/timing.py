@@ -46,9 +46,8 @@ class Timing():
         method that is used to retrieve the time while the timer is RUNNING."""
         return perf_counter() - self.start_time + self.offset
 
-
     def pad_number(self, number, target_length):
-        """This method puts a "0" in front of a number if that number has only 1 digit."""
+        """This method pads a number with zeros to the desired length."""
         str_number = str(int(number)) if number else "0"
         str_number = "0" * (target_length - len(str_number)) + str_number
         return str_number
