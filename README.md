@@ -123,6 +123,8 @@ If you would like to run and build this program from the source code, check out 
                 * [Rewind icon](https://www.iconfinder.com/icons/211816/rewind_icon)
                 * [Fastforward icon](https://www.iconfinder.com/icons/211741/fastforward_icon)
                 * [Record icon](https://www.iconfinder.com/icons/211881/record_icon)
+                * [A, left, arrow icon ](https://www.iconfinder.com/icons/211616/a_left_arrow_icon)
+                * [A, right, arrow icon](https://www.iconfinder.com/icons/211619/a_right_arrow_icon)
         * License
             * The *Ionicions* pack from *Iconfinder* is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
