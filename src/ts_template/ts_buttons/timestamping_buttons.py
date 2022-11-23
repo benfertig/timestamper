@@ -43,6 +43,10 @@ class TimestampingButtons():
 
         str_key = "button_timestamp"
 
+        window_str_key = "window_main"
+
+        mac_disabled_color = "#d3d3d3"
+
         to_enable = ("button_clear_timestamp",)
         to_disable = ("button_timestamp",)
 
@@ -83,6 +87,10 @@ class TimestampingButtons():
         image_file_name = "clear_timestamp.png"
 
         str_key = "button_clear_timestamp"
+
+        window_str_key = "window_main"
+
+        mac_disabled_color = "#d3d3d3"
 
         to_enable = ("button_timestamp",)
         to_disable = ("button_clear_timestamp",)

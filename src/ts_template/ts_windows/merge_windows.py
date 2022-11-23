@@ -47,6 +47,9 @@ class MergeWindows():
         background = None
         foreground = None
 
+        width = None
+        height = None
+
         num_columns = 1
         num_rows = 1
 
@@ -63,6 +66,9 @@ class MergeWindows():
 
         background = None
         foreground = None
+
+        width = None
+        height = None
 
         num_columns = 1
         num_rows = 1
@@ -82,6 +88,9 @@ class MergeWindows():
         background = None
         foreground = None
 
+        width = None
+        height = None
+
         num_columns = 1
         num_rows = 1
 
@@ -100,6 +109,9 @@ class MergeWindows():
 
         background = None
         foreground = None
+
+        width = None
+        height = None
 
         num_columns = 1
         num_rows = 1

@@ -62,10 +62,8 @@ class TimeStamperTemplate():
 
     def __init__(self):
 
-        self.timestamp_set = False
         self.output_file_encoding = "utf-8"
         self.images_dir = path.join(resource_path(), "ts_images", "program_images")
-        self.mac_disabled_color = "#d3d3d3"
 
         self.mapping = self.map_template_objects_to_string_keys()
 
@@ -76,11 +74,20 @@ class TimeStamperTemplate():
         pertaining specifically to interactable objects in the Time Stamper program."""
 
         def __init__(self):
-
             self.buttons = Buttons()
             self.entries = Entries()
             self.labels = Labels()
             self.texts = Texts()
+
+    @dataclass
+    class Timer():
+        """This class, which is called upon by the constructor of the TimeStamperTemplate
+        class, should be seen as an extension of the TimeStamperTemplate class with
+        attributes pertaining specifically to the timer in the Time Stamper program."""
+
+        def __init__(self):
+            self.str_key = "time_stamper_timer"
+            self.window_str_key = "window_main"
 
     def map_template_objects_to_string_keys(self):
         """This method creates a mapping of all templates
@@ -91,6 +98,7 @@ class TimeStamperTemplate():
         entries = fields.entries
         labels = fields.labels
         texts = fields.texts
+        timer = self.Timer()
         windows = Windows()
 
         # In a list, store all of the templates so that, immediately afterwards, we can use
@@ -162,7 +170,14 @@ class TimeStamperTemplate():
             # Outer Texts() template class
             texts, \
 
+            # There are currently only three text widgets.
             texts.log, texts.current_note, texts.attribution, \
+
+        ####################
+        # Texts
+        ####################
+
+            timer, \
 
         ####################
         # Windows

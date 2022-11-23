@@ -43,6 +43,8 @@ class OtherEntries():
 
         str_key = "entry_rewind"
 
+        window_str_key = "window_main"
+
         text = ""
 
         max_val = 99
@@ -83,6 +85,8 @@ class OtherEntries():
         max_digits = 2
 
         str_key = "entry_fast_forward"
+
+        window_str_key = "window_main"
 
         text = ""
 

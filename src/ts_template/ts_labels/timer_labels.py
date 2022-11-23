@@ -44,6 +44,8 @@ class TimerLabels():
 
         str_key = "label_hrs"
 
+        window_str_key = "window_main"
+
         background = None
         foreground = None
 
@@ -83,6 +85,8 @@ class TimerLabels():
         text = "m"
 
         str_key = "label_min"
+
+        window_str_key = "window_main"
 
         background = None
         foreground = None
@@ -124,6 +128,8 @@ class TimerLabels():
 
         str_key = "label_dot"
 
+        window_str_key = "window_main"
+
         background = None
         foreground = None
 
@@ -163,6 +169,8 @@ class TimerLabels():
         text = "s"
 
         str_key = "label_s"
+
+        window_str_key = "window_main"
 
         background = None
         foreground = None

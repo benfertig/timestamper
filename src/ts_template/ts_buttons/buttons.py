@@ -44,12 +44,12 @@ class Buttons():
         self.notes = NoteButtons()
         self.timestamping = TimestampingButtons()
 
-        # In a tuple, save all of the templates for buttons that appear inside of the program's
-        # main window, which, in the program's current form, is all of the program's buttons.
-        self.main_window_templates = (
-            self.media.pause, self.media.play, self.media.stop, self.media.rewind, \
-            self.media.fast_forward, self.media.record, self.file.output_select, \
-            self.file.merge_output_files, self.timestamping.timestamp, \
-            self.timestamping.clear_timestamp, self.info.help, self.info.license, \
-            self.info.attribution, self.notes.cancel_note, self.notes.save_note
-        )
+        # Map the button templates to the windows that they appear in.
+        self.template_window_mapping = {
+            "window_main":
+                (self.media.pause, self.media.play, self.media.stop, self.media.rewind,
+                self.media.fast_forward, self.media.record, self.file.output_select,
+                self.file.merge_output_files, self.timestamping.timestamp,
+                self.timestamping.clear_timestamp, self.info.help, self.info.license,
+                self.info.attribution, self.notes.cancel_note, self.notes.save_note)
+        }

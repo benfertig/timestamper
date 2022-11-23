@@ -45,6 +45,8 @@ class TimerEntries():
 
         str_key = "entry_hours"
 
+        window_str_key = "window_main"
+
         text = "00"
 
         max_val = 99
@@ -83,6 +85,8 @@ class TimerEntries():
         initial_state = NORMAL
 
         str_key = "entry_minutes"
+
+        window_str_key = "window_main"
 
         text = "00"
 
@@ -123,6 +127,8 @@ class TimerEntries():
 
         str_key = "entry_seconds"
 
+        window_str_key = "window_main"
+
         text = "00"
 
         max_val = 59
@@ -161,6 +167,8 @@ class TimerEntries():
         initial_state = NORMAL
 
         str_key = "entry_subseconds"
+
+        window_str_key = "window_main"
 
         text = "00"
 

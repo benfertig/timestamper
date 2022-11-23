@@ -38,9 +38,9 @@ class Entries():
         self.timer = TimerEntries()
         self.other = OtherEntries()
 
-        # In a tuple, save all of the templates for entries that appear inside of the program's
-        # main window, which, in the program's current form, is all of the program's entries.
-        self.main_window_templates = (
-            self.timer.num_hours, self.timer.num_minutes, self.timer.num_seconds, \
-            self.timer.num_subseconds, self.other.rewind, self.other.fast_forward
-        )
+        # Map the entry templates to the windows that they appear in.
+        self.template_window_mapping = {
+            "window_main":
+                (self.timer.num_hours, self.timer.num_minutes, self.timer.num_seconds,
+                self.timer.num_subseconds, self.other.rewind, self.other.fast_forward)
+        }

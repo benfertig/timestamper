@@ -4,7 +4,8 @@ contains methods that create various Tkinter widgets."""
 
 from os import path
 from sys import platform
-from tkinter import Button, Entry, Label, Text, PhotoImage, StringVar, Grid, Tk, font, DISABLED
+from tkinter import Button, Entry, Label, Text, PhotoImage, \
+    StringVar, Grid, Tk, font, DISABLED, NORMAL, END
 
 if platform == "darwin":
     from tkmacosx import Button as MacButton
@@ -28,23 +29,89 @@ if platform == "darwin":
 # Contact: github.cqrde@simplelogin.com
 
 
+def entry_val_limit(entry_text, max_val):
+    """This method prevents any non-numerical characters from being entered
+    into an entry and also sets the maximum value of that entry."""
+
+    if len(entry_text.get()) > 0:
+
+        # Remove any non-digits from the entry.
+        try:
+            int(entry_text.get()[-1])
+        except ValueError:
+            entry_text.set(entry_text.get()[:-1])
+
+        # Remove any digits from the entry that put the entry over max_val.
+        if len(entry_text.get()) > 0:
+            if int(entry_text.get()) > max_val:
+                entry_text.set(entry_text.get()[:-1])
+
+
 class WidgetCreators():
     """This class stores methods that create various Tkinter widgets based on templates."""
 
-    def __init__(self, root, template):
-        self.root = root
+    def __init__(self, template):
         self.template = template
+        self.mapping = {}
+        self.original_colors = {}
 
-    def create_window(self):
+    def create_entire_window(self, window_str, button_macro_mapping=None, \
+        close_window_macro=None, macro_args=()):
+        """This method creates an entire window with all of its widgets. For
+        this method to work properly, the widget templates must already be mapped
+        to the window's string key in the "template_window_mapping" dictionaries
+        in "buttons.py", "entries.py", "labels.py" and "texts.py"."""
+
+        # Create the window.
+        window_templ = self.template.mapping[window_str]
+        self.create_window(window_templ, self.template.images_dir)
+
+        # Create the buttons.
+        button_mapping = self.template.mapping["buttons"].template_window_mapping
+        if button_macro_mapping is not None and window_str in button_mapping:
+            button_window_templs = button_mapping[window_str]
+            self.create_buttons(button_window_templs, \
+                self.template.images_dir, button_macro_mapping)
+
+        # Create the entries.
+        entry_mapping = self.template.mapping["entries"].template_window_mapping
+        if window_str in entry_mapping:
+            entry_window_templs = entry_mapping[window_str]
+            self.create_entries(entry_window_templs, entry_val_limit)
+
+        # Create the labels.
+        label_mapping = self.template.mapping["labels"].template_window_mapping
+        if window_str in label_mapping:
+            label_window_templs = label_mapping[window_str]
+            self.create_labels(label_window_templs)
+
+        # Create the texts.
+        text_mapping = self.template.mapping["texts"].template_window_mapping
+        if window_str in text_mapping:
+            text_window_templs = text_mapping[window_str]
+            self.create_texts(text_window_templs)
+
+        root = self.mapping[window_str]
+
+        # If a function should be executed when this new window is closed, set that function here.
+        if close_window_macro:
+            macro_args = (root,) + macro_args
+            root.protocol("WM_DELETE_WINDOW", lambda: close_window_macro(*macro_args))
+
+        # Return the window object
+        return root
+
+    def create_window(self, window_template, images_dir):
         """This method creates the main window for the Time Stamper program."""
 
         # Create the main window and set its characteristics.
-        window_template = self.template.mapping["window_main"]
-        self.root = Tk()
-        self.root.title(window_template.title)
-        self.root.geometry(f"{window_template.width}x{window_template.height}")
-        self.root["background"] = window_template.background
-        self.root["foreground"] = window_template.foreground
+        new_root = Tk()
+        self.mapping[window_template.str_key] = new_root
+        new_root.title(window_template.title)
+        if window_template.width is not None and window_template.height is not None:
+            new_root.geometry(f"{window_template.width}x{window_template.height}")
+        new_root["background"] = window_template.background
+        new_root["foreground"] = window_template.foreground
 
         # If we are on a Mac, the window icon needs to be a .icns file.
         # On Windows, the window icon needs to be a .ico file.
@@ -54,30 +121,31 @@ class WidgetCreators():
             icon_file_name = window_template.icon_windows
 
         # Set the main window icon.
-        self.root.iconbitmap(path.join(self.template.images_dir, icon_file_name))
+        new_root.iconbitmap(path.join(images_dir, icon_file_name))
 
         # Configure the main window's columns.
         for column_num in range(window_template.num_columns):
-            Grid.columnconfigure(self.root, column_num, weight=1)
+            Grid.columnconfigure(new_root, column_num, weight=1)
 
         # Configure the main window's rows.
         for row_num in range(window_template.num_rows):
-            Grid.rowconfigure(self.root, row_num, weight=1)
+            Grid.rowconfigure(new_root, row_num, weight=1)
 
-        return self.root
+        return new_root
 
-    def create_tk_image(self, obj_template):
+    def create_tk_image(self, obj_template, images_dir):
         """This method creates an image object for the Time Stamper program."""
 
         # Return a PhotoImage only if there is an image associated with the object.
         if obj_template.image_file_name:
-            return PhotoImage(file=path.join(self.template.images_dir, \
-                obj_template.image_file_name))
+            image = PhotoImage(file=path.join(images_dir, obj_template.image_file_name))
+            self.mapping[obj_template.image_file_name] = image
+            return image
 
         # If there is no image associated with the object return None.
         return None
 
-    def create_button(self, button_template, macros, button_image=None):
+    def create_button(self, button_template, button_macro, button_image=None):
         """This method creates a Button object for the Time Stamper program."""
 
         # Create the Button's font.
@@ -95,11 +163,12 @@ class WidgetCreators():
             button_class = MacButton
 
         # Create the Button object.
-        button = button_class(self.root, height=button_template.height, \
+        root = self.mapping[button_template.window_str_key]
+        button = button_class(root, height=button_template.height, \
             width=button_template.width, text=button_template.text, \
             image=button_image, state=button_template.initial_state, font=button_font, \
             background=button_background, foreground=button_foreground, \
-            command=macros.button.mapping[button_template.str_key])
+            command=button_macro)
 
         # Place the Button.
         button.grid(column=button_template.column, row=button_template.row, \
@@ -109,7 +178,7 @@ class WidgetCreators():
 
         # Map the Button object to the Button's string
         # key so that the Macros class can reference it.
-        macros.button.object_mapping[button_template.str_key] = button
+        self.mapping[button_template.str_key] = button
 
         # Map the Button object's initial background to the Button's string key so that the
         # Button's background can be reset to this color upon reactivation (currently, this
@@ -119,18 +188,26 @@ class WidgetCreators():
         # when we pass None as the argument for "background" in the Button's constructor, the
         # background is set to a specific color, so we should save the explicit background
         # color because we will need to reference this color if we want to revert to it later.
-        macros.original_colors[button_template.str_key] = button.cget("background")
+        self.original_colors[button_template.str_key] = button.cget("background")
 
         # If we are on a Mac and this button is BOTH initially disabled AND an instance of the kind
         # of button whose background we would like to change when enabled/disabled, then set this
         # button's initial background color to our predefined color for disabled fields on Macs.
         if platform == "darwin" and isinstance(button, MacButton) \
             and not button.cget("text") and button["state"] == DISABLED:
-            button["background"] = self.template.mac_disabled_color
+            button["background"] = button_template.mac_disabled_color
 
         return button
 
-    def create_entry(self, entry_template, macros):
+    def create_buttons(self, button_templates, images_dir, button_macro_mapping):
+        """This method creates all of the buttons specified by the templates in
+        button_templates, searching for images in the directory provided by images_dir."""
+
+        for b_templ in button_templates:
+            image = self.create_tk_image(b_templ, images_dir)
+            self.create_button(b_templ, button_macro_mapping[b_templ.str_key], image)
+
+    def create_entry(self, entry_template, e_v_limit):
         """This method creates an Entry object for the Time Stamper program."""
 
         # Set the Entry's initial text.
@@ -143,7 +220,8 @@ class WidgetCreators():
             underline=entry_template.font_underline, overstrike=entry_template.font_overstrike)
 
         # Create the Entry object.
-        entry = Entry(self.root, width=entry_template.width, \
+        root = self.mapping[entry_template.window_str_key]
+        entry = Entry(root, width=entry_template.width, \
             textvariable=entry_text, font=entry_font, background=entry_template.background, \
             foreground=entry_template.foreground, state=entry_template.initial_state)
 
@@ -154,22 +232,20 @@ class WidgetCreators():
             ipadx=entry_template.ipadx, ipady=entry_template.ipady, sticky=entry_template.sticky)
 
         # Set the Entry input resitrictions.
-        entry_text.trace("w", \
-            lambda *args: macros.entry_val_limit(entry_text, entry_template.max_val))
+        entry_text.trace("w", lambda *args: e_v_limit(entry_text, entry_template.max_val))
 
         # Map the Entry object to the Entry's string key so that the Macros class can reference it.
-        macros.button.object_mapping[entry_template.str_key] = entry
-
-        # Map the Entry object's initial color to the Entry's string key (currently,
-        # there is no need to have this mapping for any tkinter objects in this class
-        # other than for Buttons, but there is no harm in mapping the original colors
-        # for the other objects as well, both for consistency's sake and because of
-        # the possibility that we could make use of this mapping in the future).
-        macros.original_colors[entry_template.str_key] = entry.cget("background")
+        self.mapping[entry_template.str_key] = entry
 
         return entry
 
-    def create_label(self, label_template, macros):
+    def create_entries(self, entry_templates, e_v_limit):
+        """This method creates all of the entries specified by the templates in entry_templates."""
+
+        for e_templ in entry_templates:
+            self.mapping[e_templ.str_key] = self.create_entry(e_templ, e_v_limit)
+
+    def create_label(self, label_template):
         """This method creates a Label object for the Time Stamper program."""
 
         # Create the Label's font.
@@ -179,7 +255,8 @@ class WidgetCreators():
             overstrike=label_template.font_overstrike)
 
         # Create the Label object.
-        label = Label(self.root, height=label_template.height, \
+        root = self.mapping[label_template.window_str_key]
+        label = Label(root, height=label_template.height, \
             width=label_template.width, background=label_template.background, \
             foreground=label_template.foreground, text=label_template.text, \
             font=label_font, highlightthickness=0, wraplength=label_template.wraplength, \
@@ -192,18 +269,16 @@ class WidgetCreators():
             ipadx=label_template.ipadx, ipady=label_template.ipady, sticky=label_template.sticky)
 
         # Map the Label object to the Label's string key so that the Macros class can reference it.
-        macros.button.object_mapping[label_template.str_key] = label
-
-        # Map the Label object's initial color to the Label's string key (currently,
-        # there is no need to have this mapping for any tkinter objects in this class
-        # other than for Buttons, but there is no harm in mapping the original colors
-        # for the other objects as well, both for consistency's sake and because of
-        # the possibility that we could make use of this mapping in the future).
-        macros.original_colors[label_template.str_key] = label.cget("background")
+        self.mapping[label_template.str_key] = label
 
         return label
 
-    def create_text(self, text_template, macros):
+    def create_labels(self, label_templates):
+        """This method creates all of the labels specified by the templates in label_templates."""
+
+        return [self.create_label(l_templ) for l_templ in label_templates]
+
+    def create_text(self, text_template):
         """This method creates a Text object for the Time Stamper program."""
 
         # Create the Text's font.
@@ -214,9 +289,15 @@ class WidgetCreators():
             overstrike=text_template.font_overstrike)
 
         # Create the Text object.
-        text = Text(self.root, height=text_template.height, \
+        root = self.mapping[text_template.window_str_key]
+        text = Text(root, height=text_template.height, \
             width=text_template.width, font=text_font, \
             state=text_template.initial_state)
+
+        # Display the Text object's text.
+        text["state"] = NORMAL
+        text.insert(END, text_template.text)
+        text["state"] = text_template.initial_state
 
         # Place the Text.
         text.grid(column=text_template.column, row=text_template.row, \
@@ -225,13 +306,11 @@ class WidgetCreators():
             ipadx=text_template.ipadx, ipady=text_template.ipady, sticky=text_template.sticky)
 
         # Map the Text object to the Text's string key so that the Macros class can reference it.
-        macros.button.object_mapping[text_template.str_key] = text
-
-        # Map the Text object's initial color to the Texts's string key (currently,
-        # there is no need to have this mapping for any tkinter objects in this class
-        # other than for Buttons, but there is no harm in mapping the original colors
-        # for the other objects as well, both for consistency's sake and because of
-        # the possibility that we could make use of this mapping in the future).
-        macros.original_colors[text_template.str_key] = text.cget("background")
+        self.mapping[text_template.str_key] = text
 
         return text
+
+    def create_texts(self, text_templates):
+        """This method creates all of the texts specified by the templates in text_templates."""
+
+        return [self.create_text(l_templ) for l_templ in text_templates]

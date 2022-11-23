@@ -42,6 +42,10 @@ class NoteButtons():
 
         str_key = "button_cancel_note"
 
+        window_str_key = "window_main"
+
+        mac_disabled_color = "#d3d3d3"
+
         to_enable = ()
         to_disable = ()
 
@@ -81,6 +85,10 @@ class NoteButtons():
         text = "Save note"
 
         str_key = "button_save_note"
+
+        window_str_key = "window_main"
+
+        mac_disabled_color = "#d3d3d3"
 
         image_file_name = None
 

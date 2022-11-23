@@ -45,6 +45,9 @@ class InfoWindows():
         background = None
         foreground = None
 
+        width = None
+        height = None
+
         num_columns = 1
         num_rows = 1
 
@@ -61,6 +64,9 @@ class InfoWindows():
         background = None
         foreground = None
 
+        width = None
+        height = None
+
         num_columns = 1
         num_rows = 1
 
@@ -76,6 +82,9 @@ class InfoWindows():
 
         background = None
         foreground = None
+
+        width = None
+        height = None
 
         num_columns = 1
         num_rows = 1

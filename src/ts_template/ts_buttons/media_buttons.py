@@ -45,6 +45,10 @@ class MediaButtons():
 
         str_key = "button_pause"
 
+        window_str_key = "window_main"
+
+        mac_disabled_color = "#d3d3d3"
+
         text = None
         image_file_name = "pause.png"
 
@@ -90,6 +94,10 @@ class MediaButtons():
 
         str_key = "button_play"
 
+        window_str_key = "window_main"
+
+        mac_disabled_color = "#d3d3d3"
+
         to_enable = ("button_pause",)
         to_disable = ("button_play", "entry_hours", "entry_minutes", \
             "entry_seconds", "entry_subseconds")
@@ -131,6 +139,10 @@ class MediaButtons():
         image_file_name = "stop.png"
 
         str_key = "button_stop"
+
+        window_str_key = "window_main"
+
+        mac_disabled_color = "#d3d3d3"
 
         print_on_press = "##### END #####"
 
@@ -176,6 +188,10 @@ class MediaButtons():
 
         str_key = "button_rewind"
 
+        window_str_key = "window_main"
+
+        mac_disabled_color = "#d3d3d3"
+
         background = None
         foreground = None
 
@@ -214,6 +230,10 @@ class MediaButtons():
 
         str_key = "button_fast_forward"
 
+        window_str_key = "window_main"
+
+        mac_disabled_color = "#d3d3d3"
+
         background = None
         foreground = None
 
@@ -251,6 +271,10 @@ class MediaButtons():
         image_file_name = "record.png"
 
         str_key = "button_record"
+
+        window_str_key = "window_main"
+
+        mac_disabled_color = "#d3d3d3"
 
         print_on_press = "##### BEGIN #####"
 

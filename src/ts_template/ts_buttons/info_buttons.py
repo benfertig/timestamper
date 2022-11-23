@@ -43,6 +43,10 @@ class InfoButtons():
 
         str_key = "button_help"
 
+        window_str_key = "window_main"
+
+        mac_disabled_color = "#d3d3d3"
+
         background = None
         foreground = None
 
@@ -81,6 +85,10 @@ class InfoButtons():
 
         str_key = "button_license"
 
+        window_str_key = "window_main"
+
+        mac_disabled_color = "#d3d3d3"
+
         background = None
         foreground = None
 
@@ -118,6 +126,10 @@ class InfoButtons():
         image_file_name = None
 
         str_key = "button_attribution"
+
+        window_str_key = "window_main"
+
+        mac_disabled_color = "#d3d3d3"
 
         background = None
         foreground = None

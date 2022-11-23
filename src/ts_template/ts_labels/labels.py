@@ -42,13 +42,22 @@ class Labels():
         self.merge = MergeLabels()
         self.other = OtherLabels()
 
-        # Do not include any labels from the InfoLabels or MergeLabels class in
-        # self.main_window_templates because self.main_window_templates is only meant
-        # to store the templates for objects that we would like to create immediately when
-        # the program starts. Any objects that are part of separate windows will only be
-        # created when the user performs an action that triggers that window's creation.
-        self.main_window_templates = (
-            self.timer.hrs, self.timer.min, self.timer.dot,\
-            self.timer.sec, self.other.output_path, self.other.rewind_sec, \
-            self.other.fast_forward_sec, self.other.timestamp
-        )
+        # Map the label templates to the windows that they appear in.
+        self.template_window_mapping = {
+            "window_main":
+                (self.timer.hrs, self.timer.min, self.timer.dot,
+                self.timer.sec, self.other.output_path, self.other.rewind_sec,
+                self.other.fast_forward_sec, self.other.timestamp),
+            "window_help":
+                (self.info.help_message,),
+            "window_license":
+                (self.info.license_message,),
+            "window_merge_first_message" :
+                (self.merge.first_message,),
+            "window_merge_second_message" :
+                (self.merge.second_message,),
+            "window_merge_success" :
+                (self.merge.success,),
+            "window_merge_failure" :
+                (self.merge.failure,)
+        }

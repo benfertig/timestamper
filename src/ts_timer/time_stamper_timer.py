@@ -36,7 +36,9 @@ class TimeStamperTimer():
         (time_stamper) which should be an object of type TimeStamper."""
 
         self.time_stamper = time_stamper
+
         self.timing = Timing()
+        self.timestamp_set = False
 
     def read_current_time(self, raw=False):
         """This method reads in and returns the current time from the time fields. This
@@ -110,8 +112,8 @@ class TimeStamperTimer():
         self.print_to_field(self.time_stamper.time_fields.subseconds_field, subseconds)
 
         # If a timestamp has not been set, make the timestamp label reflect the current time.
-        if not self.time_stamper.template.timestamp_set:
-            obj_timestamp = self.time_stamper.macros.button.object_mapping["label_timestamp"]
+        if not self.timestamp_set:
+            obj_timestamp = self.time_stamper.widget_creators.mapping["label_timestamp"]
             obj_timestamp["text"] = f"[{hours}:{minutes}:{seconds}.{subseconds}]"
 
     def update_timer(self, seconds_to_add=0):
@@ -160,6 +162,7 @@ class TimeStamperTimer():
                 self.display_time(hours, minutes, seconds, subseconds)
 
                 # Tick the timer again.
+
                 self.time_stamper.root.after(5, self.timer_tick)
 
             # If the timer's currently displayed time is not less

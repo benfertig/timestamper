@@ -43,6 +43,10 @@ class FileButtons():
 
         str_key = "button_output_select"
 
+        window_str_key = "window_main"
+
+        mac_disabled_color = "#d3d3d3"
+
         image_file_name = None
 
         starting_dir = getcwd()
@@ -86,6 +90,10 @@ class FileButtons():
         image_file_name = None
 
         str_key = "button_merge_output_files"
+
+        window_str_key = "window_main"
+
+        mac_disabled_color = "#d3d3d3"
 
         image_file_name = None
 

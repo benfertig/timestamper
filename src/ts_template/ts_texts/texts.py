@@ -38,23 +38,26 @@ class Texts():
         self.current_note = self.TextCurrentNote()
         self.attribution = self.TextAttribution()
 
-        # Do not include the attribution text widget in self.main_window_templates
-        # because self.main_window_templates is only meant to store the templates for
-        # objects that we would like to create immediately when the program starts.
-        # Any objects that are part of separate windows will only be created
-        # when the user performs an action that triggers that window's creation.
-        self.main_window_templates = (
-            self.log, self.current_note
-        )
+        # Map the text templates to the windows that they appear in.
+        self.template_window_mapping = {
+            "window_main":
+                (self.log, self.current_note),
+            "window_attribution":
+                (self.attribution,)
+        }
 
     @dataclass
     class TextLog():
         """This class stores the attributes for the text
         box where the user's past notes are displayed."""
 
+        text = ""
+
         initial_state = DISABLED
 
         str_key = "text_log"
+
+        window_str_key = "window_main"
 
         width = 105
         height = 14
@@ -85,9 +88,13 @@ class Texts():
         """This class stores the attributes for the text
         box where the user's current note is displayed."""
 
+        text = ""
+
         initial_state = NORMAL
 
         str_key = "text_current_note"
+
+        window_str_key = "window_main"
 
         width = 93
         height = 3
@@ -127,6 +134,8 @@ class Texts():
         initial_state = DISABLED
 
         str_key = "text_attribution"
+
+        window_str_key = "window_attribution"
 
         width = 107
         height = 30

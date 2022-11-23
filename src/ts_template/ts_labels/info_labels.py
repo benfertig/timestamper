@@ -45,6 +45,8 @@ class InfoLabels():
 
         str_key = "label_help"
 
+        window_str_key = "window_help"
+
         background = None
         foreground = None
 
@@ -97,6 +99,8 @@ class InfoLabels():
             "Contact: github.cqrde@simplelogin.com"
 
         str_key = "label_license"
+
+        window_str_key = "window_license"
 
         background = None
         foreground = None
