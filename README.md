@@ -16,7 +16,7 @@ If you would like to run and build this program from the source code, check out 
 
 ### 2 - Play button
 ![src/ts_images/help_images/button_play.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_play.png?raw=true)
-* This button resumes the timer (see 18). You must be already paused (see 1) to be able to press the play button.
+* This button resumes the timer (see 18). You must already be paused (see 1) to be able to press the play button.
 
 ### 3 - Stop button
 ![src/ts_images/help_images/button_stop.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_stop.png?raw=true)
@@ -78,7 +78,7 @@ If you would like to run and build this program from the source code, check out 
 
 ### 13 - License button
 ![src/ts_images/help_images/button_license.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_license.png?raw=true)
-* Press this button to view this program's licensing information, which can also be found **[here](https://www.gnu.org/licenses/gpl-3.0.en.html)**.
+* Press this button to view this program's licensing information. A copy of the entire license can be found **[here](https://www.gnu.org/licenses/gpl-3.0.en.html)**.
 
 ### 14 - Attribution button
 ![src/ts_images/help_images/button_attribution.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_attribution.png?raw=true)
