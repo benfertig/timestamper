@@ -40,7 +40,7 @@ If you would like to run and build this program from the source code, check out 
 
 ### 6 - Record button
 ![src/ts_images/help_images/button_record.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_record.png?raw=true)
-* This button starts the timer (see 18). Pressing the record button will also record a new note, timestamped with the timer's current time, indicating that the user has begun entering notes. You must press the record button to be able to enter notes, and you cannot press the record button until you have selected an output file (see 7).
+* This button starts the timer (see 18). Pressing the record button will also record a new note, timestamped with the current time on the timer (see 18), indicating that the user has begun entering notes. You must press the record button to be able to enter notes, and you cannot press the record button until you have selected an output file (see 7).
 
 ### 7 - Output select button
 ![src/ts_images/help_images/button_output_select.png](https://github.com/benfertig/timestamper/blob/main/src/ts_images/help_images/button_output_select.png?raw=true)
