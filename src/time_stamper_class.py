@@ -46,9 +46,9 @@ class TimeStamper():
         self.root = None
         self.template = template
         self.time_fields = self.TimeFields()
-        self.widget_creators = WidgetCreators(self.template)
+        self.widget_creators = WidgetCreators(template.mapping, template.images_dir, "window_main")
         self.timer = TimeStamperTimer(self)
-        self.macros = Macros(self.template, self.widget_creators, self.timer)
+        self.macros = Macros(template, self.widget_creators, self.timer)
 
     def store_time_fields(self, entries_mapping):
         """This method stores the widgets that display the timer's current

@@ -110,87 +110,89 @@ class TimeStamperTemplate():
         ####################
 
             # Outer Buttons() template class
-            buttons, \
+            buttons,
 
             # File buttons
-            buttons.file.output_select, buttons.file.merge_output_files, \
+            buttons.file.output_select, buttons.file.merge_output_files,
 
             # Info buttons
-            buttons.info.attribution, buttons.info.help, buttons.info.license, \
+            buttons.info.attribution, buttons.info.license,
+            buttons.info.help, buttons.info.help_left_arrow, buttons.info.help_right_arrow,
 
             # Media buttons
-            buttons.media.pause,  buttons.media.play, buttons.media.stop, \
-            buttons.media.rewind, buttons.media.fast_forward, buttons.media.record, \
+            buttons.media.pause,  buttons.media.play, buttons.media.stop,
+            buttons.media.rewind, buttons.media.fast_forward, buttons.media.record,
 
             # Note buttons
-            buttons.notes.cancel_note, buttons.notes.save_note, \
+            buttons.notes.cancel_note, buttons.notes.save_note,
 
             # Timestamping buttons
-            buttons.timestamping.timestamp, buttons.timestamping.clear_timestamp, \
+            buttons.timestamping.timestamp, buttons.timestamping.clear_timestamp,
 
         ####################
         # Entries
         ####################
 
             # Outer Entries() template class
-            entries, \
+            entries,
 
             # Timer entries
-            entries.timer.num_hours,  entries.timer.num_minutes, \
-            entries.timer.num_seconds, entries.timer.num_subseconds, \
+            entries.timer.num_hours,  entries.timer.num_minutes,
+            entries.timer.num_seconds, entries.timer.num_subseconds,
 
             # Other entries
-            entries.other.rewind, entries.other.fast_forward, \
+            entries.other.rewind, entries.other.fast_forward,
 
         ####################
         # Labels
         ####################
 
             # Outer Labels() template class
-            labels, \
+            labels,
 
             # Timer labels
-            labels.timer.hrs, labels.timer.min, labels.timer.dot, labels.timer.sec, \
+            labels.timer.hrs, labels.timer.min, labels.timer.dot, labels.timer.sec,
 
             # Info labels
-            labels.info.help_message, labels.info.license_message, \
+            labels.info.help_image, labels.info.help_message,
+            labels.info.help_page_number, labels.info.license_message,
 
             # Merge labels
-            labels.merge.first_message,  labels.merge.second_message, \
-            labels.merge.success, labels.merge.failure, \
+            labels.merge.first_message,  labels.merge.second_message,
+            labels.merge.success, labels.merge.failure,
 
             # Other labels
-            labels.other.output_path, labels.other.rewind_sec, \
-            labels.other.fast_forward_sec, labels.other.timestamp, \
+            labels.other.output_path, labels.other.rewind_sec,
+            labels.other.fast_forward_sec, labels.other.timestamp,
 
         ####################
         # Texts
         ####################
 
             # Outer Texts() template class
-            texts, \
+            texts,
 
             # There are currently only three text widgets.
-            texts.log, texts.current_note, texts.attribution, \
+            texts.log, texts.current_note, texts.attribution,
 
         ####################
         # Texts
         ####################
 
-            timer, \
+            timer,
 
         ####################
         # Windows
         ####################
 
             # Main window
-            windows.main, \
+            windows.main,
 
             # Info windows
-            windows.info.attribution, windows.info.help, windows.info.license, \
+            windows.info.attribution, windows.info.help, windows.info.license,
 
             # Windows associated with the "Merge output files" function
-            windows.merge.first_message, windows.merge.second_message, \
+            windows.merge.first_message, windows.merge.second_message,
             windows.merge.success, windows.merge.failure
 
         )

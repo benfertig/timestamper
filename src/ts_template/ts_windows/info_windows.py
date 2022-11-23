@@ -48,8 +48,8 @@ class InfoWindows():
         width = None
         height = None
 
-        num_columns = 1
-        num_rows = 1
+        num_columns = 2
+        num_rows = 4
 
     @dataclass
     class WindowLicense():

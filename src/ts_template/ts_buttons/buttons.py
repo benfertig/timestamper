@@ -51,5 +51,7 @@ class Buttons():
                 self.media.fast_forward, self.media.record, self.file.output_select,
                 self.file.merge_output_files, self.timestamping.timestamp,
                 self.timestamping.clear_timestamp, self.info.help, self.info.license,
-                self.info.attribution, self.notes.cancel_note, self.notes.save_note)
+                self.info.attribution, self.notes.cancel_note, self.notes.save_note),
+            "window_help":
+                (self.info.help_left_arrow, self.info.help_right_arrow)
         }

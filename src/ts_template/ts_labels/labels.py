@@ -49,7 +49,7 @@ class Labels():
                 self.timer.sec, self.other.output_path, self.other.rewind_sec,
                 self.other.fast_forward_sec, self.other.timestamp),
             "window_help":
-                (self.info.help_message,),
+                (self.info.help_image, self.info.help_message, self.info.help_page_number),
             "window_license":
                 (self.info.license_message,),
             "window_merge_first_message" :

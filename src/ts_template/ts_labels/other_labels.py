@@ -44,8 +44,9 @@ class OtherLabels():
         text = "-----PLEASE SELECT AN OUTPUT FILE-----"
 
         str_key = "label_output_path"
-
         window_str_key = "window_main"
+
+        image_file_name = None
 
         background = None
         foreground = None
@@ -86,8 +87,9 @@ class OtherLabels():
         text = "sec"
 
         str_key = "label_rewind_sec"
-
         window_str_key = "window_main"
+
+        image_file_name = None
 
         background = None
         foreground = None
@@ -128,8 +130,9 @@ class OtherLabels():
         text = "sec"
 
         str_key = "label_fast_forward_sec"
-
         window_str_key = "window_main"
+
+        image_file_name = None
 
         background = None
         foreground = None
@@ -170,8 +173,9 @@ class OtherLabels():
         text = "[00:00:00.00]"
 
         str_key = "label_timestamp"
-
         window_str_key = "window_main"
+
+        image_file_name = None
 
         background = None
         foreground = None

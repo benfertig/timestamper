@@ -3,7 +3,7 @@
 called upon by the constructor of the Buttons class."""
 
 from dataclasses import dataclass
-from tkinter import NORMAL
+from tkinter import DISABLED, NORMAL
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -30,6 +30,8 @@ class InfoButtons():
     def __init__(self):
         self.attribution = self.ButtonAttribution()
         self.help = self.ButtonHelp()
+        self.help_left_arrow = self.ButtonHelpLeftArrow()
+        self.help_right_arrow = self.ButtonHelpRightArrow()
         self.license = self.ButtonLicense()
 
     @dataclass
@@ -61,6 +63,90 @@ class InfoButtons():
 
         padx = (10, 0)
         pady = (8, 0)
+
+        ipadx = None
+        ipady = None
+
+        sticky = "nsew"
+
+        font_family = ""
+        font_size = 10
+        font_weight = "normal"
+        font_slant = "roman"
+        font_underline = 0
+        font_overstrike = 0
+
+    @dataclass
+    class ButtonHelpLeftArrow():
+        """This class stores the attributes for the help button."""
+
+        initial_state = DISABLED
+
+        text = None
+        image_file_name = "arrow_left.png"
+
+        str_key = "button_help_left_arrow"
+
+        window_str_key = "window_help"
+
+        mac_disabled_color = "#d3d3d3"
+
+        background = None
+        foreground = None
+
+        width = 48
+        height = 48
+
+        column = 0
+        row = 1
+
+        columnspan = 1
+        rowspan = 1
+
+        padx = None
+        pady = None
+
+        ipadx = None
+        ipady = None
+
+        sticky = "nsew"
+
+        font_family = ""
+        font_size = 10
+        font_weight = "normal"
+        font_slant = "roman"
+        font_underline = 0
+        font_overstrike = 0
+
+    @dataclass
+    class ButtonHelpRightArrow():
+        """This class stores the attributes for the help button."""
+
+        initial_state = NORMAL
+
+        text = None
+        image_file_name = "arrow_right.png"
+
+        str_key = "button_help_right_arrow"
+
+        window_str_key = "window_help"
+
+        mac_disabled_color = "#d3d3d3"
+
+        background = None
+        foreground = None
+
+        width = 48
+        height = 48
+
+        column = 1
+        row = 1
+
+        columnspan = 1
+        rowspan = 1
+
+        padx = None
+        pady = None
 
         ipadx = None
         ipady = None

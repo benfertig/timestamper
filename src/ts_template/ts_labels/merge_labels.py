@@ -46,8 +46,9 @@ class MergeLabels():
             "Close this window to proceed."
 
         str_key = "label_merge_first_message"
-
         window_str_key = "window_merge_first_message"
+
+        image_file_name = None
 
         background = None
         foreground = None
@@ -92,8 +93,9 @@ class MergeLabels():
             "Close this window to proceed."
 
         str_key = "label_merge_second_message"
-
         window_str_key = "window_merge_second_message"
+
+        image_file_name = None
 
         background = None
         foreground = None
@@ -144,8 +146,9 @@ class MergeLabels():
         text = ""
 
         str_key = "label_merge_success"
-
         window_str_key = "window_merge_success"
+
+        image_file_name = None
 
         background = None
         foreground = None
@@ -194,8 +197,9 @@ class MergeLabels():
             "Close this window to proceed."
 
         str_key = "label_merge_failure"
-
         window_str_key = "window_merge_failure"
+
+        image_file_name = None
 
         background = None
         foreground = None

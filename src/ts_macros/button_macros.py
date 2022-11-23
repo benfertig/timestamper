@@ -3,8 +3,9 @@
 functions that are executed immediately when a button in the TimeStamper
 program is pressed. This module excludes external helper functions."""
 
+from ntpath import basename
 from tkinter import DISABLED, END, NORMAL, filedialog
-from .helper_methods import enable_button, disable_button
+from .helper_methods import enable_button, disable_button, merge_notes
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -29,40 +30,41 @@ class ButtonMacros():
     """This class stores all of the macros that execute immediately
     when buttons are pressed, excluding helper methods."""
 
-    def __init__(self, template, timer, widget_creators, on_close_window_merge_1_macro):
+    def __init__(self, template, widget_creators, timer):
 
         self.template = template
         self.timer = timer
         self.widget_creators = widget_creators
-        self.on_close_window_merge_1_macro = on_close_window_merge_1_macro
 
         # Map buttons to their macros.
         self.mapping = { \
 
             # File buttons
-            "button_output_select": self.button_output_select_macro, \
-            "button_merge_output_files": self.button_merge_output_files_macro, \
+            "button_output_select": self.button_output_select_macro,
+            "button_merge_output_files": self.button_merge_output_files_macro,
 
             # Info buttons
-            "button_help": self.button_help_macro, \
-            "button_license": self.button_license_macro, \
-            "button_attribution": self.button_attribution_macro, \
+            "button_help": self.button_help_macro,
+            "button_help_left_arrow": self.button_help_left_arrow_macro,
+            "button_help_right_arrow": self.button_help_right_arrow_macro,
+            "button_license": self.button_license_macro,
+            "button_attribution": self.button_attribution_macro,
 
             # Media buttons
-            "button_pause": self.button_pause_macro, \
-            "button_play": self.button_play_macro, \
-            "button_stop": self.button_stop_macro, \
-            "button_rewind": self.button_rewind_macro, \
-            "button_fast_forward": self.button_fast_forward_macro, \
-            "button_record": self.button_record_macro, \
+            "button_pause": self.button_pause_macro,
+            "button_play": self.button_play_macro,
+            "button_stop": self.button_stop_macro,
+            "button_rewind": self.button_rewind_macro,
+            "button_fast_forward": self.button_fast_forward_macro,
+            "button_record": self.button_record_macro,
 
             # Note buttons
-            "button_cancel_note": self.button_cancel_note_macro, \
-            "button_save_note": self.button_save_note_macro, \
+            "button_cancel_note": self.button_cancel_note_macro,
+            "button_save_note": self.button_save_note_macro,
 
             # Timestamping buttons
-            "button_timestamp": self.button_timestamp_macro, \
-            "button_clear_timestamp": self.button_clear_timestamp_macro, \
+            "button_timestamp": self.button_timestamp_macro,
+            "button_clear_timestamp": self.button_clear_timestamp_macro,
 
         }
 
@@ -286,6 +288,82 @@ class ButtonMacros():
                 disable_button(self.widget_creators.mapping[str_button], \
                     self.template.mapping[str_button].mac_disabled_color)
 
+    def on_close_window_merge_1_macro(self, window_merge):
+        """This method will be executed when the FIRST window displaying
+        instructions to the user on how to merge output files is closed."""
+
+        window_merge.destroy()
+
+        # The user will be prompted to select the files whose notes they wish to merge.
+        file_types = (("text files", "*.txt"), ('All files', '*.*'))
+        files_full_paths = filedialog.askopenfilenames(title="Select output files to merge", \
+            initialdir=self.template.mapping["button_output_select"].starting_dir, \
+            filetypes=file_types)
+
+        # Only merge the notes if at least one file was selected.
+        if files_full_paths:
+
+            # Call the function that will display the second window with instructions
+            # on how to merge output files, passing a macro that will make the second
+            # file explorer window appear when the instructions window is closed,
+            # wherein the user should select a destination file for their merged outputs.
+            merge_second_message_window = \
+                self.widget_creators.create_entire_window("window_merge_second_message", \
+                    close_window_macro=self.on_close_window_merge_2_macro, \
+                        macro_args=(files_full_paths,))
+            merge_second_message_window.mainloop()
+
+    def on_close_window_merge_2_macro(self, window_merge, files_full_paths):
+        """This method will be executed when the SECOND window displaying
+        instructions to the user on how to merge output files is closed."""
+
+        window_merge.destroy()
+
+        button_record_message = self.template.mapping["button_record"].print_on_press
+        button_stop_message = self.template.mapping["button_stop"].print_on_press
+
+        # The user will be prompted to select the file to save the merged notes to.
+        file_types = (("text files", "*.txt"), ('All files', '*.*'))
+        merged_notes_path = \
+            filedialog.askopenfilename(title="Select destination for merged outputs", \
+            initialdir=self.template.mapping["button_output_select"].starting_dir, \
+            filetypes=file_types)
+
+        # Only proceed with attempting to merge the notes if
+        # the user selected a file to save the merged notes to.
+        if merged_notes_path:
+
+            # If the user tried to save the merged notes to a file whose notes were already going to
+            # be a part of the merge, do not merge the notes and instead display a failure message.
+            if merged_notes_path in files_full_paths:
+
+                merge_failure_window = \
+                    self.widget_creators.create_entire_window("window_merge_failure")
+                merge_failure_window.mainloop()
+
+            # If the user chose a unique file to save the merged notes to that
+            # was NOT already a part of the merge, proceed with the merge.
+            else:
+
+                # Merge the notes from all selected files.
+                merged_notes = \
+                    merge_notes(files_full_paths, button_record_message, \
+                        button_stop_message, self.template.output_file_encoding)
+
+                # Write the merged notes to the requested file.
+                with open(merged_notes_path, "a+", \
+                    encoding=self.template.output_file_encoding) as out:
+                    for note in merged_notes:
+                        out.write(note)
+
+                # Display a message that the notes were successfully merged.
+                label_merge_success = self.template.mapping["label_merge_success"]
+                label_merge_success.text = \
+                    label_merge_success.success_message(basename(merged_notes_path))
+                merge_success_window = \
+                    self.widget_creators.create_entire_window("window_merge_success")
+                merge_success_window.mainloop()
+
     def button_merge_output_files_macro(self):
         """This method will be executed when the "Merge output files" button is pressed."""
 
@@ -294,8 +372,7 @@ class ButtonMacros():
         # file explorer window appear when the instructions window is closed,
         # wherein the user should select all output files they would like to merge.
         window_merge_first_message = self.widget_creators.create_entire_window(\
-            "window_merge_first_message", close_window_macro=self.on_close_window_merge_1_macro, \
-                macro_args=(self.template.mapping, self.template.output_file_encoding))
+            "window_merge_first_message", close_window_macro=self.on_close_window_merge_1_macro)
         window_merge_first_message.mainloop()
 
     def button_clear_timestamp_macro(self):
@@ -316,8 +393,71 @@ class ButtonMacros():
         """This method will be executed when the "Help" button is pressed."""
 
         # Display the window containing the help message along with its relevant label.
-        window_help = self.widget_creators.create_entire_window("window_help")
+        window_help = self.widget_creators.create_entire_window("window_help", \
+            self.mapping, close_window_macro=self.on_close_window_help_macro)
         window_help.mainloop()
+
+    def change_help_page(self, next_page):
+        """This method is called upon by the macros for the left/right arrow buttons in
+        the help page. Since the procedure for both of these buttons is nearly identical,
+        we can use the same function for both buttons with only one parameter changed."""
+
+        label_page_number_template = self.template.mapping["label_help_page_number"]
+        page_numbers = label_page_number_template.page_numbers
+        cur_page = label_page_number_template.current_page_number
+
+        if page_numbers[cur_page][1 if next_page else 0] is not None:
+
+            # Display the new page number.
+            new_page = page_numbers[cur_page][1 if next_page else 0]
+            label_page_number_template.current_page_number = new_page
+            obj_page_number = self.widget_creators.mapping["label_help_page_number"]
+            obj_page_number["text"] = str(new_page)
+
+            # Display the new help message.
+            label_help_message_template = self.template.mapping["label_help_message"]
+            obj_label_help = self.widget_creators.mapping["label_help_message"]
+            new_message = label_help_message_template.help_data[str(new_page)]
+            label_help_message_template.text = new_message
+            obj_label_help["text"] = new_message
+
+            # Disable the left arrow button if we are at the first help page.
+            obj_button_help_left_arrow = self.widget_creators.mapping["button_help_left_arrow"]
+            if page_numbers[new_page][0] is None:
+                obj_button_help_left_arrow["state"] = DISABLED
+            else:
+                obj_button_help_left_arrow["state"] = NORMAL
+
+            # Disable the right arrow button if we are at the last help page.
+            obj_button_help_right_arrow = self.widget_creators.mapping["button_help_right_arrow"]
+            if page_numbers[new_page][1] is None:
+                obj_button_help_right_arrow["state"] = DISABLED
+            else:
+                obj_button_help_right_arrow["state"] = NORMAL
+
+    def button_help_left_arrow_macro(self):
+        """This method will be executed when the left arrow button in the help window is pressed."""
+        self.change_help_page(False)
+
+    def button_help_right_arrow_macro(self):
+        """This method will be executed when the right
+        arrow button in the help window is pressed."""
+        self.change_help_page(True)
+
+    def on_close_window_help_macro(self, window_help):
+        """This method will be executed when the help window is closed."""
+
+        window_help.destroy()
+
+        # Reset the page number in the page numbe label template.
+        label_page_number_template = self.template.mapping["label_help_page_number"]
+        first_page_num = label_page_number_template.first_page
+        label_page_number_template.current_page_number = first_page_num
+
+        # Reset the help message in the help message label template.
+        label_help_message_template = self.template.mapping["label_help_message"]
+        help_data = label_help_message_template.help_data
+        label_help_message_template.text = help_data[str(first_page_num)]
 
     def button_license_macro(self):
         """This method will be executed when the License button is pressed."""

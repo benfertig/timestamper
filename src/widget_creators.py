@@ -5,7 +5,7 @@ contains methods that create various Tkinter widgets."""
 from os import path
 from sys import platform
 from tkinter import Button, Entry, Label, Text, PhotoImage, \
-    StringVar, Grid, Tk, font, DISABLED, NORMAL, END
+    StringVar, Grid, Tk, Toplevel, font, DISABLED, NORMAL, END
 
 if platform == "darwin":
     from tkmacosx import Button as MacButton
@@ -50,8 +50,10 @@ def entry_val_limit(entry_text, max_val):
 class WidgetCreators():
     """This class stores methods that create various Tkinter widgets based on templates."""
 
-    def __init__(self, template):
-        self.template = template
+    def __init__(self, template_mapping, images_dir, main_window_str):
+        self.template_mapping = template_mapping
+        self.images_dir = images_dir
+        self.main_window_str = main_window_str
         self.mapping = {}
         self.original_colors = {}
 
@@ -63,30 +65,30 @@ class WidgetCreators():
         in "buttons.py", "entries.py", "labels.py" and "texts.py"."""
 
         # Create the window.
-        window_templ = self.template.mapping[window_str]
-        self.create_window(window_templ, self.template.images_dir)
+        window_templ = self.template_mapping[window_str]
+        self.create_window(window_templ, self.images_dir)
 
         # Create the buttons.
-        button_mapping = self.template.mapping["buttons"].template_window_mapping
+        button_mapping = self.template_mapping["buttons"].template_window_mapping
         if button_macro_mapping is not None and window_str in button_mapping:
             button_window_templs = button_mapping[window_str]
             self.create_buttons(button_window_templs, \
-                self.template.images_dir, button_macro_mapping)
+                self.images_dir, button_macro_mapping)
 
         # Create the entries.
-        entry_mapping = self.template.mapping["entries"].template_window_mapping
+        entry_mapping = self.template_mapping["entries"].template_window_mapping
         if window_str in entry_mapping:
             entry_window_templs = entry_mapping[window_str]
             self.create_entries(entry_window_templs, entry_val_limit)
 
         # Create the labels.
-        label_mapping = self.template.mapping["labels"].template_window_mapping
+        label_mapping = self.template_mapping["labels"].template_window_mapping
         if window_str in label_mapping:
             label_window_templs = label_mapping[window_str]
-            self.create_labels(label_window_templs)
+            self.create_labels(label_window_templs, self.images_dir)
 
         # Create the texts.
-        text_mapping = self.template.mapping["texts"].template_window_mapping
+        text_mapping = self.template_mapping["texts"].template_window_mapping
         if window_str in text_mapping:
             text_window_templs = text_mapping[window_str]
             self.create_texts(text_window_templs)
@@ -105,7 +107,11 @@ class WidgetCreators():
         """This method creates the main window for the Time Stamper program."""
 
         # Create the main window and set its characteristics.
-        new_root = Tk()
+        if window_template.str_key == self.main_window_str:
+            new_root = Tk()
+        else:
+            new_root = Toplevel()
+
         self.mapping[window_template.str_key] = new_root
         new_root.title(window_template.title)
         if window_template.width is not None and window_template.height is not None:
@@ -203,9 +209,12 @@ class WidgetCreators():
         """This method creates all of the buttons specified by the templates in
         button_templates, searching for images in the directory provided by images_dir."""
 
+        buttons = {}
         for b_templ in button_templates:
             image = self.create_tk_image(b_templ, images_dir)
-            self.create_button(b_templ, button_macro_mapping[b_templ.str_key], image)
+            button = self.create_button(b_templ, button_macro_mapping[b_templ.str_key], image)
+            buttons[b_templ.str_key] = button
+        return buttons
 
     def create_entry(self, entry_template, e_v_limit):
         """This method creates an Entry object for the Time Stamper program."""
@@ -242,10 +251,13 @@ class WidgetCreators():
     def create_entries(self, entry_templates, e_v_limit):
         """This method creates all of the entries specified by the templates in entry_templates."""
 
+        entries = {}
         for e_templ in entry_templates:
-            self.mapping[e_templ.str_key] = self.create_entry(e_templ, e_v_limit)
+            entry = self.create_entry(e_templ, e_v_limit)
+            entries[e_templ.str_key] = entry
+        return entries
 
-    def create_label(self, label_template):
+    def create_label(self, label_template, label_image=None):
         """This method creates a Label object for the Time Stamper program."""
 
         # Create the Label's font.
@@ -259,8 +271,8 @@ class WidgetCreators():
         label = Label(root, height=label_template.height, \
             width=label_template.width, background=label_template.background, \
             foreground=label_template.foreground, text=label_template.text, \
-            font=label_font, highlightthickness=0, wraplength=label_template.wraplength, \
-            justify=label_template.justify)
+            image=label_image, font=label_font, highlightthickness=0, \
+            wraplength=label_template.wraplength, justify=label_template.justify)
 
         # Place the Label.
         label.grid(column=label_template.column, row=label_template.row, \
@@ -273,10 +285,15 @@ class WidgetCreators():
 
         return label
 
-    def create_labels(self, label_templates):
+    def create_labels(self, label_templates, images_dir):
         """This method creates all of the labels specified by the templates in label_templates."""
 
-        return [self.create_label(l_templ) for l_templ in label_templates]
+        labels = {}
+        for l_templ in label_templates:
+            image = self.create_tk_image(l_templ, images_dir)
+            label = self.create_label(l_templ, image)
+            labels[l_templ.str_key] = label
+        return labels
 
     def create_text(self, text_template):
         """This method creates a Text object for the Time Stamper program."""
@@ -313,4 +330,8 @@ class WidgetCreators():
     def create_texts(self, text_templates):
         """This method creates all of the texts specified by the templates in text_templates."""
 
-        return [self.create_text(l_templ) for l_templ in text_templates]
+        texts = {}
+        for t_templ in text_templates:
+            text = self.create_text(t_templ)
+            texts[t_templ.str_key] = text
+        return texts
