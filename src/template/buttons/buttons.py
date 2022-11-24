@@ -3,11 +3,11 @@
 called upon by the constructor of the Fields class."""
 
 from dataclasses import dataclass
-from .file_buttons import FileButtons
-from .info_buttons import InfoButtons
-from .media_buttons import MediaButtons
-from .note_buttons import NoteButtons
-from .timestamping_buttons import TimestampingButtons
+from .buttons_file import FileButtons
+from .buttons_info import InfoButtons
+from .buttons_media import MediaButtons
+from .buttons_note import NoteButtons
+from .buttons_timestamping import TimestampingButtons
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig

@@ -46,9 +46,6 @@ class NoteButtons():
 
         mac_disabled_color = "#d3d3d3"
 
-        to_enable = ()
-        to_disable = ()
-
         background = "#E06666"
         foreground = None
 
@@ -91,9 +88,6 @@ class NoteButtons():
         mac_disabled_color = "#d3d3d3"
 
         image_file_name = None
-
-        to_enable = ()
-        to_disable = ()
 
         background = "#93C47D"
         foreground = None

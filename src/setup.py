@@ -13,7 +13,7 @@ DATA_FILES = ["time_stamper_class.py", "widget_creators.py", "attribution_messag
     "help_message.txt", ("ts_images", glob("ts_images/*.*")), \
     ("ts_macros", glob("ts_macros/*.*")), ("ts_template", glob("ts_template/*.*")), \
     ("ts_timer", glob("ts_timer/*.*"))]
-OPTIONS = {"includes": ["tkmacosx"], "iconfile": "file_icons/file_icon_mac.icns"}
+OPTIONS = {"includes": ["tkmacosx"], "iconfile": "images/file_icons/file_icon_mac.icns"}
 
 setup(
     app=APP,

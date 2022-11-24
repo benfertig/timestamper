@@ -124,7 +124,7 @@ class Texts():
     class TextAttribution():
         """This class stores the attributes for the text box in the "Attribution" window."""
 
-        attr_msg_file_name = "attribution_message.txt"
+        attr_msg_file_name = "messages/attribution.txt"
         attr_msg_encoding = "utf-8"
         text = ""
 

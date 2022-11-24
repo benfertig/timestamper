@@ -3,8 +3,8 @@
 called upon by the constructor of the Fields class."""
 
 from dataclasses import dataclass
-from .timer_entries import TimerEntries
-from .other_entries import OtherEntries
+from .entries_timer import TimerEntries
+from .entries_other import OtherEntries
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig

@@ -3,10 +3,10 @@
 called upon by the constructor of the Fields class."""
 
 from dataclasses import dataclass
-from .timer_labels import TimerLabels
-from .info_labels import InfoLabels
-from .merge_labels import MergeLabels
-from .other_labels import OtherLabels
+from .labels_info import InfoLabels
+from .labels_merge import MergeLabels
+from .labels_timer import TimerLabels
+from .labels_other import OtherLabels
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig

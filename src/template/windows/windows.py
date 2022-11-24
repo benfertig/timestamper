@@ -3,8 +3,8 @@
 upon by the constructor of the TimeStamperTemplate class."""
 
 from dataclasses import dataclass
-from .info_windows import InfoWindows
-from .merge_windows import MergeWindows
+from .windows_info import InfoWindows
+from .windows_merge import MergeWindows
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig

@@ -138,7 +138,7 @@ class InfoLabels():
         str_key = "label_help_message"
         window_str_key = "window_help"
 
-        help_messages_file_name = "help_messages.json"
+        help_messages_file_name = "messages/help_messages.json"
         help_messages_file_encoding = "utf-8"
         help_data = ""
 
@@ -185,20 +185,13 @@ class InfoLabels():
         """This class stores the attributes for the label that displays
         the license in a new window when the \"License\" button is pressed."""
 
-        text = \
-            "Time Stamper: Run a timer and write automatically timestamped notes.\n" \
-            "Copyright (C) 2022 Benjamin Fertig\n\n" \
-            "This program is free software: you can redistribute it and/or modify\n" \
-            "it under the terms of the GNU General Public License as published by\n" \
-            "the Free Software Foundation, either version 3 of the License, or\n" \
-            "(at your option) any later version.\n\n" \
-            "This program is distributed in the hope that it will be useful,\n" \
-            "but WITHOUT ANY WARRANTY; without even the implied warranty of\n" \
-            "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n" \
-            "GNU General Public License for more details.\n" \
-            "You should have received a copy of the GNU General Public License\n" \
-            "along with this program.  If not, see <https://www.gnu.org/licenses/>.\n\n" \
-            "Contact: github.cqrde@simplelogin.com"
+        license_message_file_name = "messages/license_notice.txt"
+        license_message_encoding = "utf-8"
+
+        text = ""
+
+        with open(license_message_file_name, "r", encoding=license_message_encoding) as license_msg:
+            text = license_msg.read()
 
         str_key = "label_license"
         window_str_key = "window_license"

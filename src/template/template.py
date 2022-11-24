@@ -6,11 +6,11 @@ TimeStamper run() method (the method that runs the Time Stamper program)."""
 from dataclasses import dataclass
 import sys
 from os import path
-from .ts_buttons.buttons import Buttons
-from .ts_entries.entries import Entries
-from .ts_labels.labels import Labels
-from .ts_texts.texts import Texts
-from .ts_windows.windows import Windows
+from .buttons.buttons import Buttons
+from .entries.entries import Entries
+from .labels.labels import Labels
+from .texts.texts import Texts
+from .windows.windows import Windows
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -63,7 +63,7 @@ class TimeStamperTemplate():
     def __init__(self):
 
         self.output_file_encoding = "utf-8"
-        self.images_dir = path.join(resource_path(), "ts_images", "program_images")
+        self.images_dir = path.join(resource_path(), "images", "program_images")
 
         self.mapping = self.map_template_objects_to_string_keys()
 

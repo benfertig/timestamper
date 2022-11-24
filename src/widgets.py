@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
-"""This module contains the WidgetCreators class which
-contains methods that create various Tkinter widgets."""
+"""This module contains the Widgetsclass which contains methods that create various Tkinter widgets
+as well as a mapping of widgets to their string keys. This allows for easy reference of widgets."""
 
 from os import path
 from sys import platform
@@ -47,8 +47,10 @@ def entry_val_limit(entry_text, max_val):
                 entry_text.set(entry_text.get()[:-1])
 
 
-class WidgetCreators():
-    """This class stores methods that create various Tkinter widgets based on templates."""
+class Widgets():
+    """This class stores methods that create various Tkinter widgets based on
+    templates. Widgets can be referenced based on their string keys. For example,
+    to access the pause button, one would reference Widgets.mapping["button_pause"]."""
 
     def __init__(self, template_mapping, images_dir, main_window_str):
         self.template_mapping = template_mapping

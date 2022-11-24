@@ -28,6 +28,25 @@ if platform == "darwin":
 # Contact: github.cqrde@simplelogin.com
 
 
+def button_enable_disable_macro(button_template, widgets):
+    """This method, which is called upon by several button macros, will enable and
+    disable the buttons associated with the string keys from the "to_enable" and
+    "to_disable" attributes of a specific Button from the TimeStamperTemplate class."""
+
+    # Enable the buttons stored in the button template's to_enable variable.
+    for str_to_enable in button_template.to_enable:
+        if str_to_enable in widgets.original_colors:
+            original_color = widgets.original_colors[str_to_enable]
+        else:
+            original_color = None
+        enable_button(widgets.mapping[str_to_enable], original_color)
+
+    # Disable the buttons stored in the button template's to_disable variable.
+    for str_to_disable in button_template.to_disable:
+        disable_button(widgets.mapping[str_to_disable], \
+            button_template.mac_disabled_color)
+
+
 def enable_button(button, original_color):
     """This method enables a button. For certain buttons on Mac computers, visual modifications
     are also made to the button to make it easier to tell that the button is enabled."""

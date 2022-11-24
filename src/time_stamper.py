@@ -2,9 +2,9 @@
 """This module contains the TimeStamper class which runs the Time Stamper program."""
 
 from dataclasses import dataclass
-from ts_macros.macros import Macros
-from ts_timer.time_stamper_timer import TimeStamperTimer
-from widget_creators import WidgetCreators
+from macros.macros import Macros
+from timing.timing import TimeStamperTimer
+from widgets import Widgets
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -46,9 +46,9 @@ class TimeStamper():
         self.root = None
         self.template = template
         self.time_fields = self.TimeFields()
-        self.widget_creators = WidgetCreators(template.mapping, template.images_dir, "window_main")
+        self.widgets = Widgets(template.mapping, template.images_dir, "window_main")
         self.timer = TimeStamperTimer(self)
-        self.macros = Macros(template, self.widget_creators, self.timer)
+        self.macros = Macros(template, self.widgets, self.timer)
 
     def store_time_fields(self, entries_mapping):
         """This method stores the widgets that display the timer's current
@@ -61,19 +61,18 @@ class TimeStamper():
 
     def stop_macro_wrapper(self):
         """This method is a wrapper for the stop macro."""
-        self.macros.button.mapping["button_stop"]()
+        self.macros.mapping["button_stop"]()
 
     def run(self):
         """This method runs the Time Stamper program."""
 
-        self.root = self.widget_creators.create_entire_window("window_main", \
-            self.macros.button.mapping)
+        self.root = self.widgets.create_entire_window("window_main", self.macros.mapping)
 
         # Store the entries containing the hours, minutes, seconds and subseconds
         # so that the TimeStamperTimer class can reference them later.
-        self.store_time_fields(self.widget_creators.mapping)
+        self.store_time_fields(self.widgets.mapping)
 
-        # Map the timer to the WidgetCreators mapping so that the macros can reference it.
-        self.widget_creators.mapping["time_stamper_timer"] = self.timer
+        # Map the timer in the Widgets mapping so that the macros can reference it.
+        self.widgets.mapping["time_stamper_timer"] = self.timer
 
         self.root.mainloop()
