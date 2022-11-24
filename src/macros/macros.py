@@ -1,8 +1,8 @@
 #-*- coding: utf-8 -*-
 """This module contains the Macros class which serves as a container for all methods
 that are executed when any button in the Time Stamper program is pressed. The actual
-macros are stored in submodules, namely file_button_macros.py, info_button_macros.py,
-media_button_macros.py, note_button_macros.py and timestamping_button_macros.py."""
+macros are stored in submodules, namely macros_buttons_file.py, macros_buttons_info.py,
+macros_buttons_media.py, macros_buttons_note.py and macros_buttons_timestamping.py."""
 
 from dataclasses import dataclass
 from .macros_buttons_file import FileButtonMacros
@@ -74,7 +74,7 @@ class Macros():
 
             # Timestamping buttons
             "button_timestamp": self.timestamping.button_timestamp_macro,
-            "button_clear_timestamp": self.timestamping.button_clear_timestamp_macro,
+            "button_clear_timestamp": self.timestamping.button_clear_timestamp_macro
 
         }
 

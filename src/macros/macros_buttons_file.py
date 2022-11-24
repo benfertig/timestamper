@@ -34,10 +34,11 @@ class FileButtonMacros():
     def button_output_select_macro(self):
         """This method will be executed when the "Choose output location" button is pressed."""
 
-        # Store the template for the output select button and
-        # the output path label into abbreviated file names.
+        # Store the template for the output select button, the template for the output
+        # path label, and the widget for the output path label into abbreviated file names.
         button_output_select_template = self.template.mapping["button_output_select"]
         label_output_path_template = self.template.mapping["label_output_path"]
+        obj_label_output_path = self.widgets.mapping["label_output_path"]
 
         # Get the path to the selected output file.
         file_types = (("text files", "*.txt"), ('All files', '*.*'))
@@ -49,7 +50,7 @@ class FileButtonMacros():
         if file_full_path:
 
             # Set the text of the label that displays the output to the current output file path.
-            self.widgets.mapping["text"] = \
+            obj_label_output_path["text"] = \
                 f"{label_output_path_template.display_path_prefix}{file_full_path}"
 
             # Indicate that the relevant buttons should be enabled.
@@ -74,8 +75,7 @@ class FileButtonMacros():
 
             # Set the text of the label that displays the output to the label's default
             # text (the text that displays when no output file has been selected).
-            self.widgets.mapping["label_output_path"]["text"] = \
-                label_output_path_template.text
+            obj_label_output_path["text"] = label_output_path_template.text
 
             # Indicate that the relevant buttons should be disabled.
             button_toggle_status = DISABLED

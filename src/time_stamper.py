@@ -38,10 +38,10 @@ class TimeStamper():
         subseconds_field = None
 
     def __init__(self, template):
-        """This constructor initializes the Time Stamper template (which stores
-        all of the attributes for objects in the the Time Stamper program), the
-        macros (which store all of the macros for buttons in the Time Stamper
-        program) and the timer (which runs the timer for the Time Stamper program)."""
+        """This constructor initializes the Time Stamper template (which stores all of the
+        attributes for objects in the the Time Stamper program), the macros (which store all
+        of the button macros), the widgets class (which stores all of the widgets and their
+        creation methods) and the timer (which runs the timer for the Time Stamper program)."""
 
         self.root = None
         self.template = template
@@ -59,13 +59,10 @@ class TimeStamper():
         self.time_fields.seconds_field = entries_mapping["entry_seconds"]
         self.time_fields.subseconds_field = entries_mapping["entry_subseconds"]
 
-    def stop_macro_wrapper(self):
-        """This method is a wrapper for the stop macro."""
-        self.macros.mapping["button_stop"]()
-
     def run(self):
         """This method runs the Time Stamper program."""
 
+        # Create the main window and all of its widgets.
         self.root = self.widgets.create_entire_window("window_main", self.macros.mapping)
 
         # Store the entries containing the hours, minutes, seconds and subseconds
