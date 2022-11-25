@@ -19,9 +19,8 @@
 
 # Contact: github.cqrde@simplelogin.com
 
-
-from time_stamper import TimeStamper
-from template.template import TimeStamperTemplate
+from classes.time_stamper import TimeStamper
+from classes.template.template import TimeStamperTemplate
 
 template = TimeStamperTemplate()
 tstmpr = TimeStamper(template)

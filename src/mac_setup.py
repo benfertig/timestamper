@@ -9,10 +9,9 @@ from glob import glob
 from setuptools import setup
 
 APP = ['Time Stamper.py']
-DATA_FILES = ["time_stamper_class.py", "widget_creators.py", "attribution_message.txt", \
-    "help_message.txt", ("ts_images", glob("ts_images/*.*")), \
-    ("ts_macros", glob("ts_macros/*.*")), ("ts_template", glob("ts_template/*.*")), \
-    ("ts_timer", glob("ts_timer/*.*"))]
+DATA_FILES = \
+    [("classes", glob("classes/*.*")), ("messages", glob("messages/*.*")), \
+    ("images/program_images", glob("images/program_images/*.*"))]
 OPTIONS = {"includes": ["tkmacosx"], "iconfile": "images/file_icons/file_icon_mac.icns"}
 
 setup(

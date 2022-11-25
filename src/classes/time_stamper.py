@@ -2,9 +2,9 @@
 """This module contains the TimeStamper class which runs the Time Stamper program."""
 
 from dataclasses import dataclass
-from macros.macros import Macros
-from timing.timing import TimeStamperTimer
-from widgets import Widgets
+from .widgets import Widgets
+from .macros.macros import Macros
+from .timing.timing import TimeStamperTimer
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
