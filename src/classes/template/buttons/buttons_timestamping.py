@@ -39,7 +39,9 @@ class TimestampingButtons():
         initial_state = NORMAL
 
         text = None
+
         image_file_name = "timestamp.png"
+        message_file_name = None
 
         str_key = "button_timestamp"
 
@@ -84,7 +86,9 @@ class TimestampingButtons():
         initial_state = DISABLED
 
         text = None
+
         image_file_name = "clear_timestamp.png"
+        message_file_name = None
 
         str_key = "button_clear_timestamp"
 

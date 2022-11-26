@@ -39,12 +39,13 @@ class InfoLabels():
         """This class stores the attributes for the label
         that displays the image in the help window."""
 
-        text = ""
+        text = None
 
         str_key = "label_help_image"
         window_str_key = "window_help"
 
         image_file_name = "timestamper_window_labeled.png"
+        message_file_name = None
 
         background = None
         foreground = None
@@ -82,22 +83,23 @@ class InfoLabels():
         """This class stores the attributes for the label that
         displays the current page number in the help window."""
 
-        page_numbers = {1: (None, 2), 2: (1, 3), 3: (2, 4), 4: (3, 4.1), 4.1: (4, 5),
+        page_numbers = {1: (18, 2), 2: (1, 3), 3: (2, 4), 4: (3, 4.1), 4.1: (4, 5),
                             5: (4.1, 5.1), 5.1: (5, 6), 6: (5.1, 7), 7: (6, 8), 8: (7, 9),
                             9: (8, 10), 10: (9, 11), 11: (10, 11.1), 11.1: (11, 11.2),
                             11.2: (11.1, 12), 12: (11.2, 13), 13: (12, 14), 14: (13, 15),
-                            15: (14, 16), 16: (15, 17), 17: (16, 18), 18: (17, None)}
+                            15: (14, 16), 16: (15, 17), 17: (16, 18), 18: (17, 1)}
 
-        current_page_number = 1
+        current_page = 1
         first_page = 1
         last_page = 18
 
-        text = "1"
+        text = str(first_page)
 
         str_key = "label_help_page_number"
         window_str_key = "window_help"
 
         image_file_name = None
+        message_file_name = None
 
         background = None
         foreground = None
@@ -135,19 +137,16 @@ class InfoLabels():
         """This class stores the attributes for the label
         that displays the message the help window."""
 
+        text = None
+
         str_key = "label_help_message"
         window_str_key = "window_help"
 
-        help_messages_file_name = "messages/help_messages.json"
-        help_messages_file_encoding = "utf-8"
-        help_data = ""
-
-        with open(help_messages_file_name, "r", encoding=help_messages_file_encoding) as help_msgs:
-            help_data = load(help_msgs)
-
-        text = help_data["1"]
-
         image_file_name = None
+        message_file_name = "help_messages.json"
+        message_file_encoding = "utf-8"
+        json_first_message_key = "1"
+        loaded_message_text = None
 
         background = None
         foreground = None
@@ -183,20 +182,17 @@ class InfoLabels():
     @dataclass
     class LabelLicenseMessage():
         """This class stores the attributes for the label that displays
-        the license in a new window when the \"License\" button is pressed."""
+        the license in a new window when the "License" button is pressed."""
 
-        license_message_file_name = "messages/license_notice.txt"
-        license_message_encoding = "utf-8"
-
-        text = ""
-
-        with open(license_message_file_name, "r", encoding=license_message_encoding) as license_msg:
-            text = license_msg.read()
+        text = None
 
         str_key = "label_license"
         window_str_key = "window_license"
 
         image_file_name = None
+        message_file_name = "license_notice.txt"
+        message_file_encoding = "utf-8"
+        loaded_message_text = None
 
         background = None
         foreground = None

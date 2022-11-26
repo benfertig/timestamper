@@ -64,6 +64,7 @@ class TimeStamperTemplate():
 
         self.output_file_encoding = "utf-8"
         self.images_dir = path.join(resource_path(), "images", "program_images")
+        self.messages_dir = path.join(resource_path(), "messages")
 
         self.mapping = self.map_template_objects_to_string_keys()
 
@@ -103,7 +104,7 @@ class TimeStamperTemplate():
 
         # In a list, store all of the templates so that, immediately afterwards, we can use
         # a dict comprehension to map the template objects to their string keys ("str_key").
-        all_templates = ( \
+        all_templates = (
 
         ####################
         # Buttons
@@ -200,4 +201,5 @@ class TimeStamperTemplate():
         # Map the template objects to their string keys ("str_key") so that the template objects
         # can be easily accessed elsewhere in the program. For example, to reference the pause
         # button template, one should reference TimeStamperTemplate.mapping["button_pause"].
-        return {template_obj.str_key: template_obj for template_obj in all_templates}
+        mapping = {template_obj.str_key: template_obj for template_obj in all_templates}
+        return mapping

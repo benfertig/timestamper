@@ -51,13 +51,15 @@ class Texts():
         """This class stores the attributes for the text
         box where the user's past notes are displayed."""
 
-        text = ""
+        text = None
 
         initial_state = DISABLED
 
         str_key = "text_log"
 
         window_str_key = "window_main"
+
+        message_file_name = None
 
         width = 105
         height = 14
@@ -88,13 +90,15 @@ class Texts():
         """This class stores the attributes for the text
         box where the user's current note is displayed."""
 
-        text = ""
+        text = None
 
         initial_state = NORMAL
 
         str_key = "text_current_note"
 
         window_str_key = "window_main"
+
+        message_file_name = None
 
         width = 93
         height = 3
@@ -124,18 +128,17 @@ class Texts():
     class TextAttribution():
         """This class stores the attributes for the text box in the "Attribution" window."""
 
-        attr_msg_file_name = "messages/attribution.txt"
-        attr_msg_encoding = "utf-8"
-        text = ""
-
-        with open(attr_msg_file_name, "r", encoding=attr_msg_encoding) as attr_msg:
-            text = attr_msg.read()
+        text = None
 
         initial_state = DISABLED
 
         str_key = "text_attribution"
 
         window_str_key = "window_attribution"
+
+        message_file_name = "attribution.txt"
+        message_file_encoding = "utf-8"
+        loaded_message_text = None
 
         width = 107
         height = 30

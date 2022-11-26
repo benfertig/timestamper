@@ -2,7 +2,7 @@
 """This module contains the TimeStamper class which runs the Time Stamper program."""
 
 from dataclasses import dataclass
-from .widgets import Widgets
+from .widgets.widgets import Widgets
 from .macros.macros import Macros
 from .timing.timing import TimeStamperTimer
 
@@ -46,7 +46,8 @@ class TimeStamper():
         self.root = None
         self.template = template
         self.time_fields = self.TimeFields()
-        self.widgets = Widgets(template.mapping, template.images_dir, "window_main")
+        self.widgets = Widgets(template.mapping, template.images_dir, \
+            template.messages_dir, "window_main")
         self.timer = TimeStamperTimer(self)
         self.macros = Macros(template, self.widgets, self.timer)
 

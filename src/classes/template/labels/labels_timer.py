@@ -46,6 +46,7 @@ class TimerLabels():
         window_str_key = "window_main"
 
         image_file_name = None
+        message_file_name = None
 
         background = None
         foreground = None
@@ -89,6 +90,7 @@ class TimerLabels():
         window_str_key = "window_main"
 
         image_file_name = None
+        message_file_name = None
 
         background = None
         foreground = None
@@ -132,6 +134,7 @@ class TimerLabels():
         window_str_key = "window_main"
 
         image_file_name = None
+        message_file_name = None
 
         background = None
         foreground = None
@@ -175,6 +178,7 @@ class TimerLabels():
         window_str_key = "window_main"
 
         image_file_name = None
+        message_file_name = None
 
         background = None
         foreground = None

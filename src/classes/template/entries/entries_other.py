@@ -47,6 +47,8 @@ class OtherEntries():
 
         text = ""
 
+        message_file_name = None
+
         max_val = 99
 
         width = 2
@@ -89,6 +91,8 @@ class OtherEntries():
         window_str_key = "window_main"
 
         text = ""
+
+        message_file_name = None
 
         max_val = 99
 

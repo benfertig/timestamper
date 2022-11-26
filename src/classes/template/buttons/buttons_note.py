@@ -38,7 +38,9 @@ class NoteButtons():
         initial_state = NORMAL
 
         text = "Cancel note"
+
         image_file_name = None
+        message_file_name = None
 
         str_key = "button_cancel_note"
 
@@ -88,6 +90,7 @@ class NoteButtons():
         mac_disabled_color = "#d3d3d3"
 
         image_file_name = None
+        message_file_name = None
 
         background = "#93C47D"
         foreground = None

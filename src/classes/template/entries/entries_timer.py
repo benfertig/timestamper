@@ -49,6 +49,8 @@ class TimerEntries():
 
         text = "00"
 
+        message_file_name = None
+
         max_val = 99
 
         background = None
@@ -89,6 +91,8 @@ class TimerEntries():
         window_str_key = "window_main"
 
         text = "00"
+
+        message_file_name = None
 
         max_val = 59
 
@@ -131,6 +135,8 @@ class TimerEntries():
 
         text = "00"
 
+        message_file_name = None
+
         max_val = 59
 
         width = 2
@@ -171,6 +177,8 @@ class TimerEntries():
         window_str_key = "window_main"
 
         text = "00"
+
+        message_file_name = None
 
         max_val = 99
 

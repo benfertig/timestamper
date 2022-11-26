@@ -50,7 +50,9 @@ class MediaButtons():
         mac_disabled_color = "#d3d3d3"
 
         text = None
+
         image_file_name = "pause.png"
+        message_file_name = None
 
         to_enable = ("button_play", "entry_hours", "entry_minutes", \
             "entry_seconds", "entry_subseconds")
@@ -90,7 +92,9 @@ class MediaButtons():
         initial_state = DISABLED
 
         text = None
+
         image_file_name = "play.png"
+        message_file_name = None
 
         str_key = "button_play"
 
@@ -136,7 +140,9 @@ class MediaButtons():
         initial_state = DISABLED
 
         text = None
+
         image_file_name = "stop.png"
+        message_file_name = None
 
         str_key = "button_stop"
 
@@ -184,7 +190,9 @@ class MediaButtons():
         initial_state = NORMAL
 
         text = None
+
         image_file_name = "rewind.png"
+        message_file_name = None
 
         str_key = "button_rewind"
 
@@ -226,7 +234,9 @@ class MediaButtons():
         initial_state = NORMAL
 
         text = None
+
         image_file_name = "fast_forward.png"
+        message_file_name = None
 
         str_key = "button_fast_forward"
 
@@ -268,7 +278,9 @@ class MediaButtons():
         initial_state = DISABLED
 
         text = None
+
         image_file_name = "record.png"
+        message_file_name = None
 
         str_key = "button_record"
 

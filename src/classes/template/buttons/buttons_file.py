@@ -39,7 +39,9 @@ class FileButtons():
         initial_state = NORMAL
 
         text = "Choose output location"
+
         image_file_name = None
+        message_file_name = None
 
         str_key = "button_output_select"
 
@@ -87,7 +89,9 @@ class FileButtons():
         initial_state = NORMAL
 
         text = "Merge output files"
+
         image_file_name = None
+        message_file_name = None
 
         str_key = "button_merge_output_files"
 

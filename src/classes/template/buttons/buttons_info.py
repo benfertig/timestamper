@@ -41,7 +41,9 @@ class InfoButtons():
         initial_state = NORMAL
 
         text = "Help"
+
         image_file_name = None
+        message_file_name = None
 
         str_key = "button_help"
 
@@ -80,10 +82,12 @@ class InfoButtons():
     class ButtonHelpLeftArrow():
         """This class stores the attributes for the help button."""
 
-        initial_state = DISABLED
+        initial_state = NORMAL
 
         text = None
+
         image_file_name = "arrow_left.png"
+        message_file_name = None
 
         str_key = "button_help_left_arrow"
 
@@ -125,7 +129,9 @@ class InfoButtons():
         initial_state = NORMAL
 
         text = None
+
         image_file_name = "arrow_right.png"
+        message_file_name = None
 
         str_key = "button_help_right_arrow"
 
@@ -167,7 +173,9 @@ class InfoButtons():
         initial_state = NORMAL
 
         text = "License"
+
         image_file_name = None
+        message_file_name = None
 
         str_key = "button_license"
 
@@ -209,7 +217,9 @@ class InfoButtons():
         initial_state = NORMAL
 
         text = "Attribution"
+
         image_file_name = None
+        message_file_name = None
 
         str_key = "button_attribution"
 
