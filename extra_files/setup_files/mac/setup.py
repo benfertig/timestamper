@@ -13,7 +13,7 @@ DATA_FILES = \
     [("../../../src/classes", glob("../../../src/classes/*.*")), \
     ("../../../src/messages", glob("../../../src/messages/*.*")), \
     ("../../../src/images", glob("../../../src/images/*.*"))]
-OPTIONS = {"includes": ["tkmacosx"], "iconfile": "../images/file_icons/file_icon_mac.icns"}
+OPTIONS = {"includes": ["tkmacosx"], "iconfile": "file_icon_mac.icns"}
 
 setup(
     app=APP,
