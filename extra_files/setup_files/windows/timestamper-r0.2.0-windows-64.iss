@@ -23,7 +23,7 @@ LicenseFile=inno_setup_source_files\LICENSE.txt
 InfoAfterFile=setup_windows_post_message.txt
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
-OutputDir={userdesktop}
+OutputDir=.
 OutputBaseFilename=timestamper-r0.2.0-windows-64
 SetupIconFile=file_icon_windows.ico
 Compression=lzma

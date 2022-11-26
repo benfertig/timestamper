@@ -93,8 +93,16 @@ def determine_widget_text(widget_template, messages_dir):
 
 def create_font(widget_template):
     """This method creates a widget's font based on its template."""
+
+    # On Mac computers, text shows up a bit smaller than on Windows computers,
+    # so we should make text a bit larger on Macs to compensate for this.
+    if platform == "darwin":
+        font_size = widget_template.font_size + 2
+    else:
+        font_size = widget_template.font_size
+
     return font.Font(family=widget_template.font_family, \
-        size=widget_template.font_size, weight=widget_template.font_weight, \
+        size=font_size, weight=widget_template.font_weight, \
         slant=widget_template.font_slant, underline=widget_template.font_underline, \
         overstrike=widget_template.font_overstrike)
 
