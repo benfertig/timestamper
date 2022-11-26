@@ -64,7 +64,7 @@ You should complete the following steps within the *Auto PY to EXE* browser tab 
 #### Script location
 This should point to the *Python* file titled "Time Stamper.py" in the *timestamper* respository's "src" directory. Refer to the general template below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to.
 ```
-{path_to_repository}/src/Time Stamper.py
+{path_to_repository}\src\Time Stamper.py
 ```
 
 #### Onefile
@@ -78,7 +78,7 @@ Selecting "Window Based" will suppress the *Command Prompt* window when the *Tim
 #### Icon
 You can provide a .ico file here to set the *Time Stamper* executable's icon. A pregenerated icon can be found under:
 ```
-src/file_icons/file_icon_windows.ico
+src\file_icons\file_icon_windows.ico
 ```
 
 #### Additional files
@@ -88,9 +88,9 @@ For the following step, replace {path_to_repository} with the directory that you
 
 You must add three folders. Select "Add folder" three times and add one of each of the following folders each time.
 ```
-{path_to_repository}/src/classes
-{path_to_repository}/src/images
-{path_to_repository}/src/messages
+{path_to_repository}\src\classes
+{path_to_repository}\src\images
+{path_to_repository}\src\messages
 ```
 
 #### Advanced
@@ -102,7 +102,7 @@ You should not need to make any changes to this section.
 #### CONVERT .PY TO .EXE
 You should now be ready to build the *Time Stamper* program. Click the "CONVERT .PY TO .EXE" button to generate the *Time Stamper* executable. Once the executable has been made, click the "OPEN OUTPUT FOLDER" button to be directed to the location of the executable. The *Time Stamper* program should now run as a standalone executable (without needing to rely on any outside *Python* interpreters or packages). Congratulations, you have successfully built the *Time Stamper* program from the source code on *Windows*.
 
-## Create *Windows* installer (optional)
+## Create a *Windows* installer for the *Time Stamper* program (optional)
 The *Time Stamper* executable (.exe) file that you just generated using *Auto PY to EXE* provides a fully functional build of the *Time Stamper* program. By simply double-clicking on this executable, you can run the *Time Stamper* program.
 
 However, as you may have already observed, the *Windows* executables (.exe) for the *Time Stamper* program on the [releases page for this repository](https://github.com/benfertig/timestamper/releases/) are not simply standalone *Time Stamper* executables like the one you just generated, but rather *Inno Setup* installation wizards that extract the *Time Stamper* program files onto your computer.
@@ -116,3 +116,15 @@ Some of the advantages of packaging the *Time Stamper* executable into an *Inno 
 With that being said, packaging the *Time Stamper* program into an *Inno Setup* installer is not necessary to make the *Time Stamper* program run properly, and will not alter the functionality of the *Time Stamper* program in any way. Therefore, creating a *Time Stamper* installer is optional.
 
 If you would like to know how to package the *Time Stamper* program into an *Inno Setup* installer, follow the instructions below.
+
+### Move the *Time Stamper* executable to the appropriate directory
+Within the *Inno Setup* installer, you are free to bundle whichever files you like alongside the *Time Stamper* program.
+
+Versions 0.2.0 and later of the official *Time Stamper* release bundle the following files along the *Time Stamper* program in the *Inno Setup* installer:
+* A copy of the *Time Stamper* program's license (*LICENSE.txt*)
+* A list of outside sources that were used to help create the program (*Attribution.txt*)
+
+To include the aforementioned files in the *Time Stamper* installer, move the *Time Stamper* executable (.exe) that you previously generated into the following directory:
+```
+{path_to_repository}\extra_files\setup_files\windows\inno_setup_source_files
+```
