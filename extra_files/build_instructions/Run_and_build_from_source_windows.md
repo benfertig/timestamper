@@ -107,11 +107,11 @@ The *Time Stamper* executable (.exe) file that you just generated using *Auto PY
 
 However, as you may have already observed, the *Windows* executables (.exe) for the *Time Stamper* program on the [releases page for this repository](https://github.com/benfertig/timestamper/releases/) are not simply standalone *Time Stamper* executables like the one you just generated, but rather *Inno Setup* installation wizards that extract the *Time Stamper* program files onto your computer.
 
-Some of the advantages of packaging the *Time Stamper* executable into an *Inno Setup* installer are:
-* You can display additional information about the program in the installation wizard.
-* You can include additional files in the installation (e.g. a copy of the *Time Stamper* program's license).
-* You can decide where the contents of the *Time Stamper* installer should extract to (e.g. the user's desktop).
-* You can give the program an extra sense of proffesionalism.
+Some of the advantages of packaging the *Time Stamper* executable into an *Inno Setup* installer are...
+* you can display additional information about the *Time Stamper* program in the installation wizard.
+* you can include additional files in the *Time Stamper* installation (e.g. a copy of the *Time Stamper* program's license).
+* you can decide where the contents of the *Time Stamper* installer should extract to (e.g. the user's desktop).
+* you can give an extra sense of professionalism to the *Time Stamper* program.
 
 With that being said, packaging the *Time Stamper* program into an *Inno Setup* installer is not necessary to make the *Time Stamper* program run properly, and will not alter the functionality of the *Time Stamper* program in any way. Therefore, creating a *Time Stamper* installer is optional.
 
