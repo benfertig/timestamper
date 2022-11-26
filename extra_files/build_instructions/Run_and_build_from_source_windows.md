@@ -86,16 +86,11 @@ This is the most crucial section. You *must* provide all of the necessary depend
 
 For the following steps, replace {path_to_repository} with the directory that you have saved the *timestamper* repository to.<br />
 
-First, select "Add files" and add the following file:
+You must add three folders. Select "Add folder" three times and add one of each of the following folders each time.
 ```
-{path_to_repository}/src/time_stamper_class.py
-```
-Now, you must add four folders. Select "Add folder" four times and add one of each of the following folders each time.
-```
-{path_to_repository}/src/ts_images
-{path_to_repository}/src/ts_macros
-{path_to_repository}/src/ts_template
-{path_to_repository}/src/ts_timer
+{path_to_repository}/src/classes
+{path_to_repository}/src/images
+{path_to_repository}/src/messages
 ```
 
 #### Advanced
