@@ -128,3 +128,18 @@ To include the aforementioned files in the *Time Stamper* installer, move the *T
 ```
 {path_to_repository}\extra_files\setup_files\windows\inno_setup_source_files
 ```
+This directory is also where you should place any files that you would like the *Inno Setup* installer to extract alongside the *Time Stamper* program.
+
+### Edit the *Inno Setup* configuration file
+The name of the *Inno Setup* configuration file for the *Time Stamper* installer will change depending on which version of the *Time Stamper* program the source code you downloaded is associated with. The *Inno Setup* configuration file for the *Time Stamper* program can be found in the following directory:
+```
+{path_to_repository}\extra_files\setup_files\windows
+```
+The name of the *Inno Setup* configuration file for the *Time Stamper* program has the following format:
+```
+timestamper-{version}-windows-{bits}.iss
+```
+For example, if you have the source code associated with the *Windows* 64-bit release 0.2.0 version of the *Time Stamper* program, then you should replace {version} and {bits} in the above example with "r0.2.0" and "64" respectively. So, in this case, the name of the *Inno Setup* configuration file for the *Time Stamper* program would be...
+```
+timestamper-r0.2.0-windows-64.iss
+```
