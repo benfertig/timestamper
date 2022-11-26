@@ -11,7 +11,7 @@ If you would like to run and build this program from the source code, check out 
 ![src/images/help_images/timestamper_window_labeled_webimage.png](https://github.com/benfertig/timestamper/blob/main/src/images/help_images/timestamper_window_labeled_webimage.png?raw=true)
 
 ### 1 - Pause button
-![src/images/help_images/button_pause.png](https://github.com/benfertig/timestamper/blob/main/src/images/help_images/button_pause.png?raw=true)
+![images/help_images/button_pause.png](https://github.com/benfertig/timestamper/blob/main/images/help_images/button_pause.png?raw=true)
 * This button pauses the timer. You must have already selected an output file (see 7) and begun recording (see 6) to be able to press the pause button.
 
 ### 2 - Play button
