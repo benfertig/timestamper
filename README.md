@@ -8,7 +8,7 @@ If you would like to run and build this program from the source code, check out 
 * [Running/building from source on Mac](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md)
 
 ## Usage Instructions
-![images/help_images/timestamper_window_labeled_webimage.png](https://github.com/benfertig/timestamper/blob/main/images/help_images/timestamper_window_labeled_webimage.png?raw=true)
+![extra_files/help_images/timestamper_window_labeled_webimage.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/timestamper_window_labeled_webimage.png?raw=true)
 
 ### 1 - Pause button
 ![images/help_images/button_pause.png](https://github.com/benfertig/timestamper/blob/main/images/help_images/button_pause.png?raw=true)
