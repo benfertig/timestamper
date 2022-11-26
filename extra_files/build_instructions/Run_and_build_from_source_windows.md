@@ -84,7 +84,7 @@ src/file_icons/file_icon_windows.ico
 #### Additional files
 This is the most crucial section. You *must* provide all of the necessary dependencies here for your *Time Stamper* executable (.exe) to run properly.<br />
 
-For the following steps, replace {path_to_repository} with the directory that you have saved the *timestamper* repository to.<br />
+For the following step, replace {path_to_repository} with the directory that you have saved the *timestamper* repository to.<br />
 
 You must add three folders. Select "Add folder" three times and add one of each of the following folders each time.
 ```
