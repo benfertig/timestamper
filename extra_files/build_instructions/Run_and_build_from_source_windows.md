@@ -133,7 +133,7 @@ This directory is also where you should place any files that you would like the 
 ### Download *Inno Setup*
 To be able to read *Inno Setup* configuration files, you must have *Inno Setup* installed on your computer. You can download the *Inno Setup* installer [here](https://jrsoftware.org/isdl.php).
 
-### Edit the *Inno Setup* configuration file
+### Locate the *Inno Setup* configuration file
 The name of the *Inno Setup* configuration file for the *Time Stamper* installer will change depending on which version of the *Time Stamper* program the source code you downloaded is associated with. The *Inno Setup* configuration file for the *Time Stamper* program can be found in the following directory:
 ```
 {path_to_repository}\extra_files\setup_files\windows
@@ -146,3 +146,8 @@ For example, if you have the *Time Stamper* source code associated with release 
 ```
 timestamper-r0.2.0-windows-64.iss
 ```
+
+### Edit the *Inno Setup* configuration file
+After you have found the *Inno Setup* configuration file, open it using *Inno Setup*.
+
+You can edit any properties of the *Time Stamper* installer in this configuration file. I will not go over the meanings of the different variables found in this configuration file. To learn more about what each setting in this configuration file does, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
