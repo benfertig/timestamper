@@ -8,11 +8,11 @@ Usage:
 from glob import glob
 from setuptools import setup
 
-APP = ['../src/Time Stamper.py']
+APP = ['../../../src/Time Stamper.py']
 DATA_FILES = \
-    [("../src/classes", glob("../src/classes/*.*")), \
-    ("../src/messages", glob("../src/messages/*.*")), \
-    ("../src/images", glob("../src/images/*.*"))]
+    [("../../../src/classes", glob("../../../src/classes/*.*")), \
+    ("../../../src/messages", glob("../../../src/messages/*.*")), \
+    ("../../../src/images", glob("../../../src/images/*.*"))]
 OPTIONS = {"includes": ["tkmacosx"], "iconfile": "../images/file_icons/file_icon_mac.icns"}
 
 setup(

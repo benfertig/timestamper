@@ -19,13 +19,13 @@ AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 CreateAppDir=no
-LicenseFile=C:\Users\Benjamin\Desktop\LICENSE.txt
-InfoAfterFile=C:\Users\Benjamin\Desktop\Attribution.txt
+LicenseFile=inno_setup_source_files\LICENSE.txt
+InfoAfterFile=setup_windows_post_message.txt
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
-OutputDir=C:\Users\Benjamin\Desktop
+OutputDir={userdesktop}
 OutputBaseFilename=timestamper-r0.2.0-windows-64
-SetupIconFile=C:\Development\timestamper\src\file_icons\file_icon_windows.ico
+SetupIconFile=file_icon_windows.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -59,6 +59,6 @@ Name: "turkish"; MessagesFile: "compiler:Languages\Turkish.isl"
 Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Files]
-Source: "C:\Users\Benjamin\Desktop\timestamper-r0.2.0-windows-64\Time Stamper.exe"; DestDir: "{userdesktop}\Time Stamper 0.2.0"; Flags: ignoreversion
+Source: "inno_setup_source_files\*"; DestDir: "{userdesktop}\Time Stamper 0.2.0"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
