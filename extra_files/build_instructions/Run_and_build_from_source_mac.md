@@ -167,3 +167,7 @@ However, the *Mac* downloads for the *Time Stamper* program on [the releases pag
 There are two reasons why the official *Mac* releases for the *Time Stamper* program are bundled into disk image (.dmg) files:
 * Additional files can be included in a disk image (e.g. a copy of the *Time Stamper* program's license).
 * *GitHub* does not allow *Mac* application (.app) files to be uploaded as part of a release. This is mainly due to the fact that *Mac* application (.app) files are technically not files at all, but rather folders containing all of the files necessary to make the relevant application run properly. *Mac* computers simply know to interpret folders ending in ".app" as applications when the user double clicks on-them.
+
+With that being said, packaging the *Time Stamper* program into a disk image (.dmg) is not necessary in order to make the *Time Stamper* program run properly, and will not alter the functionality of the *Time Stamper* program in any way. Therefore, creating a *Time Stamper* disk image (.dmg) is optional.
+
+If you would like to know how to package the *Time Stamper* program into a disk image (.dmg), follow the instructions below.
