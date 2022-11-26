@@ -111,7 +111,7 @@ Some of the advantages of packaging the *Time Stamper* executable into an *Inno 
 * you can display additional information about the *Time Stamper* program within the installation wizard.
 * you can include additional files in the *Time Stamper* installation (e.g. a copy of the *Time Stamper* program's license).
 * you can decide where the contents of the *Time Stamper* installer should extract to (e.g. the user's desktop).
-* you can give an extra sense of professionalism to the *Time Stamper* program.
+* you can grant an extra sense of professionalism to the *Time Stamper* program.
 
 With that being said, packaging the *Time Stamper* program into an *Inno Setup* installer is not necessary to make the *Time Stamper* program run properly, and will not alter the functionality of the *Time Stamper* program in any way. Therefore, creating a *Time Stamper* installer is optional.
 
