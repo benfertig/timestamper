@@ -40,7 +40,8 @@ def print_to_field(field, to_print):
         field["state"] = DISABLED
 
 def pad_number(number, target_length, pad_before):
-    """This method pads a number with leading zeros to the desired length."""
+    """This method pads a number to the desired length with leading zeros (if
+    pad_before is set to True) or trailing zeros (if pad_before is set to False)."""
     str_number = str(int(number)) if number else "0"
     zeros_to_add = "0" * (target_length - len(str_number))
     if pad_before:
