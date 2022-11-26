@@ -39,11 +39,13 @@ def print_to_field(field, to_print):
     if not was_enabled:
         field["state"] = DISABLED
 
-def pad_number(number, target_length):
+def pad_number(number, target_length, pad_before):
     """This method pads a number with leading zeros to the desired length."""
     str_number = str(int(number)) if number else "0"
-    str_number = "0" * (target_length - len(str_number)) + str_number
-    return str_number
+    zeros_to_add = "0" * (target_length - len(str_number))
+    if pad_before:
+        return zeros_to_add + str_number
+    return str_number + zeros_to_add
 
 def h_m_s_to_seconds(hours, minutes, seconds, subseconds):
     """This method converts a time in hours, minutes and seconds to a time in seconds."""
@@ -62,9 +64,9 @@ def seconds_to_h_m_s(seconds_exact, pad=0):
 
     # Pad the timer's values with zeros if a pad value is passed as an argument.
     if pad > 0:
-        hours = pad_number(hours, pad)
-        minutes = pad_number(minutes, pad)
-        seconds = pad_number(seconds, pad)
-        subseconds = pad_number(subseconds, pad)
+        hours = pad_number(hours, pad, True)
+        minutes = pad_number(minutes, pad, True)
+        seconds = pad_number(seconds, pad, True)
+        subseconds = pad_number(subseconds, pad, False)
 
     return hours, minutes, seconds, subseconds

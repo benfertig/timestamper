@@ -56,10 +56,10 @@ class TimeStamperTimer():
         if raw:
 
             # Return the time from the time fields as it should appear on the timer.
-            hours = pad_number(self.time_stamper.time_fields.hours_field.get(), 2)
-            minutes = pad_number(self.time_stamper.time_fields.minutes_field.get(), 2)
-            seconds = pad_number(self.time_stamper.time_fields.seconds_field.get(), 2)
-            subseconds = pad_number(self.time_stamper.time_fields.subseconds_field.get(), 2)
+            hours = pad_number(self.time_stamper.time_fields.hours_field.get(), 2, True)
+            minutes = pad_number(self.time_stamper.time_fields.minutes_field.get(), 2, True)
+            seconds = pad_number(self.time_stamper.time_fields.seconds_field.get(), 2, True)
+            subseconds = pad_number(self.time_stamper.time_fields.subseconds_field.get(), 2, False)
             return hours, minutes, seconds, subseconds
 
         #################
