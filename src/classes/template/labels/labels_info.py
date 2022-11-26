@@ -2,7 +2,6 @@
 is called upon by the constructor of the Labels class."""
 
 from dataclasses import dataclass
-from json import load
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig

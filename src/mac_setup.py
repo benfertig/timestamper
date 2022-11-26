@@ -11,7 +11,7 @@ from setuptools import setup
 APP = ['Time Stamper.py']
 DATA_FILES = \
     [("classes", glob("classes/*.*")), ("messages", glob("messages/*.*")), \
-    ("images/program_images", glob("images/program_images/*.*"))]
+    ("images", glob("images/*.*"))]
 OPTIONS = {"includes": ["tkmacosx"], "iconfile": "images/file_icons/file_icon_mac.icns"}
 
 setup(

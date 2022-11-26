@@ -50,6 +50,7 @@ class TimeStamper():
             template.messages_dir, "window_main")
         self.timer = TimeStamperTimer(self)
         self.macros = Macros(template, self.widgets, self.timer)
+        self.widgets.mapping["time_stamper_timer"] = self.timer
 
     def store_time_fields(self, entries_mapping):
         """This method stores the widgets that display the timer's current
@@ -69,8 +70,5 @@ class TimeStamper():
         # Store the entries containing the hours, minutes, seconds and subseconds
         # so that the TimeStamperTimer class can reference them later.
         self.store_time_fields(self.widgets.mapping)
-
-        # Map the timer in the Widgets mapping so that the macros can reference it.
-        self.widgets.mapping["time_stamper_timer"] = self.timer
 
         self.root.mainloop()

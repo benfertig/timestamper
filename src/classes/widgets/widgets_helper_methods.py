@@ -55,6 +55,14 @@ def determine_widget_text(widget_template, messages_dir):
     # If there is a file associated with this widget,
     # determine the widget's initial text using that file.
     if widget_template.message_file_name is not None:
+        if widget_template.text is not None:
+            print(f"\nWARNING for widget template \"{widget_template.str_key}\":" \
+                "\nA template's \"text\" and \"message_file_name\" attributes should "\
+                "not both be set to non-None values simultaneously. The \"message_file_name\" " \
+                "attribute takes precedence, so the text for the widget based on this template " \
+                "will be generated using the information stored in " \
+                f"\"{widget_template.message_file_name}\", as opposed to the information stored " \
+                f"in this template's \"text\" attribute (i.e. \"{widget_template.text}\").")
         message_file_loc = path.join(messages_dir, widget_template.message_file_name)
         message_encoding = widget_template.message_file_encoding
         with open(message_file_loc, "r", encoding=message_encoding) as message_file:

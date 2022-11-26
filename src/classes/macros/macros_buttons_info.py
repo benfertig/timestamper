@@ -2,8 +2,6 @@
 """This module contains the InfoButtonMacros class which stores the functions
 that are executed when an info button in the Time Stamper program is pressed."""
 
-from tkinter import DISABLED, NORMAL
-
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
 
