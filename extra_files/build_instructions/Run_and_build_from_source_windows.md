@@ -118,7 +118,7 @@ With that being said, packaging the *Time Stamper* program into an *Inno Setup* 
 If you would like to know how to package the *Time Stamper* program into an *Inno Setup* installer, follow the instructions below.
 
 ### Move the *Time Stamper* executable to the appropriate directory
-Within the *Inno Setup* installer, you are free to bundle whichever files you like alongside the *Time Stamper* program.
+You are free to bundle whichever files you like within the *Inno Setup* installer for the *Time Stamper* program.
 
 Versions 0.2.0 and later of the official *Time Stamper* release bundle the following files along the *Time Stamper* program in the *Inno Setup* installer:
 * A copy of the *Time Stamper* program's license (*LICENSE.txt*)
