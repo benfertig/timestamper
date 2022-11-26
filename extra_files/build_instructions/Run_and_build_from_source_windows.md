@@ -76,7 +76,10 @@ Selecting "Console Based" will cause a *Command Prompt* window to appear each ti
 Selecting "Window Based" will suppress the *Command Prompt* window when the *Time Stamper* program is run.
 
 #### Icon
-You can provide a .ico file here to set the *Time Stamper* executable's icon. A pregenerated icon can be found under src/file_icons/file_icon_windows.ico
+You can provide a .ico file here to set the *Time Stamper* executable's icon. A pregenerated icon can be found under:
+```
+src/file_icons/file_icon_windows.ico
+```
 
 #### Additional files
 This is the most crucial section. You *must* provide all of the necessary dependencies here for your *Time Stamper* executable (.exe) to run properly.<br />
