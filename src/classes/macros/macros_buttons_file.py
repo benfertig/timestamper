@@ -77,6 +77,12 @@ class FileButtonMacros():
             # text (the text that displays when no output file has been selected).
             obj_label_output_path["text"] = label_output_path_template.text
 
+            # Clear the text log.
+            obj_text_log = self.widgets.mapping["text_log"]
+            obj_text_log["state"] = NORMAL
+            obj_text_log.delete(1.0, END)
+            obj_text_log["state"] = DISABLED
+
             # Indicate that the relevant buttons should be disabled.
             button_toggle_status = DISABLED
 
