@@ -150,7 +150,7 @@ timestamper-r0.2.0-windows-64.iss
 ### Edit the *Inno Setup* configuration file
 After you have found the *Inno Setup* configuration file, open it using *Inno Setup*.
 
-You can edit any properties of the *Time Stamper* installer in this configuration file. I will not go over the meanings of the different variables found in this configuration file. To learn more about what each setting in this configuration file does, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
+You can edit any properties of the *Time Stamper* installer in this configuration file. I will not go over the meanings of the variables found in this configuration file. To learn more about what each setting in this configuration file does, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
 
 ### Create the *Inno Setup* installer for the *Time Stamper* program
 Once you are satisfied with the configuration that you have specified in the .iss file, run the script by clicking the "Run" drop-down menu at the top of the *Inno Setup* page and then clicking the option named "Run". By default, the "Run" function is also mapped to the F9 key.
