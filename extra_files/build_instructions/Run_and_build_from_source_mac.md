@@ -191,3 +191,7 @@ For example, if you downloaded the source code associated with release 0.2.0 of 
 ```
 Time Stamper 0.2.0
 ```
+Once you have located the correct folder, place the *Time Stamper* application (.app) you previously generated into this folder.
+
+### Include any other files that you would like to be bundled in the *Time Stamper* disk image (.dmg)
+In addition to the *Time Stamper* application (.app) that you previously generated, you should now place any other files that you would like to be included in the *Time Stamper* disk image (.dmg) into the folder that you just placed the *Time Stamper* application (.app) into.
