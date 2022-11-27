@@ -40,11 +40,11 @@ If you would like to run and build this program from the source code, check out 
 
 ### 6 - Record button
 ![extra_files/help_images/button_record.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_record.png?raw=true)
-* This button starts the timer (see 18). Pressing the record button will also record a new note, timestamped with the current time on the timer (see 18), indicating that the user has begun entering notes. You must press the record button to be able to enter notes, and you cannot press the record button until you have selected an output file (see 7).
+* This button starts the timer (see 18). Pressing the record button will also record a new note, timestamped with the current time on the timer (see 18), indicating that the user has begun entering notes. You cannot press the record button until you have selected an output file (see 7).
 
 ### 7 - Output select button
 ![extra_files/help_images/button_output_select.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_output_select.png?raw=true)
-* Press this button to open a new file dialog window in which you can select an output file to save your notes to. Output file names normally end in ".txt". You must have selected an output file and pressed the record button (see 6) to be able to enter notes.
+* Press this button to open a new file dialog window in which you can select an output file to save your notes to. Output file names normally end in ".txt". You must have selected an output file to be able to enter notes.
 
 ### 8 - Merge output files button
 ![extra_files/help_images/button_merge_output_files.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_merge_output_files.png?raw=true)
@@ -93,7 +93,7 @@ If you would like to run and build this program from the source code, check out 
 
 ### 17 - Save note button
 ![extra_files/help_images/button_save_note.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_save_note.png?raw=true)
-* Press this button to clear the "Current note" box (see 15) AND RECORD THE TIMESTAMP (see 11) ALONG WITH THE CURRENT NOTE in the notes log (see 10) and the current output file (see 9).
+* Press this button to clear the "Current note" box (see 15) AND RECORD THE TIMESTAMP (see 11) ALONG WITH THE CURRENT NOTE in the notes log (see 10) and the current output file (see 9). You must have selected an output file (see 7) to be able to press this button.
 
 ### 18 - Timer
 ![extra_files/help_images/timer.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/timer.png?raw=true)
