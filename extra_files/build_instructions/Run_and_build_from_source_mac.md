@@ -171,3 +171,23 @@ There are two reasons why the official *Mac* releases for the *Time Stamper* pro
 With that being said, packaging the *Time Stamper* program into a disk image (.dmg) is not necessary in order to make the *Time Stamper* program run properly, and will not alter the functionality of the *Time Stamper* program in any way. Therefore, creating a *Time Stamper* disk image (.dmg) is optional.
 
 If you would like to know how to package the *Time Stamper* program into a disk image (.dmg), follow the instructions below.
+
+### Move the *Time Stamper* application (.app) to the appropriate directory
+You are free to include whichever files you like within the disk image (.dmg) for the *Time Stamper* program.
+
+Versions 0.2.0 and later of the official *Time Stamper* release bundle the following files along the *Time Stamper* program in the *Time Stamper* disk image (.dmg):
+* A copy of the *Time Stamper* program's license ("LICENSE.txt")
+* A list of outside sources that were used to help create the *Time Stamper* program ("Attribution.txt")
+
+To include the aforementioned files in the *Time Stamper* disk image (.dmg), first navigate to the following directory:
+```
+{path_to_repository}/extra_files/setup_files/mac
+```
+Then, find the folder whose name corresponds to the version of the *Time Stamper* program the source code you downloaded is associated with. The name of this folder will have the following format, where {release_number} is replaced with the version of the *Time Stamper* program associated with the source code you downloaded:
+```
+Time Stamper {release_number}
+```
+For example, if you downloaded the source code associated with release 0.2.0 of the *Time Stamper* program, locate the folder with the following name:
+```
+Time Stamper 0.2.0
+```
