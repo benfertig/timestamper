@@ -197,4 +197,12 @@ Once you have located the correct folder, place the *Time Stamper* application (
 In addition to the *Time Stamper* application (.app) that you previously generated, you should now place any other files that you would like to be included in the *Time Stamper* disk image (.dmg) into the folder that you just placed the *Time Stamper* application (.app) into.
 
 ### Create the *Time Stamper* disk image (.dmg)
-You are now ready to create the *Time Stamper* disk image (.dmg). First, open *Disk Utility*. You can find *Disk Utility* by searching
+You are now ready to create the *Time Stamper* disk image (.dmg).
+
+First, open *Disk Utility*. You can find *Disk Utility* by searching for it at the top-right of the screen from the toolbar.
+
+Next, select "File" from the drop-down menu at the top of the screen and then select "New Image" -> "Image from Folder...".
+
+In the new *Finder* window that appears, select the folder that you have saved the *Time Stamper* application (.app) to. Remember, this folder should also include any files that you want to be included in the *Time Stamper* disk image (.dmg). Also, make sure that you are satisfied with the name of this folder, as the name of this folder will be the name of the virtual drive that is extracted from the disk image (.dmg) file that you are about to create.
+
+Once you have selected the folder that contains all of the files you would like to include in your *Time Stamper* disk image (.dmg), a new drop-down menu will appear. This menu will prompt you to enter a name for your disk image (.dmg). You can name this disk image whatever you like. For example, the name of the disk image for release 0.2.0 of the *Time Stamper* program for *Intel* based *Mac* computers is "timestamper-r0.2.0-mac-intel-64.dmg". Within this menu, uou can also select the location that you would like this disk image (.dmg) to be saved to, as well as whether you would like the disk image (.dmg) to be encrypted and the image format for the disk image (.dmg). The disk image functions as expected
