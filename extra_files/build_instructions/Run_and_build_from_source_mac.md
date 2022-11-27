@@ -159,7 +159,7 @@ There is a workaround for this problem which involves copying a few libraries fr
 
 You can now exit out of all *Finder* windows. You should now be able to run the *Time Stamper* application (.app) as a standalone program that does not require any external libraries. Congratulations, you have successfully built the *Time Stamper* program from the source code on a *Mac*.
 
-### Bundle the *Time Stamper* program into a disk image (.dmg) (optional)
+## Bundle the *Time Stamper* program into a disk image (.dmg) (optional)
 The *Time Stamper* application (.app) that you just generated provides a fully functional build of the *Time Stamper* program. By simply double-clicking on this application (.app), you can run the *Time Stamper* program.
 
 However, the *Mac* downloads for the *Time Stamper* program on [the releases page for this repository](https://github.com/benfertig/timestamper/releases) are not simply standalone *Time Stamper* application (.app) files like the one you just generated, but rather disk image (.dmg) files that, when run, create a disk image on your *Mac* that contain the *Time Stamper* program files which you can then save to your hard drive.
