@@ -210,7 +210,7 @@ In the new *Finder* window that appears, select the folder that you have saved t
 Once you have selected the folder that contains all of the files you would like to include in your *Time Stamper* disk image (.dmg), a new drop-down menu will appear. This menu will ...
 * prompt you to enter a name for the *Time Stamper* disk image (.dmg). You can name the disk image whatever you like.
 * allow you to select the location that you would like to save the *Time Stamper* disk image (.dmg) to.
-* ask you whether you would like the *Time Stamper* disk image (.dmg) to be encrypted
+* ask you whether you would like the *Time Stamper* disk image (.dmg) to be encrypted.
 * allow you to set the image format of the *Time Stamper* disk image (.dmg).
 
-Once you are satisfied with your settings, click "Save". Your new disk image (.dmg) will be generated. Congratulations, you have successfully bundled the *Time Stamper* program in a *Mac* disk image (.dmg).
+Once you are satisfied with your settings, click "Save". Your new disk image (.dmg) will be generated. Congratulations, you have successfully bundled the *Time Stamper* program into a *Mac* disk image (.dmg).
