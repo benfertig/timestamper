@@ -211,7 +211,7 @@ Once you have selected the folder that contains all of the files you would like 
 * prompt you to enter a name for the *Time Stamper* disk image (.dmg). You can name the disk image whatever you like.
 * allow you to select the location that you would like to save the *Time Stamper* disk image (.dmg) to.
 * ask you whether you would like the *Time Stamper* disk image (.dmg) to be encrypted
-* allow you to set the image format of the *Time Stamper* disk image (.dmg).</br>
+* allow you to set the image format of the *Time Stamper* disk image (.dmg).
 
 The disk image (.dmg) has only been officially tested with the encryption set to "none" and the image format set to "compressed". Any other settings you will be testing at your own peril.
 
