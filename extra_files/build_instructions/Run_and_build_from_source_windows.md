@@ -128,7 +128,7 @@ You are free to include whichever files you like within the *Inno Setup* install
 
 Versions 0.2.0 and later of the official *Time Stamper* release bundle the following files alongside the *Time Stamper* program in the *Inno Setup* installer:
 * A copy of the *Time Stamper* program's license ("LICENSE.txt")
-* A list of outside sources that were used to help create the *Time Stamper* program ("Attribution.txt")
+* A list of outside sources that were used to help create the *Time Stamper* program ("ATTRIBUTION.txt")
 
 To include the aforementioned files in the *Time Stamper* installer, move the *Time Stamper* executable (.exe) that you previously generated into the following directory:
 ```
