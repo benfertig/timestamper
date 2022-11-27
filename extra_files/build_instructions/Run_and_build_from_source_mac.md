@@ -181,7 +181,7 @@ You are free to include whichever files you like within the disk image (.dmg) fo
 
 Versions 0.2.0 and later of the official *Time Stamper* release bundle the following files alongside the *Time Stamper* application (.app) in the *Time Stamper* disk image (.dmg):
 * A copy of the *Time Stamper* program's license ("LICENSE.txt")
-* A list of outside sources that were used to help create the *Time Stamper* program ("Attribution.txt")
+* A list of outside sources that were used to help create the *Time Stamper* program ("ATTRIBUTION.txt")
 
 To include the aforementioned files in the *Time Stamper* disk image (.dmg), first navigate to the following directory:
 ```
