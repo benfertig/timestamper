@@ -121,7 +121,7 @@ cd {path_to_repository}/src
 
 Enter the following command:
 ```
-python3 setup.py py2app
+python3 mac_setup.py py2app
 ```
 
 Your new *Time Stamper* application (.app) will be created in a directory called "dist" within the "src" directory. This program should run when you double-click on it. However, you will likely need to follow one additional step in order to make the *Time Stamper* application you built a truly standalone program.<br />
