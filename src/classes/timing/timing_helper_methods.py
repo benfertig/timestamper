@@ -39,35 +39,42 @@ def print_to_field(field, to_print):
     if not was_enabled:
         field["state"] = DISABLED
 
+
 def pad_number(number, target_length, pad_before):
     """This method pads a number to the desired length with leading zeros (if
     pad_before is set to True) or trailing zeros (if pad_before is set to False)."""
-    str_number = str(int(number)) if number else "0"
+
+    str_number = str(number) if number else "0"
     zeros_to_add = "0" * (target_length - len(str_number))
     if pad_before:
         return zeros_to_add + str_number
     return str_number + zeros_to_add
 
+
 def h_m_s_to_seconds(hours, minutes, seconds, subseconds):
     """This method converts a time in hours, minutes and seconds to a time in seconds."""
     return (hours * 3600) + (minutes * 60) + seconds + (subseconds / 100)
 
+
 def seconds_to_h_m_s(seconds_exact, pad=0):
-    """This method converts a time in seconds to a time in hours, minutes and seconds."""
+    """This method converts a time in seconds to a time in hours, minutes, seconds and subseconds.
+    The optional integer argument pad, which is set to zero by default, will pad the returned
+    hours, minutes, seconds and subseconds with zeros to the length specified by its value."""
 
     # Convert the seconds to hours, minutes, seconds and subseconds.
-    hours = seconds_exact // 3600
-    seconds_exact -= (hours * 3600)
-    minutes = seconds_exact // 60
-    seconds_exact -= (minutes * 60)
+    hours = int(seconds_exact // 3600)
+    seconds_exact = round(seconds_exact - (hours * 3600), 2)
+    minutes = int(seconds_exact // 60)
+    seconds_exact = round(seconds_exact - (minutes * 60), 2)
     seconds = int(seconds_exact)
-    subseconds = int((seconds_exact % 1) * 100)
+    seconds_exact = round((seconds_exact % 1) * 100, 0)
+    subseconds = int(seconds_exact)
 
     # Pad the timer's values with zeros if a pad value is passed as an argument.
     if pad > 0:
         hours = pad_number(hours, pad, True)
         minutes = pad_number(minutes, pad, True)
         seconds = pad_number(seconds, pad, True)
-        subseconds = pad_number(subseconds, pad, False)
+        subseconds = pad_number(subseconds, pad, True)
 
     return hours, minutes, seconds, subseconds

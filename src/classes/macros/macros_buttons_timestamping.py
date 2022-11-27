@@ -53,8 +53,7 @@ class TimestampingButtonMacros():
 
         # Set the timestamp text to the timer's current time.
         obj_timestamp = self.widgets.mapping["label_timestamp"]
-        hours, minutes, seconds, subseconds = self.timer.read_current_time(raw=True)
-        obj_timestamp["text"] = f"[{hours}:{minutes}:{seconds}.{subseconds}]"
+        obj_timestamp["text"] = self.timer.current_time_to_timestamp()
 
         # Enable and disable the relevant buttons for when the clear timestamp button is pressed.
         button_clear_timestamp_template = self.template.mapping["button_clear_timestamp"]
