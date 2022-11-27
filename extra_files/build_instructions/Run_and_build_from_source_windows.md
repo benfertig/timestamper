@@ -15,6 +15,12 @@
          * [Advanced](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#advanced)
          * [Settings](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#settings)
          * [CONVERT .PY TO .EXE](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#convert-py-to-exe)
+* Create a *Windows* installer for the *Time Stamper* program (optional)
+    * Move the *Time Stamper* executable to the appropriate directory
+    * Download *Inno Setup*
+    * Locate the *Inno Setup* configuration file
+    * Edit the *Inno Setup* configuration file
+    * Create the *Inno Setup* installer for the *Time Stamper* program
 
 ## Install *Python 3*
 It is highly recommended that you install a version of *Python* that includes *conda* i.e., *Anaconda* or *Miniconda*. If you have no other uses for *Python* and all you are looking to do is run/build the *Time Stamper* program from the source code, *Miniconda* will provide everything you need. [You can download the latest *Miniconda* installer here](https://docs.conda.io/en/latest/miniconda.html).<br />
