@@ -1,7 +1,7 @@
 # Run and Build from Source on Mac
 
 ## Table of Contents
-* [Make sure your default shell is set to *Z shell*](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#make-sure-your-default-shell-is-set-to-z-shell)
+* [Make sure your default shell is set to *Z shell*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#make-sure-your-default-shell-is-set-to-z-shell)
 * [Install *Python 3*](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#install-python-3)
 * [Activate your *conda* environment](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#activate-your-conda-environment)
 * [Run from source on *Mac*](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#run-from-source-on-mac)
