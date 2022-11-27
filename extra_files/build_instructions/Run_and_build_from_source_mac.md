@@ -12,6 +12,10 @@
     * [Install *Py2App*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#install-py2app)
     * [Build the *Time Stamper* application (.app)](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#build-the-time-stamper-application-app)
     * [Copy some extra libraries to the *Time Stamper* application (.app) package](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#copy-some-extra-libraries-to-the-time-stamper-application-app-package)
+* [Bundle the *Time Stamper* program into a disk image (.dmg) (optional)]()
+    * [Move the *Time Stamper* application (.app) to the appropriate directory]()
+    * [Include any other files that you would like to be bundled in the *Time Stamper* disk image (.dmg)]()
+    * [Create the *Time Stamper* disk image (.dmg)]()
 
 ## Make sure your default shell is set to *Z shell*
 Open the application *Terminal*. You can find *Terminal* by searching for it at the top-right of the screen from the toolbar.<br />
