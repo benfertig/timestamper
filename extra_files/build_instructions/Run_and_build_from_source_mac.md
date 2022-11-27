@@ -195,3 +195,6 @@ Once you have located the correct folder, place the *Time Stamper* application (
 
 ### Include any other files that you would like to be bundled in the *Time Stamper* disk image (.dmg)
 In addition to the *Time Stamper* application (.app) that you previously generated, you should now place any other files that you would like to be included in the *Time Stamper* disk image (.dmg) into the folder that you just placed the *Time Stamper* application (.app) into.
+
+### Create the *Time Stamper* disk image (.dmg)
+You are now ready to create the *Time Stamper* disk image (.dmg). First, open *Disk Utility*. You can find *Disk Utility* by searching
