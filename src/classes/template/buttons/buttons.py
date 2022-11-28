@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
-"""This module contains the Button class which is
-called upon by the constructor of the Fields class."""
+"""This module contains the Buttons class which is called upon by
+the constructor of the Fields class (which is found in template.py)"""
 
 from dataclasses import dataclass
 from .buttons_file import FileButtons

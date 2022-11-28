@@ -50,7 +50,7 @@ class TimestampingButtons():
         mac_disabled_color = "#d3d3d3"
 
         to_enable = ("button_clear_timestamp",)
-        to_disable = ("button_timestamp",)
+        to_disable = ()
 
         background = None
         foreground = None
@@ -96,7 +96,7 @@ class TimestampingButtons():
 
         mac_disabled_color = "#d3d3d3"
 
-        to_enable = ("button_timestamp",)
+        to_enable = ()
         to_disable = ("button_clear_timestamp",)
 
         background = None

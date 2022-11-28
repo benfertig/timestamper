@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
-"""This module contains the Label class which is
-called upon by the constructor of the Fields class."""
+"""This module contains the Labels class which is called upon by
+the constructor of the Fields class (which is found in template.py)"""
 
 from dataclasses import dataclass
 from .labels_info import InfoLabels

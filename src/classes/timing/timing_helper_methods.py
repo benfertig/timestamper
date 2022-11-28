@@ -24,7 +24,8 @@ from tkinter import DISABLED, NORMAL, END
 
 
 def print_to_field(field, to_print):
-    """This method displays the text stored in the argument to_print to the argument field."""
+    """This method sets the text of "field" (which should be a Tkinter
+    Entry) to whatever is stored in "to_print" (which should be a string)."""
 
     # Determine whether the field is enabled.
     was_enabled = field["state"] == NORMAL
@@ -51,7 +52,8 @@ def pad_number(number, target_length, pad_before):
 
 
 def h_m_s_to_seconds(hours, minutes, seconds, subseconds):
-    """This method converts a time in hours, minutes and seconds to a time in seconds."""
+    """This method converts a time in hours, minutes,
+    seconds and subseconds to a time in seconds."""
     return (hours * 3600) + (minutes * 60) + seconds + (subseconds / 100)
 
 

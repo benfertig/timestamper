@@ -108,14 +108,13 @@ class TimeStamperTimer():
         if self.is_running:
 
             # Only tick the timer if its current time is less than the maximum displayable time.
-            current_time_seconds = self.get_current_seconds()
-            if current_time_seconds < 359999.99:
+            if self.get_current_seconds() < 359999.99:
 
                 # Display the current time.
                 internal_time = perf_counter() - self.start_time + self.offset
                 self.display_time(internal_time, pad=2)
 
-                # Tick the timer again.
+                # After a very short delay, tick the timer again.
                 self.time_stamper.root.after(2, self.timer_tick)
 
             # If the timer's currently displayed time is not less

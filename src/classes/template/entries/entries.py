@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
-"""This module contains the Entry class which is
-called upon by the constructor of the Fields class."""
+"""This module contains the Entries class which is called upon by
+the constructor of the Fields class (which is found in template.py)"""
 
 from dataclasses import dataclass
 from .entries_timer import TimerEntries
