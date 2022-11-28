@@ -1,7 +1,6 @@
 #-*- coding: utf-8 -*-
-"""This module contains the Timing class, which is called upon by
-the TimeStamperTimer class, and contains some helper methods for the
-TimeStamperTimer that do not directly reference Tkinter widgets."""
+"""This module contains helper methods for the TimeStamperTimer class
+that do not directly rely on class variables of TimeStamperTimer."""
 
 from tkinter import DISABLED, NORMAL, END
 
@@ -77,4 +76,4 @@ def seconds_to_h_m_s(seconds_exact, pad=0):
         seconds = pad_number(seconds, pad, True)
         subseconds = pad_number(subseconds, pad, True)
 
-    return hours, minutes, seconds, subseconds
+    return str(hours), str(minutes), str(seconds), str(subseconds)

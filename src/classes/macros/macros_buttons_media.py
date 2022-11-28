@@ -102,7 +102,7 @@ class MediaButtonMacros():
 
         # Rewind the timer the requested amount.
         else:
-            self.timer.rewind(rewind_amount)
+            self.timer.adjust_timer(-rewind_amount)
 
     def button_fast_forward_macro(self):
         """This method will be executed when the fast-forward button is pressed."""
@@ -123,7 +123,7 @@ class MediaButtonMacros():
 
         # Fast-forward the timer the requested amount.
         else:
-            self.timer.fast_forward(fast_forward_amount)
+            self.timer.adjust_timer(fast_forward_amount)
 
     def button_record_macro(self):
         """This method will be executed when the record

@@ -102,32 +102,6 @@ class TimeStamperTimer():
             obj_timestamp = self.time_stamper.widgets.mapping["label_timestamp"]
             obj_timestamp["text"] = f"[{hours}:{minutes}:{seconds}.{subseconds}]"
 
-    def adjust_timer(self, seconds_to_adjust_by):
-        """This method is called upon by the rewind and fast_forward methods. Since the rewind and
-        fast_forward methods are very similar, it would be redundant to write the full code for both
-        of these methods. Instead, the rewind and fast_forward methods will call the adjust_timer
-        method, the behavior of which will change slightly depending on whether it is called from
-        the rewind method (from which a value less than or equal to zero will be passed) or from the
-        fast_forward method (from which a value greater than or equal to zero will be passed)."""
-
-        # Get the current time in seconds before adjusting the timer.
-        current_time_seconds = self.get_current_seconds()
-
-        # Figure out the amount of time to adjust the timer by, which may be less
-        # than the amount of requested time because that could bring the timer below
-        # the minumum time (00h 00m 00.00s) or above the maximum time (99h 59m 59.99s).
-        if current_time_seconds + seconds_to_adjust_by < 0:
-            seconds_to_adjust_by = -current_time_seconds
-        elif current_time_seconds + seconds_to_adjust_by > 359999.99:
-            seconds_to_adjust_by = 359999.99 - current_time_seconds
-
-        # Update the timer's offset, factoring in the specified rewind time.
-        self.offset += seconds_to_adjust_by
-
-        # Display the updated time immediately.
-        current_time_seconds += seconds_to_adjust_by
-        self.display_time(current_time_seconds, pad=2)
-
     def timer_tick(self):
         """This method runs continuously while the
         timer is running to update the current time."""
@@ -195,19 +169,24 @@ class TimeStamperTimer():
         self.offset = 0.0
         self.is_running = False
 
-    def rewind(self, seconds_to_rewind):
-        """This method rewinds the timer and is typically run when the rewind button is pressed.
-        The timer will rewind the amount of seconds provided in the argument seconds_to_rewind,
-        which is is typically retrieved from the input field below the rewind button."""
+    def adjust_timer(self, seconds_to_adjust_by):
+        """This method fast-forwards and rewinds the timer. Since the rewind and fast-forward
+        procedures are very similar, they have been condensed into this single method."""
 
-        # Adjust the timer by the negation of the number of seconds passed in seconds_to_rewind.
-        self.adjust_timer(-seconds_to_rewind)
+        # Get the current time in seconds before adjusting the timer.
+        current_time_seconds = self.get_current_seconds()
 
-    def fast_forward(self, seconds_to_fast_forward):
-        """This method fast-forwards the timer and is typically run when the
-        fast-forward button is pressed. The timer will fast-forward the amount
-        of seconds provided in the argument seconds_to_fast_forward, which
-        is typically retrieved from the input field below the fast-forward button."""
+        # Figure out the amount of time to adjust the timer by, which may be less
+        # than the amount of requested time because that could bring the timer below
+        # the minumum time (00h 00m 00.00s) or above the maximum time (99h 59m 59.99s).
+        if current_time_seconds + seconds_to_adjust_by < 0:
+            seconds_to_adjust_by = -current_time_seconds
+        elif current_time_seconds + seconds_to_adjust_by > 359999.99:
+            seconds_to_adjust_by = 359999.99 - current_time_seconds
 
-        # Adjust the timer by the number of seconds passed in seconds_to_fast_forward.
-        self.adjust_timer(seconds_to_fast_forward)
+        # Update the timer's offset, factoring in the specified rewind time.
+        self.offset += seconds_to_adjust_by
+
+        # Display the updated time immediately.
+        current_time_seconds += seconds_to_adjust_by
+        self.display_time(current_time_seconds, pad=2)
