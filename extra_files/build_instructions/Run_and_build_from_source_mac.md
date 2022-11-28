@@ -78,7 +78,7 @@ pip3 install tkmacosx
 ```
 
 ### Run *Time Stamper.py*
-[**Download the *timestamper* repository to your computer**](https://github.com/benfertig/timestamper/archive/refs/heads/main.zip) if you have not done so already.<br />
+[**Head over to the releases page for the *Time Stamper* program**](https://github.com/benfertig/timestamper/releases) and download the source code for the version of the *Time Stamper* program that you would like to build. To find the source code, expand the "Assets" tab for your desired version and download the "Source code (zip)" or "Source code (tar.gz)" file.<br />
 
 From a *Terminal* window, navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to:
 ```
