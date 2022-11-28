@@ -3,7 +3,7 @@
 for keeping track of time in the Time Stamper program."""
 
 from time import perf_counter
-from .timing_helper_methods import pad_number, print_to_field, h_m_s_to_seconds, seconds_to_h_m_s
+from .timing_helper_methods import print_to_field, pad_number, h_m_s_to_seconds, seconds_to_h_m_s
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -42,12 +42,11 @@ class TimeStamperTimer():
         self.offset = 0.0
 
     def read_timer(self, raw=False):
-        """This method reads in and returns the current time from the time fields. This is
-        the primary method that is used to retrieve the time while the timer is PAUSED. This
-        method takes one optional argument, raw, which is set to False by default. When raw is
-        True, the returned values will be four strings representing the timer's current time
-        in hours, minutes, seconds and subseconds (padded with 0's if necessary). When raw
-        is False, the returned values will be the same as the values that are returned when
+        """This method reads in and returns the current time from the time fields. This method
+        takes one optional argument, raw, which is set to False by default. When raw is True,
+        the returned values will be four strings representing the timer's current time in
+        hours, minutes, seconds and subseconds (padded with 0's if necessary). When raw is
+        False, the returned values will be the same as the values that are returned when
         raw is True, but the values will be converted to integers before being returned."""
 
         # Get the current values from the timer's time fields.
@@ -72,8 +71,7 @@ class TimeStamperTimer():
         return int(hours), int(minutes), int(seconds), int(subseconds)
 
     def get_current_seconds(self):
-        """This method returns the timer's current time in seconds. This method's decision of
-        how to retrieve the timer's current time is based on whether the timer is running."""
+        """This method returns the timer's current time in seconds."""
 
         # Retrieve the current time in seconds by converting the
         # returned value of the read_timer method to seconds.
@@ -86,9 +84,10 @@ class TimeStamperTimer():
         return f"[{hours}:{minutes}:{seconds}.{subseconds}]"
 
     def display_time(self, time_in_seconds, pad=0):
-        """This method displays the time passed to it as
-        arguments to the timer fields of self.time_stamper."""
+        """This method, after converting the provided time in seconds to hours, minutes,
+        seconds and subseconds, will display this time to timer fields of self.time_stamper."""
 
+        # Convert the provided time in seconds to hours, minutes, seconds and subseconds.
         hours, minutes, seconds, subseconds = seconds_to_h_m_s(time_in_seconds, pad)
 
         # Print the hours, minutes, seconds and subseconds to their relevant Tkinter entries.
@@ -103,8 +102,7 @@ class TimeStamperTimer():
             obj_timestamp["text"] = f"[{hours}:{minutes}:{seconds}.{subseconds}]"
 
     def timer_tick(self):
-        """This method runs continuously while the
-        timer is running to update the current time."""
+        """This method runs continuously while the timer is running to update the current time."""
 
         # Only tick the timer if it is currently running.
         if self.is_running:

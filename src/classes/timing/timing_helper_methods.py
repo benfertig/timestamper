@@ -56,9 +56,9 @@ def h_m_s_to_seconds(hours, minutes, seconds, subseconds):
 
 
 def seconds_to_h_m_s(seconds_exact, pad=0):
-    """This method converts a time in seconds to a time in hours, minutes, seconds and subseconds.
-    The optional integer argument pad, which is set to zero by default, will pad the returned
-    hours, minutes, seconds and subseconds with zeros to the length specified by its value."""
+    """This method converts a time in seconds to a time in hours, minutes, seconds and
+    subseconds. The optional integer argument pad, which is set to zero by default, provides
+    the length which the returned hours, minutes, seconds and subseconds should be padded to."""
 
     # Convert the seconds to hours, minutes, seconds and subseconds.
     hours = int(seconds_exact // 3600)
