@@ -124,7 +124,8 @@ class TimeStamperTimer():
                 macro_mapping["button_stop"]()
 
     def pause(self):
-        """This method pauses the timer and is typically run when the pause button is pressed."""
+        """This method halts the timer and is typically
+        run when the pause or stop button is pressed."""
 
         # Declare the timer as not running.
         self.is_running = False
@@ -156,15 +157,6 @@ class TimeStamperTimer():
         else:
             macro_mapping = self.time_stamper.macros.mapping
             macro_mapping["button_stop"]()
-
-    def stop(self):
-        """This method stops the timer and is typically
-        run when the stop button is pressed."""
-
-        # To stop the timer, simply reset all variables responsible for keeping track of the time.
-        self.start_time = 0.0
-        self.offset = 0.0
-        self.is_running = False
 
     def adjust_timer(self, seconds_to_adjust_by):
         """This method fast-forwards and rewinds the timer. Since the rewind and fast-forward

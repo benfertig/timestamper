@@ -81,7 +81,7 @@ class MediaButtonMacros():
                 out_file.write(to_write)
 
         # Stop the timer.
-        self.timer.stop()
+        self.timer.pause()
 
     def button_rewind_macro(self):
         """This method will be executed when the rewind button is pressed."""
