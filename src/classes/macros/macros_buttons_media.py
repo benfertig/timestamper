@@ -64,7 +64,7 @@ class MediaButtonMacros():
         # Print the message that the timer has been stopped
         # with the current timestamp to the screen.
         current_timestamp = self.timer.current_time_to_timestamp()
-        to_write = f"{current_timestamp} {button_stop_template.print_on_press}\n"
+        to_write = f"{current_timestamp} {button_stop_template['print_on_press']}\n"
         text_log = self.widgets.mapping["text_log"]
         text_log["state"] = NORMAL
         text_log.insert(END, to_write)
@@ -75,8 +75,8 @@ class MediaButtonMacros():
         # with the current timestamp to the output file.
         label_output_path_template = self.template.mapping["label_output_path"]
         output_path = self.widgets.mapping["label_output_path"]["text"]
-        if output_path != label_output_path_template.text:
-            output_path = output_path[len(label_output_path_template.display_path_prefix):]
+        if output_path != label_output_path_template["text"]:
+            output_path = output_path[len(label_output_path_template["display_path_prefix"]):]
             with open(output_path, "a+", encoding=self.template.output_file_encoding) as out_file:
                 out_file.write(to_write)
 
@@ -134,7 +134,7 @@ class MediaButtonMacros():
 
         # Get the currently displayed time from the timer and create a timestamp from it.
         current_timestamp = self.timer.current_time_to_timestamp()
-        to_write = f"{current_timestamp} {button_record_template.print_on_press}\n"
+        to_write = f"{current_timestamp} {button_record_template['print_on_press']}\n"
 
         # Print the message that the timer has started
         # with the current timestamp to the screen.
@@ -148,8 +148,8 @@ class MediaButtonMacros():
         # with the current timestamp to the output file.
         label_output_path_template = self.template.mapping["label_output_path"]
         output_path = self.widgets.mapping["label_output_path"]["text"]
-        if output_path != label_output_path_template.text:
-            output_path = output_path[len(label_output_path_template.display_path_prefix):]
+        if output_path != label_output_path_template["text"]:
+            output_path = output_path[len(label_output_path_template["display_path_prefix"]):]
             with open(output_path, "a+", encoding=self.template.output_file_encoding) as out_file:
                 out_file.write(to_write)
 

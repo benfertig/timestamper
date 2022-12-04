@@ -50,6 +50,8 @@ class NoteButtonMacros():
         # Get the current text in the input text box.
         obj_current_note = self.widgets.mapping["text_current_note"]
         current_note = obj_current_note.get(1.0, END)
+
+        # Clear the current text in the input text box.
         obj_current_note.delete(1.0, END)
 
         to_write = f"{current_timestamp} {current_note}"
@@ -65,7 +67,7 @@ class NoteButtonMacros():
         # Print the current timestamp along with the current
         # text from the input text box to the output file.
         output_path = self.widgets.mapping["label_output_path"]["text"]
-        if output_path != label_output_path_template.text:
-            output_path = output_path[len(label_output_path_template.display_path_prefix):]
+        if output_path != label_output_path_template["text"]:
+            output_path = output_path[len(label_output_path_template["display_path_prefix"]):]
             with open(output_path, "a+", encoding=self.template.output_file_encoding) as out_file:
                 out_file.write(to_write)

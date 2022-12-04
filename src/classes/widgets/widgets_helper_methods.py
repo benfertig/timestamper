@@ -49,47 +49,61 @@ def entry_value_limit(entry_text, max_val):
 
 def determine_widget_text(widget_template, messages_dir):
     """There are different ways that a widget's text can be set. Sometimes, the widget's text
-    is stored in a file. Other times, the widget's text is stored in its template's .text
-    attribute. This method determines where to find the widget's text and returns that text."""
+    is stored in a file. Other times, the widget's text is stored in its template's "text"
+    key. This method determines where to find the widget's text and returns that text."""
 
     # If there is a file associated with this widget,
     # determine the widget's initial text using that file.
-    if widget_template.message_file_name is not None:
-        if widget_template.text is not None:
-            print(f"\nWARNING for widget template \"{widget_template.str_key}\":" \
-                "\nA template's \"text\" and \"message_file_name\" attributes should "\
+    if widget_template["message_file_name"] is not None:
+        if widget_template["text"] is not None:
+            print(f"\nWARNING for template \"{widget_template['str_key']}\":\n" \
+                "A template's \"text\" and \"message_file_name\" attributes should "\
                 "not both be set to non-None values simultaneously. The \"message_file_name\" " \
                 "attribute takes precedence, so the text for the widget based on this template " \
                 "will be generated using the information stored in " \
-                f"\"{widget_template.message_file_name}\", as opposed to the information stored " \
-                f"in this template's \"text\" attribute (i.e. \"{widget_template.text}\").")
-        message_file_loc = path.join(messages_dir, widget_template.message_file_name)
-        message_encoding = widget_template.message_file_encoding
+                f"\"{widget_template['message_file_name']}\", as opposed to the information " \
+                "stored in this template's \"text\" attribute " \
+                f"(i.e., \"{widget_template['text']}\").\n")
+        message_file_loc = path.join(messages_dir, widget_template["message_file_name"])
+        message_encoding = widget_template["message_file_encoding"]
         with open(message_file_loc, "r", encoding=message_encoding) as message_file:
 
             # If the file associated with this widget is a json file, set the widget's initial
             # text to the value paired with the key asssociated with the initial message.
             if path.splitext(message_file_loc)[1] == ".json":
                 json_text = load(message_file)
-                widget_template.loaded_message_text = json_text
-                widget_text = json_text[widget_template.json_first_message_key]
+                widget_template["loaded_message_text"] = json_text
+                widget_text = json_text[widget_template["json_first_message_key"]]
 
             # If the file associated with this widget is not a json file,
             # set the widget's initial text to the exact reading of the file.
             else:
                 widget_text = message_file.read()
-                widget_template.loaded_message_text = widget_text
+                widget_template["loaded_message_text"] = widget_text
 
     # If there is no file associated with this widget, set the widget's initial text
-    # to the widget template's .text attribute (unless the .text attribute is None,
+    # to the widget template's "text" attribute (unless the "text" attribute is None,
     # in which case you would set the widget's initial text to an empty string).
-    elif widget_template.text is not None:
-        widget_text = widget_template.text
-    else:
+    elif widget_template["text"] is None:
         widget_text = ""
+    else:
+        widget_text = widget_template["text"]
 
     return widget_text
 
+
+def determine_widget_initial_state(widget_template):
+    """This method determines what a widget's initial state should be. Since the widget templates
+    are stored in JSON files, we cannot store the Tkinter states (i.e., NORMAL and DISABLED) as
+    values in those JSON files. Instead, we must represent a widget's initial state as a string
+    (e.g., 'NORMAL' or 'DISABLED'), so this method determines a widget's initial state based on the
+    string stored in the widget template's 'initial_state' JSON key and then returns that state."""
+
+    if widget_template["initial_state"] == "NORMAL":
+        return NORMAL
+    if widget_template["initial_state"] == "DISABLED":
+        return DISABLED
+    return widget_template["initial_state"]    
 
 def create_font(widget_template):
     """This method creates a widget's font based on its template."""
@@ -97,55 +111,56 @@ def create_font(widget_template):
     # On Mac computers, text shows up a bit smaller than on Windows computers,
     # so we should make text a bit larger on Macs to compensate for this.
     if platform == "darwin":
-        font_size = widget_template.font_size + 2
+        font_size = widget_template["font_size"] + 2
     else:
-        font_size = widget_template.font_size
+        font_size = widget_template["font_size"]
 
-    return font.Font(family=widget_template.font_family, \
-        size=font_size, weight=widget_template.font_weight, \
-        slant=widget_template.font_slant, underline=widget_template.font_underline, \
-        overstrike=widget_template.font_overstrike)
+    return font.Font(family=widget_template["font_family"], \
+        size=font_size, weight=widget_template["font_weight"], \
+        slant=widget_template["font_slant"], underline=widget_template["font_underline"], \
+        overstrike=widget_template["font_overstrike"])
 
 
 def grid_widget(widget, widget_template):
     """This method grids a widget based on its template."""
-    widget.grid(column=widget_template.column, row=widget_template.row, \
-        columnspan=widget_template.columnspan, rowspan=widget_template.rowspan, \
-        padx=widget_template.padx, pady=widget_template.pady, \
-        ipadx=widget_template.ipadx, ipady=widget_template.ipady, sticky=widget_template.sticky)
+    widget.grid(column=widget_template["column"], row=widget_template["row"], \
+        columnspan=widget_template["columnspan"], rowspan=widget_template["rowspan"], \
+        padx=widget_template["padx"], pady=widget_template["pady"], \
+        ipadx=widget_template["ipadx"], ipady=widget_template["ipady"], \
+        sticky=widget_template["sticky"])
 
 
 def create_window(window_template, main_window_str, images_dir):
     """This method creates the main window for the Time Stamper program."""
 
     # Create the main window and set its characteristics.
-    if window_template.str_key == main_window_str:
+    if window_template["str_key"] == main_window_str:
         window = Tk()
     else:
         window = Toplevel()
 
-    window.title(window_template.title)
-    if window_template.width is not None and window_template.height is not None:
-        window.geometry(f"{window_template.width}x{window_template.height}")
-    window["background"] = window_template.background
-    window["foreground"] = window_template.foreground
+    window.title(window_template["title"])
+    if window_template["width"] is not None and window_template["height"] is not None:
+        window.geometry(f"{window_template['width']}x{window_template['height']}")
+    window["background"] = window_template["background"]
+    window["foreground"] = window_template["foreground"]
 
     # If we are on a Mac, the window icon needs to be a .icns file.
     # On Windows, the window icon needs to be a .ico file.
     if platform == "darwin":
-        icon_file_name = window_template.icon_mac
+        icon_file_name = window_template["icon_mac"]
     else:
-        icon_file_name = window_template.icon_windows
+        icon_file_name = window_template["icon_windows"]
 
     # Set the main window icon.
     window.iconbitmap(path.join(images_dir, icon_file_name))
 
     # Configure the main window's columns.
-    for column_num in range(window_template.num_columns):
+    for column_num in range(window_template["num_columns"]):
         Grid.columnconfigure(window, column_num, weight=1)
 
     # Configure the main window's rows.
-    for row_num in range(window_template.num_rows):
+    for row_num in range(window_template["num_rows"]):
         Grid.rowconfigure(window, row_num, weight=1)
 
     return window
@@ -155,10 +170,10 @@ def create_image(obj_template, images_dir):
     """This method creates an image object for the Time Stamper program."""
 
     # Return a PhotoImage only if there is an image associated with the object.
-    if obj_template.image_file_name:
-        return PhotoImage(file=path.join(images_dir, obj_template.image_file_name))
+    if obj_template["image_file_name"]:
+        return PhotoImage(file=path.join(images_dir, obj_template["image_file_name"]))
 
-    # If there is no image associated with the object return None.
+    # If there is no image associated with the object, return None.
     return None
 
 
@@ -170,21 +185,23 @@ def create_button(button_template, button_window, button_macro, messages_dir, bu
 
     # Determine whether we should use the Button class from tkmacosx instead of tkinter.
     button_class = Button
-    button_background = button_template.background
-    button_foreground = button_template.foreground
+    button_background = button_template["background"]
+    button_foreground = button_template["foreground"]
     button_has_color = button_background is not None or button_foreground is not None
-    if platform == "darwin" and (button_has_color or not button_template.text):
+    if platform == "darwin" and (button_has_color or not button_template["text"]):
         button_class = MacButton
 
     # Determine what the button's initial text should be.
     button_text = determine_widget_text(button_template, messages_dir)
 
+    # Determine the button's initial state
+    initial_state = determine_widget_initial_state(button_template)
+
     # Create the Button object.
-    button = button_class(button_window, height=button_template.height, \
-        width=button_template.width, text=button_text, image=button_image, \
-        state=button_template.initial_state, font=button_font, \
-        background=button_background, foreground=button_foreground, \
-        command=button_macro)
+    button = button_class(button_window, height=button_template["height"], \
+        width=button_template["width"], text=button_text, image=button_image, \
+        state=initial_state, font=button_font, background=button_background, \
+        foreground=button_foreground, command=button_macro)
 
     # Place the Button.
     grid_widget(button, button_template)
@@ -212,16 +229,19 @@ def create_entry(entry_template, entry_window, e_v_limit, messages_dir):
     entry_text = StringVar()
     entry_text.set(entry_text_str)
 
+    # Determine the entry's initial state
+    initial_state = determine_widget_initial_state(entry_template)
+
     # Create the Entry object.
-    entry = Entry(entry_window, width=entry_template.width, \
-        textvariable=entry_text, font=entry_font, background=entry_template.background, \
-        foreground=entry_template.foreground, state=entry_template.initial_state)
+    entry = Entry(entry_window, width=entry_template["width"], \
+        textvariable=entry_text, font=entry_font, background=entry_template["background"], \
+        foreground=entry_template["foreground"], state=initial_state)
 
     # Place the Entry.
     grid_widget(entry, entry_template)
 
     # Set the Entry input resitrictions.
-    entry_text.trace("w", lambda *args: e_v_limit(entry_text, entry_template.max_val))
+    entry_text.trace("w", lambda *args: e_v_limit(entry_text, entry_template["max_val"]))
 
     return entry
 
@@ -236,11 +256,11 @@ def create_label(label_template, label_window, messages_dir, label_image=None):
     label_text = determine_widget_text(label_template, messages_dir)
 
     # Create the Label object.
-    label = Label(label_window, height=label_template.height, \
-        width=label_template.width, background=label_template.background, \
-        foreground=label_template.foreground, text=label_text, \
+    label = Label(label_window, height=label_template["height"], \
+        width=label_template["width"], background=label_template["background"], \
+        foreground=label_template["foreground"], text=label_text, \
         image=label_image, font=label_font, highlightthickness=0, \
-        wraplength=label_template.wraplength, justify=label_template.justify)
+        wraplength=label_template["wraplength"], justify=label_template["justify"])
 
     # Place the Label.
     grid_widget(label, label_template)
@@ -254,10 +274,12 @@ def create_text(text_template, text_window, messages_dir):
     # Create the Text's font.
     text_font = create_font(text_template)
 
+    # Determine the text's initial state
+    initial_state = determine_widget_initial_state(text_template)
+
     # Create the Text object.
-    text = Text(text_window, height=text_template.height, \
-        width=text_template.width, font=text_font, \
-        state=text_template.initial_state)
+    text = Text(text_window, height=text_template["height"], \
+        width=text_template["width"], font=text_font, state=initial_state)
 
     # Determine what the text object's initial text should be.
     text_text = determine_widget_text(text_template, messages_dir)
@@ -265,7 +287,7 @@ def create_text(text_template, text_window, messages_dir):
     # Display the Text object's text.
     text["state"] = NORMAL
     text.insert(END, text_text)
-    text["state"] = text_template.initial_state
+    text["state"] = initial_state
 
     # Place the Text.
     grid_widget(text, text_template)

@@ -3,8 +3,8 @@
 the constructor of the Fields class (which is found in template.py)"""
 
 from dataclasses import dataclass
-from .entries_timer import TimerEntries
-from .entries_other import OtherEntries
+from json import load
+from os.path import dirname, join
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -35,12 +35,19 @@ class Entries():
 
         self.str_key = "entries"
 
-        self.timer = TimerEntries()
-        self.other = OtherEntries()
+        # Map the entry templates to their string keys.
+        mapping = {}
+        cur_dir = dirname(__file__)
+        with open(join(cur_dir, "entries_timer.json"), encoding="utf-8") as entries_timer_json:
+            mapping.update(load(entries_timer_json))
+        with open(join(cur_dir, "entries_other.json"), encoding="utf-8") as entries_other_json:
+            mapping.update(load(entries_other_json))
+        self.mapping = mapping
 
         # Map the entry templates to the windows that they appear in.
         self.template_window_mapping = {
             "window_main":
-                (self.timer.num_hours, self.timer.num_minutes, self.timer.num_seconds,
-                self.timer.num_subseconds, self.other.rewind, self.other.fast_forward)
+                (mapping["entry_hours"], mapping["entry_minutes"],
+                mapping["entry_seconds"], mapping["entry_subseconds"],
+                mapping["entry_rewind"], mapping["entry_fast_forward"])
         }

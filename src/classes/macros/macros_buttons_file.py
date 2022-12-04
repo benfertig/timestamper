@@ -24,6 +24,17 @@ from .macros_helper_methods import enable_button, disable_button, merge_notes
 
 # Contact: github.cqrde@simplelogin.com
 
+
+def success_message(merged_output_file_name):
+    """This method generates the message that is displayed
+    when the program has successfully merged output files."""
+
+    return "MERGE SUCCESS\n\n" \
+        "Your merged notes have been saved in:\n" \
+        f"\"{merged_output_file_name}\".\n\n" \
+        "Close this window to proceed."
+
+
 class FileButtonMacros():
     """This class stores all of the macros that execute when file buttons are pressed."""
 
@@ -43,7 +54,7 @@ class FileButtonMacros():
         # Get the path to the selected output file.
         file_types = (("text files", "*.txt"), ('All files', '*.*'))
         file_full_path = filedialog.askopenfilename(title="Select a file", \
-            initialdir=button_output_select_template.starting_dir, filetypes=file_types)
+            initialdir=self.template.starting_dir, filetypes=file_types)
 
         # Only display the output file path, enable the relevant buttons and repopulate
         # the text displaying the notes log if an output file has been selected.
@@ -51,7 +62,7 @@ class FileButtonMacros():
 
             # Set the text of the label that displays the output to the current output file path.
             obj_label_output_path["text"] = \
-                f"{label_output_path_template.display_path_prefix}{file_full_path}"
+                f"{label_output_path_template['display_path_prefix']}{file_full_path}"
 
             # Indicate that the relevant buttons should be enabled.
             button_toggle_status = NORMAL
@@ -75,7 +86,7 @@ class FileButtonMacros():
 
             # Set the text of the label that displays the output to the label's default
             # text (the text that displays when no output file has been selected).
-            obj_label_output_path["text"] = label_output_path_template.text
+            obj_label_output_path["text"] = label_output_path_template["text"]
 
             # Clear the text log.
             obj_text_log = self.widgets.mapping["text_log"]
@@ -88,7 +99,7 @@ class FileButtonMacros():
 
         # Enable the relevant buttons if an output file has been selected.
         if button_toggle_status == NORMAL:
-            for str_button in button_output_select_template.to_enable_toggle:
+            for str_button in button_output_select_template["to_enable_toggle"]:
                 enable_button(self.widgets.mapping[str_button], \
                     self.widgets.original_colors[str_button])
 
@@ -96,7 +107,7 @@ class FileButtonMacros():
         else:
             for str_button in button_output_select_template.to_enable_toggle:
                 disable_button(self.widgets.mapping[str_button], \
-                    self.template.mapping[str_button].mac_disabled_color)
+                    self.template.mapping[str_button]["mac_disabled_color"])
 
     def on_close_window_merge_1_macro(self, window_merge):
         """This method will be executed when the FIRST window displaying
@@ -107,8 +118,7 @@ class FileButtonMacros():
         # The user will be prompted to select the files whose notes they wish to merge.
         file_types = (("text files", "*.txt"), ('All files', '*.*'))
         files_full_paths = filedialog.askopenfilenames(title="Select output files to merge", \
-            initialdir=self.template.mapping["button_output_select"].starting_dir, \
-            filetypes=file_types)
+            initialdir=self.template.starting_dir, filetypes=file_types)
 
         # Only merge the notes if at least one file was selected.
         if files_full_paths:
@@ -129,15 +139,11 @@ class FileButtonMacros():
 
         window_merge.destroy()
 
-        button_record_message = self.template.mapping["button_record"].print_on_press
-        button_stop_message = self.template.mapping["button_stop"].print_on_press
-
         # The user will be prompted to select the file to save the merged notes to.
         file_types = (("text files", "*.txt"), ('All files', '*.*'))
         merged_notes_path = \
             filedialog.askopenfilename(title="Select destination for merged outputs", \
-            initialdir=self.template.mapping["button_output_select"].starting_dir, \
-            filetypes=file_types)
+            initialdir=self.template.starting_dir, filetypes=file_types)
 
         # Only proceed with attempting to merge the notes if
         # the user selected a file to save the merged notes to.
@@ -156,6 +162,8 @@ class FileButtonMacros():
             else:
 
                 # Merge the notes from all selected files.
+                button_record_message = self.template.mapping["button_record"]["print_on_press"]
+                button_stop_message = self.template.mapping["button_stop"]["print_on_press"]
                 merged_notes = \
                     merge_notes(files_full_paths, button_record_message, \
                         button_stop_message, self.template.output_file_encoding)
@@ -166,10 +174,9 @@ class FileButtonMacros():
                     for note in merged_notes:
                         out.write(note)
 
-                # Display a message that the notes were successfully merged.
+                # Display a message stating that the notes were successfully merged.
                 label_merge_success = self.template.mapping["label_merge_success"]
-                label_merge_success.text = \
-                    label_merge_success.success_message(basename(merged_notes_path))
+                label_merge_success["text"] = success_message(basename(merged_notes_path))
                 merge_success_window = \
                     self.widgets.create_entire_window("window_merge_success")
                 merge_success_window.mainloop()

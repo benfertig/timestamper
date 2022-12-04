@@ -1,0 +1,175 @@
+{
+
+    "label_merge_first_message": {
+
+        "str_key": "label_merge_first_message",
+        "window_str_key": "window_merge_first_message",
+
+        "text": "On the next screen, select all of the Time Stamper\noutput files whose notes you would like to merge.\nYou can select one file OR you can select multiple\nfiles using ctrl+click (or command+click on Macs).\n\nClose this window to proceed.",
+
+        "image_file_name": null,
+        "message_file_name": null,
+
+        "background": null,
+        "foreground": null,
+
+        "wraplength": null,
+
+        "justify": "left",
+
+        "width": null,
+        "height": null,
+
+        "column": 0,
+        "row": 0,
+
+        "columnspan": 1,
+        "rowspan": 1,
+
+        "padx": null,
+        "pady": null,
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nw",
+
+        "font_family": "",
+        "font_size": 12,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
+    "label_merge_second_message": {
+
+        "str_key": "label_merge_second_message",
+        "window_str_key": "window_merge_second_message",
+
+        "text": "Next, select the file where the merged notes\nshould be saved to (just a single file this time).\nThis should be a \".txt\" file.\n\nClose this window to proceed.",
+
+        "image_file_name": null,
+        "message_file_name": null,
+
+        "background": null,
+        "foreground": null,
+
+        "wraplength": null,
+
+        "justify": "left",
+
+        "width": null,
+        "height": null,
+
+        "column": 0,
+        "row": 0,
+
+        "columnspan": 1,
+        "rowspan": 1,
+
+        "padx": null,
+        "pady": null,
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nw",
+
+        "font_family": "",
+        "font_size": 12,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
+    "label_merge_success": {
+
+        "str_key": "label_merge_success",
+        "window_str_key": "window_merge_success",
+
+        "text": null,
+
+        "image_file_name": null,
+        "message_file_name": null,
+
+        "background": null,
+        "foreground": null,
+
+        "wraplength": null,
+
+        "justify": "left",
+
+        "width": null,
+        "height": null,
+
+        "column": 0,
+        "row": 0,
+
+        "columnspan": 1,
+        "rowspan": 1,
+
+        "padx": null,
+        "pady": null,
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nw",
+
+        "font_family": "",
+        "font_size": 12,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
+    "label_merge_failure": {
+
+        "str_key": "label_merge_failure",
+        "window_str_key": "window_merge_failure",
+
+        "text": "MERGE FAILED\n\nYou cannot save merged notes to a file\nwhose notes are already a part of the merge.\nPlease try again.\n\nClose this window to proceed.",
+
+        "image_file_name": null,
+        "message_file_name": null,
+
+        "background": null,
+        "foreground": null,
+
+        "wraplength": null,
+
+        "justify": "left",
+
+        "width": null,
+        "height": null,
+
+        "column": 0,
+        "row": 0,
+
+        "columnspan": 1,
+        "rowspan": 1,
+
+        "padx": null,
+        "pady": null,
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nw",
+
+        "font_family": "",
+        "font_size": 12,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    }
+
+}

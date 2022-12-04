@@ -1,0 +1,89 @@
+{
+
+    "button_cancel_note": {
+
+        "str_key": "button_cancel_note",
+        "window_str_key": "window_main",
+
+        "initial_state": "NORMAL",
+
+        "text": "Cancel note",
+
+        "image_file_name": null,
+        "message_file_name": null,
+
+        "mac_disabled_color": "#d3d3d3",
+
+        "background": "#E06666",
+        "foreground": null,
+
+        "width": 12,
+        "height": 1,
+
+        "column": 2,
+        "row": 5,
+
+        "columnspan": 6,
+        "rowspan": 2,
+
+        "padx": [0, 4],
+        "pady": [8, 8],
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nsew",
+
+        "font_family": "",
+        "font_size": 19,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
+    "button_save_note": {
+
+        "str_key": "button_save_note",
+        "window_str_key": "window_main",
+
+        "initial_state": "DISABLED",
+
+        "text": "Save note",
+
+        "mac_disabled_color": "#d3d3d3",
+
+        "image_file_name": null,
+        "message_file_name": null,
+
+        "background": "#93C47D",
+        "foreground": null,
+
+        "width": 12,
+        "height": 1,
+
+        "column": 8,
+        "row": 5,
+
+        "columnspan": 4,
+        "rowspan": 2,
+
+        "padx": [4, 3],
+        "pady": [8, 8],
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nsew",
+
+        "font_family": "",
+        "font_size": 19,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    }
+    
+}

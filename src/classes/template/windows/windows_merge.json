@@ -1,0 +1,79 @@
+{
+
+    "window_merge_first_message": {
+
+        "str_key": "window_merge_first_message",
+
+        "title": "Step 1: Select files to merge",
+        "icon_windows": "timestamp_icon.ico",
+        "icon_mac": "timestamp_icon.icns",
+
+        "background": null,
+        "foreground": null,
+
+        "width": null,
+        "height": null,
+
+        "num_columns": 1,
+        "num_rows": 1
+
+    },
+
+    "window_merge_second_message": {
+
+        "str_key": "window_merge_second_message",
+
+        "title": "Step 2: Store merge",
+        "icon_windows": "timestamp_icon.ico",
+        "icon_mac": "timestamp_icon.icns",
+
+        "background": null,
+        "foreground": null,
+
+        "width": null,
+        "height": null,
+
+        "num_columns": 1,
+        "num_rows": 1
+
+    },
+
+    "window_merge_success": {
+
+        "str_key": "window_merge_success",
+
+        "title": "Merge success",
+        "icon_windows": "timestamp_icon.ico",
+        "icon_mac": "timestamp_icon.icns",
+
+        "background": null,
+        "foreground": null,
+
+        "width": null,
+        "height": null,
+
+        "num_columns": 1,
+        "num_rows": 1
+
+    },
+
+    "window_merge_failure": {
+
+        "str_key": "window_merge_failure",
+
+        "title": "Merge failure",
+        "icon_windows": "timestamp_icon.ico",
+        "icon_mac": "timestamp_icon.icns",
+
+        "background": null,
+        "foreground": null,
+
+        "width": null,
+        "height": null,
+
+        "num_columns": 1,
+        "num_rows": 1
+
+    }
+
+}

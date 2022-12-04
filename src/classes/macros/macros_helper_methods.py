@@ -34,7 +34,7 @@ def button_enable_disable_macro(button_template, widgets):
     "to_disable" attributes of a specific Button from the TimeStamperTemplate class."""
 
     # Enable the buttons stored in the button template's to_enable variable.
-    for str_to_enable in button_template.to_enable:
+    for str_to_enable in button_template["to_enable"]:
         if str_to_enable in widgets.original_colors:
             original_color = widgets.original_colors[str_to_enable]
         else:
@@ -42,9 +42,9 @@ def button_enable_disable_macro(button_template, widgets):
         enable_button(widgets.mapping[str_to_enable], original_color)
 
     # Disable the buttons stored in the button template's to_disable variable.
-    for str_to_disable in button_template.to_disable:
+    for str_to_disable in button_template["to_disable"]:
         disable_button(widgets.mapping[str_to_disable], \
-            button_template.mac_disabled_color)
+            button_template["mac_disabled_color"])
 
 
 def enable_button(button, original_color):
@@ -111,8 +111,8 @@ def store_timestamper_output(output_file_paths, output_file_encoding="utf-8"):
 
 
 def find_beginnings_and_ends(button_record_message, button_stop_message, notes):
-    """This method takes raw timestamper outputs as an argument and returns all of
-    the lines from that output marking the beginnings and endings of recordings."""
+    """This method takes raw timestamper output as an argument and returns the line
+    indices from that output marking the beginnings and endings of recordings."""
 
     beginnings, ends = [], []
     for i, note in enumerate(notes):
@@ -127,14 +127,19 @@ def find_beginnings_and_ends(button_record_message, button_stop_message, notes):
 
 
 def remove_from_notes(record_message, stop_message, notes, beginnings_to_remove, ends_to_remove):
-    """This method takes 3 arguments:
-        1)  "notes": raw timestamper output which has been stored in a list
-        2)  "beginnings_to_remove": a list of line indices marking the beginnings of
-            timestamper recordings whose corresponding lines should be removed from "notes"
-        3)  "ends_to_remove": a list of line indices marking the ends of timestamper
-            recordings whose corresponding lines should be removed from "notes"
-    This method then returns the data stored in "notes" with the lines at the
-    indices stored in "beginnings_to_remove" and "ends_to_remove" excluded."""
+    """This method takes 5 arguments:
+        1) record_message: a string representing the message that gets timestamped
+           and printed to the current output file whenever a recording begins
+        2) stop_message: a string representing the message that gets timestamped
+           and printed to the current output file whenever a recording ends
+        3) notes: raw timestamper output which has been stored in a list
+        4) beginnings_to_remove: a list of line indices marking the beginnings of
+           timestamper recordings (i.e. timestamped notes beginning with record_message)
+        5) ends_to_remove: a list of line indices marking the ends of timestamper
+           recordings (i.e. timestamped notes beginning with stop_message)
+    This method then returns the data stored in the notes argument with record_message
+    from the lines whose indices are stored in beginnings_to_remove and stop_message
+    from the lines whose indices are stored in ends_to_remove excluded."""
 
     notes_updated = []
 

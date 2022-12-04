@@ -49,7 +49,7 @@ class Widgets():
 
         # Create the window.
         window_template = self.template_mapping[window_str]
-        self.mapping[window_template.str_key] = \
+        self.mapping[window_template["str_key"]] = \
             create_window(window_template, self.main_window_str, self.images_dir)
 
         # Create the buttons.
@@ -96,8 +96,8 @@ class Widgets():
 
         for w_template in widget_templates:
             image = create_image(w_template, self.images_dir)
-            self.mapping[w_template.image_file_name] = image
-            images[w_template.image_file_name] = image
+            self.mapping[w_template["image_file_name"]] = image
+            images[w_template["image_file_name"]] = image
 
         return images
 
@@ -110,11 +110,11 @@ class Widgets():
         for b_template in button_templates:
 
             # Retrieve the window and image objects for the current button.
-            button_window = self.mapping[b_template.window_str_key]
-            button_image = self.mapping[b_template.image_file_name]
+            button_window = self.mapping[b_template["window_str_key"]]
+            button_image = self.mapping[b_template["image_file_name"]]
 
             # Retrieve the macro for the current button.
-            button_macro = button_macro_mapping[b_template.str_key]
+            button_macro = button_macro_mapping[b_template["str_key"]]
 
             # Create the button.
             button, button_orig_color = create_button(b_template, \
@@ -128,13 +128,13 @@ class Widgets():
             # when we pass None as the argument for "background" in the Button's constructor, the
             # background is set to a specific color, so we should save the explicit background
             # color because we will need to reference this color if we want to revert to it later.
-            self.original_colors[b_template.str_key] = button_orig_color
+            self.original_colors[b_template["str_key"]] = button_orig_color
 
             # Map the Button object to the Button's string
             # key so that the Macros class can reference it.
-            self.mapping[b_template.str_key] = button
+            self.mapping[b_template["str_key"]] = button
 
-            buttons[b_template.str_key] = button
+            buttons[b_template["str_key"]] = button
 
         return buttons
 
@@ -146,16 +146,16 @@ class Widgets():
         for e_template in entry_templates:
 
             # Retrieve the window and image objects for the current entry.
-            entry_window = self.mapping[e_template.window_str_key]
+            entry_window = self.mapping[e_template["window_str_key"]]
 
             # Create the entry.
             entry = create_entry(e_template, entry_window, e_v_limit, self.messages_dir)
 
             # Map the Entry object to the Entry's string key
             # so that the Macros class can reference it.
-            self.mapping[e_template.str_key] = entry
+            self.mapping[e_template["str_key"]] = entry
 
-            entries[e_template.str_key] = entry
+            entries[e_template["str_key"]] = entry
 
         return entries
 
@@ -167,17 +167,17 @@ class Widgets():
         for l_template in label_templates:
 
             # Retrieve the window and image objects for the current label.
-            label_window = self.mapping[l_template.window_str_key]
-            label_image = self.mapping[l_template.image_file_name]
+            label_window = self.mapping[l_template["window_str_key"]]
+            label_image = self.mapping[l_template["image_file_name"]]
 
             # Create the label.
             label = create_label(l_template, label_window, self.messages_dir, label_image)
 
             # Map the Label object to the Label's string
             # key so that the Macros class can reference it.
-            self.mapping[l_template.str_key] = label
+            self.mapping[l_template["str_key"]] = label
 
-            labels[l_template.str_key] = label
+            labels[l_template["str_key"]] = label
 
         return labels
 
@@ -189,15 +189,15 @@ class Widgets():
         for t_template in text_templates:
 
             # Retrieve the window and image objects for the current text.
-            text_window = self.mapping[t_template.window_str_key]
+            text_window = self.mapping[t_template["window_str_key"]]
 
             # Create the text.
             text = create_text(t_template, text_window, self.messages_dir)
 
             # Map the Text object to the Text's string key
             # so that the Macros class can reference it.
-            self.mapping[t_template.str_key] = text
+            self.mapping[t_template["str_key"]] = text
 
-            texts[t_template.str_key] = text
+            texts[t_template["str_key"]] = text
 
         return texts

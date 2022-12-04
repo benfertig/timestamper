@@ -1,0 +1,218 @@
+{
+
+    "button_help": {
+
+        "str_key": "button_help",
+        "window_str_key": "window_main",
+
+        "initial_state": "NORMAL",
+
+        "text": "Help",
+
+        "image_file_name": null,
+        "message_file_name": null,
+
+        "mac_disabled_color": "#d3d3d3",
+
+        "background": null,
+        "foreground": null,
+
+        "width": 5,
+        "height": 1,
+
+        "column": 0,
+        "row": 5,
+
+        "columnspan": 1,
+        "rowspan": 1,
+
+        "padx": [10, 0],
+        "pady": [8, 0],
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nsew",
+
+        "font_family": "",
+        "font_size": 10,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
+    "button_help_left_arrow": {
+
+        "str_key": "button_help_left_arrow",
+        "window_str_key": "window_help",
+
+        "initial_state": "NORMAL",
+
+        "text": null,
+
+        "image_file_name": "arrow_left.png",
+        "message_file_name": null,
+
+        "mac_disabled_color": "#d3d3d3",
+
+        "background": null,
+        "foreground": null,
+
+        "width": 48,
+        "height": 48,
+
+        "column": 0,
+        "row": 1,
+
+        "columnspan": 1,
+        "rowspan": 1,
+
+        "padx": null,
+        "pady": null,
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nsew",
+
+        "font_family": "",
+        "font_size": 10,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
+    "button_help_right_arrow": {
+
+        "str_key": "button_help_right_arrow",
+        "window_str_key": "window_help",
+
+        "initial_state": "NORMAL",
+
+        "text": null,
+
+        "image_file_name": "arrow_right.png",
+        "message_file_name": null,
+
+        "mac_disabled_color": "#d3d3d3",
+
+        "background": null,
+        "foreground": null,
+
+        "width": 48,
+        "height": 48,
+
+        "column": 1,
+        "row": 1,
+
+        "columnspan": 1,
+        "rowspan": 1,
+
+        "padx": null,
+        "pady": null,
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nsew",
+
+        "font_family": "",
+        "font_size": 10,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
+    "button_license": {
+
+        "str_key": "button_license",
+        "window_str_key": "window_main",
+
+        "initial_state": "NORMAL",
+
+        "text": "License",
+
+        "image_file_name": null,
+        "message_file_name": null,
+
+        "mac_disabled_color": "#d3d3d3",
+
+        "background": null,
+        "foreground": null,
+
+        "width": 5,
+        "height": 1,
+
+        "column": 1,
+        "row": 5,
+
+        "columnspan": 1,
+        "rowspan": 1,
+
+        "padx": [0, 10],
+        "pady": [8, 0],
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nsew",
+
+        "font_family": "",
+        "font_size": 8,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
+    "button_attribution": {
+
+        "str_key": "button_attribution",
+        "window_str_key": "window_main",
+
+        "initial_state": "NORMAL",
+
+        "text": "Attribution",
+
+        "image_file_name": null,
+        "message_file_name": null,
+
+        "mac_disabled_color": "#d3d3d3",
+
+        "background": null,
+        "foreground": null,
+
+        "width": 5,
+        "height": 1,
+
+        "column": 0,
+        "row": 6,
+
+        "columnspan": 2,
+        "rowspan": 1,
+
+        "padx": [10, 10],
+        "pady": [0, 8],
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nsew",
+
+        "font_family": "",
+        "font_size": 10,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    }
+
+}

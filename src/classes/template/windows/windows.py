@@ -3,8 +3,8 @@
 upon by the constructor of the TimeStamperTemplate class."""
 
 from dataclasses import dataclass
-from .windows_info import InfoWindows
-from .windows_merge import MergeWindows
+from json import load
+from os.path import dirname, join
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -28,30 +28,20 @@ from .windows_merge import MergeWindows
 @dataclass
 class Windows():
     """This class, which is called upon by the constructor of the TimeStamperTemplate class,
-    should be seen as an extension of the TimeStamperTemplate class with attributes
-    pertaining specifically to objects of type tkinter.Tk in the Time Stamper program."""
+    should be seen as an extension of the TimeStamperTemplate class with attributes pertaining
+    specifically to objects of type tkinter.Tk or tkinter.Toplevel in the Time Stamper program."""
 
     def __init__(self):
 
-        self.main = self.WindowMain()
-        self.info = InfoWindows()
-        self.merge = MergeWindows()
+        self.str_key = "windows"
 
-    @dataclass
-    class WindowMain():
-        """This class stores the attributes for the main window."""
-
-        str_key = "window_main"
-
-        title = "Time Stamper"
-        icon_windows = "timestamp_icon.ico"
-        icon_mac = "timestamp_icon.icns"
-
-        background = None
-        foreground = None
-
-        width = 960
-        height = 540
-
-        num_columns = 19
-        num_rows = 7
+        # Map the window templates to their string keys.
+        mapping = {}
+        cur_dir = dirname(__file__)
+        with open(join(cur_dir, "windows_main.json"), encoding="utf-8") as windows_main_json:
+            mapping.update(load(windows_main_json))
+        with open(join(cur_dir, "windows_info.json"), encoding="utf-8") as windows_info_json:
+            mapping.update(load(windows_info_json))
+        with open(join(cur_dir, "windows_merge.json"), encoding="utf-8") as windows_merge_json:
+            mapping.update(load(windows_merge_json))
+        self.mapping = mapping

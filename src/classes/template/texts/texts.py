@@ -3,7 +3,8 @@
 the constructor of the Fields class (which is found in template.py)"""
 
 from dataclasses import dataclass
-from tkinter import NORMAL, DISABLED
+from json import load
+from os.path import dirname, join
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -34,132 +35,17 @@ class Texts():
 
         self.str_key = "texts"
 
-        self.log = self.TextLog()
-        self.current_note = self.TextCurrentNote()
-        self.attribution = self.TextAttribution()
+        # Map the text templates to their string keys.
+        mapping = {}
+        cur_dir = dirname(__file__)
+        with open(join(cur_dir, "texts.json"), encoding="utf-8") as texts_json:
+            mapping.update(load(texts_json))
+        self.mapping = mapping
 
         # Map the text templates to the windows that they appear in.
         self.template_window_mapping = {
             "window_main":
-                (self.log, self.current_note),
+                (mapping["text_log"], mapping["text_current_note"]),
             "window_attribution":
-                (self.attribution,)
+                (mapping["text_attribution"],)
         }
-
-    @dataclass
-    class TextLog():
-        """This class stores the attributes for the text
-        box where the user's past notes are displayed."""
-
-        text = None
-
-        initial_state = DISABLED
-
-        str_key = "text_log"
-
-        window_str_key = "window_main"
-
-        message_file_name = None
-
-        width = 105
-        height = 14
-
-        column = 0
-        row = 2
-
-        columnspan = 20
-        rowspan = 1
-
-        padx = (5, 5)
-        pady = None
-
-        ipadx = None
-        ipady = 33
-
-        sticky = "nsew"
-
-        font_family = ""
-        font_size = 12
-        font_weight = "normal"
-        font_slant = "roman"
-        font_underline = 0
-        font_overstrike = 0
-
-    @dataclass
-    class TextCurrentNote():
-        """This class stores the attributes for the text
-        box where the user's current note is displayed."""
-
-        text = None
-
-        initial_state = NORMAL
-
-        str_key = "text_current_note"
-
-        window_str_key = "window_main"
-
-        message_file_name = None
-
-        width = 93
-        height = 3
-
-        column = 2
-        row = 3
-
-        columnspan = 18
-        rowspan = 2
-
-        padx = (0, 5)
-        pady = (6, 0)
-
-        ipadx = None
-        ipady = None
-
-        sticky = "nsew"
-
-        font_family = ""
-        font_size = 12
-        font_weight = "normal"
-        font_slant = "roman"
-        font_underline = 0
-        font_overstrike = 0
-
-    @dataclass
-    class TextAttribution():
-        """This class stores the attributes for the text box in the "Attribution" window."""
-
-        text = None
-
-        initial_state = DISABLED
-
-        str_key = "text_attribution"
-
-        window_str_key = "window_attribution"
-
-        message_file_name = "attribution.txt"
-        message_file_encoding = "utf-8"
-        loaded_message_text = None
-
-        width = 107
-        height = 30
-
-        column = 1
-        row = 1
-
-        columnspan = 1
-        rowspan = 1
-
-        padx = (5, 5)
-        pady = (5, 5)
-
-        ipadx = None
-        ipady = None
-
-        sticky = "nsew"
-
-        font_family = ""
-        font_size = 12
-        font_weight = "normal"
-        font_slant = "roman"
-        font_underline = 0
-        font_overstrike = 0

@@ -120,8 +120,7 @@ class TimeStamperTimer():
             # If the timer's currently displayed time is not less
             # than the maximum displayable time, stop the timer.
             else:
-                macro_mapping = self.time_stamper.macros.mapping
-                macro_mapping["button_stop"]()
+                self.time_stamper.macros.mapping["button_stop"]()
 
     def pause(self):
         """This method halts the timer and is typically
@@ -155,8 +154,7 @@ class TimeStamperTimer():
         # If the timer's currently displayed time is not less
         # than the maximum displayable time, stop the timer.
         else:
-            macro_mapping = self.time_stamper.macros.mapping
-            macro_mapping["button_stop"]()
+            self.time_stamper.macros.mapping["button_stop"]()
 
     def adjust_timer(self, seconds_to_adjust_by):
         """This method fast-forwards and rewinds the timer. Since the rewind and fast-forward

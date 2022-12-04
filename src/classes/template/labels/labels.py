@@ -3,10 +3,8 @@
 the constructor of the Fields class (which is found in template.py)"""
 
 from dataclasses import dataclass
-from .labels_info import InfoLabels
-from .labels_merge import MergeLabels
-from .labels_timer import TimerLabels
-from .labels_other import OtherLabels
+from json import load
+from os.path import dirname, join
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -37,27 +35,37 @@ class Labels():
 
         self.str_key = "labels"
 
-        self.timer = TimerLabels()
-        self.info = InfoLabels()
-        self.merge = MergeLabels()
-        self.other = OtherLabels()
+        # Map the label templates to their string keys.
+        cur_dir = dirname(__file__)
+        mapping = {}
+        with open(join(cur_dir, "labels_info.json"), encoding="utf-8") as labels_info_json:
+            mapping.update(load(labels_info_json))
+        with open(join(cur_dir, "labels_merge.json"), encoding="utf-8") as labels_merge_json:
+            mapping.update(load(labels_merge_json))
+        with open(join(cur_dir, "labels_timer.json"), encoding="utf-8") as labels_timer_json:
+            mapping.update(load(labels_timer_json))
+        with open(join(cur_dir, "labels_other.json"), encoding="utf-8") as labels_other_json:
+            mapping.update(load(labels_other_json))
+        self.mapping = mapping
 
         # Map the label templates to the windows that they appear in.
         self.template_window_mapping = {
             "window_main":
-                (self.timer.hrs, self.timer.min, self.timer.dot,
-                self.timer.sec, self.other.output_path, self.other.rewind_sec,
-                self.other.fast_forward_sec, self.other.timestamp),
+                (mapping["label_h"], mapping["label_m"], mapping["label_dot"],
+                mapping["label_s"], mapping["label_output_path"],
+                mapping["label_rewind_sec"], mapping["label_fast_forward_sec"],
+                mapping["label_timestamp"]),
             "window_help":
-                (self.info.help_image, self.info.help_message, self.info.help_page_number),
+                (mapping["label_help_image"], mapping["label_help_message"],
+                mapping["label_help_page_number"]),
             "window_license":
-                (self.info.license_message,),
+                (mapping["label_license"],),
             "window_merge_first_message" :
-                (self.merge.first_message,),
+                (mapping["label_merge_first_message"],),
             "window_merge_second_message" :
-                (self.merge.second_message,),
+                (mapping["label_merge_second_message"],),
             "window_merge_success" :
-                (self.merge.success,),
+                (mapping["label_merge_success"],),
             "window_merge_failure" :
-                (self.merge.failure,)
+                (mapping["label_merge_failure"],)
         }

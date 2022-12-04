@@ -1,0 +1,60 @@
+{
+
+    "window_help": {
+
+        "str_key": "window_help",
+
+        "title": "Help",
+        "icon_windows": "timestamp_icon.ico",
+        "icon_mac": "timestamp_icon.icns",
+
+        "background": null,
+        "foreground": null,
+
+        "width": null,
+        "height": null,
+
+        "num_columns": 2,
+        "num_rows": 4
+
+    },
+
+    "window_license": {
+
+        "str_key": "window_license",
+
+        "title": "License",
+        "icon_windows": "timestamp_icon.ico",
+        "icon_mac": "timestamp_icon.icns",
+
+        "background": null,
+        "foreground": null,
+
+        "width": null,
+        "height": null,
+
+        "num_columns": 1,
+        "num_rows": 1
+
+    },
+
+    "window_attribution": {
+
+        "str_key": "window_attribution",
+
+        "title": "Attribution",
+        "icon_windows": "timestamp_icon.ico",
+        "icon_mac": "timestamp_icon.icns",
+
+        "background": null,
+        "foreground": null,
+
+        "width": null,
+        "height": null,
+
+        "num_columns": 1,
+        "num_rows": 1
+
+    }
+
+}

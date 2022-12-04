@@ -1,0 +1,277 @@
+{
+
+    "button_pause": {
+
+        "str_key": "button_pause",
+        "window_str_key": "window_main",
+
+        "initial_state": "DISABLED",
+
+        "mac_disabled_color": "#d3d3d3",
+
+        "text": null,
+
+        "image_file_name": "pause.png",
+        "message_file_name": null,
+
+        "to_enable": ["button_play", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
+        "to_disable": ["button_pause"],
+
+        "background": null,
+        "foreground": null,
+
+        "width": 48,
+        "height": 48,
+
+        "column": 0,
+        "row": 0,
+
+        "columnspan": 1,
+        "rowspan": 1,
+
+        "padx": [5, 0],
+        "pady": [5, 0],
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nsew",
+
+        "font_family": "",
+        "font_size": 12,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
+    "button_play": {
+
+        "str_key": "button_play",
+        "window_str_key": "window_main",
+
+        "initial_state": "DISABLED",
+
+        "text": null,
+
+        "image_file_name": "play.png",
+        "message_file_name": null,
+
+        "mac_disabled_color": "#d3d3d3",
+
+        "to_enable": ["button_pause"],
+        "to_disable": ["button_play", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
+
+        "background": null,
+        "foreground": null,
+
+        "width": 48,
+        "height": 48,
+
+        "column": 1,
+        "row": 0,
+
+        "columnspan": 1,
+        "rowspan": 1,
+
+        "padx": null,
+        "pady": [5, 0],
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nsew",
+
+        "font_family": "",
+        "font_size": 12,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
+    "button_stop": {
+
+        "str_key": "button_stop",
+        "window_str_key": "window_main",
+
+        "initial_state": "DISABLED",
+
+        "text": null,
+
+        "image_file_name": "stop.png",
+        "message_file_name": null,
+
+        "mac_disabled_color": "#d3d3d3",
+
+        "print_on_press": "##### END #####",
+
+        "to_enable": ["button_record", "button_output_select", "button_merge_output_files", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
+        "to_disable": ["button_pause", "button_play", "button_stop"],
+
+        "background": null,
+        "foreground": null,
+
+        "width": 48,
+        "height": 48,
+
+        "column": 2,
+        "row": 0,
+
+        "columnspan": 1,
+        "rowspan": 1,
+
+        "padx": null,
+        "pady": [5, 0],
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nsew",
+
+        "font_family": "",
+        "font_size": 12,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
+    "button_rewind": {
+
+        "str_key": "button_rewind",
+        "window_str_key": "window_main",
+
+        "initial_state": "NORMAL",
+
+        "text": null,
+
+        "image_file_name": "rewind.png",
+        "message_file_name": null,
+
+        "mac_disabled_color": "#d3d3d3",
+
+        "background": null,
+        "foreground": null,
+
+        "width": 48,
+        "height": 48,
+
+        "column": 3,
+        "row": 0,
+
+        "columnspan": 2,
+        "rowspan": 1,
+
+        "padx": null,
+        "pady": [5, 0],
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nsew",
+
+        "font_family": "",
+        "font_size": 12,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
+    "button_fast_forward": {
+
+        "str_key": "button_fast_forward",
+        "window_str_key": "window_main",
+
+        "initial_state": "NORMAL",
+
+        "text": null,
+
+        "image_file_name": "fast_forward.png",
+        "message_file_name": null,
+
+        "mac_disabled_color": "#d3d3d3",
+
+        "background": null,
+        "foreground": null,
+
+        "width": 48,
+        "height": 48,
+
+        "column": 5,
+        "row": 0,
+
+        "columnspan": 2,
+        "rowspan": 1,
+
+        "padx": null,
+        "pady": [5, 0],
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nsew",
+
+        "font_family": "",
+        "font_size": 12,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
+    "button_record": {
+
+        "str_key": "button_record",
+        "window_str_key": "window_main",
+
+        "initial_state": "DISABLED",
+
+        "text": null,
+
+        "image_file_name": "record.png",
+        "message_file_name": null,
+
+        "mac_disabled_color": "#d3d3d3",
+
+        "print_on_press": "##### BEGIN #####",
+
+        "to_enable": ["button_pause", "button_stop"],
+        "to_disable": ["button_record", "button_output_select", "button_merge_output_files", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
+
+        "background": null,
+        "foreground": null,
+
+        "width": 48,
+        "height": 48,
+
+        "column": 7,
+        "row": 0,
+
+        "columnspan": 1,
+        "rowspan": 1,
+
+        "padx": null,
+        "pady": [5, 0],
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nsew",
+
+        "font_family": "",
+        "font_size": 12,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    }
+
+}

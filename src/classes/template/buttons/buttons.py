@@ -3,11 +3,8 @@
 the constructor of the Fields class (which is found in template.py)"""
 
 from dataclasses import dataclass
-from .buttons_file import FileButtons
-from .buttons_info import InfoButtons
-from .buttons_media import MediaButtons
-from .buttons_note import NoteButtons
-from .buttons_timestamping import TimestampingButtons
+from json import load
+from os.path import dirname, join
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -38,20 +35,31 @@ class Buttons():
 
         self.str_key = "buttons"
 
-        self.file = FileButtons()
-        self.info = InfoButtons()
-        self.media = MediaButtons()
-        self.notes = NoteButtons()
-        self.timestamping = TimestampingButtons()
+        # Map the button templates to their string keys.
+        mapping = {}
+        cur_dir = dirname(__file__)
+        with open(join(cur_dir, "buttons_file.json"), encoding="utf-8") as buttons_file_json:
+            mapping.update(load(buttons_file_json))
+        with open(join(cur_dir, "buttons_info.json"), encoding="utf-8") as buttons_info_json:
+            mapping.update(load(buttons_info_json))
+        with open(join(cur_dir, "buttons_media.json"), encoding="utf-8") as buttons_media_json:
+            mapping.update(load(buttons_media_json))
+        with open(join(cur_dir, "buttons_note.json"), encoding="utf-8") as buttons_note_json:
+            mapping.update(load(buttons_note_json))
+        with open(join(cur_dir, "buttons_timestamping.json"), encoding="utf-8") as btns_tstmp_json:
+            mapping.update(load(btns_tstmp_json))
+        self.mapping = mapping
 
         # Map the button templates to the windows that they appear in.
         self.template_window_mapping = {
             "window_main":
-                (self.media.pause, self.media.play, self.media.stop, self.media.rewind,
-                self.media.fast_forward, self.media.record, self.file.output_select,
-                self.file.merge_output_files, self.timestamping.timestamp,
-                self.timestamping.clear_timestamp, self.info.help, self.info.license,
-                self.info.attribution, self.notes.cancel_note, self.notes.save_note),
+                (mapping["button_pause"], mapping["button_play"], mapping["button_stop"],
+                mapping["button_rewind"], mapping["button_fast_forward"],
+                mapping["button_record"], mapping["button_output_select"],
+                mapping["button_merge_output_files"], mapping["button_timestamp"],
+                mapping["button_clear_timestamp"], mapping["button_help"],
+                mapping["button_license"], mapping["button_attribution"],
+                mapping["button_cancel_note"], mapping["button_save_note"]),
             "window_help":
-                (self.info.help_left_arrow, self.info.help_right_arrow)
+                (mapping["button_help_left_arrow"], mapping["button_help_right_arrow"])
         }

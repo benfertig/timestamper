@@ -1,0 +1,192 @@
+{
+
+    "label_help_image": {
+
+        "str_key": "label_help_image",
+        "window_str_key": "window_help",
+
+        "text": null,
+
+        "image_file_name": "timestamper_window_labeled.png",
+        "message_file_name": null,
+
+        "background": null,
+        "foreground": null,
+
+        "wraplength": null,
+
+        "justify": "left",
+
+        "width": null,
+        "height": null,
+
+        "column": 0,
+        "row": 0,
+
+        "columnspan": 2,
+        "rowspan": 1,
+
+        "padx": null,
+        "pady": null,
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nw",
+
+        "font_family": "",
+        "font_size": 12,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
+    "label_help_page_number": {
+
+        "str_key": "label_help_page_number",
+        "window_str_key": "window_help",
+
+        "page_numbers": {"1": ["18", "2"], "2": ["1", "3"], "3": ["2", "4"], "4": ["3", "4.1"],
+                        "4.1": ["4", "5"], "5": ["4.1", "5.1"], "5.1": ["5", "6"],
+                        "6": ["5.1", "7"], "7": ["6", "8"], "8": ["7", "9"],
+                        "9": ["8", "10"], "10": ["9", "11"], "11": ["10", "11.1"],
+                        "11.1": ["11", "11.2"], "11.2": ["11.1", "12"], "12": ["11.2", "13"],
+                        "13": ["12", "14"], "14": ["13", "15"], "15": ["14", "16"],
+                        "16": ["15", "17"], "17": ["16", "18"], "18": ["17", "1"]},
+
+        "current_page": "1",
+        "first_page": "1",
+        "last_page": "18",
+
+        "text": "1",
+
+        "image_file_name": null,
+        "message_file_name": null,
+
+        "background": null,
+        "foreground": null,
+
+        "wraplength": null,
+
+        "justify": "center",
+
+        "width": null,
+        "height": null,
+
+        "column": 0,
+        "row": 2,
+
+        "columnspan": 2,
+        "rowspan": 1,
+
+        "padx": null,
+        "pady": null,
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "n",
+
+        "font_family": "",
+        "font_size": 14,
+        "font_weight": "bold",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
+    "label_help_message": {
+
+        "str_key": "label_help_message",
+        "window_str_key": "window_help",
+
+        "text": null,
+
+        "image_file_name": null,
+        "message_file_name": "help_messages.json",
+        "message_file_encoding": "utf-8",
+        "json_first_message_key": "1",
+        "loaded_message_text": null,
+
+        "background": null,
+        "foreground": null,
+
+        "wraplength": 960,
+
+        "justify": "left",
+
+        "width": null,
+        "height": null,
+
+        "column": 0,
+        "row": 3,
+
+        "columnspan": 2,
+        "rowspan": 1,
+
+        "padx": null,
+        "pady": null,
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "w",
+
+        "font_family": "",
+        "font_size": 12,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
+    "label_license": {
+
+        "str_key": "label_license",
+        "window_str_key": "window_license",
+
+        "text": null,
+
+        "image_file_name": null,
+        "message_file_name": "license_notice.txt",
+        "message_file_encoding": "utf-8",
+        "loaded_message_text": null,
+
+        "background": null,
+        "foreground": null,
+
+        "wraplength": null,
+
+        "justify": "left",
+
+        "width": null,
+        "height": null,
+
+        "column": 0,
+        "row": 0,
+
+        "columnspan": 1,
+        "rowspan": 1,
+
+        "padx": null,
+        "pady": null,
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "nw",
+
+        "font_family": "",
+        "font_size": 12,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    }
+
+}

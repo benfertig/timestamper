@@ -43,19 +43,19 @@ class InfoButtonMacros():
 
         # Create abbreviated variable names.
         label_page_number_template = self.template.mapping["label_help_page_number"]
-        page_numbers = label_page_number_template.page_numbers
-        cur_page = label_page_number_template.current_page
+        page_numbers = label_page_number_template["page_numbers"]
+        cur_page = label_page_number_template["current_page"]
 
         # Display the new page number.
         new_page = page_numbers[cur_page][1 if next_page else 0]
-        label_page_number_template.current_page = new_page
+        label_page_number_template["current_page"] = new_page
         obj_page_number = self.widgets.mapping["label_help_page_number"]
         obj_page_number["text"] = str(new_page)
 
         # Display the new help message.
         label_help_message_template = self.template.mapping["label_help_message"]
         obj_label_help = self.widgets.mapping["label_help_message"]
-        new_message = label_help_message_template.loaded_message_text[str(new_page)]
+        new_message = label_help_message_template["loaded_message_text"][str(new_page)]
         obj_label_help["text"] = new_message
 
     def button_help_left_arrow_macro(self):
@@ -74,8 +74,8 @@ class InfoButtonMacros():
 
         # Reset the page number in the page number label template.
         label_help_page_number_template = self.template.mapping["label_help_page_number"]
-        first_page_num = label_help_page_number_template.first_page
-        label_help_page_number_template.current_page = first_page_num
+        first_page_num = label_help_page_number_template["first_page"]
+        label_help_page_number_template["current_page"] = first_page_num
 
     def button_license_macro(self):
         """This method will be executed when the License button is pressed."""
