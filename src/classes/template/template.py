@@ -3,14 +3,13 @@
 of the custom attributes for all of the objects called upon in the
 TimeStamper run() method (the method that runs the Time Stamper program)."""
 
+from collections import defaultdict
 from dataclasses import dataclass
 import sys
-from os import getcwd, path
-from .buttons.buttons import Buttons
-from .entries.entries import Entries
-from .labels.labels import Labels
-from .texts.texts import Texts
-from .windows.windows import Windows
+from os import getcwd, scandir
+from os.path import abspath, basename, dirname, isdir, join
+from glob import glob
+from json import load
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -37,7 +36,7 @@ def resource_path():
     try:
         res_path = sys._MEIPASS
     except AttributeError:
-        res_path = path.abspath(".")
+        res_path = abspath(".")
 
     return res_path
 
@@ -45,19 +44,23 @@ def resource_path():
 @dataclass
 class TimeStamperTemplate():
     """
-    This class does not store the TimeStamper objects themselves, but rather stores all of
-    the attributes for all of the TimeStamper objects in an organized way. This serves two
+    This class does not store the Time Stamper objects themselves, but rather, stores all of
+    the attributes for all of the Time Stamper objects in an organized way. This serves two
     purposes:
 
-        1) People will be able to locate and/or make changes to attributes quickly.
+        1) People will be able to locate and/or make changes
+           to the attributes of Time Stamper objects quickly.
 
-        2) The amount of code that needs to be written in other modules is reduced.
-           For example, in the main TimeStamper class, all objects that are of
-           the same type (Buttons, Labels, Entries, Texts, etc.) are placed by
-           running a loop, where for each object template x_template, the position,
-           dimensions, initial state, etc. of its corresponding object x can be
-           retrieved by referencing x_template.x_coord, x_template.y_coord, x_template.width,
-           x_template.height and x_template.initial_state among other attributes.
+        2) The amount of code that needs to be written in other modules is reduced. For example,
+           in the main "time_stamper" class, all objects that are of the same type (Buttons,
+           Labels, Entries, Texts, etc.) are placed by running a loop, where for each object
+           template "x_template", the row, column, initial state, etc. of its corresponding
+           object x can be retrieved by referencing template.mapping["x_template"]["row"],
+           template.mapping["x_template"]["column"], and
+           template.mapping["x_template"]["initial_state"] among other attributes.
+
+    To edit the attributes of ANY widget in the Time Stamper program, edit the JSON
+    files inside of the subdirectories that this file (template.py) is located in.
     """
 
     def __init__(self):
@@ -65,10 +68,27 @@ class TimeStamperTemplate():
         self.output_file_encoding = "utf-8"
         self.output_path = None
         self.starting_dir = getcwd()
-        self.images_dir = path.join(resource_path(), "images")
-        self.messages_dir = path.join(resource_path(), "messages")
+        self.images_dir = join(resource_path(), "images")
+        self.messages_dir = join(resource_path(), "messages")
 
-        widget_templates = (Buttons(), Entries(), Labels(), Texts(), Windows())
-        self.mapping = {k: v for w_t in widget_templates for k, v in w_t.mapping.items()}
-        for template in widget_templates:
-            self.mapping[template.str_key] = template
+        self.mapping = {}
+
+        # Iterate through the subitems of the directory that template.py is in.
+        for inner_dir in scandir(dirname(__file__)):
+            inner_dir_name = basename(inner_dir)
+
+            # If the current subitem of this file's directory is also
+            # a directory and that directory is not __pychache__...
+            if isdir(inner_dir) and inner_dir_name != "__pycache__":
+                self.mapping[inner_dir_name] = defaultdict(list)
+
+                # Iterate through all of the JSON files in the current subdirectory.
+                for json_file_path in glob(join(inner_dir, "*.json")):
+                    with open(json_file_path, encoding="utf-8") as json_file:
+                        json_to_dict = load(json_file)
+
+                        # Iterate through all of the entries in the current JSON file.
+                        for widget_str_key, widget_template in json_to_dict.items():
+                            self.mapping[widget_str_key] = widget_template
+                            window_str_key = widget_template["window_str_key"]
+                            self.mapping[inner_dir_name][window_str_key].append(widget_template)

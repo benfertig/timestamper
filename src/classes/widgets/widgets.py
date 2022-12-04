@@ -53,27 +53,27 @@ class Widgets():
             create_window(window_template, self.main_window_str, self.images_dir)
 
         # Create the buttons.
-        button_mapping = self.template_mapping["buttons"].template_window_mapping
+        button_mapping = self.template_mapping["buttons"]
         if button_macro_mapping is not None and window_str in button_mapping:
             button_window_templates = button_mapping[window_str]
             self.create_images(button_window_templates)
             self.create_buttons(button_window_templates, button_macro_mapping)
 
         # Create the entries.
-        entry_mapping = self.template_mapping["entries"].template_window_mapping
+        entry_mapping = self.template_mapping["entries"]
         if window_str in entry_mapping:
             entry_window_templates = entry_mapping[window_str]
             self.create_entries(entry_window_templates, entry_value_limit)
 
         # Create the labels.
-        label_mapping = self.template_mapping["labels"].template_window_mapping
+        label_mapping = self.template_mapping["labels"]
         if window_str in label_mapping:
             label_window_templates = label_mapping[window_str]
             self.create_images(label_window_templates)
             self.create_labels(label_window_templates)
 
         # Create the texts.
-        text_mapping = self.template_mapping["texts"].template_window_mapping
+        text_mapping = self.template_mapping["texts"]
         if window_str in text_mapping:
             text_window_templates = text_mapping[window_str]
             self.create_texts(text_window_templates)

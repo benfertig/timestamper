@@ -3,6 +3,7 @@
     "window_main": {
 
         "str_key": "window_main",
+        "window_str_key": "window_main",
 
         "title": "Time Stamper",
         "icon_windows": "timestamp_icon.ico",

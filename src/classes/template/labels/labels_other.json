@@ -25,7 +25,7 @@
         "column": 8,
         "row": 1,
 
-        "columnspan": 9,
+        "columnspan": 3,
         "rowspan": 1,
 
         "padx": null,
@@ -34,7 +34,7 @@
         "ipadx": null,
         "ipady": null,
 
-        "sticky": "nw",
+        "sticky": "sw",
 
         "font_family": "",
         "font_size": 10,

@@ -3,6 +3,7 @@
     "window_merge_first_message": {
 
         "str_key": "window_merge_first_message",
+        "window_str_key": "window_merge_first_message",
 
         "title": "Step 1: Select files to merge",
         "icon_windows": "timestamp_icon.ico",
@@ -22,6 +23,7 @@
     "window_merge_second_message": {
 
         "str_key": "window_merge_second_message",
+        "window_str_key": "window_merge_second_message",
 
         "title": "Step 2: Store merge",
         "icon_windows": "timestamp_icon.ico",
@@ -41,6 +43,7 @@
     "window_merge_success": {
 
         "str_key": "window_merge_success",
+        "window_str_key": "window_merge_success",
 
         "title": "Merge success",
         "icon_windows": "timestamp_icon.ico",
@@ -60,6 +63,7 @@
     "window_merge_failure": {
 
         "str_key": "window_merge_failure",
+        "window_str_key": "window_merge_failure",
 
         "title": "Merge failure",
         "icon_windows": "timestamp_icon.ico",

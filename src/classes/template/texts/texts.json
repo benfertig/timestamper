@@ -1,5 +1,42 @@
 {
 
+    "text_output_path": {
+
+        "str_key": "text_output_path",
+        "window_str_key": "window_main",
+
+        "text": null,
+
+        "initial_state": "DISABLED",
+
+        "message_file_name": null,
+
+        "width": 29,
+        "height": 0,
+
+        "column": 8,
+        "row": 2,
+
+        "columnspan": 3,
+        "rowspan": 2,
+
+        "padx": [2, 0],
+        "pady": null,
+
+        "ipadx": null,
+        "ipady": null,
+
+        "sticky": "new",
+
+        "font_family": "",
+        "font_size": 12,
+        "font_weight": "normal",
+        "font_slant": "roman",
+        "font_underline": 0,
+        "font_overstrike": 0
+
+    },
+
     "text_log": {
 
         "str_key": "text_log",

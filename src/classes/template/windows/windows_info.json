@@ -3,6 +3,7 @@
     "window_help": {
 
         "str_key": "window_help",
+        "window_str_key": "window_help",
 
         "title": "Help",
         "icon_windows": "timestamp_icon.ico",
@@ -22,6 +23,7 @@
     "window_license": {
 
         "str_key": "window_license",
+        "window_str_key": "window_license",
 
         "title": "License",
         "icon_windows": "timestamp_icon.ico",
@@ -41,6 +43,7 @@
     "window_attribution": {
 
         "str_key": "window_attribution",
+        "window_str_key": "window_attribution",
 
         "title": "Attribution",
         "icon_windows": "timestamp_icon.ico",
