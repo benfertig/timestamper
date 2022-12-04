@@ -3,6 +3,7 @@
 that are executed when a note button in the Time Stamper program is pressed."""
 
 from tkinter import DISABLED, NORMAL, END
+from .macros_helper_methods import print_to_text, print_to_file
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -34,15 +35,13 @@ class NoteButtonMacros():
         """This method will be executed when the "Cancel note" button is pressed."""
 
         # Clear the current note from the input text box.
-        obj_current_note = self.widgets.mapping["text_current_note"]
-        obj_current_note.delete(1.0, END)
+        self.widgets.mapping["text_current_note"].delete(1.0, END)
 
     def button_save_note_macro(self):
         """This method will be executed when the "Save note" button is pressed."""
 
         # Get the current timestamp displayed next to the input text box.
-        obj_timestamp = self.widgets.mapping["label_timestamp"]
-        current_timestamp = obj_timestamp["text"]
+        current_timestamp = self.widgets.mapping["label_timestamp"]["text"]
 
         # Store the output path.
         output_path = self.template.output_path
@@ -54,18 +53,13 @@ class NoteButtonMacros():
         # Clear the current text in the input text box.
         obj_current_note.delete(1.0, END)
 
+        # Generate the note that should be printed to the log and the output file.
         to_write = f"{current_timestamp} {current_note}"
 
         # Print the current timestamp along with the current
         # text from the input text box to the screen.
-        text_log = self.widgets.mapping["text_log"]
-        text_log["state"] = NORMAL
-        text_log.insert(END, to_write)
-        text_log.see(END)
-        text_log["state"] = DISABLED
+        print_to_text(to_write, self.widgets.mapping["text_log"])
 
         # Print the current timestamp along with the current
         # text from the input text box to the output file.
-        if output_path:
-            with open(output_path, "a+", encoding=self.template.output_file_encoding) as out_file:
-                out_file.write(to_write)
+        print_to_file(to_write, output_path, self.template.output_file_encoding)
