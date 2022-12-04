@@ -18,7 +18,7 @@
         "foreground": null,
 
         "width": null,
-        "height": 1,
+        "height": null,
 
         "column": 8,
         "row": 0,
@@ -27,7 +27,7 @@
         "rowspan": 1,
 
         "padx": null,
-        "pady": [5, 26],
+        "pady": [5, 0],
 
         "ipadx": 15,
         "ipady": null,
@@ -63,7 +63,7 @@
         "foreground": null,
 
         "width": null,
-        "height": 1,
+        "height": null,
 
         "column": 10,
         "row": 0,
@@ -72,7 +72,7 @@
         "rowspan": 1,
 
         "padx": null,
-        "pady": [5, 26],
+        "pady": [5, 0],
 
         "ipadx": null,
         "ipady": null,

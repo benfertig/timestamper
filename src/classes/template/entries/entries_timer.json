@@ -19,7 +19,7 @@
         "width": 2,
 
         "column": 12,
-        "row": 5,
+        "row": 6,
 
         "columnspan": 1,
         "rowspan": 2,
@@ -60,7 +60,7 @@
         "foreground": null,
 
         "column": 14,
-        "row": 5,
+        "row": 6,
 
         "columnspan": 1,
         "rowspan": 2,
@@ -101,7 +101,7 @@
         "foreground": null,
 
         "column": 16,
-        "row": 5,
+        "row": 6,
 
         "columnspan": 1,
         "rowspan": 2,
@@ -142,7 +142,7 @@
         "foreground": null,
 
         "column": 18,
-        "row": 5,
+        "row": 6,
 
         "columnspan": 1,
         "rowspan": 2,

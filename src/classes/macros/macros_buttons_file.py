@@ -129,6 +129,15 @@ class FileButtonMacros():
         # Only merge the notes if at least one file was selected.
         if files_full_paths:
 
+            # Merge the notes from all of the selected files. We cannot write the merged notes
+            # to a new file yet because a new file has not yet been selected. The process of
+            # writing the merged notes to a new file occurs in on_close_window_merge_2_macro.
+            button_record_message = self.template.mapping["button_record"]["print_on_press"]
+            button_stop_message = self.template.mapping["button_stop"]["print_on_press"]
+            merged_notes = \
+                merge_notes(files_full_paths, button_record_message, \
+                    button_stop_message, self.template.output_file_encoding)
+
             # Call the function that will display the second window with instructions
             # on how to merge output files, passing a macro that will make the second
             # file explorer window appear when the instructions window is closed,
@@ -136,10 +145,10 @@ class FileButtonMacros():
             merge_second_message_window = \
                 self.widgets.create_entire_window("window_merge_second_message", \
                     close_window_macro=self.on_close_window_merge_2_macro, \
-                        macro_args=(files_full_paths,))
+                        macro_args=(merged_notes, files_full_paths,))
             merge_second_message_window.mainloop()
 
-    def on_close_window_merge_2_macro(self, window_merge, files_full_paths):
+    def on_close_window_merge_2_macro(self, window_merge, merged_notes, files_full_paths):
         """This method will be executed when the SECOND window displaying
         instructions to the user on how to merge output files is closed."""
 
@@ -166,13 +175,6 @@ class FileButtonMacros():
             # If the user chose a unique file to save the merged notes to that
             # was NOT already a part of the merge, proceed with the merge.
             else:
-
-                # Merge the notes from all selected files.
-                button_record_message = self.template.mapping["button_record"]["print_on_press"]
-                button_stop_message = self.template.mapping["button_stop"]["print_on_press"]
-                merged_notes = \
-                    merge_notes(files_full_paths, button_record_message, \
-                        button_stop_message, self.template.output_file_encoding)
 
                 # Write the merged notes to the requested file.
                 with open(merged_notes_path, "a+", \

@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
-"""This module contains helper methods for Macros and ButtonMacros
-classes. These methods do not rely on class variables."""
+"""This module contains helper methods for button
+macros. These methods do not rely on class variables."""
 
 from re import match
 from sys import platform
@@ -26,25 +26,6 @@ if platform == "darwin":
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 # Contact: github.cqrde@simplelogin.com
-
-
-def button_enable_disable_macro(button_template, widgets):
-    """This method, which is called upon by several button macros, will enable and
-    disable the buttons associated with the string keys from the "to_enable" and
-    "to_disable" attributes of a specific Button from the TimeStamperTemplate class."""
-
-    # Enable the buttons stored in the button template's to_enable variable.
-    for str_to_enable in button_template["to_enable"]:
-        if str_to_enable in widgets.original_colors:
-            original_color = widgets.original_colors[str_to_enable]
-        else:
-            original_color = None
-        enable_button(widgets.mapping[str_to_enable], original_color)
-
-    # Disable the buttons stored in the button template's to_disable variable.
-    for str_to_disable in button_template["to_disable"]:
-        disable_button(widgets.mapping[str_to_disable], \
-            button_template["mac_disabled_color"])
 
 
 def enable_button(button, original_color):
@@ -78,6 +59,25 @@ def disable_button(button, mac_disabled_color):
 
     # Disable the button.
     button["state"] = DISABLED
+
+
+def button_enable_disable_macro(button_template, widgets):
+    """This method, which is called upon by several button macros, will enable and
+    disable the buttons associated with the string keys from the "to_enable" and
+    "to_disable" attributes of a specific Button from the TimeStamperTemplate class."""
+
+    # Enable the buttons stored in the button template's "to_enable" variable.
+    for str_to_enable in button_template["to_enable"]:
+        if str_to_enable in widgets.original_colors:
+            original_color = widgets.original_colors[str_to_enable]
+        else:
+            original_color = None
+        enable_button(widgets.mapping[str_to_enable], original_color)
+
+    # Disable the buttons stored in the button template's "to_disable" variable.
+    for str_to_disable in button_template["to_disable"]:
+        disable_button(widgets.mapping[str_to_disable], \
+            button_template["mac_disabled_color"])
 
 
 def print_to_text(to_print, text_obj):
@@ -150,30 +150,51 @@ def store_timestamper_output(output_file_paths, output_file_encoding="utf-8"):
     """This method reads through timestamper output files saved in "all_files" (which should
     be a list of file paths) and saves the notes stored in these files to a list."""
 
-    all_notes = []
-    cur_note = ""
+    header, notes_body, cur_note = [], [], ""
 
     # Iterate over every file specified in "output_file_paths".
     for input_file in output_file_paths:
+
+        on_header = True
+
         with open(input_file, "r", encoding=output_file_encoding) as in_file:
+
+            # Iterate over every line in the current file.
             for line in in_file:
 
-                # If we come across a line that begins with a timestamp, we should start with
-                # a new entry in the notes list. Any non-timestamped lines will be added to the
-                # entry that is already being generated. Doing it this way allows us to group
-                # non-timestamped lines with the closest timestamped line that appears above.
-                # If the user did not edit the text files after writing to them with the
-                # Time Stamper program, there should be no non-timestamped lines. However,
-                # if the user did add their own lines afterwards, those lines will appear
-                # below the closest timestamped line that they were originally written under.
-                if match("\\[\\d{2}:\\d{2}:\\d{2}.\\d{2}\\]", line[:13]) and cur_note:
-                    all_notes.append(cur_note)
-                    cur_note = ""
-                cur_note += line
-    if cur_note:
-        all_notes.append(cur_note)
+                # If the current line begins with a timestamp...
+                if match("\\[\\d{2}:\\d{2}:\\d{2}.\\d{2}\\]", line[:13]):
 
-    return all_notes
+                    # If the current line begins with a timestamp, we can be certain that the
+                    # program is finished reading in any non-timestamped lines at the top of the
+                    # current file, so all new lines should not be considered part of the header.
+                    on_header = False
+
+                    # If a current note exists, append it to the
+                    # notes list and begin generating a new note.
+                    if cur_note:
+                        notes_body.append(cur_note)
+                        cur_note = ""
+
+                    # Add the current line to the note that is currently being generated.
+                    cur_note += line
+
+                # If we have not yet reached a timestamped line in the current
+                # file, consider the current line as part of the header.
+                elif on_header:
+                    header.append(line)
+
+                # If the current line is neither timestamped nor a part of the header,
+                # then add the current line to the note that is currently being
+                # generated (this should only occur when we have a non-timestamped note
+                # that we want to group with a timestamped note that appears above it).
+                else:
+                    cur_note += line
+
+    if cur_note:
+        notes_body.append(cur_note)
+
+    return header, notes_body
 
 
 def find_beginnings_and_ends(button_record_message, button_stop_message, notes):
@@ -198,14 +219,16 @@ def remove_from_notes(record_message, stop_message, notes, beginnings_to_remove,
            and printed to the current output file whenever a recording begins
         2) stop_message: a string representing the message that gets timestamped
            and printed to the current output file whenever a recording ends
-        3) notes: raw timestamper output which has been stored in a list
+        3) notes: raw timestamper output which has been stored in a list and sorted
         4) beginnings_to_remove: a list of line indices marking the beginnings of
            timestamper recordings (i.e. timestamped notes beginning with record_message)
         5) ends_to_remove: a list of line indices marking the ends of timestamper
            recordings (i.e. timestamped notes beginning with stop_message)
-    This method then returns the data stored in the notes argument with record_message
-    from the lines whose indices are stored in beginnings_to_remove and stop_message
-    from the lines whose indices are stored in ends_to_remove excluded."""
+    This method then returns the data stored in "notes" with the following modifications made:
+        -  record_message and its timestamp will be removed from the
+           lines whose indices are stored in beginnings_to_remove.
+        -  stop_message and its timestamp will be removed from the
+           lines whose indices are stored in ends_to_remove."""
 
     notes_updated = []
 
@@ -228,19 +251,19 @@ def remove_from_notes(record_message, stop_message, notes, beginnings_to_remove,
 
 def merge_notes(files_to_read, button_record_message, \
     button_stop_message, output_file_encoding):
-    """This method takes a list of file paths and merges the notes written
-    to those files into one list sorted by the time each note was written."""
+    """This method takes a list of file paths and merges the notes written to
+    those files into one list sorted according the time each note was written."""
 
     # Read through the input files of notes and save the lines to a list.
-    all_notes = store_timestamper_output(files_to_read, output_file_encoding)
+    header, notes_body = store_timestamper_output(files_to_read, output_file_encoding)
 
     # Sort the list of notes gathered from all requested files.
-    all_notes.sort()
+    notes_body.sort()
 
     # Find the timestamped notes in the selected files
     # that indicate beginnings and endings of recordings.
     beginnings, ends = find_beginnings_and_ends(button_record_message, \
-        button_stop_message, all_notes)
+        button_stop_message, notes_body)
 
     # Prepare the timestamped notes indicating beginnings and endings
     # of recordings for deletion by excluding from the deletion:
@@ -259,6 +282,6 @@ def merge_notes(files_to_read, button_record_message, \
     # Update the list of notes, removing redundant timestamped
     # notes indicating beginnings and endings of recordings.
     notes_updated = remove_from_notes(button_record_message, \
-        button_stop_message, all_notes, beginnings, ends)
+        button_stop_message, notes_body, beginnings, ends)
 
-    return notes_updated
+    return header + notes_updated
