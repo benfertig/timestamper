@@ -63,6 +63,7 @@ class TimeStamperTemplate():
     def __init__(self):
 
         self.output_file_encoding = "utf-8"
+        self.output_path = None
         self.starting_dir = getcwd()
         self.images_dir = path.join(resource_path(), "images")
         self.messages_dir = path.join(resource_path(), "messages")

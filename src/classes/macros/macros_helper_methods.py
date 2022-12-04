@@ -4,7 +4,7 @@ classes. These methods do not rely on class variables."""
 
 from re import match
 from sys import platform
-from tkinter import DISABLED, NORMAL
+from tkinter import DISABLED, NORMAL, END
 
 if platform == "darwin":
     from tkmacosx.widget import Button as MacButton
@@ -78,6 +78,72 @@ def disable_button(button, mac_disabled_color):
 
     # Disable the button.
     button["state"] = DISABLED
+
+
+def print_to_text(to_print, text_obj):
+    """This method prints the value stored in to_print to the text widget text_obj."""
+
+    initial_state = text_obj["state"]
+    text_obj["state"] = NORMAL
+    text_obj.insert(END, to_print)
+    text_obj.see(END)
+    text_obj["state"] = initial_state
+
+
+def print_to_file(to_print, file_path, file_encoding="utf-8"):
+    """This method prints the value stored in to_print to the file specified in file_path."""
+
+    if file_path:
+        with open(file_path, "a+", encoding=file_encoding) as out_file:
+            out_file.write(to_print)
+
+
+def record_or_stop(template, button_template, widgets, timestamp_method, button_method):
+    """This method is called by button_record_macro and button_stop_macro in
+    macros_buttons_media.py. The functions performed by both the record and stop buttons
+    are very similar, so their procedures have been condensed down to a single method
+    here, and different parameters are passed depending on which button was pressed."""
+
+    # Enable and disable the relevant buttons for when the record/stop button is pressed.
+    button_enable_disable_macro(button_template, widgets)
+
+    # Get the currently displayed time from the timer and create a timestamp from it.
+    current_timestamp = timestamp_method()
+
+    # Add the record/stop message to the timestamped note.
+    to_write = f"{current_timestamp} {button_template['print_on_press']}\n"
+
+    # Print the message that the timer has begun recording/been stopped
+    # with the current timestamp to the screen.
+    print_to_text(to_write, widgets.mapping["text_log"])
+
+    # Print the message that the timer has begun recording/been stopped
+    # with the current timestamp to the output file.
+    print_to_file(to_write, template.output_path, template.output_file_encoding)
+
+    # Begin/stop the timer.
+    button_method()
+
+
+def rewind_or_fast_forward(user_input, is_rewind, adjust_timer_method):
+    """This method is called by button_rewind_macro and button_fast_forward_macro in
+    macros_buttons_media.py. The functions performed by both the rewind and fast-forward
+    buttons are very similar, so their procedures have been condensed down to a single method
+    here, and different parameters are passed depending on which button was pressed."""
+
+    # Ensure that the requested rewind/fast-forward amount is a number.
+    try:
+        adjust_amount = int(user_input)
+
+    # Do not rewind/fast-forward the timer if the requested rewind amount is not a number.
+    # This should never happen because we have restricted the rewind/fast-forward
+    # amount entry field to digits, but it never hurts to add a failsafe).
+    except ValueError:
+        return
+
+    # Rewind the timer the requested amount.
+    else:
+        adjust_timer_method(adjust_amount * -1 if is_rewind else adjust_amount)
 
 
 def store_timestamper_output(output_file_paths, output_file_encoding="utf-8"):

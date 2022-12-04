@@ -60,6 +60,9 @@ class FileButtonMacros():
         # the text displaying the notes log if an output file has been selected.
         if file_full_path:
 
+            # Store the output path in the template.
+            self.template.output_path = file_full_path
+
             # Set the text of the label that displays the output to the current output file path.
             obj_label_output_path["text"] = \
                 f"{label_output_path_template['display_path_prefix']}{file_full_path}"
@@ -84,6 +87,9 @@ class FileButtonMacros():
         # output file path and do not enable the relevant buttons.
         else:
 
+            # Clear the output path in the template.
+            self.template.output_path = None
+
             # Set the text of the label that displays the output to the label's default
             # text (the text that displays when no output file has been selected).
             obj_label_output_path["text"] = label_output_path_template["text"]
@@ -105,7 +111,7 @@ class FileButtonMacros():
 
         # Disable the relevant buttons if an output file has not been selected.
         else:
-            for str_button in button_output_select_template.to_enable_toggle:
+            for str_button in button_output_select_template["to_enable_toggle"]:
                 disable_button(self.widgets.mapping[str_button], \
                     self.template.mapping[str_button]["mac_disabled_color"])
 

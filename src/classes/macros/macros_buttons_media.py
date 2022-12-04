@@ -2,8 +2,8 @@
 """This module contains the MediaButtonMacros class which stores the functions
 that are executed when a media button in the Time Stamper program is pressed."""
 
-from tkinter import DISABLED, NORMAL, END
-from .macros_helper_methods import button_enable_disable_macro
+from .macros_helper_methods import button_enable_disable_macro, \
+    record_or_stop, rewind_or_fast_forward
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -55,106 +55,32 @@ class MediaButtonMacros():
     def button_stop_macro(self):
         """This method will be executed when the stop button is pressed."""
 
-        # Store the template for the stop button into an abbreviated file name.
+        # Enable and disable the relevant buttons, print a timestamped note indiciating
+        # the end of a recording to the log and the output file, and stop the timer.
         button_stop_template = self.template.mapping["button_stop"]
-
-        # Enable and disable the relevant buttons for when the stop button is pressed.
-        button_enable_disable_macro(button_stop_template, self.widgets)
-
-        # Print the message that the timer has been stopped
-        # with the current timestamp to the screen.
-        current_timestamp = self.timer.current_time_to_timestamp()
-        to_write = f"{current_timestamp} {button_stop_template['print_on_press']}\n"
-        text_log = self.widgets.mapping["text_log"]
-        text_log["state"] = NORMAL
-        text_log.insert(END, to_write)
-        text_log.see(END)
-        text_log["state"] = DISABLED
-
-        # Print the message that the timer has been stopped
-        # with the current timestamp to the output file.
-        label_output_path_template = self.template.mapping["label_output_path"]
-        output_path = self.widgets.mapping["label_output_path"]["text"]
-        if output_path != label_output_path_template["text"]:
-            output_path = output_path[len(label_output_path_template["display_path_prefix"]):]
-            with open(output_path, "a+", encoding=self.template.output_file_encoding) as out_file:
-                out_file.write(to_write)
-
-        # Stop the timer.
-        self.timer.pause()
+        record_or_stop(self.template, button_stop_template, self.widgets, \
+            self.timer.current_time_to_timestamp, self.timer.pause)
 
     def button_rewind_macro(self):
         """This method will be executed when the rewind button is pressed."""
 
-        # Retrieve the rewind amount from the entry field.
-        obj_rewind_amount = self.widgets.mapping["entry_rewind"]
-        rewind_amount = obj_rewind_amount.get()
-
-        # Ensure that the requested rewind amount is a number.
-        try:
-            rewind_amount = int(rewind_amount)
-
-        # Do not rewind if the requested rewind amount is not a number
-        # (this should never happen because we have restricted the rewind
-        # amount entry field to digits, but it never hurts to add a failsafe).
-        except ValueError:
-            return
-
-        # Rewind the timer the requested amount.
-        else:
-            self.timer.adjust_timer(-rewind_amount)
+        # Rewind the timer the specified number of seconds.
+        rewind_input = self.widgets.mapping["entry_rewind"].get()
+        rewind_or_fast_forward(rewind_input, True, self.timer.adjust_timer)
 
     def button_fast_forward_macro(self):
         """This method will be executed when the fast-forward button is pressed."""
 
-        # Retrieve the fast-forward amount from the entry field.
-        obj_fast_forward_amount = self.widgets.mapping["entry_fast_forward"]
-        fast_forward_amount = obj_fast_forward_amount.get()
-
-        # Ensure that the requested fast-forward amount is a number.
-        try:
-            fast_forward_amount = int(fast_forward_amount)
-
-        # Do not rewind if the requested fast-forward amount is not a number
-        # (this should never happen because we have restricted the fast-forward
-        # amount entry field to digits, but it never hurts to add a failsafe).
-        except ValueError:
-            return
-
-        # Fast-forward the timer the requested amount.
-        else:
-            self.timer.adjust_timer(fast_forward_amount)
+        # Fast-forward the timer the specified number of seconds.
+        fast_forward_input = self.widgets.mapping["entry_fast_forward"].get()
+        rewind_or_fast_forward(fast_forward_input, False, self.timer.adjust_timer)
 
     def button_record_macro(self):
         """This method will be executed when the record
         button is pressed, and will begin the timer."""
 
-        # Store the template for the record button into an abbreviated file name.
+        # Enable and disable the relevant buttons, print a timestamped note indiciating
+        # the beginning of a recording to the log and the output file, and stop the timer.
         button_record_template = self.template.mapping["button_record"]
-
-        # Get the currently displayed time from the timer and create a timestamp from it.
-        current_timestamp = self.timer.current_time_to_timestamp()
-        to_write = f"{current_timestamp} {button_record_template['print_on_press']}\n"
-
-        # Print the message that the timer has started
-        # with the current timestamp to the screen.
-        text_log = self.widgets.mapping["text_log"]
-        text_log["state"] = NORMAL
-        text_log.insert(END, to_write)
-        text_log.see(END)
-        text_log["state"] = DISABLED
-
-        # Print the message that the timer has started
-        # with the current timestamp to the output file.
-        label_output_path_template = self.template.mapping["label_output_path"]
-        output_path = self.widgets.mapping["label_output_path"]["text"]
-        if output_path != label_output_path_template["text"]:
-            output_path = output_path[len(label_output_path_template["display_path_prefix"]):]
-            with open(output_path, "a+", encoding=self.template.output_file_encoding) as out_file:
-                out_file.write(to_write)
-
-        # Enable and disable the relevant buttons for when the record button is pressed.
-        button_enable_disable_macro(button_record_template, self.widgets)
-
-        # Start the timer.
-        self.timer.play()
+        record_or_stop(self.template, button_record_template, self.widgets, \
+            self.timer.current_time_to_timestamp, self.timer.play)

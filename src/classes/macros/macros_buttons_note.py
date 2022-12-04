@@ -44,8 +44,8 @@ class NoteButtonMacros():
         obj_timestamp = self.widgets.mapping["label_timestamp"]
         current_timestamp = obj_timestamp["text"]
 
-        # Store the template for the timestamp and output path labels into abbreviated file names.
-        label_output_path_template = self.template.mapping["label_output_path"]
+        # Store the output path.
+        output_path = self.template.output_path
 
         # Get the current text in the input text box.
         obj_current_note = self.widgets.mapping["text_current_note"]
@@ -66,8 +66,6 @@ class NoteButtonMacros():
 
         # Print the current timestamp along with the current
         # text from the input text box to the output file.
-        output_path = self.widgets.mapping["label_output_path"]["text"]
-        if output_path != label_output_path_template["text"]:
-            output_path = output_path[len(label_output_path_template["display_path_prefix"]):]
+        if output_path:
             with open(output_path, "a+", encoding=self.template.output_file_encoding) as out_file:
                 out_file.write(to_write)
