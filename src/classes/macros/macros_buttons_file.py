@@ -4,7 +4,7 @@ that are executed when a file button in the Time Stamper program is pressed."""
 
 from ntpath import basename
 from tkinter import DISABLED, NORMAL, END, filedialog
-from .macros_helper_methods import enable_button, disable_button, merge_notes
+from .macros_helper_methods import enable_button, disable_button, merge_notes, print_to_text
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -50,6 +50,8 @@ class FileButtonMacros():
         button_output_select_template = self.template.mapping["button_output_select"]
         label_output_path_template = self.template.mapping["label_output_path"]
         obj_label_output_path = self.widgets.mapping["label_output_path"]
+        obj_text_output_path = self.widgets.mapping["text_output_path"]
+        obj_text_log = self.widgets.mapping["text_log"]
 
         # Get the path to the selected output file.
         file_types = (("text files", "*.txt"), ('All files', '*.*'))
@@ -64,23 +66,25 @@ class FileButtonMacros():
             self.template.output_path = file_full_path
 
             # Set the text of the label that displays the output to the current output file path.
-            obj_label_output_path["text"] = \
-                f"{label_output_path_template['display_path_prefix']}{file_full_path}"
+            obj_label_output_path["text"] = label_output_path_template['display_path_prefix']
 
-            # Indicate that the relevant buttons should be enabled.
-            button_toggle_status = NORMAL
+            # Print the current output file path to the output path text widget.
+            print_to_text(file_full_path, obj_text_output_path, wipe_clean=True)
 
             # Clear the text displaying the notes log.
-            obj_text_log = self.widgets.mapping["text_log"]
-            obj_text_log["state"] = NORMAL
-            obj_text_log.delete(1.0, END)
+            print_to_text("", obj_text_log, wipe_clean=True)
+
+            # Enable the relevant buttons if an output file has been selected.
+            for str_button in button_output_select_template["to_enable_toggle"]:
+                enable_button(self.widgets.mapping[str_button], \
+                    self.widgets.original_colors[str_button])
 
             # Any text already in the output file should be printed to the notes log.
+            obj_text_log["state"] = NORMAL
             with open(file_full_path, "r", encoding=self.template.output_file_encoding) as out_file:
                 for line in out_file.readlines():
                     obj_text_log.insert(END, line)
                     obj_text_log.see(END)
-
             obj_text_log["state"] = DISABLED
 
         # If an output file has not been selected, do not display an
@@ -94,23 +98,13 @@ class FileButtonMacros():
             # text (the text that displays when no output file has been selected).
             obj_label_output_path["text"] = label_output_path_template["text"]
 
+            # Clear the output path text widget.
+            print_to_text("", obj_text_output_path, wipe_clean=True)
+
             # Clear the text log.
-            obj_text_log = self.widgets.mapping["text_log"]
-            obj_text_log["state"] = NORMAL
-            obj_text_log.delete(1.0, END)
-            obj_text_log["state"] = DISABLED
+            print_to_text("", obj_text_log, wipe_clean=True)
 
-            # Indicate that the relevant buttons should be disabled.
-            button_toggle_status = DISABLED
-
-        # Enable the relevant buttons if an output file has been selected.
-        if button_toggle_status == NORMAL:
-            for str_button in button_output_select_template["to_enable_toggle"]:
-                enable_button(self.widgets.mapping[str_button], \
-                    self.widgets.original_colors[str_button])
-
-        # Disable the relevant buttons if an output file has not been selected.
-        else:
+            # Disable the relevant buttons if an output file has not been selected.
             for str_button in button_output_select_template["to_enable_toggle"]:
                 disable_button(self.widgets.mapping[str_button], \
                     self.template.mapping[str_button]["mac_disabled_color"])

@@ -80,15 +80,32 @@ class TimeStamperTemplate():
             # If the current subitem of this file's directory is also
             # a directory and that directory is not __pychache__...
             if isdir(inner_dir) and inner_dir_name != "__pycache__":
+
                 self.mapping[inner_dir_name] = defaultdict(list)
+                jsons = set(glob(join(inner_dir, "*.json")))
+
+                # Get the default template values from the "default" JSON file.
+                default_json_path = join(inner_dir, f"{inner_dir_name}_default.json")
+                jsons.remove(default_json_path)
+                with open(default_json_path, encoding="utf-8") as default_json_file:
+                    default_mapping = load(default_json_file)
 
                 # Iterate through all of the JSON files in the current subdirectory.
-                for json_file_path in glob(join(inner_dir, "*.json")):
+                for json_file_path in jsons:
                     with open(json_file_path, encoding="utf-8") as json_file:
                         json_to_dict = load(json_file)
 
                         # Iterate through all of the entries in the current JSON file.
                         for widget_str_key, widget_template in json_to_dict.items():
+
+                            # If the current template does not contain an attribute that the
+                            # "default" template does contain, set the value of that attribute
+                            # for the current template to the value from the "default" template.
+                            for default_attribute, default_value in default_mapping.items():
+                                if default_attribute not in widget_template:
+                                    widget_template[default_attribute] = default_value
+
+                            # Map the widget templates in the "mapping" dictionary.
                             self.mapping[widget_str_key] = widget_template
                             window_str_key = widget_template["window_str_key"]
                             self.mapping[inner_dir_name][window_str_key].append(widget_template)

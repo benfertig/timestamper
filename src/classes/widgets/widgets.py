@@ -3,8 +3,8 @@
 as well as a mapping of widgets to their string keys. This allows for easy reference of widgets.
 Also see the "widgets_helper_methods.py" module for additional methods associated with widgets."""
 
-from .widgets_helper_methods import entry_value_limit, create_window, \
-    create_image, create_button, create_entry, create_label, create_text
+from .widgets_helper_methods import create_window, create_image, \
+    create_button, create_entry, create_label, create_text
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -52,31 +52,12 @@ class Widgets():
         self.mapping[window_template["str_key"]] = \
             create_window(window_template, self.main_window_str, self.images_dir)
 
-        # Create the buttons.
-        button_mapping = self.template_mapping["buttons"]
-        if button_macro_mapping is not None and window_str in button_mapping:
-            button_window_templates = button_mapping[window_str]
-            self.create_images(button_window_templates)
-            self.create_buttons(button_window_templates, button_macro_mapping)
-
-        # Create the entries.
-        entry_mapping = self.template_mapping["entries"]
-        if window_str in entry_mapping:
-            entry_window_templates = entry_mapping[window_str]
-            self.create_entries(entry_window_templates, entry_value_limit)
-
-        # Create the labels.
-        label_mapping = self.template_mapping["labels"]
-        if window_str in label_mapping:
-            label_window_templates = label_mapping[window_str]
-            self.create_images(label_window_templates)
-            self.create_labels(label_window_templates)
-
-        # Create the texts.
-        text_mapping = self.template_mapping["texts"]
-        if window_str in text_mapping:
-            text_window_templates = text_mapping[window_str]
-            self.create_texts(text_window_templates)
+        # Create the widgets that should appear in the current window.
+        for mapping_str in ("buttons", "entries", "labels", "texts"):
+            widget_mapping = self.template_mapping[mapping_str]
+            if window_str in widget_mapping:
+                widget_templates = widget_mapping[window_str]
+                self.create_widgets(mapping_str, widget_templates, button_macro_mapping)
 
         window = self.mapping[window_str]
 
@@ -88,6 +69,21 @@ class Widgets():
         # Return the window object.
         return window
 
+    def create_widgets(self, mapping_str, widget_templates, button_macro_mapping=None):
+        """This method creates all of the widgets passed in widget_templates. The
+        argument mapping_str tells the method which widget creation method to call."""
+
+        if mapping_str == "buttons":
+            self.create_images(widget_templates)
+            self.create_buttons(widget_templates, button_macro_mapping)
+        elif mapping_str == "entries":
+            self.create_entries(widget_templates)
+        elif mapping_str == "labels":
+            self.create_images(widget_templates)
+            self.create_labels(widget_templates)
+        elif mapping_str == "texts":
+            self.create_texts(widget_templates)
+
     def create_images(self, widget_templates):
         """This method creates all of the images specified by the templates in
         widget_templates, searching for images in the directory provided by images_dir."""
@@ -95,9 +91,10 @@ class Widgets():
         images = {}
 
         for w_template in widget_templates:
-            image = create_image(w_template, self.images_dir)
-            self.mapping[w_template["image_file_name"]] = image
-            images[w_template["image_file_name"]] = image
+            if "image_file_name" in w_template:
+                image = create_image(w_template, self.images_dir)
+                self.mapping[w_template["image_file_name"]] = image
+                images[w_template["image_file_name"]] = image
 
         return images
 
@@ -138,7 +135,7 @@ class Widgets():
 
         return buttons
 
-    def create_entries(self, entry_templates, e_v_limit):
+    def create_entries(self, entry_templates):
         """This method creates all of the entries specified by the templates in entry_templates."""
 
         entries = {}
@@ -149,7 +146,7 @@ class Widgets():
             entry_window = self.mapping[e_template["window_str_key"]]
 
             # Create the entry.
-            entry = create_entry(e_template, entry_window, e_v_limit, self.messages_dir)
+            entry = create_entry(e_template, entry_window, self.messages_dir)
 
             # Map the Entry object to the Entry's string key
             # so that the Macros class can reference it.

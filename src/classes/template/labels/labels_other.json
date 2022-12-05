@@ -3,17 +3,10 @@
     "label_output_path": {
 
         "str_key": "label_output_path",
-        "window_str_key": "window_main",
 
-        "display_path_prefix": "Saving notes to: ",
+        "display_path_prefix": "Saving notes to:",
 
         "text": "-----PLEASE SELECT AN OUTPUT FILE-----",
-
-        "image_file_name": null,
-        "message_file_name": null,
-
-        "background": null,
-        "foreground": null,
 
         "wraplength": 264,
 
@@ -26,39 +19,16 @@
         "row": 1,
 
         "columnspan": 3,
-        "rowspan": 1,
 
-        "padx": null,
-        "pady": null,
-
-        "ipadx": null,
-        "ipady": null,
-
-        "sticky": "sw",
-
-        "font_family": "",
-        "font_size": 10,
-        "font_weight": "normal",
-        "font_slant": "roman",
-        "font_underline": 0,
-        "font_overstrike": 0
+        "sticky": "sw"
 
     },
     
     "label_rewind_sec": {
 
         "str_key": "label_rewind_sec",
-        "window_str_key": "window_main",
 
         "text": "sec",
-
-        "image_file_name": null,
-        "message_file_name": null,
-
-        "background": null,
-        "foreground": null,
-
-        "wraplength": null,
 
         "justify": "left",
 
@@ -68,40 +38,17 @@
         "column": 4,
         "row": 2,
 
-        "columnspan": 1,
-        "rowspan": 1,
-
-        "padx": null,
-        "pady": null,
-
-        "ipadx": null,
-        "ipady": null,
-
         "sticky": "nw",
 
-        "font_family": "",
-        "font_size": 11,
-        "font_weight": "normal",
-        "font_slant": "roman",
-        "font_underline": 0,
-        "font_overstrike": 0
+        "font_size": 11
 
     },
 
     "label_fast_forward_sec": {
 
         "str_key": "label_fast_forward_sec",
-        "window_str_key": "window_main",
 
         "text": "sec",
-
-        "image_file_name": null,
-        "message_file_name": null,
-
-        "background": null,
-        "foreground": null,
-
-        "wraplength": null,
 
         "justify": "left",
 
@@ -111,66 +58,30 @@
         "column": 6,
         "row": 2,
 
-        "columnspan": 1,
-        "rowspan": 1,
-
-        "padx": null,
-        "pady": null,
-
-        "ipadx": null,
-        "ipady": null,
-
         "sticky": "nw",
 
-        "font_family": "",
-        "font_size": 11,
-        "font_weight": "normal",
-        "font_slant": "roman",
-        "font_underline": 0,
-        "font_overstrike": 0
+        "font_size": 11
 
     },
 
     "label_timestamp": {
 
         "str_key": "label_timestamp",
-        "window_str_key": "window_main",
 
         "text": "[00:00:00.00]",
 
-        "image_file_name": null,
-        "message_file_name": null,
-
-        "background": null,
-        "foreground": null,
-
-        "wraplength": null,
-
         "justify": "center",
-
-        "width": null,
-        "height": null,
 
         "column": 0,
         "row": 4,
 
         "columnspan": 2,
-        "rowspan": 1,
 
-        "padx": null,
         "pady": [5, 0],
-
-        "ipadx": null,
-        "ipady": null,
 
         "sticky": "nsew",
 
-        "font_family": "",
-        "font_size": 12,
-        "font_weight": "normal",
-        "font_slant": "roman",
-        "font_underline": 0,
-        "font_overstrike": 0
+        "font_size": 12
 
     }
 

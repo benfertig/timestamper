@@ -3,25 +3,11 @@
     "button_timestamp": {
 
         "str_key": "button_timestamp",
-        "window_str_key": "window_main",
-
-        "initial_state": "NORMAL",
-
-        "text": null,
 
         "image_file_name": "timestamp.png",
-        "message_file_name": null,
-
-        "mac_disabled_color": "#d3d3d3",
 
         "to_enable": ["button_clear_timestamp"],
         "to_disable": [],
-
-        "background": null,
-        "foreground": null,
-
-        "width": null,
-        "height": null,
 
         "column": 0,
         "row": 5,
@@ -30,41 +16,21 @@
         "rowspan": 1,
 
         "padx": [10, 0],
-        "pady": null,
 
-        "ipadx": null,
-        "ipady": null,
-
-        "sticky": "nsew",
-
-        "font_family": "",
-        "font_size": 12,
-        "font_weight": "normal",
-        "font_slant": "roman",
-        "font_underline": 0,
-        "font_overstrike": 0
+        "sticky": "nsew"
 
     },
 
     "button_clear_timestamp": {
 
         "str_key": "button_clear_timestamp",
-        "window_str_key": "window_main",
 
         "initial_state": "DISABLED",
 
-        "text": null,
-
         "image_file_name": "clear_timestamp.png",
-        "message_file_name": null,
-
-        "mac_disabled_color": "#d3d3d3",
 
         "to_enable": [],
         "to_disable": ["button_clear_timestamp"],
-
-        "background": null,
-        "foreground": null,
 
         "width": null,
         "height": 1,
@@ -76,19 +42,8 @@
         "rowspan": 1,
 
         "padx": [0, 10],
-        "pady": null,
 
-        "ipadx": null,
-        "ipady": null,
-
-        "sticky": "nsew",
-
-        "font_family": "",
-        "font_size": 10,
-        "font_weight": "normal",
-        "font_slant": "roman",
-        "font_underline": 0,
-        "font_overstrike": 0
+        "sticky": "nsew"
 
     }
     

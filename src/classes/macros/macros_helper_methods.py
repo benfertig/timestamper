@@ -80,11 +80,15 @@ def button_enable_disable_macro(button_template, widgets):
             button_template["mac_disabled_color"])
 
 
-def print_to_text(to_print, text_obj):
-    """This method prints the value stored in to_print to the text widget text_obj."""
+def print_to_text(to_print, text_obj, wipe_clean=False):
+    """This method prints the value stored in to_print to the text widget text_obj. An optional
+    argument wipe_clean, which is set to False by default, determines whether any text currently
+    displayed in the text widget should be removed before the new text is displayed."""
 
     initial_state = text_obj["state"]
     text_obj["state"] = NORMAL
+    if wipe_clean:
+        text_obj.delete(1.0, END)
     text_obj.insert(END, to_print)
     text_obj.see(END)
     text_obj["state"] = initial_state

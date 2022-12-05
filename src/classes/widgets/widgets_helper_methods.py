@@ -170,7 +170,7 @@ def create_image(obj_template, images_dir):
     """This method creates an image object for the Time Stamper program."""
 
     # Return a PhotoImage only if there is an image associated with the object.
-    if obj_template["image_file_name"]:
+    if "image_file_name" in obj_template and obj_template["image_file_name"]:
         return PhotoImage(file=path.join(images_dir, obj_template["image_file_name"]))
 
     # If there is no image associated with the object, return None.
@@ -218,7 +218,7 @@ def create_button(button_template, button_window, button_macro, messages_dir, bu
     return button, original_color
 
 
-def create_entry(entry_template, entry_window, e_v_limit, messages_dir):
+def create_entry(entry_template, entry_window, messages_dir):
     """This method creates an Entry object for the Time Stamper program."""
 
     # Create the Entry's font.
@@ -241,7 +241,7 @@ def create_entry(entry_template, entry_window, e_v_limit, messages_dir):
     grid_widget(entry, entry_template)
 
     # Set the Entry input resitrictions.
-    entry_text.trace("w", lambda *args: e_v_limit(entry_text, entry_template["max_val"]))
+    entry_text.trace("w", lambda *args: entry_value_limit(entry_text, entry_template["max_val"]))
 
     return entry
 

@@ -3,16 +3,11 @@
     "text_output_path": {
 
         "str_key": "text_output_path",
-        "window_str_key": "window_main",
-
-        "text": null,
 
         "initial_state": "DISABLED",
 
-        "message_file_name": null,
-
         "width": 29,
-        "height": 0,
+        "height": 1,
 
         "column": 8,
         "row": 2,
@@ -21,32 +16,18 @@
         "rowspan": 2,
 
         "padx": [2, 0],
-        "pady": null,
-
-        "ipadx": null,
-        "ipady": null,
 
         "sticky": "new",
 
-        "font_family": "",
-        "font_size": 12,
-        "font_weight": "normal",
-        "font_slant": "roman",
-        "font_underline": 0,
-        "font_overstrike": 0
+        "font_size": 9
 
     },
 
     "text_log": {
 
         "str_key": "text_log",
-        "window_str_key": "window_main",
-
-        "text": null,
 
         "initial_state": "DISABLED",
-
-        "message_file_name": null,
 
         "width": 105,
         "height": 14,
@@ -58,32 +39,18 @@
         "rowspan": 1,
 
         "padx": [5, 5],
-        "pady": null,
 
-        "ipadx": null,
         "ipady": 33,
 
-        "sticky": "nsew",
-
-        "font_family": "",
-        "font_size": 12,
-        "font_weight": "normal",
-        "font_slant": "roman",
-        "font_underline": 0,
-        "font_overstrike": 0
+        "sticky": "nsew"
 
     },
 
     "text_current_note": {
 
         "str_key": "text_current_note",
-        "window_str_key": "window_main",
-
-        "text": null,
 
         "initial_state": "NORMAL",
-
-        "message_file_name": null,
 
         "width": 93,
         "height": 3,
@@ -97,17 +64,7 @@
         "padx": [0, 5],
         "pady": [6, 0],
 
-        "ipadx": null,
-        "ipady": null,
-
-        "sticky": "nsew",
-
-        "font_family": "",
-        "font_size": 12,
-        "font_weight": "normal",
-        "font_slant": "roman",
-        "font_underline": 0,
-        "font_overstrike": 0
+        "sticky": "nsew"
 
     },
 
@@ -115,8 +72,6 @@
 
         "str_key": "text_attribution",
         "window_str_key": "window_attribution",
-
-        "text": null,
 
         "initial_state": "DISABLED",
 
@@ -136,17 +91,7 @@
         "padx": [5, 5],
         "pady": [5, 5],
 
-        "ipadx": null,
-        "ipady": null,
-
-        "sticky": "nsew",
-
-        "font_family": "",
-        "font_size": 12,
-        "font_weight": "normal",
-        "font_slant": "roman",
-        "font_underline": 0,
-        "font_overstrike": 0
+        "sticky": "nsew"
 
     }
 

@@ -1,0 +1,41 @@
+{
+
+    "window_str_key": "window_main",
+
+    "initial_state": "NORMAL",
+
+    "text": null,
+
+    "image_file_name": null,
+    "message_file_name": null,
+
+    "mac_disabled_color": "#d3d3d3",
+
+    "background": null,
+    "foreground": null,
+
+    "width": null,
+    "height": null,
+
+    "column": 0,
+    "row": 0,
+
+    "columnspan": 1,
+    "rowspan": 1,
+
+    "padx": null,
+    "pady": null,
+
+    "ipadx": null,
+    "ipady": null,
+
+    "sticky": "",
+
+    "font_family": "",
+    "font_size": 10,
+    "font_weight": "normal",
+    "font_slant": "roman",
+    "font_underline": 0,
+    "font_overstrike": 0
+
+}

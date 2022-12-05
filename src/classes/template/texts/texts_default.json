@@ -1,0 +1,35 @@
+{
+
+    "window_str_key": "window_main",
+
+    "text": null,
+
+    "initial_state": "ENABLED",
+
+    "message_file_name": null,
+
+    "width": 1,
+    "height": 1,
+
+    "column": 0,
+    "row": 0,
+
+    "columnspan": 1,
+    "rowspan": 1,
+
+    "padx": null,
+    "pady": null,
+
+    "ipadx": null,
+    "ipady": null,
+
+    "sticky": "",
+
+    "font_family": "",
+    "font_size": 12,
+    "font_weight": "normal",
+    "font_slant": "roman",
+    "font_underline": 0,
+    "font_overstrike": 0
+
+}

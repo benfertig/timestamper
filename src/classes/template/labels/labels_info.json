@@ -5,20 +5,9 @@
         "str_key": "label_help_image",
         "window_str_key": "window_help",
 
-        "text": null,
-
         "image_file_name": "timestamper_window_labeled.png",
-        "message_file_name": null,
-
-        "background": null,
-        "foreground": null,
-
-        "wraplength": null,
 
         "justify": "left",
-
-        "width": null,
-        "height": null,
 
         "column": 0,
         "row": 0,
@@ -26,20 +15,7 @@
         "columnspan": 2,
         "rowspan": 1,
 
-        "padx": null,
-        "pady": null,
-
-        "ipadx": null,
-        "ipady": null,
-
-        "sticky": "nw",
-
-        "font_family": "",
-        "font_size": 12,
-        "font_weight": "normal",
-        "font_slant": "roman",
-        "font_underline": 0,
-        "font_overstrike": 0
+        "sticky": "nw"
 
     },
 
@@ -62,18 +38,7 @@
 
         "text": "1",
 
-        "image_file_name": null,
-        "message_file_name": null,
-
-        "background": null,
-        "foreground": null,
-
-        "wraplength": null,
-
         "justify": "center",
-
-        "width": null,
-        "height": null,
 
         "column": 0,
         "row": 2,
@@ -81,20 +46,10 @@
         "columnspan": 2,
         "rowspan": 1,
 
-        "padx": null,
-        "pady": null,
-
-        "ipadx": null,
-        "ipady": null,
-
         "sticky": "n",
 
-        "font_family": "",
         "font_size": 14,
-        "font_weight": "bold",
-        "font_slant": "roman",
-        "font_underline": 0,
-        "font_overstrike": 0
+        "font_weight": "bold"
 
     },
 
@@ -103,23 +58,12 @@
         "str_key": "label_help_message",
         "window_str_key": "window_help",
 
-        "text": null,
-
-        "image_file_name": null,
         "message_file_name": "help_messages.json",
-        "message_file_encoding": "utf-8",
         "json_first_message_key": "1",
-        "loaded_message_text": null,
-
-        "background": null,
-        "foreground": null,
 
         "wraplength": 960,
 
         "justify": "left",
-
-        "width": null,
-        "height": null,
 
         "column": 0,
         "row": 3,
@@ -127,20 +71,9 @@
         "columnspan": 2,
         "rowspan": 1,
 
-        "padx": null,
-        "pady": null,
-
-        "ipadx": null,
-        "ipady": null,
-
         "sticky": "w",
 
-        "font_family": "",
-        "font_size": 12,
-        "font_weight": "normal",
-        "font_slant": "roman",
-        "font_underline": 0,
-        "font_overstrike": 0
+        "font_size": 12
 
     },
 
@@ -149,43 +82,16 @@
         "str_key": "label_license",
         "window_str_key": "window_license",
 
-        "text": null,
-
-        "image_file_name": null,
         "message_file_name": "license_notice.txt",
-        "message_file_encoding": "utf-8",
-        "loaded_message_text": null,
-
-        "background": null,
-        "foreground": null,
-
-        "wraplength": null,
 
         "justify": "left",
-
-        "width": null,
-        "height": null,
 
         "column": 0,
         "row": 0,
 
-        "columnspan": 1,
-        "rowspan": 1,
-
-        "padx": null,
-        "pady": null,
-
-        "ipadx": null,
-        "ipady": null,
-
         "sticky": "nw",
 
-        "font_family": "",
-        "font_size": 12,
-        "font_weight": "normal",
-        "font_slant": "roman",
-        "font_underline": 0,
-        "font_overstrike": 0
+        "font_size": 12
 
     }
 

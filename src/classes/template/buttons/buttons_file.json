@@ -3,22 +3,8 @@
     "button_output_select": {
 
         "str_key": "button_output_select",
-        "window_str_key": "window_main",
-
-        "initial_state": "NORMAL",
 
         "text": "Choose output location",
-
-        "image_file_name": null,
-        "message_file_name": null,
-
-        "mac_disabled_color": "#d3d3d3",
-
-        "background": null,
-        "foreground": null,
-
-        "width": null,
-        "height": null,
 
         "column": 8,
         "row": 0,
@@ -26,65 +12,28 @@
         "columnspan": 2,
         "rowspan": 1,
 
-        "padx": null,
         "pady": [5, 0],
 
         "ipadx": 15,
-        "ipady": null,
 
         "sticky": "nsew",
 
-        "to_enable_toggle": ["button_record", "button_save_note"],
-
-        "font_family": "",
-        "font_size": 10,
-        "font_weight": "normal",
-        "font_slant": "roman",
-        "font_underline": 0,
-        "font_overstrike": 0
+        "to_enable_toggle": ["button_record", "button_save_note"]
 
     },
 
     "button_merge_output_files": {
 
         "str_key": "button_merge_output_files",
-        "window_str_key": "window_main",
-
-        "initial_state": "NORMAL",
 
         "text": "Merge output files",
-
-        "image_file_name": null,
-        "message_file_name": null,
-
-        "mac_disabled_color": "#d3d3d3",
-
-        "background": null,
-        "foreground": null,
-
-        "width": null,
-        "height": null,
 
         "column": 10,
         "row": 0,
 
-        "columnspan": 1,
-        "rowspan": 1,
-
-        "padx": null,
         "pady": [5, 0],
 
-        "ipadx": null,
-        "ipady": null,
-
-        "sticky": "nsew",
-
-        "font_family": "",
-        "font_size": 10,
-        "font_weight": "normal",
-        "font_slant": "roman",
-        "font_underline": 0,
-        "font_overstrike": 0
+        "sticky": "nsew"
 
     }
 }

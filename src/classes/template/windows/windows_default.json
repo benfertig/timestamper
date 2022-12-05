@@ -1,0 +1,18 @@
+{
+
+    "window_str_key": "window_main",
+
+    "title": "Time Stamper",
+    "icon_windows": "timestamp_icon.ico",
+    "icon_mac": "timestamp_icon.icns",
+
+    "background": null,
+    "foreground": null,
+
+    "width": null,
+    "height": null,
+
+    "num_columns": 1,
+    "num_rows": 1
+
+}

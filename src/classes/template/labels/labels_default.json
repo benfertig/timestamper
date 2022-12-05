@@ -1,0 +1,43 @@
+{
+
+    "window_str_key": "window_main",
+
+    "text": null,
+
+    "image_file_name": null,
+    "message_file_name": null,
+    "message_file_encoding": "utf-8",
+    "loaded_message_text": null,
+
+    "background": null,
+    "foreground": null,
+
+    "wraplength": null,
+
+    "justify": null,
+
+    "width": null,
+    "height": null,
+
+    "column": 0,
+    "row": 0,
+
+    "columnspan": 1,
+    "rowspan": 1,
+
+    "padx": null,
+    "pady": null,
+
+    "ipadx": null,
+    "ipady": null,
+
+    "sticky": "",
+
+    "font_family": "",
+    "font_size": 10,
+    "font_weight": "normal",
+    "font_slant": "roman",
+    "font_underline": 0,
+    "font_overstrike": 0
+
+}

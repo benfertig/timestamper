@@ -2,7 +2,7 @@
 """This module contains the NoteButtonMacros class which stores the functions
 that are executed when a note button in the Time Stamper program is pressed."""
 
-from tkinter import DISABLED, NORMAL, END
+from tkinter import END
 from .macros_helper_methods import print_to_text, print_to_file
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
