@@ -230,7 +230,7 @@ def store_timestamper_output(output_file_paths, output_file_encoding="utf-8"):
 
                     # If the current line begins with a timestamp, we can be certain that the
                     # program is finished reading in any non-timestamped lines at the top of the
-                    # current file, so all new lines should not be considered part of the header.
+                    # current file, so all new lines should NOT be considered part of the header.
                     on_header = False
 
                     # If a current note exists, append it to the
@@ -259,60 +259,7 @@ def store_timestamper_output(output_file_paths, output_file_encoding="utf-8"):
     return header, notes_body
 
 
-def find_beginnings_and_ends(button_record_message, button_stop_message, notes):
-    """This method takes raw timestamper output as an argument and returns the line
-    indices from that output marking the beginnings and endings of recordings."""
-
-    beginnings, ends = [], []
-    for i, note in enumerate(notes):
-        len_start_note = 14 + len(button_record_message)
-        len_end_note = 14 + len(button_stop_message)
-        if len(note) >= len_start_note and note[14:len_start_note] == button_record_message:
-            beginnings.append(i)
-        elif len(note) >= len_end_note and note[14:len_end_note] == button_stop_message:
-            ends.append(i)
-
-    return beginnings, ends
-
-
-def remove_from_notes(record_message, stop_message, notes, beginnings_to_remove, ends_to_remove):
-    """This method takes 5 arguments:
-        1) record_message: a string representing the message that gets timestamped
-           and printed to the current output file whenever a recording begins
-        2) stop_message: a string representing the message that gets timestamped
-           and printed to the current output file whenever a recording ends
-        3) notes: raw timestamper output which has been stored in a list and sorted
-        4) beginnings_to_remove: a list of line indices marking the beginnings of
-           timestamper recordings (i.e. timestamped notes beginning with record_message)
-        5) ends_to_remove: a list of line indices marking the ends of timestamper
-           recordings (i.e. timestamped notes beginning with stop_message)
-    This method then returns the data stored in "notes" with the following modifications made:
-        -  record_message and its timestamp will be removed from the
-           lines whose indices are stored in beginnings_to_remove.
-        -  stop_message and its timestamp will be removed from the
-           lines whose indices are stored in ends_to_remove."""
-
-    notes_updated = []
-
-    for j, note in enumerate(notes):
-
-        # Remove the timestamped notes indicating the beginning of a recording.
-        if j in beginnings_to_remove:
-            note = note[14 + len(record_message) + 1:]
-
-        # Remove the timestamped notes indicating the ending of a recording.
-        elif j in ends_to_remove:
-            note = note[14 + len(stop_message) + 1:]
-
-        # Add the note to the updated notes list if there is a note to add.
-        if note:
-            notes_updated.append(note)
-
-    return notes_updated
-
-
-def merge_notes(files_to_read, button_record_message, \
-    button_stop_message, output_file_encoding):
+def merge_notes(files_to_read, output_file_encoding):
     """This method takes a list of file paths and merges the notes written to
     those files into one list sorted according the time each note was written."""
 
@@ -322,28 +269,4 @@ def merge_notes(files_to_read, button_record_message, \
     # Sort the list of notes gathered from all requested files.
     notes_body.sort()
 
-    # Find the timestamped notes in the selected files
-    # that indicate beginnings and endings of recordings.
-    beginnings, ends = find_beginnings_and_ends(button_record_message, \
-        button_stop_message, notes_body)
-
-    # Prepare the timestamped notes indicating beginnings and endings
-    # of recordings for deletion by excluding from the deletion:
-    #   1) the earliest timestamped note indicating a beginning
-    #   2) the last timestamped note indicating an ending.
-    if beginnings:
-        beginnings.pop(0)
-    if ends:
-        ends.pop()
-
-    # Convert the LISTS storing the indices of lines indicating beginnings
-    # and endings of recordings to SETS to make lookup time faster.
-    beginnings = set(beginnings)
-    ends = set(ends)
-
-    # Update the list of notes, removing redundant timestamped
-    # notes indicating beginnings and endings of recordings.
-    notes_updated = remove_from_notes(button_record_message, \
-        button_stop_message, notes_body, beginnings, ends)
-
-    return header + notes_updated
+    return header + notes_body

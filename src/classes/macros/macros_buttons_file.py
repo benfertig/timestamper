@@ -136,11 +136,7 @@ class FileButtonMacros():
             # Merge the notes from all of the selected files. We cannot write the merged notes
             # to a new file yet because a new file has not yet been selected. The process of
             # writing the merged notes to a new file occurs in on_close_window_merge_2_macro.
-            button_record_message = self.settings["record"]["message"]
-            button_stop_message = self.settings["stop"]["message"]
-            merged_notes = \
-                merge_notes(files_full_paths, button_record_message, \
-                    button_stop_message, self.settings["output"]["file_encoding"])
+            merged_notes = merge_notes(files_full_paths, self.settings["output"]["file_encoding"])
 
             # Call the function that will display the second window with instructions on
             # how to merge output files, passing a macro that will make the second file

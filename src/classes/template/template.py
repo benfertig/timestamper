@@ -52,8 +52,8 @@ class TimeStamperTemplate():
     def __init__(self):
 
         self.starting_dir = getcwd()
-        self.images_dir = join(resource_path(), "images")
-        self.messages_dir = join(resource_path(), "messages")
+        self.images_dir = join(resource_path(), "src", "images")
+        self.messages_dir = join(resource_path(), "src", "messages")
 
         self.mapping = map_all_templates(dirname(__file__))
 
