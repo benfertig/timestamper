@@ -124,9 +124,12 @@ def create_entry(template, settings, entry_template, entry_window, widgets):
         initial_state = DISABLED
 
     # Create the Entry object.
-    entry = Entry(entry_window, width=entry_template["width"], \
-        textvariable=entry_text, font=entry_font, background=entry_template["background"], \
-        foreground=entry_template["foreground"], state=initial_state)
+    entry = Entry(\
+        entry_window, width=entry_template["width"], textvariable=entry_text, font=entry_font, \
+        background=entry_template["background"], foreground=entry_template["foreground"], \
+        disabledbackground=entry_template["disabledbackground"], \
+        disabledforeground=entry_template["disabledforeground"],
+        state=initial_state)
 
     # Place the Entry.
     grid_widget(entry, entry_template)

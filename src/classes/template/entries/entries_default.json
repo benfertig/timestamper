@@ -21,6 +21,9 @@
     "background": null,
     "foreground": null,
 
+    "disabledbackground": null,
+    "disabledforeground": null,
+
     "width": 1,
 
     "column": 0,

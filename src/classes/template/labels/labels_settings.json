@@ -10,7 +10,7 @@
         "column": 0,
         "row": 0,
 
-        "sticky": "w",
+        "sticky": "e",
 
         "font_weight": "bold"
 
@@ -26,7 +26,7 @@
         "column": 0,
         "row": 1,
 
-        "sticky": "w"
+        "sticky": "e"
 
     },
 
@@ -40,7 +40,7 @@
         "column": 0,
         "row": 2,
 
-        "sticky": "w"
+        "sticky": "e"
 
     },
 
@@ -54,7 +54,7 @@
         "column": 0,
         "row": 3,
 
-        "sticky": "w"
+        "sticky": "e"
 
     },
 
@@ -68,7 +68,7 @@
         "column": 0,
         "row": 4,
 
-        "sticky": "w"
+        "sticky": "e"
 
     },
 
@@ -82,7 +82,7 @@
         "column": 0,
         "row": 5,
 
-        "sticky": "w"
+        "sticky": "e"
 
     },
 
@@ -96,7 +96,7 @@
         "column": 0,
         "row": 6,
 
-        "sticky": "w"
+        "sticky": "e"
 
     }
 

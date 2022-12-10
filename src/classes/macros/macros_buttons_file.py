@@ -52,7 +52,7 @@ class FileButtonMacros():
         button_output_select_template = self.template["button_output_select"]
         label_output_path_template = self.template["label_output_path"]
         obj_label_output_path = self.widgets["label_output_path"]
-        obj_text_output_path = self.widgets["text_output_path"]
+        obj_entry_output_path = self.widgets["entry_output_path"]
         obj_text_log = self.widgets["text_log"]
 
         # Get the path to the selected output file.
@@ -69,7 +69,10 @@ class FileButtonMacros():
             obj_label_output_path["text"] = label_output_path_template["text"]["value_if_true"]
 
             # Print the current output file path to the output path text widget.
-            print_to_text(file_full_path, obj_text_output_path, wipe_clean=True)
+            obj_entry_output_path["state"] = NORMAL
+            obj_entry_output_path.delete(0, END)
+            obj_entry_output_path.insert(0, file_full_path)
+            obj_entry_output_path["state"] = DISABLED
 
             # Clear the text displaying the notes log.
             print_to_text("", obj_text_log, wipe_clean=True)
@@ -97,7 +100,9 @@ class FileButtonMacros():
             obj_label_output_path["text"] = label_output_path_template["text"]["value_if_false"]
 
             # Clear the output path text widget.
-            print_to_text("", obj_text_output_path, wipe_clean=True)
+            obj_entry_output_path["state"] = NORMAL
+            obj_entry_output_path.delete(0, END)
+            obj_entry_output_path["state"] = DISABLED
 
             # Clear the text log.
             print_to_text("", obj_text_log, wipe_clean=True)

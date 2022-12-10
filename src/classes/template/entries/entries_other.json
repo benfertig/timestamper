@@ -1,5 +1,38 @@
 {
 
+    "entry_output_path": {
+
+        "str_key": "entry_output_path",
+
+        "initial_state": false,
+
+        "text": {
+            "linked_dict": "output",
+            "linked_attribute": "path"
+        },
+
+        "background": "white",
+        "foreground": "black",
+
+        "disabledbackground": "white",
+        "disabledforeground": "black",
+
+        "width": 29,
+
+        "column": 8,
+        "row": 2,
+
+        "columnspan": 3,
+        "rowspan": 2,
+
+        "padx": [2, 0],
+
+        "sticky": "new",
+
+        "font_size": 9
+
+    },
+
     "entry_rewind": {
 
         "str_key": "entry_rewind",
@@ -8,6 +41,12 @@
         "digits_only": true,
 
         "max_val": 99,
+
+        "background": "white",
+        "foreground": "black",
+
+        "disabledbackground": "white",
+        "disabledforeground": "black",
 
         "width": 2,
 
@@ -30,6 +69,12 @@
         "digits_only": true,
 
         "max_val": 99,
+
+        "background": "white",
+        "foreground": "black",
+
+        "disabledbackground": "white",
+        "disabledforeground": "black",
 
         "width": 2,
 
