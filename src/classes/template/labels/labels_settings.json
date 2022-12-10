@@ -1,0 +1,103 @@
+{
+
+    "label_button_messages": {
+
+        "str_key": "label_button_messages",
+        "window_str_key": "window_settings",
+
+        "text": "Button messages:",
+
+        "column": 0,
+        "row": 0,
+
+        "sticky": "w",
+
+        "font_weight": "bold"
+
+    },
+
+    "label_pause_settings": {
+
+        "str_key": "label_pause_settings",
+        "window_str_key": "window_settings",
+
+        "text": "Pause button",
+
+        "column": 0,
+        "row": 1,
+
+        "sticky": "w"
+
+    },
+
+    "label_play_settings": {
+
+        "str_key": "label_play_settings",
+        "window_str_key": "window_settings",
+
+        "text": "Play button",
+
+        "column": 0,
+        "row": 2,
+
+        "sticky": "w"
+
+    },
+
+    "label_stop_settings": {
+
+        "str_key": "label_stop_settings",
+        "window_str_key": "window_settings",
+
+        "text": "Stop button",
+
+        "column": 0,
+        "row": 3,
+
+        "sticky": "w"
+
+    },
+
+    "label_rewind_settings": {
+
+        "str_key": "label_rewind_settings",
+        "window_str_key": "window_settings",
+
+        "text": "Rewind button",
+
+        "column": 0,
+        "row": 4,
+
+        "sticky": "w"
+
+    },
+
+    "label_fast_forward_settings": {
+
+        "str_key": "label_fast_forward_settings",
+        "window_str_key": "window_settings",
+
+        "text": "Fast-forward button",
+
+        "column": 0,
+        "row": 5,
+
+        "sticky": "w"
+
+    },
+
+    "label_record_settings": {
+
+        "str_key": "label_record_settings",
+        "window_str_key": "window_settings",
+
+        "text": "Record button",
+
+        "column": 0,
+        "row": 6,
+
+        "sticky": "w"
+
+    }
+
+}

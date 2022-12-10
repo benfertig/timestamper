@@ -1,0 +1,30 @@
+{
+    "output": {
+        "path": null,
+        "file_encoding": "utf-8"
+    },
+    "pause": {
+        "message_enabled": false,
+        "message": "##### PAUSE #####"
+    },
+    "play": {
+        "message_enabled": false,
+        "message": "##### RESUME #####"
+    },
+    "stop": {
+        "message_enabled": true,
+        "message": "##### STOP #####"
+    },
+    "rewind": {
+        "message_enabled": false,
+        "message": "##### REWIND #####"
+    },
+    "fast_forward": {
+        "message_enabled": false,
+        "message": "##### FAST-FORWARD #####"
+    },
+    "record": {
+        "message_enabled": true,
+        "message": "##### START #####"
+    }
+}

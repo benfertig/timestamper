@@ -36,14 +36,12 @@ class TimestampingButtonMacros():
         # Make note of the fact that a timestamp has been set.
         self.timer.timestamp_set = True
 
-        # Set the timestamp to the current time.
-        obj_timestamp = self.widgets.mapping["label_timestamp"]
-        current_timestamp = self.timer.current_time_to_timestamp()
-        obj_timestamp["text"] = current_timestamp
+        # Set the timestamp to the timer's current reading.
+        obj_timestamp = self.widgets["label_timestamp"]
+        obj_timestamp["text"] = self.timer.current_time_to_timestamp()
 
         # Enable and disable the relevant buttons for when the timestamp button is pressed.
-        button_timestamp_template = self.template.mapping["button_timestamp"]
-        button_enable_disable_macro(button_timestamp_template, self.widgets)
+        button_enable_disable_macro(self.template["button_timestamp"], self.widgets)
 
     def button_clear_timestamp_macro(self):
         """This method will be executed when the "Clear timestamp" button is pressed."""
@@ -51,10 +49,9 @@ class TimestampingButtonMacros():
         # Make note of the fact that a timestamp has been cleared.
         self.timer.timestamp_set = False
 
-        # Set the timestamp text to the timer's current time.
-        obj_timestamp = self.widgets.mapping["label_timestamp"]
+        # Set the timestamp to the timer's current reading.
+        obj_timestamp = self.widgets["label_timestamp"]
         obj_timestamp["text"] = self.timer.current_time_to_timestamp()
 
         # Enable and disable the relevant buttons for when the clear timestamp button is pressed.
-        button_clear_timestamp_template = self.template.mapping["button_clear_timestamp"]
-        button_enable_disable_macro(button_clear_timestamp_template, self.widgets)
+        button_enable_disable_macro(self.template["button_clear_timestamp"], self.widgets)

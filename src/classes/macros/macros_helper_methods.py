@@ -38,7 +38,7 @@ def enable_button(button, original_color):
     # If 1) we are on a Mac, 2) the current button is a tkmacosx Button and
     # 3) the button has no text, then it will be hard to tell whether this
     # button is enabled unless we change its appearance. Therefore, the
-    # tkmocosx button's background would be changed to its original color here.
+    # tkmacosx button's background would be changed to its original color here.
     if platform == "darwin" and isinstance(button, MacButton) and not button.cget("text"):
         button["background"] = original_color
 
@@ -64,7 +64,7 @@ def disable_button(button, mac_disabled_color):
 def button_enable_disable_macro(button_template, widgets):
     """This method, which is called upon by several button macros, will enable and
     disable the buttons associated with the string keys from the "to_enable" and
-    "to_disable" attributes of a specific Button from the TimeStamperTemplate class."""
+    "to_disable" attributes of a specific button from the TimeStamperTemplate class."""
 
     # Enable the buttons stored in the button template's "to_enable" variable.
     for str_to_enable in button_template["to_enable"]:
@@ -72,12 +72,49 @@ def button_enable_disable_macro(button_template, widgets):
             original_color = widgets.original_colors[str_to_enable]
         else:
             original_color = None
-        enable_button(widgets.mapping[str_to_enable], original_color)
+        enable_button(widgets[str_to_enable], original_color)
 
     # Disable the buttons stored in the button template's "to_disable" variable.
     for str_to_disable in button_template["to_disable"]:
-        disable_button(widgets.mapping[str_to_disable], \
+        disable_button(widgets[str_to_disable], \
             button_template["mac_disabled_color"])
+
+
+def checkbutton_enable_disable_macro(checkbutton_template, widgets):
+    """This method, which is called upon by several checkbutton macros, will either
+    enable (if the user has just checked the checkbutton) or disable (if the user has
+    just unchecked the checkbutton) the widgets associated with the string keys from
+    the "to_enable_toggle" attribute of the template associated with checkbutton_str."""
+
+    # Store the checkbutton widget into a variable.
+    checkbutton = widgets[checkbutton_template["str_key"]]
+
+    # When a checkbutton is clicked, there may be some widgets that should
+    # be enabled or disabled regardless of whether that click checked or
+    # unchecked the checkbutton. Enable and disable any such widgets here.
+    button_enable_disable_macro(checkbutton_template, widgets)
+
+    # If this checkbutton is checked...
+    if checkbutton.variable.get() == 1:
+
+        # Record that this checkbutton is checked in this checkbutton's template.
+        checkbutton_template["is_checked_loaded_value"] = True
+
+        # Activate the relevant widgets for when this checkbutton is checked.
+        for str_to_enable in checkbutton_template["to_enable_toggle"]:
+            to_enable = widgets[str_to_enable]
+            to_enable["state"] = NORMAL
+
+    # If this checkbutton is unchecked...
+    else:
+
+        # Record that this checkbutton is unchecked in this checkbutton's template.
+        checkbutton_template["is_checked_loaded_value"] = False
+
+        # Deactivate the relevant widgets for when this checkbutton is unchecked.
+        for str_to_disable in checkbutton_template["to_enable_toggle"]:
+            to_disable = widgets[str_to_disable]
+            to_disable["state"] = DISABLED
 
 
 def print_to_text(to_print, text_obj, wipe_clean=False):
@@ -94,39 +131,61 @@ def print_to_text(to_print, text_obj, wipe_clean=False):
     text_obj["state"] = initial_state
 
 
-def print_to_file(to_print, file_path, file_encoding="utf-8"):
+def print_to_file(to_print, file_path, file_encoding="utf-8", access_mode="a+"):
     """This method prints the value stored in to_print to the file specified in file_path."""
 
     if file_path:
-        with open(file_path, "a+", encoding=file_encoding) as out_file:
+        with open(file_path, access_mode, encoding=file_encoding) as out_file:
             out_file.write(to_print)
 
 
-def record_or_stop(template, button_template, widgets, timestamp_method, button_method):
-    """This method is called by button_record_macro and button_stop_macro in
-    macros_buttons_media.py. The functions performed by both the record and stop buttons
-    are very similar, so their procedures have been condensed down to a single method
-    here, and different parameters are passed depending on which button was pressed."""
+def print_button_message(button_template, template, settings, widgets, timer):
+    """This method, which is called upon by several button macros, uses a
+    button's template to determine whether a message should be printed when
+    the button is pressed. If a determination is made to print a message, then
+    the button's message will be printed to both the log and the output file."""
 
-    # Enable and disable the relevant buttons for when the record/stop button is pressed.
-    button_enable_disable_macro(button_template, widgets)
+    # Determine whether a potential message exists for this button.
+    if "print_on_press" in button_template:
 
-    # Get the currently displayed time from the timer and create a timestamp from it.
-    current_timestamp = timestamp_method()
+        should_print = True
+        print_on_press_val = button_template["print_on_press"]
 
-    # Add the record/stop message to the timestamped note.
-    to_write = f"{current_timestamp} {button_template['print_on_press']}\n"
+        # If the text that gets printed when this button is
+        # pressed is based on attributes stored elsewhere.
+        if isinstance(print_on_press_val, dict):
 
-    # Print the message that the timer has begun recording/been stopped
-    # with the current timestamp to the screen.
-    print_to_text(to_write, widgets.mapping["text_log"])
+            print_on_press_dict = print_on_press_val
+            linked_dict_str = print_on_press_dict["linked_dict"]
 
-    # Print the message that the timer has begun recording/been stopped
-    # with the current timestamp to the output file.
-    print_to_file(to_write, template.output_path, template.output_file_encoding)
+            # Determine whether this button's message information
+            # is stored in the settings or in the template.
+            if linked_dict_str in settings.user:
+                linked_dict = settings[linked_dict_str]
+            else:
+                linked_dict = template[linked_dict_str]
 
-    # Begin/stop the timer.
-    button_method()
+            # Determine the button's message.
+            print_message_key = print_on_press_dict["print_message_attribute"]
+            print_on_press_val = linked_dict[print_message_key]
+
+            # Determine whether the button's associated message should be printed.
+            if "print_bool_attribute" in print_on_press_dict:
+                print_bool_key = print_on_press_dict["print_bool_attribute"]
+                should_print = linked_dict[print_bool_key]
+
+        if should_print:
+
+            # Add the current timestamp to the message that will be printed.
+            to_print = f"{timer.current_time_to_timestamp()} {print_on_press_val}\n"
+
+            # Retrieve the putput path settings.
+            output_settings = settings["output"]
+
+            # Print the button's message, along with the current
+            # timestamp, to the notes log and the output file.
+            print_to_text(to_print, widgets["text_log"])
+            print_to_file(to_print, output_settings["path"], output_settings["file_encoding"])
 
 
 def rewind_or_fast_forward(user_input, is_rewind, adjust_timer_method):
@@ -139,9 +198,9 @@ def rewind_or_fast_forward(user_input, is_rewind, adjust_timer_method):
     try:
         adjust_amount = int(user_input)
 
-    # Do not rewind/fast-forward the timer if the requested rewind amount is not a number.
-    # This should never happen because we have restricted the rewind/fast-forward
-    # amount entry field to digits, but it never hurts to add a failsafe).
+    # Do not rewind/fast-forward the timer if the requested rewind/fast-forward
+    # amount is not a number (this should never happen because we have restricted the
+    # rewind/fast-forward entry field to digits, but it never hurts to add a failsafe).
     except ValueError:
         return
 
@@ -188,10 +247,9 @@ def store_timestamper_output(output_file_paths, output_file_encoding="utf-8"):
                 elif on_header:
                     header.append(line)
 
-                # If the current line is neither timestamped nor a part of the header,
-                # then add the current line to the note that is currently being
-                # generated (this should only occur when we have a non-timestamped note
-                # that we want to group with a timestamped note that appears above it).
+                # If the current line is neither timestamped nor a part of the header, then add
+                # the current line to the note that is currently being generated (this should only
+                # occur when we have a non-timestamped note that appears below a timestamped note).
                 else:
                     cur_note += line
 

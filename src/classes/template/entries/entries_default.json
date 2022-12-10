@@ -2,13 +2,21 @@
 
     "window_str_key": "window_main",
 
-    "initial_state": "NORMAL",
+    "initial_state": true,
+
+    "digits_only": false,
 
     "text": "",
+    "text_loaded_value": "",
+
+    "linked_setting": null,
 
     "message_file_name": null,
 
-    "max_val": 99,
+    "max_val": null,
+
+    "to_enable": [],
+    "to_disable": [],
 
     "background": null,
     "foreground": null,

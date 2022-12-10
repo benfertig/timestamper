@@ -25,7 +25,7 @@
 
         "str_key": "button_clear_timestamp",
 
-        "initial_state": "DISABLED",
+        "initial_state": false,
 
         "image_file_name": "clear_timestamp.png",
 

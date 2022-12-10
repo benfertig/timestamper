@@ -1,0 +1,78 @@
+{
+
+    "button_settings": {
+
+        "str_key": "button_settings",
+
+        "image_file_name": "gear.png",
+
+        "column": 19,
+        "row": 0,
+
+        "padx": [0, 5],
+        "pady": [5, 0],
+
+        "sticky": "nsew"
+
+    },
+
+    "button_reset_to_default": {
+
+        "str_key": "button_reset_to_default",
+        "window_str_key": "window_settings",
+
+        "text": "Reset to default",
+
+        "to_disable": ["button_reset_to_default"],
+
+        "column": 2,
+        "row": 7,
+
+        "pady": [0, 5],
+
+        "sticky": "nsew"
+
+    },
+
+    "button_cancel_changes": {
+
+        "str_key": "button_cancel_changes",
+        "window_str_key": "window_settings",
+
+        "initial_state": false,
+
+        "text": "Cancel changes",
+
+        "to_disable": ["button_cancel_changes"],
+
+        "column": 3,
+        "row": 7,
+
+        "pady": [0, 5],
+
+        "sticky": "nsew"
+
+    },
+
+    "button_save_settings": {
+
+        "str_key": "button_save_settings",
+        "window_str_key": "window_settings",
+
+        "initial_state": false,
+
+        "text": "Save settings",
+
+        "to_disable": ["button_cancel_changes", "button_save_settings"],
+
+        "column": 4,
+        "row": 7,
+
+        "padx": [0, 5],
+        "pady": [0, 5],
+
+        "sticky": "nsew"
+
+    }
+
+}

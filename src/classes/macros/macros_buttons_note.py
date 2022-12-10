@@ -27,39 +27,37 @@ from .macros_helper_methods import print_to_text, print_to_file
 class NoteButtonMacros():
     """This class stores all of the macros that execute when note buttons are pressed."""
 
-    def __init__(self, template, widgets):
-        self.template = template
+    def __init__(self, settings, widgets):
+        self.settings = settings
         self.widgets = widgets
 
     def button_cancel_note_macro(self):
         """This method will be executed when the "Cancel note" button is pressed."""
 
         # Clear the current note from the input text box.
-        self.widgets.mapping["text_current_note"].delete(1.0, END)
+        print_to_text("", self.widgets["text_current_note"], wipe_clean=True)
 
     def button_save_note_macro(self):
         """This method will be executed when the "Save note" button is pressed."""
 
         # Get the current timestamp displayed next to the input text box.
-        current_timestamp = self.widgets.mapping["label_timestamp"]["text"]
-
-        # Store the output path.
-        output_path = self.template.output_path
+        current_timestamp = self.widgets["label_timestamp"]["text"]
 
         # Get the current text in the input text box.
-        obj_current_note = self.widgets.mapping["text_current_note"]
+        obj_current_note = self.widgets["text_current_note"]
         current_note = obj_current_note.get(1.0, END)
 
         # Clear the current text in the input text box.
-        obj_current_note.delete(1.0, END)
+        print_to_text("", obj_current_note, wipe_clean=True)
 
         # Generate the note that should be printed to the log and the output file.
         to_write = f"{current_timestamp} {current_note}"
 
         # Print the current timestamp along with the current
         # text from the input text box to the screen.
-        print_to_text(to_write, self.widgets.mapping["text_log"])
+        print_to_text(to_write, self.widgets["text_log"])
 
         # Print the current timestamp along with the current
         # text from the input text box to the output file.
-        print_to_file(to_write, output_path, self.template.output_file_encoding)
+        print_to_file(to_write, self.settings["output"]["path"], \
+            self.settings["output"]["file_encoding"])

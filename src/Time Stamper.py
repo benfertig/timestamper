@@ -1,5 +1,5 @@
 #-*- coding: utf-8 -*-
-"""A person who wants to run the Time Stamper program should run this file in Python."""
+"""A person who wants to run the Time Stamper program should run this file in Python 3."""
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -20,8 +20,6 @@
 # Contact: github.cqrde@simplelogin.com
 
 from classes.time_stamper import TimeStamper
-from classes.template.template import TimeStamperTemplate
 
-template = TimeStamperTemplate()
-tstmpr = TimeStamper(template)
+tstmpr = TimeStamper()
 tstmpr.run()

@@ -1,10 +1,12 @@
 #-*- coding: utf-8 -*-
-"""This module contains the Widgetsclass which contains methods that create various Tkinter widgets
-as well as a mapping of widgets to their string keys. This allows for easy reference of widgets.
-Also see the "widgets_helper_methods.py" module for additional methods associated with widgets."""
+"""This module contains the Widgets class which contains methods associated with
+various Tkinter widgets as well as a mapping of widgets to their string keys. This
+allows for easy reference of widgets. Also see the "widgets_creation_methods.py" and
+"widgets_helper_methods.py" modules for additional methods associated with widgets."""
 
-from .widgets_helper_methods import create_window, create_image, \
-    create_button, create_entry, create_label, create_text
+from .widgets_creation_methods import create_button, \
+    create_checkbutton, create_entry, create_label, create_text
+from .widgets_helper_methods import create_window, determine_widget_text
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -26,175 +28,111 @@ from .widgets_helper_methods import create_window, create_image, \
 
 
 class Widgets():
-    """This class stores methods that create various Tkinter widgets based on
-    templates. Widgets can be referenced based on their string keys. For example,
-    to access the pause button, one would reference Widgets.mapping["button_pause"]."""
+    """This class contains methods associated with various Tkinter widgets as
+    well as a mapping of widgets to their string keys. Widgets can be referenced
+    based on their string keys. For example, to access the pause button, one would
+    reference Widgets["button_pause"]. Also see the "widgets_creation_methods.py" and
+    "widgets_helper_methods.py" modules for additional methods associated with widgets."""
 
-    def __init__(self, template_mapping, images_dir, messages_dir, main_window_str):
+    def __init__(self, template, settings, timer, main_window_str):
 
-        self.template_mapping = template_mapping
-        self.images_dir = images_dir
-        self.messages_dir = messages_dir
+        self.template = template
+        self.settings = settings
         self.main_window_str = main_window_str
-
-        self.mapping = {}
         self.original_colors = {}
+        self.determine_widget_text = determine_widget_text
 
-    def create_entire_window(self, window_str, button_macro_mapping=None, \
-        close_window_macro=None, macro_args=()):
-        """This method creates an entire window with all of its widgets. For
-        this method to work properly, the widget templates must already be mapped
-        to the window's string key in the "template_window_mapping" dictionaries
-        in "buttons.py", "entries.py", "labels.py" and "texts.py"."""
+        self.mapping = {"time_stamper_timer": timer}
 
-        # Create the window.
-        window_template = self.template_mapping[window_str]
-        self.mapping[window_template["str_key"]] = \
-            create_window(window_template, self.main_window_str, self.images_dir)
+    def __getitem__(self, item):
+        return self.mapping[item]
 
-        # Create the widgets that should appear in the current window.
-        for mapping_str in ("buttons", "entries", "labels", "texts"):
-            widget_mapping = self.template_mapping[mapping_str]
-            if window_str in widget_mapping:
-                widget_templates = widget_mapping[window_str]
-                self.create_widgets(mapping_str, widget_templates, button_macro_mapping)
+    def create_widgets(self, window_str, macros=None):
+        """This method creates all of the widgets that are meant
+        to appear in the window indicated by window_str."""
 
-        window = self.mapping[window_str]
+        widget_window = self[window_str]
 
-        # If a function should be executed when this new window is closed, set that function here.
-        if close_window_macro:
-            macro_args = (window,) + macro_args
-            window.protocol("WM_DELETE_WINDOW", lambda: close_window_macro(*macro_args))
+        # Create the buttons.
+        for w_template in self.template["buttons"][window_str]:
+            widget_macro = macros[w_template["str_key"]] \
+                if w_template["str_key"] in macros.mapping else None
+            widget, widget_image, button_orig_color = \
+                create_button(self.template, self.settings, w_template, widget_window, widget_macro)
+            self.original_colors[w_template["str_key"]] = button_orig_color
+            if widget_image:
+                self.mapping[w_template["image_file_name"]] = widget_image
+            self.mapping[w_template["str_key"]] = widget
+
+        # Create the checkbuttons.
+        for w_template in self.template["checkbuttons"][window_str]:
+            widget_macro = macros[w_template["str_key"]] \
+                if w_template["str_key"] in macros.mapping else None
+            widget = create_checkbutton(self.template, \
+                self.settings, w_template, widget_window, widget_macro)
+            self.mapping[w_template["str_key"]] = widget
+
+        # Create the entries.
+        for w_template in self.template["entries"][window_str]:
+            widget = create_entry(self.template, self.settings, w_template, widget_window, self)
+            self.mapping[w_template["str_key"]] = widget
+
+        # Create the labels.
+        for w_template in self.template["labels"][window_str]:
+            widget, widget_image = \
+                create_label(self.template, self.settings, w_template, widget_window)
+            if widget_image:
+                self.mapping[w_template["image_file_name"]] = widget_image
+            self.mapping[w_template["str_key"]] = widget
+
+        # Create the texts.
+        for w_template in self.template["texts"][window_str]:
+            widget = create_text(self.template, self.settings, w_template, widget_window)
+            self.mapping[w_template["str_key"]] = widget
+
+    def clear_all_window_widgets(self, window_str):
+        """This method destroys all of the widgets within a window (but not the window itself)."""
+
+        for widget_type in ("buttons", "checkbuttons", "entries", "labels", "texts"):
+            for widget_template in self.template[widget_type][window_str]:
+                widget_str_key = widget_template["str_key"]
+                self.mapping[widget_str_key].destroy()
+
+    def refresh_window(self, window_str, macros=None):
+        """This method reloads all of the widgets in a window without
+        destroying the current window or creating a new one."""
+
+        # Destroy all of the widgets in the current window.
+        self.clear_all_window_widgets(window_str)
+
+        # Recreate all of the current window's widgets.
+        self.create_widgets(window_str, macros)
+
+    def create_entire_window(self, window_str, macros=None, close_window_macro=None, macro_args=()):
+        """This method creates an entire window with all of its widgets
+        based on the string key for a particular window (window_str_key)."""
+
+        # If the window already exists, simply bring it to the front instead of recreating it.
+        if window_str in self.mapping and self.mapping[window_str].winfo_exists():
+
+            window = self.mapping[window_str]
+            window.lift()
+
+        else:
+
+            # Create the window.
+            window_template = self.template[window_str]
+            window = create_window(window_template, self.main_window_str, self.template.images_dir)
+            self.mapping[window_str] = window
+
+            # Create the widgets that should appear in the current window.
+            self.create_widgets(window_str, macros)
+
+            # If a function should be executed when this
+            # new window is closed, set that function here.
+            if close_window_macro:
+                macro_args = (window,) + macro_args
+                window.protocol("WM_DELETE_WINDOW", lambda: close_window_macro(*macro_args))
 
         # Return the window object.
         return window
-
-    def create_widgets(self, mapping_str, widget_templates, button_macro_mapping=None):
-        """This method creates all of the widgets passed in widget_templates. The
-        argument mapping_str tells the method which widget creation method to call."""
-
-        if mapping_str == "buttons":
-            self.create_images(widget_templates)
-            self.create_buttons(widget_templates, button_macro_mapping)
-        elif mapping_str == "entries":
-            self.create_entries(widget_templates)
-        elif mapping_str == "labels":
-            self.create_images(widget_templates)
-            self.create_labels(widget_templates)
-        elif mapping_str == "texts":
-            self.create_texts(widget_templates)
-
-    def create_images(self, widget_templates):
-        """This method creates all of the images specified by the templates in
-        widget_templates, searching for images in the directory provided by images_dir."""
-
-        images = {}
-
-        for w_template in widget_templates:
-            if "image_file_name" in w_template:
-                image = create_image(w_template, self.images_dir)
-                self.mapping[w_template["image_file_name"]] = image
-                images[w_template["image_file_name"]] = image
-
-        return images
-
-    def create_buttons(self, button_templates, button_macro_mapping):
-        """This method creates all of the buttons specified by the templates in
-        button_templates, searching for images in the directory provided by images_dir."""
-
-        buttons = {}
-
-        for b_template in button_templates:
-
-            # Retrieve the window and image objects for the current button.
-            button_window = self.mapping[b_template["window_str_key"]]
-            button_image = self.mapping[b_template["image_file_name"]]
-
-            # Retrieve the macro for the current button.
-            button_macro = button_macro_mapping[b_template["str_key"]]
-
-            # Create the button.
-            button, button_orig_color = create_button(b_template, \
-                button_window, button_macro, self.messages_dir, button_image)
-
-            # Map the Button object's initial background to the Button's string key so that the
-            # Button's background can be reset to this color upon reactivation (currently, this
-            # change applies only to Buttons from the tkmacosx class with images but no text,
-            # since there is no easy way to tell whether these buttons are activated, so we change
-            # the button's color upon activation/deactivation as a visual aid to the user). Even
-            # when we pass None as the argument for "background" in the Button's constructor, the
-            # background is set to a specific color, so we should save the explicit background
-            # color because we will need to reference this color if we want to revert to it later.
-            self.original_colors[b_template["str_key"]] = button_orig_color
-
-            # Map the Button object to the Button's string
-            # key so that the Macros class can reference it.
-            self.mapping[b_template["str_key"]] = button
-
-            buttons[b_template["str_key"]] = button
-
-        return buttons
-
-    def create_entries(self, entry_templates):
-        """This method creates all of the entries specified by the templates in entry_templates."""
-
-        entries = {}
-
-        for e_template in entry_templates:
-
-            # Retrieve the window and image objects for the current entry.
-            entry_window = self.mapping[e_template["window_str_key"]]
-
-            # Create the entry.
-            entry = create_entry(e_template, entry_window, self.messages_dir)
-
-            # Map the Entry object to the Entry's string key
-            # so that the Macros class can reference it.
-            self.mapping[e_template["str_key"]] = entry
-
-            entries[e_template["str_key"]] = entry
-
-        return entries
-
-    def create_labels(self, label_templates):
-        """This method creates all of the labels specified by the templates in label_templates."""
-
-        labels = {}
-
-        for l_template in label_templates:
-
-            # Retrieve the window and image objects for the current label.
-            label_window = self.mapping[l_template["window_str_key"]]
-            label_image = self.mapping[l_template["image_file_name"]]
-
-            # Create the label.
-            label = create_label(l_template, label_window, self.messages_dir, label_image)
-
-            # Map the Label object to the Label's string
-            # key so that the Macros class can reference it.
-            self.mapping[l_template["str_key"]] = label
-
-            labels[l_template["str_key"]] = label
-
-        return labels
-
-    def create_texts(self, text_templates):
-        """This method creates all of the texts specified by the templates in text_templates."""
-
-        texts = {}
-
-        for t_template in text_templates:
-
-            # Retrieve the window and image objects for the current text.
-            text_window = self.mapping[t_template["window_str_key"]]
-
-            # Create the text.
-            text = create_text(t_template, text_window, self.messages_dir)
-
-            # Map the Text object to the Text's string key
-            # so that the Macros class can reference it.
-            self.mapping[t_template["str_key"]] = text
-
-            texts[t_template["str_key"]] = text
-
-        return texts

@@ -3,7 +3,7 @@
 that are executed when a media button in the Time Stamper program is pressed."""
 
 from .macros_helper_methods import button_enable_disable_macro, \
-    record_or_stop, rewind_or_fast_forward
+    print_button_message, rewind_or_fast_forward
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -27,60 +27,73 @@ from .macros_helper_methods import button_enable_disable_macro, \
 class MediaButtonMacros():
     """This class stores all of the macros that execute when media buttons are pressed."""
 
-    def __init__(self, template, widgets, timer):
+    def __init__(self, template, settings, widgets, timer):
         self.template = template
+        self.settings = settings
         self.widgets = widgets
         self.timer = timer
+
+    def media_button_macro(self, button_template):
+        """This method is called on by the macros for the pause, play, stop, rewind,
+        fast-forward and record buttons. Since similar processes are executed for
+        all of these buttons, their shared procedures have been condensed down to
+        this method, where the arguments specific to each button can be passed."""
+
+        # Enable and disable the relevant widgets for when this button is pressed.
+        button_enable_disable_macro(button_template, self.widgets)
+
+        # If the user has set a message to be printed
+        # when this button is pressed, print that message.
+        print_button_message(button_template, self.template, \
+            self.settings, self.widgets, self.timer)
 
     def button_pause_macro(self):
         """This method will be executed when the pause button is pressed."""
 
-        # Enable and disable the relevant buttons for when the pause button is pressed.
-        button_pause_template = self.template.mapping["button_pause"]
-        button_enable_disable_macro(button_pause_template, self.widgets)
+        self.media_button_macro(self.template["button_pause"])
 
-        # Pause the timer.
+        # Stop the timer.
         self.timer.pause()
 
     def button_play_macro(self):
         """This method will be executed when the play button is pressed."""
 
-        # Enable and disable the relevant buttons for when the play button is pressed.
-        button_play_template = self.template.mapping["button_play"]
-        button_enable_disable_macro(button_play_template, self.widgets)
+        self.media_button_macro(self.template["button_play"])
 
-        # Resume the timer.
+        # Start the timer.
         self.timer.play()
 
     def button_stop_macro(self):
         """This method will be executed when the stop button is pressed."""
 
-        # Enable and disable the relevant buttons, print a timestamped note indiciating
-        # the end of a recording to the log and the output file, and stop the timer.
-        button_stop_template = self.template.mapping["button_stop"]
-        record_or_stop(self.template, button_stop_template, self.widgets, \
-            self.timer.current_time_to_timestamp, self.timer.pause)
+        self.media_button_macro(self.template["button_stop"])
+
+        # Stop the timer.
+        self.timer.pause()
 
     def button_rewind_macro(self):
         """This method will be executed when the rewind button is pressed."""
 
+        self.media_button_macro(self.template["button_rewind"])
+
         # Rewind the timer the specified number of seconds.
-        rewind_input = self.widgets.mapping["entry_rewind"].get()
+        rewind_input = self.widgets["entry_rewind"].get()
         rewind_or_fast_forward(rewind_input, True, self.timer.adjust_timer)
 
     def button_fast_forward_macro(self):
         """This method will be executed when the fast-forward button is pressed."""
 
+        self.media_button_macro(self.template["button_fast_forward"])
+
         # Fast-forward the timer the specified number of seconds.
-        fast_forward_input = self.widgets.mapping["entry_fast_forward"].get()
+        fast_forward_input = self.widgets["entry_fast_forward"].get()
         rewind_or_fast_forward(fast_forward_input, False, self.timer.adjust_timer)
 
     def button_record_macro(self):
         """This method will be executed when the record
         button is pressed, and will begin the timer."""
 
-        # Enable and disable the relevant buttons, print a timestamped note indiciating
-        # the beginning of a recording to the log and the output file, and stop the timer.
-        button_record_template = self.template.mapping["button_record"]
-        record_or_stop(self.template, button_record_template, self.widgets, \
-            self.timer.current_time_to_timestamp, self.timer.play)
+        self.media_button_macro(self.template["button_record"])
+
+        # Start the timer.
+        self.timer.play()

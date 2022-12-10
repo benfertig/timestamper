@@ -2,11 +2,14 @@
 
     "window_str_key": "window_main",
 
+    "initial_state": true,
+
     "text": null,
 
-    "initial_state": "ENABLED",
-
     "message_file_name": null,
+
+    "background": null,
+    "foreground": null,
 
     "width": 1,
     "height": 1,

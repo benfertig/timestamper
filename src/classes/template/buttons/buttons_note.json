@@ -30,7 +30,7 @@
 
         "str_key": "button_save_note",
 
-        "initial_state": "DISABLED",
+        "initial_state": false,
 
         "text": "Save note",
 

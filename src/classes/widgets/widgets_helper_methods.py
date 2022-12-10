@@ -2,13 +2,9 @@
 """This module contains additional methods that the widgets module relies on."""
 
 from json import load
-from os import path
+from os.path import join, splitext
 from sys import platform
-from tkinter import DISABLED, NORMAL, END, Button, Entry, font, \
-    Grid, Label, PhotoImage, StringVar, Text, Tk, Toplevel
-
-if platform == "darwin":
-    from tkmacosx import Button as MacButton
+from tkinter import DISABLED, NORMAL, font, Grid, PhotoImage, Tk, Toplevel
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -29,32 +25,59 @@ if platform == "darwin":
 # Contact: github.cqrde@simplelogin.com
 
 
-def entry_value_limit(entry_text, max_val):
+def entry_helper_method(entry_text, entry_template, widgets):
     """This method prevents any non-numerical characters from being entered
     into an entry and also sets the maximum value of that entry."""
 
+    max_val = entry_template["max_val"]
+
     if len(entry_text.get()) > 0:
 
-        # Remove any non-digits from the entry.
-        try:
-            int(entry_text.get()[-1])
-        except ValueError:
-            entry_text.set(entry_text.get()[:-1])
+        # If this entry should contain only digits...
+        if entry_template["digits_only"]:
 
-        # Remove any digits from the entry that put the entry over max_val.
-        if len(entry_text.get()) > 0:
-            if int(entry_text.get()) > max_val:
+            # Remove any non-digits from the entry.
+            try:
+                int(entry_text.get()[-1])
+            except ValueError:
                 entry_text.set(entry_text.get()[:-1])
 
+            # Remove any digits from the entry that put the entry over max_val.
+            if len(entry_text.get()) > 0:
+                if int(entry_text.get()) > max_val:
+                    entry_text.set(entry_text.get()[:-1])
 
-def determine_widget_text(widget_template, messages_dir):
-    """There are different ways that a widget's text can be set. Sometimes, the widget's text
-    is stored in a file. Other times, the widget's text is stored in its template's "text"
-    key. This method determines where to find the widget's text and returns that text."""
+    # Enable and disable the relevant buttons for when the entry's text is edited.
+    for str_to_enable in entry_template["to_enable"]:
+        widgets[str_to_enable]["state"] = NORMAL
+    for str_to_disable in entry_template["to_disable"]:
+        widgets[str_to_disable]["state"] = DISABLED
+
+    # Save the entry's updated text in the entry's template.
+    entry_template["text_loaded_value"] = entry_text.get()
+
+
+def determine_widget_text(widget_template, template, settings):
+    """There are different ways that a widget's text can be set. The widget's text can be
+    stored in a file, in its template's "text" key, or be referenced from a setting or another
+    template. This method determines where to find the widget's text and returns that text."""
 
     # If there is a file associated with this widget,
     # determine the widget's initial text using that file.
     if widget_template["message_file_name"] is not None:
+
+        # If there is both a non-empty "message_file_name" as well as a non-empty "text"
+        # attribute for this widget template, then we must decide which of these values
+        # to set the widget's text to. In such cases, this program defaults to the
+        # "message_file_name" attribute, instead of the "text" attribute. However, it is
+        # not consistent with this program's expectations to have a non-empty value for both
+        # "message_file_name" and "text" (at most, only one of these attributes should be
+        # non-empty), so a warning message will be printed to the terminal if this is the case.
+        # The reason that this program does not expect both "message_file_name" and "text" to
+        # be non-empty is because "text" will be ignored if "message_file_name" is non-empty,
+        # which may cause confusion for the programmer as it may lead them to wonder why their
+        # custom entered value for "text" is not displaying in the Time Stamper program under
+        # a circumstance where they also have a non-empty value for "message_file_name".
         if widget_template["text"] is not None:
             print(f"\nWARNING for template \"{widget_template['str_key']}\":\n" \
                 "A template's \"text\" and \"message_file_name\" attributes should "\
@@ -64,65 +87,90 @@ def determine_widget_text(widget_template, messages_dir):
                 f"\"{widget_template['message_file_name']}\", as opposed to the information " \
                 "stored in this template's \"text\" attribute " \
                 f"(i.e., \"{widget_template['text']}\").\n")
-        message_file_loc = path.join(messages_dir, widget_template["message_file_name"])
+
+        # Open the file containing the widget's text.
+        message_file_loc = join(template.messages_dir, widget_template["message_file_name"])
         message_encoding = widget_template["message_file_encoding"]
         with open(message_file_loc, "r", encoding=message_encoding) as message_file:
 
-            # If the file associated with this widget is a json file, set the widget's initial
-            # text to the value paired with the key asssociated with the initial message.
-            if path.splitext(message_file_loc)[1] == ".json":
+            # If the file associated with the widget is a JSON file, set the widget's
+            # initial text to the value (from the JSON) that is paired with the key
+            # (from the JSON) that is asssociated with the widget's initial message.
+            if splitext(message_file_loc)[1] == ".json":
                 json_text = load(message_file)
                 widget_template["loaded_message_text"] = json_text
                 widget_text = json_text[widget_template["json_first_message_key"]]
+                return widget_text
 
-            # If the file associated with this widget is not a json file,
+            # If the file associated with this widget is not a JSON file,
             # set the widget's initial text to the exact reading of the file.
-            else:
-                widget_text = message_file.read()
-                widget_template["loaded_message_text"] = widget_text
+            widget_text = message_file.read()
+            widget_template["loaded_message_text"] = widget_text
+            return widget_text
 
-    # If there is no file associated with this widget, set the widget's initial text
-    # to the widget template's "text" attribute (unless the "text" attribute is None,
+    # If this widget's initial text is conditional on another
+    # attribute, retrieve the value of the linked attribute.
+    elif isinstance(widget_template["text"], dict):
+
+        widget_text = determine_widget_attribute(widget_template, "text", template, settings)
+        return widget_text if widget_text else ""
+
+    # If there is no file associated with this widget and this widget's text
+    # is not conditional on another attribute, set this widget's initial text
+    # to its template's "text" attribute (unless the "text" attribute is None,
     # in which case you would set the widget's initial text to an empty string).
-    elif widget_template["text"] is None:
-        widget_text = ""
     else:
-        widget_text = widget_template["text"]
-
-    return widget_text
+        return "" if widget_template["text"] is None else widget_template["text"]
 
 
-def determine_widget_initial_state(widget_template):
-    """This method determines what a widget's initial state should be. Since the widget templates
-    are stored in JSON files, we cannot store the Tkinter states (i.e., NORMAL and DISABLED) as
-    values in those JSON files. Instead, we must represent a widget's initial state as a string
-    (e.g., 'NORMAL' or 'DISABLED'), so this method determines a widget's initial state based on the
-    string stored in the widget template's 'initial_state' JSON key and then returns that state."""
+def determine_widget_attribute(widget_template, attribute_str, template, settings):
+    """This method determines what a particular attribute (indicated by state_str) of a widget
+    should be set to. Sometimes, a widget's attribute is stored directly in the value associated
+    with a key (state_str) in its template. Other times, the attribute for the widget is associated
+    with a value stored in the settings or in another template. In either case, this method
+    will locate the correct setting for an attribute and return the value of that setting."""
 
-    if widget_template["initial_state"] == "NORMAL":
-        return NORMAL
-    if widget_template["initial_state"] == "DISABLED":
-        return DISABLED
-    return widget_template["initial_state"]    
+    state = widget_template[attribute_str]
+
+    # Trace the linked state back to the source reference.
+    while isinstance(state, dict):
+
+        linked_dict = state["linked_dict"]
+        linked_attribute = state["linked_attribute"]
+        dict_to_reference = settings if linked_dict in settings.user else template
+        state = dict_to_reference[linked_dict][linked_attribute]
+
+    if isinstance(widget_template[attribute_str], dict):
+
+        # If we should return a value that is not the linked
+        # value, determine that value here and return it.
+        if state and "value_if_true" in widget_template[attribute_str]:
+            return widget_template[attribute_str]["value_if_true"]
+        if not state and "value_if_false" in widget_template[attribute_str]:
+            return widget_template[attribute_str]["value_if_false"]
+
+    # Return the exact value of the linked state if a custom value was not set.
+    return state
+
 
 def create_font(widget_template):
     """This method creates a widget's font based on its template."""
 
-    # On Mac computers, text shows up a bit smaller than on Windows computers,
-    # so we should make text a bit larger on Macs to compensate for this.
-    if platform == "darwin":
-        font_size = widget_template["font_size"] + 2
-    else:
-        font_size = widget_template["font_size"]
+    # Tkinter text shows up a bit smaller on Mac computers compared to Windows
+    # computers. We compensate for this by making text a bit larger on Macs.
+    font_size = widget_template["font_size"] + 2 \
+        if platform == "darwin" else widget_template["font_size"]
 
     return font.Font(family=widget_template["font_family"], \
         size=font_size, weight=widget_template["font_weight"], \
-        slant=widget_template["font_slant"], underline=widget_template["font_underline"], \
+        slant=widget_template["font_slant"], \
+        underline=widget_template["font_underline"], \
         overstrike=widget_template["font_overstrike"])
 
 
 def grid_widget(widget, widget_template):
     """This method grids a widget based on its template."""
+
     widget.grid(column=widget_template["column"], row=widget_template["row"], \
         columnspan=widget_template["columnspan"], rowspan=widget_template["rowspan"], \
         padx=widget_template["padx"], pady=widget_template["pady"], \
@@ -133,12 +181,14 @@ def grid_widget(widget, widget_template):
 def create_window(window_template, main_window_str, images_dir):
     """This method creates the main window for the Time Stamper program."""
 
-    # Create the main window and set its characteristics.
+    # If we are creating the main window, it should be an instance of tkinter.Tk.
+    # Otherwise, the window should be an instance of tkinter.Toplevel.
     if window_template["str_key"] == main_window_str:
         window = Tk()
     else:
         window = Toplevel()
 
+    # Set the title, dimensions, background and foreground of the window.
     window.title(window_template["title"])
     if window_template["width"] is not None and window_template["height"] is not None:
         window.geometry(f"{window_template['width']}x{window_template['height']}")
@@ -153,7 +203,7 @@ def create_window(window_template, main_window_str, images_dir):
         icon_file_name = window_template["icon_windows"]
 
     # Set the main window icon.
-    window.iconbitmap(path.join(images_dir, icon_file_name))
+    window.iconbitmap(join(images_dir, icon_file_name))
 
     # Configure the main window's columns.
     for column_num in range(window_template["num_columns"]):
@@ -171,125 +221,7 @@ def create_image(obj_template, images_dir):
 
     # Return a PhotoImage only if there is an image associated with the object.
     if "image_file_name" in obj_template and obj_template["image_file_name"]:
-        return PhotoImage(file=path.join(images_dir, obj_template["image_file_name"]))
+        return PhotoImage(file=join(images_dir, obj_template["image_file_name"]))
 
     # If there is no image associated with the object, return None.
     return None
-
-
-def create_button(button_template, button_window, button_macro, messages_dir, button_image):
-    """This method creates a Button object for the Time Stamper program."""
-
-    # Create the Button's font.
-    button_font = create_font(button_template)
-
-    # Determine whether we should use the Button class from tkmacosx instead of tkinter.
-    button_class = Button
-    button_background = button_template["background"]
-    button_foreground = button_template["foreground"]
-    button_has_color = button_background is not None or button_foreground is not None
-    if platform == "darwin" and (button_has_color or not button_template["text"]):
-        button_class = MacButton
-
-    # Determine what the button's initial text should be.
-    button_text = determine_widget_text(button_template, messages_dir)
-
-    # Determine the button's initial state
-    initial_state = determine_widget_initial_state(button_template)
-
-    # Create the Button object.
-    button = button_class(button_window, height=button_template["height"], \
-        width=button_template["width"], text=button_text, image=button_image, \
-        state=initial_state, font=button_font, background=button_background, \
-        foreground=button_foreground, command=button_macro)
-
-    # Place the Button.
-    grid_widget(button, button_template)
-
-    original_color = button.cget("background")
-
-    # If we are on a Mac and this button is BOTH initially disabled AND an instance of the kind
-    # of button whose background we would like to change when enabled/disabled, then set this
-    # button's initial background color to our predefined color for disabled fields on Macs.
-    if platform == "darwin" and isinstance(button, MacButton) \
-        and not button.cget("text") and button["state"] == DISABLED:
-        button["background"] = button_template.mac_disabled_color
-
-    return button, original_color
-
-
-def create_entry(entry_template, entry_window, messages_dir):
-    """This method creates an Entry object for the Time Stamper program."""
-
-    # Create the Entry's font.
-    entry_font = create_font(entry_template)
-
-    # Determine what the entry's initial text should be.
-    entry_text_str = determine_widget_text(entry_template, messages_dir)
-    entry_text = StringVar()
-    entry_text.set(entry_text_str)
-
-    # Determine the entry's initial state
-    initial_state = determine_widget_initial_state(entry_template)
-
-    # Create the Entry object.
-    entry = Entry(entry_window, width=entry_template["width"], \
-        textvariable=entry_text, font=entry_font, background=entry_template["background"], \
-        foreground=entry_template["foreground"], state=initial_state)
-
-    # Place the Entry.
-    grid_widget(entry, entry_template)
-
-    # Set the Entry input resitrictions.
-    entry_text.trace("w", lambda *args: entry_value_limit(entry_text, entry_template["max_val"]))
-
-    return entry
-
-
-def create_label(label_template, label_window, messages_dir, label_image=None):
-    """This method creates a Label object for the Time Stamper program."""
-
-    # Create the Label's font.
-    label_font = create_font(label_template)
-
-    # Determine what the label's initial text should be.
-    label_text = determine_widget_text(label_template, messages_dir)
-
-    # Create the Label object.
-    label = Label(label_window, height=label_template["height"], \
-        width=label_template["width"], background=label_template["background"], \
-        foreground=label_template["foreground"], text=label_text, \
-        image=label_image, font=label_font, highlightthickness=0, \
-        wraplength=label_template["wraplength"], justify=label_template["justify"])
-
-    # Place the Label.
-    grid_widget(label, label_template)
-
-    return label
-
-
-def create_text(text_template, text_window, messages_dir):
-    """This method creates a Text object for the Time Stamper program."""
-
-    # Create the Text's font.
-    text_font = create_font(text_template)
-
-    # Determine the text's initial state
-    initial_state = determine_widget_initial_state(text_template)
-
-    # Create the Text object.
-    text = Text(text_window, height=text_template["height"], \
-        width=text_template["width"], font=text_font, state=initial_state)
-
-    # Determine what the text object's initial text should be.
-    text_text = determine_widget_text(text_template, messages_dir)
-
-    # Display the Text object's text.
-    text["state"] = NORMAL
-    text.insert(END, text_text)
-    text["state"] = initial_state
-
-    # Place the Text.
-    grid_widget(text, text_template)
-
-    return text

@@ -1,0 +1,30 @@
+{
+
+    "window_str_key": "window_main",
+
+    "initial_state": true,
+
+    "is_checked": false,
+    "is_checked_loaded_value": null,
+
+    "linked_setting": null,
+
+    "to_enable_toggle": [],
+    "to_enable": [],
+    "to_disable": [],
+
+    "column": 0,
+    "row": 0,
+
+    "columnspan": 1,
+    "rowspan": 1,
+
+    "padx": null,
+    "pady": null,
+
+    "ipadx": null,
+    "ipady": null,
+
+    "sticky": ""
+
+}

@@ -1,0 +1,17 @@
+{
+
+    "window_settings": {
+
+        "str_key": "window_settings",
+        "window_str_key": "window_settings",
+
+        "title": "Settings",
+        "icon_windows": "timestamp_icon.ico",
+        "icon_mac": "timestamp_icon.icns",
+
+        "num_columns": 5,
+        "num_rows": 8
+
+    }
+
+}

@@ -2,7 +2,7 @@
 """This module contains helper methods for the TimeStamperTimer class
 that do not directly rely on class variables of TimeStamperTimer."""
 
-from tkinter import DISABLED, NORMAL, END
+from tkinter import NORMAL, END
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -27,21 +27,20 @@ def print_to_field(field, to_print):
     """This method sets the text of "field" (which should be a Tkinter
     Entry) to whatever is stored in "to_print" (which should be a string)."""
 
-    # Determine whether the field is enabled.
-    was_enabled = field["state"] == NORMAL
+    # Determine the field's state.
+    initial_state = field["state"]
 
     # Print the passed information to the field.
     field["state"] = NORMAL
     field.delete(0, END)
     field.insert(0, to_print)
 
-    # Disable field if is was disabled to begin with.
-    if not was_enabled:
-        field["state"] = DISABLED
+    # Set the field's state to whatever it was before this method began.
+    field["state"] = initial_state
 
 
 def pad_number(number, target_length, pad_before):
-    """This method pads a number to the desired length with leading zeros (if
+    """This method pads a number to target_length with leading zeros (if
     pad_before is set to True) or trailing zeros (if pad_before is set to False)."""
 
     str_number = str(number) if number else "0"
@@ -51,16 +50,24 @@ def pad_number(number, target_length, pad_before):
     return str_number + zeros_to_add
 
 
+def h_m_s_to_timestamp(hours, minutes, seconds, subseconds):
+    """This method converts a time in hours, minutes, seconds and subseconds to a
+    timestamp with the following format: [hours:minutes:seconds:subseconds]."""
+
+    return f"[{hours}:{minutes}:{seconds}.{subseconds}]"
+
+
 def h_m_s_to_seconds(hours, minutes, seconds, subseconds):
     """This method converts a time in hours, minutes,
     seconds and subseconds to a time in seconds."""
+
     return (hours * 3600) + (minutes * 60) + seconds + (subseconds / 100)
 
 
 def seconds_to_h_m_s(seconds_exact, pad=0):
     """This method converts a time in seconds to a time in hours, minutes, seconds and
     subseconds. The optional integer argument pad, which is set to zero by default, provides
-    the length which the returned hours, minutes, seconds and subseconds should be padded to."""
+    the length to which the returned hours, minutes, seconds and subseconds should be padded."""
 
     # Convert the seconds to hours, minutes, seconds and subseconds.
     hours = int(seconds_exact // 3600)

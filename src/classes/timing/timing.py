@@ -3,7 +3,8 @@
 for keeping track of time in the Time Stamper program."""
 
 from time import perf_counter
-from .timing_helper_methods import print_to_field, pad_number, h_m_s_to_seconds, seconds_to_h_m_s
+from .timing_helper_methods import print_to_field, pad_number, \
+    h_m_s_to_timestamp, h_m_s_to_seconds, seconds_to_h_m_s
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -31,8 +32,6 @@ class TimeStamperTimer():
     TimeStamperTimer class, passing itself to the TimeStamperTimer constructor."""
 
     def __init__(self, time_stamper):
-        """The __init__ method of TimeStamperTimer takes one argument
-        (time_stamper) which should be an object of type TimeStamper."""
 
         self.time_stamper = time_stamper
 
@@ -50,10 +49,10 @@ class TimeStamperTimer():
         raw is True, but the values will be converted to integers before being returned."""
 
         # Get the current values from the timer's time fields.
-        hours = self.time_stamper.time_fields.hours_field.get()
-        minutes = self.time_stamper.time_fields.minutes_field.get()
-        seconds = self.time_stamper.time_fields.seconds_field.get()
-        subseconds = self.time_stamper.time_fields.subseconds_field.get()
+        hours = self.time_stamper.widgets["entry_hours"].get()
+        minutes = self.time_stamper.widgets["entry_minutes"].get()
+        seconds = self.time_stamper.widgets["entry_seconds"].get()
+        subseconds = self.time_stamper.widgets["entry_subseconds"].get()
 
         # The timer's values may need to be padded if they contain user-entered numbers.
         if not self.is_running:
@@ -73,33 +72,30 @@ class TimeStamperTimer():
     def get_current_seconds(self):
         """This method returns the timer's current time in seconds."""
 
-        # Retrieve the current time in seconds by converting the
-        # returned value of the read_timer method to seconds.
         return h_m_s_to_seconds(*self.read_timer())
 
     def current_time_to_timestamp(self):
         """This method converts the currently diplayed time to a timestamp."""
 
-        hours, minutes, seconds, subseconds = self.read_timer(raw=True)
-        return f"[{hours}:{minutes}:{seconds}.{subseconds}]"
+        return h_m_s_to_timestamp(*self.read_timer(raw=True))
 
     def display_time(self, time_in_seconds, pad=0):
         """This method, after converting the provided time in seconds to hours, minutes,
         seconds and subseconds, will display this time to timer fields of self.time_stamper."""
 
         # Convert the provided time in seconds to hours, minutes, seconds and subseconds.
-        hours, minutes, seconds, subseconds = seconds_to_h_m_s(time_in_seconds, pad)
+        h_m_s = seconds_to_h_m_s(time_in_seconds, pad)
 
         # Print the hours, minutes, seconds and subseconds to their relevant Tkinter entries.
-        print_to_field(self.time_stamper.time_fields.hours_field, hours)
-        print_to_field(self.time_stamper.time_fields.minutes_field, minutes)
-        print_to_field(self.time_stamper.time_fields.seconds_field, seconds)
-        print_to_field(self.time_stamper.time_fields.subseconds_field, subseconds)
+        print_to_field(self.time_stamper.widgets["entry_hours"], h_m_s[0])
+        print_to_field(self.time_stamper.widgets["entry_minutes"], h_m_s[1])
+        print_to_field(self.time_stamper.widgets["entry_seconds"], h_m_s[2])
+        print_to_field(self.time_stamper.widgets["entry_subseconds"], h_m_s[3])
 
         # If a timestamp has not been set, make the timestamp label reflect the current time.
         if not self.timestamp_set:
-            obj_timestamp = self.time_stamper.widgets.mapping["label_timestamp"]
-            obj_timestamp["text"] = f"[{hours}:{minutes}:{seconds}.{subseconds}]"
+            obj_timestamp = self.time_stamper.widgets["label_timestamp"]
+            obj_timestamp["text"] = h_m_s_to_timestamp(*h_m_s)
 
     def timer_tick(self):
         """This method runs continuously while the timer is running to update the current time."""
@@ -120,7 +116,7 @@ class TimeStamperTimer():
             # If the timer's currently displayed time is not less
             # than the maximum displayable time, stop the timer.
             else:
-                self.time_stamper.macros.mapping["button_stop"]()
+                self.time_stamper.macros["button_stop"]()
 
     def pause(self):
         """This method halts the timer and is typically
@@ -138,7 +134,7 @@ class TimeStamperTimer():
         current_time_seconds = self.get_current_seconds()
         if current_time_seconds < 359999.99:
 
-            # Save the raw time that the timer was started
+            # Save the current raw time.
             self.start_time = perf_counter()
 
             # Declare the timer as running.
@@ -154,10 +150,10 @@ class TimeStamperTimer():
         # If the timer's currently displayed time is not less
         # than the maximum displayable time, stop the timer.
         else:
-            self.time_stamper.macros.mapping["button_stop"]()
+            self.time_stamper.macros["button_stop"]()
 
     def adjust_timer(self, seconds_to_adjust_by):
-        """This method fast-forwards and rewinds the timer. Since the rewind and fast-forward
+        """This method rewinds and fast_forwards the timer. Since the rewind and fast-forward
         procedures are very similar, they have been condensed into this single method."""
 
         # Get the current time in seconds before adjusting the timer.
@@ -171,7 +167,7 @@ class TimeStamperTimer():
         elif current_time_seconds + seconds_to_adjust_by > 359999.99:
             seconds_to_adjust_by = 359999.99 - current_time_seconds
 
-        # Update the timer's offset, factoring in the specified rewind time.
+        # Update the timer's offset, factoring in the specified rewind/fast-forward time.
         self.offset += seconds_to_adjust_by
 
         # Display the updated time immediately.

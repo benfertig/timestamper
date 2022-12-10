@@ -4,9 +4,15 @@
 
         "str_key": "button_pause",
 
-        "initial_state": "DISABLED",
+        "initial_state": false,
 
         "image_file_name": "pause.png",
+
+        "print_on_press": {
+            "linked_dict": "pause",
+            "print_bool_attribute": "message_enabled",
+            "print_message_attribute": "message"
+        },
 
         "to_enable": ["button_play", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
         "to_disable": ["button_pause"],
@@ -31,9 +37,15 @@
 
         "str_key": "button_play",
 
-        "initial_state": "DISABLED",
+        "initial_state": false,
 
         "image_file_name": "play.png",
+
+        "print_on_press": {
+            "linked_dict": "play",
+            "print_bool_attribute": "message_enabled",
+            "print_message_attribute": "message"
+        },
 
         "to_enable": ["button_pause"],
         "to_disable": ["button_play", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
@@ -57,11 +69,15 @@
 
         "str_key": "button_stop",
 
-        "initial_state": "DISABLED",
+        "initial_state": false,
 
         "image_file_name": "stop.png",
 
-        "print_on_press": "##### END #####",
+        "print_on_press": {
+            "linked_dict": "stop",
+            "print_bool_attribute": "message_enabled",
+            "print_message_attribute": "message"
+        },
 
         "to_enable": ["button_record", "button_output_select", "button_merge_output_files", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
         "to_disable": ["button_pause", "button_play", "button_stop"],
@@ -87,6 +103,12 @@
 
         "image_file_name": "rewind.png",
 
+        "print_on_press": {
+            "linked_dict": "rewind",
+            "print_bool_attribute": "message_enabled",
+            "print_message_attribute": "message"
+        },
+
         "width": 48,
         "height": 48,
 
@@ -108,6 +130,12 @@
 
         "image_file_name": "fast_forward.png",
 
+        "print_on_press": {
+            "linked_dict": "fast_forward",
+            "print_bool_attribute": "message_enabled",
+            "print_message_attribute": "message"
+        },
+
         "width": 48,
         "height": 48,
 
@@ -127,11 +155,18 @@
 
         "str_key": "button_record",
 
-        "initial_state": "DISABLED",
+        "initial_state": {
+            "linked_dict": "output",
+            "linked_attribute": "path"
+        },
 
         "image_file_name": "record.png",
 
-        "print_on_press": "##### BEGIN #####",
+        "print_on_press": {
+            "linked_dict": "record",
+            "print_bool_attribute": "message_enabled",
+            "print_message_attribute": "message"
+        },
 
         "to_enable": ["button_pause", "button_stop"],
         "to_disable": ["button_record", "button_output_select", "button_merge_output_files", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],

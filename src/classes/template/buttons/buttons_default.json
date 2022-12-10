@@ -2,7 +2,7 @@
 
     "window_str_key": "window_main",
 
-    "initial_state": "NORMAL",
+    "initial_state": true,
 
     "text": null,
 
@@ -10,6 +10,9 @@
     "message_file_name": null,
 
     "mac_disabled_color": "#d3d3d3",
+
+    "to_enable": [],
+    "to_disable": [],
 
     "background": null,
     "foreground": null,

@@ -6,7 +6,12 @@
 
         "display_path_prefix": "Saving notes to:",
 
-        "text": "-----PLEASE SELECT AN OUTPUT FILE-----",
+        "text": {
+            "linked_dict": "output",
+            "linked_attribute": "path",
+            "value_if_true": "Saving notes to:",
+            "value_if_false": "-----PLEASE SELECT AN OUTPUT FILE-----"
+        },
 
         "wraplength": 264,
 

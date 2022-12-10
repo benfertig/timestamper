@@ -2,7 +2,7 @@
 """This module contains the FileButtonMacros class which stores the functions
 that are executed when a file button in the Time Stamper program is pressed."""
 
-from ntpath import basename
+from os.path import basename
 from tkinter import DISABLED, NORMAL, END, filedialog
 from .macros_helper_methods import enable_button, disable_button, merge_notes, print_to_text
 
@@ -38,20 +38,22 @@ def success_message(merged_output_file_name):
 class FileButtonMacros():
     """This class stores all of the macros that execute when file buttons are pressed."""
 
-    def __init__(self, template, widgets):
+    def __init__(self, template, settings, widgets):
         self.template = template
+        self.settings = settings
         self.widgets = widgets
 
     def button_output_select_macro(self):
         """This method will be executed when the "Choose output location" button is pressed."""
 
-        # Store the template for the output select button, the template for the output
-        # path label, and the widget for the output path label into abbreviated file names.
-        button_output_select_template = self.template.mapping["button_output_select"]
-        label_output_path_template = self.template.mapping["label_output_path"]
-        obj_label_output_path = self.widgets.mapping["label_output_path"]
-        obj_text_output_path = self.widgets.mapping["text_output_path"]
-        obj_text_log = self.widgets.mapping["text_log"]
+        # Store the template for the output select button, the template for
+        # the output path label, the output path label widget, the output path
+        # text widget and the notes log text widget into abbreviated file names.
+        button_output_select_template = self.template["button_output_select"]
+        label_output_path_template = self.template["label_output_path"]
+        obj_label_output_path = self.widgets["label_output_path"]
+        obj_text_output_path = self.widgets["text_output_path"]
+        obj_text_log = self.widgets["text_log"]
 
         # Get the path to the selected output file.
         file_types = (("text files", "*.txt"), ('All files', '*.*'))
@@ -62,11 +64,9 @@ class FileButtonMacros():
         # the text displaying the notes log if an output file has been selected.
         if file_full_path:
 
-            # Store the output path in the template.
-            self.template.output_path = file_full_path
-
-            # Set the text of the label that displays the output to the current output file path.
-            obj_label_output_path["text"] = label_output_path_template['display_path_prefix']
+            # Change the text of the label that appears above the output path
+            # text widget to indicate that an output file has been selected.
+            obj_label_output_path["text"] = label_output_path_template["text"]["value_if_true"]
 
             # Print the current output file path to the output path text widget.
             print_to_text(file_full_path, obj_text_output_path, wipe_clean=True)
@@ -76,12 +76,13 @@ class FileButtonMacros():
 
             # Enable the relevant buttons if an output file has been selected.
             for str_button in button_output_select_template["to_enable_toggle"]:
-                enable_button(self.widgets.mapping[str_button], \
+                enable_button(self.widgets[str_button], \
                     self.widgets.original_colors[str_button])
 
             # Any text already in the output file should be printed to the notes log.
             obj_text_log["state"] = NORMAL
-            with open(file_full_path, "r", encoding=self.template.output_file_encoding) as out_file:
+            with open(file_full_path, "r", \
+                encoding=self.settings["output"]["file_encoding"]) as out_file:
                 for line in out_file.readlines():
                     obj_text_log.insert(END, line)
                     obj_text_log.see(END)
@@ -91,12 +92,9 @@ class FileButtonMacros():
         # output file path and do not enable the relevant buttons.
         else:
 
-            # Clear the output path in the template.
-            self.template.output_path = None
-
-            # Set the text of the label that displays the output to the label's default
-            # text (the text that displays when no output file has been selected).
-            obj_label_output_path["text"] = label_output_path_template["text"]
+            # Change the text of the label that appears above the output path
+            # text widget to indicate that an output file has not been selected.
+            obj_label_output_path["text"] = label_output_path_template["text"]["value_if_false"]
 
             # Clear the output path text widget.
             print_to_text("", obj_text_output_path, wipe_clean=True)
@@ -106,14 +104,26 @@ class FileButtonMacros():
 
             # Disable the relevant buttons if an output file has not been selected.
             for str_button in button_output_select_template["to_enable_toggle"]:
-                disable_button(self.widgets.mapping[str_button], \
-                    self.template.mapping[str_button]["mac_disabled_color"])
+                disable_button(self.widgets[str_button], \
+                    self.template[str_button]["mac_disabled_color"])
 
-    def on_close_window_merge_1_macro(self, window_merge):
+    def button_merge_output_files_macro(self):
+        """This method will be executed when the "Merge output files" button is pressed."""
+
+        # Call the function that will display the first window with instructions
+        # on how to merge output files, passing a macro that will make the first
+        # file explorer window appear when the instructions window is closed,
+        # wherein the user should select all output files they would like to merge.
+        window_merge_first_message = self.widgets.create_entire_window(\
+            "window_merge_first_message", close_window_macro=self.on_close_window_merge_1_macro)
+        window_merge_first_message.mainloop()
+
+    def on_close_window_merge_1_macro(self, window_merge_1):
         """This method will be executed when the FIRST window displaying
         instructions to the user on how to merge output files is closed."""
 
-        window_merge.destroy()
+        # Destroy the window displaying the first set of merge instructions.
+        window_merge_1.destroy()
 
         # The user will be prompted to select the files whose notes they wish to merge.
         file_types = (("text files", "*.txt"), ('All files', '*.*'))
@@ -126,15 +136,15 @@ class FileButtonMacros():
             # Merge the notes from all of the selected files. We cannot write the merged notes
             # to a new file yet because a new file has not yet been selected. The process of
             # writing the merged notes to a new file occurs in on_close_window_merge_2_macro.
-            button_record_message = self.template.mapping["button_record"]["print_on_press"]
-            button_stop_message = self.template.mapping["button_stop"]["print_on_press"]
+            button_record_message = self.settings["record"]["message"]
+            button_stop_message = self.settings["stop"]["message"]
             merged_notes = \
                 merge_notes(files_full_paths, button_record_message, \
-                    button_stop_message, self.template.output_file_encoding)
+                    button_stop_message, self.settings["output"]["file_encoding"])
 
-            # Call the function that will display the second window with instructions
-            # on how to merge output files, passing a macro that will make the second
-            # file explorer window appear when the instructions window is closed,
+            # Call the function that will display the second window with instructions on
+            # how to merge output files, passing a macro that will make the second file
+            # explorer window appear when the second merge instructions window is closed,
             # wherein the user should select a destination file for their merged outputs.
             merge_second_message_window = \
                 self.widgets.create_entire_window("window_merge_second_message", \
@@ -142,11 +152,12 @@ class FileButtonMacros():
                         macro_args=(merged_notes, files_full_paths,))
             merge_second_message_window.mainloop()
 
-    def on_close_window_merge_2_macro(self, window_merge, merged_notes, files_full_paths):
+    def on_close_window_merge_2_macro(self, window_merge_2, merged_notes, files_full_paths):
         """This method will be executed when the SECOND window displaying
         instructions to the user on how to merge output files is closed."""
 
-        window_merge.destroy()
+        # Destroy the window displaying the second set of merge instructions.
+        window_merge_2.destroy()
 
         # The user will be prompted to select the file to save the merged notes to.
         file_types = (("text files", "*.txt"), ('All files', '*.*'))
@@ -172,24 +183,13 @@ class FileButtonMacros():
 
                 # Write the merged notes to the requested file.
                 with open(merged_notes_path, "a+", \
-                    encoding=self.template.output_file_encoding) as out:
+                    encoding=self.settings["output"]["file_encoding"]) as out:
                     for note in merged_notes:
                         out.write(note)
 
                 # Display a message stating that the notes were successfully merged.
-                label_merge_success = self.template.mapping["label_merge_success"]
+                label_merge_success = self.template["label_merge_success"]
                 label_merge_success["text"] = success_message(basename(merged_notes_path))
                 merge_success_window = \
                     self.widgets.create_entire_window("window_merge_success")
                 merge_success_window.mainloop()
-
-    def button_merge_output_files_macro(self):
-        """This method will be executed when the "Merge output files" button is pressed."""
-
-        # Call the function that will display the first window with instructions
-        # on how to merge output files, passing a macro that will make the first
-        # file explorer window appear when the instructions window is closed,
-        # wherein the user should select all output files they would like to merge.
-        window_merge_first_message = self.widgets.create_entire_window(\
-            "window_merge_first_message", close_window_macro=self.on_close_window_merge_1_macro)
-        window_merge_first_message.mainloop()

@@ -4,7 +4,12 @@
 
         "str_key": "text_output_path",
 
-        "initial_state": "DISABLED",
+        "initial_state": false,
+
+        "text": {
+            "linked_dict": "output",
+            "linked_attribute": "path"
+        },
 
         "width": 29,
         "height": 1,
@@ -27,7 +32,7 @@
 
         "str_key": "text_log",
 
-        "initial_state": "DISABLED",
+        "initial_state": false,
 
         "width": 105,
         "height": 14,
@@ -50,8 +55,6 @@
 
         "str_key": "text_current_note",
 
-        "initial_state": "NORMAL",
-
         "width": 93,
         "height": 3,
 
@@ -73,7 +76,7 @@
         "str_key": "text_attribution",
         "window_str_key": "window_attribution",
 
-        "initial_state": "DISABLED",
+        "initial_state": false,
 
         "message_file_name": "attribution.txt",
         "message_file_encoding": "utf-8",
