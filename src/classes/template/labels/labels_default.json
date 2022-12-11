@@ -31,6 +31,8 @@
     "ipadx": null,
     "ipady": null,
 
+    "is_in_settings": false,
+
     "sticky": "",
 
     "font_family": "",

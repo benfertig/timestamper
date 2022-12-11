@@ -53,6 +53,19 @@
 
     },
 
+    "label_hotkeys": {
+
+        "str_key": "label_hotkeys",
+
+        "text": "Hotkeys:",
+
+        "column": 16,
+        "row": 0,
+
+        "sticky": "nw"
+
+    },
+
     "label_rewind_sec": {
 
         "str_key": "label_rewind_sec",

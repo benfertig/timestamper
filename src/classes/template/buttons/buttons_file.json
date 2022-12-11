@@ -21,7 +21,7 @@
 
         "sticky": "nsew",
 
-        "to_enable_toggle": ["button_record", "button_save_note"]
+        "to_enable_toggle": ["button_record", "button_save_note", "button_hotkey_1", "button_hotkey_2", "button_hotkey_3"]
 
     },
 
@@ -51,7 +51,7 @@
 
         "columnspan": 5,
 
-        "padx": [2, 28],
+        "padx": [2, 2],
         "pady": [5, 0],
 
         "sticky": "nsew"

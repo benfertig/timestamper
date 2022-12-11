@@ -3,7 +3,7 @@
 that are executed when a note button in the Time Stamper program is pressed."""
 
 from tkinter import END
-from .macros_helper_methods import print_to_text, print_to_file
+from .macros_helper_methods import print_button_message, print_to_text, print_to_file
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -27,9 +27,32 @@ from .macros_helper_methods import print_to_text, print_to_file
 class NoteButtonMacros():
     """This class stores all of the macros that execute when note buttons are pressed."""
 
-    def __init__(self, settings, widgets):
+    def __init__(self, template, settings, widgets, timer):
+        self.template = template
         self.settings = settings
         self.widgets = widgets
+        self.timer = timer
+
+    def button_hotkey_1_macro(self):
+        """This method will be executed when hotkey 1 is pressed."""
+
+        # Print the message associated with hotkey 1.
+        print_button_message(self.template["button_hotkey_1"], \
+            self.template, self.settings, self.widgets, self.timer)
+
+    def button_hotkey_2_macro(self):
+        """This method will be executed when hotkey 2 is pressed."""
+
+        # Print the message associated with hotkey 2.
+        print_button_message(self.template["button_hotkey_2"], \
+            self.template, self.settings, self.widgets, self.timer)
+
+    def button_hotkey_3_macro(self):
+        """This method will be executed when hotkey 3 is pressed."""
+
+        # Print the message associated with hotkey 3.
+        print_button_message(self.template["button_hotkey_3"], \
+            self.template, self.settings, self.widgets, self.timer)
 
     def button_cancel_note_macro(self):
         """This method will be executed when the "Cancel note" button is pressed."""

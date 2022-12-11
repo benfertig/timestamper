@@ -1,5 +1,86 @@
 {
 
+    "button_hotkey_1": {
+
+        "str_key": "button_hotkey_1",
+
+        "initial_state": {
+            "linked_dict": "output",
+            "linked_attribute": "path"
+        },
+
+        "text": "HK1",
+
+        "print_on_press": {
+            "linked_dict": "hotkey_1",
+            "print_message_attribute": "message"
+        },
+
+        "column": 16,
+        "row": 0,
+
+        "rowspan": 2,
+
+        "pady": [22, 10],
+
+        "sticky": "nsew"
+
+    },
+
+    "button_hotkey_2": {
+
+        "str_key": "button_hotkey_2",
+
+        "initial_state": {
+            "linked_dict": "output",
+            "linked_attribute": "path"
+        },
+
+        "text": "HK2",
+
+        "print_on_press": {
+            "linked_dict": "hotkey_2",
+            "print_message_attribute": "message"
+        },
+
+        "column": 17,
+        "row": 0,
+
+        "rowspan": 2,
+
+        "pady": [22, 10],
+
+        "sticky": "nsew"
+
+    },
+
+    "button_hotkey_3": {
+
+        "str_key": "button_hotkey_3",
+
+        "initial_state": {
+            "linked_dict": "output",
+            "linked_attribute": "path"
+        },
+
+        "text": "HK3",
+
+        "print_on_press": {
+            "linked_dict": "hotkey_3",
+            "print_message_attribute": "message"
+        },
+
+        "column": 18,
+        "row": 0,
+
+        "rowspan": 2,
+
+        "pady": [22, 10],
+
+        "sticky": "nsew"
+
+    },
+
     "button_cancel_note": {
 
         "str_key": "button_cancel_note",

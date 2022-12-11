@@ -24,6 +24,8 @@
         "column": 1,
         "row": 1,
 
+        "is_in_settings": true,
+
         "sticky": "w"
 
     },
@@ -51,6 +53,8 @@
 
         "column": 1,
         "row": 2,
+
+        "is_in_settings": true,
 
         "sticky": "w"
 
@@ -80,6 +84,8 @@
         "column": 1,
         "row": 3,
 
+        "is_in_settings": true,
+
         "sticky": "w"
 
     },
@@ -107,6 +113,8 @@
 
         "column": 1,
         "row": 4,
+
+        "is_in_settings": true,
 
         "sticky": "w"
 
@@ -136,6 +144,8 @@
         "column": 1,
         "row": 5,
 
+        "is_in_settings": true,
+
         "sticky": "w"
 
     },
@@ -163,6 +173,8 @@
 
         "column": 1,
         "row": 6,
+
+        "is_in_settings": true,
 
         "sticky": "w"
 

@@ -44,20 +44,6 @@ class TimeStamperSettings():
         self.default = self.load_json(self.default_json_path)
         self.user = self.load_json(self.user_json_path)
 
-        # Store the string keys of the widgets into which the user can enter their custom settings.
-        self.widgets_to_reference = [
-
-            # Checkbuttons
-            "checkbutton_pause_settings", "checkbutton_play_settings",
-            "checkbutton_stop_settings", "checkbutton_rewind_settings",
-            "checkbutton_fast_forward_settings", "checkbutton_record_settings",
-
-            # Entries
-            "entry_pause_settings", "entry_play_settings", "entry_stop_settings",
-            "entry_rewind_settings", "entry_fast_forward_settings", "entry_record_settings"
-
-        ]
-
     def __getitem__(self, item):
         return self.user[item]
 

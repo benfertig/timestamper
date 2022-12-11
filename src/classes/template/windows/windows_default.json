@@ -13,6 +13,8 @@
     "height": null,
 
     "num_columns": 1,
-    "num_rows": 1
+    "num_rows": 1,
+
+    "is_in_settings": false
 
 }

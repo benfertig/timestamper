@@ -46,7 +46,7 @@ class Macros():
         file = FileButtonMacros(template, settings, widgets)
         info = InfoButtonMacros(template, widgets, self)
         media = MediaButtonMacros(template, settings, widgets, timer)
-        note = NoteButtonMacros(settings, widgets)
+        note = NoteButtonMacros(template, settings, widgets, timer)
         settings = SettingsButtonMacros(template, settings, widgets, self)
         timestamping = TimestampingButtonMacros(template, widgets, timer)
 
@@ -82,6 +82,9 @@ class Macros():
             "button_record": media.button_record_macro,
 
             # Note buttons
+            "button_hotkey_1": note.button_hotkey_1_macro,
+            "button_hotkey_2": note.button_hotkey_2_macro,
+            "button_hotkey_3": note.button_hotkey_3_macro,
             "button_cancel_note": note.button_cancel_note_macro,
             "button_save_note": note.button_save_note_macro,
 

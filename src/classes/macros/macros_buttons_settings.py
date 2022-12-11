@@ -44,16 +44,14 @@ class SettingsButtonMacros():
 
         # Iterate through all the widgets containing information
         # which should be used to update the settings.
-        for widget_str_key in self.settings.widgets_to_reference:
-
-            widget_template = self.template[widget_str_key]
+        for settings_widget_template in self.template["settings"]:
 
             # Find the dictionary containing the information
-            template_linking_info = widget_template["linked_setting"]
+            template_linking_info = settings_widget_template["linked_setting"]
 
             # Get the value from the template that should be copied into the settings.
             template_attribute_str = template_linking_info["attribute_to_copy"]
-            template_value_to_copy = widget_template[template_attribute_str]
+            template_value_to_copy = settings_widget_template[template_attribute_str]
 
             # Find the OUTER key for the settings attribute that should be changed.
             linked_settings_dict_str = template_linking_info["linked_dict"]
@@ -105,9 +103,11 @@ class SettingsButtonMacros():
             self.widgets["button_cancel_changes"]["state"] = NORMAL
             self.widgets["button_save_settings"]["state"] = NORMAL
 
-        # Set the settings back to the values they were at before this method
-        # began (because we do not want to change the actual settings stored in
-        # self.settings.user unless the user presses the "Save settings" button).
+        # Set the settings back to the values they were at before this method began
+        # (because we do not want to change the actual settings stored in
+        # self.settings.user unless the user presses the "Save settings" button, and we
+        # only changed self.settings.user back to the default settings temporarily so that
+        # the settings window could be recreated with the default settings filled in).
         self.settings.user = settings_user_temp
 
         # Enable and disable the relevant widgets for when the "Reset to default" button is pressed.

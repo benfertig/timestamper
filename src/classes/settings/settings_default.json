@@ -26,5 +26,14 @@
     "record": {
         "message_enabled": true,
         "message": "##### START #####"
+    },
+    "hotkey_1": {
+        "message": "HOTKEY 1"
+    },
+    "hotkey_2": {
+        "message": "HOTKEY 2"
+    },
+    "hotkey_3": {
+        "message": "HOTKEY 3"
     }
 }

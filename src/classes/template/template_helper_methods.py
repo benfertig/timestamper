@@ -83,7 +83,7 @@ def map_all_templates(templates_dir):
     """This method loads the contents of all JSON files from all subdirectories of
     this file's current directory into the "mapping" attribute of this class."""
 
-    mapping = {}
+    mapping = {"settings": []}
 
     # Iterate through the subitems of the directory that template.py is in.
     for inner_dir in scandir(templates_dir):
@@ -123,8 +123,16 @@ def map_all_templates(templates_dir):
 
                 # Map the key-value pairs from the current JSON file to "mapping".
                 for widget_str_key, widget_template in cur_json_mapping.items():
+
+                    # Map the widget's template to its string key.
                     mapping[widget_str_key] = widget_template
+
+                    # Map the widget's template to its window.
                     window_str_key = widget_template["window_str_key"]
                     mapping[inner_dir_name][window_str_key].append(widget_template)
+
+                    # If the widget is marked as a settings widget, map it to the "settings" key.
+                    if "is_in_settings" in widget_template and widget_template["is_in_settings"]:
+                        mapping["settings"].append(widget_template)
 
     return mapping

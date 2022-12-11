@@ -34,6 +34,8 @@
 
     "sticky": "",
 
+    "is_in_settings": false,
+
     "font_family": "",
     "font_size": 10,
     "font_weight": "normal",

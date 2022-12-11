@@ -33,6 +33,8 @@
 
         "padx": [0, 5],
 
+        "is_in_settings": true,
+
         "sticky": "w"
 
     },
@@ -69,6 +71,8 @@
         "columnspan": 3,
 
         "padx": [0, 5],
+
+        "is_in_settings": true,
 
         "sticky": "w"
 
@@ -107,6 +111,8 @@
 
         "padx": [0, 5],
 
+        "is_in_settings": true,
+
         "sticky": "w"
 
     },
@@ -143,6 +149,8 @@
         "columnspan": 3,
 
         "padx": [0, 5],
+
+        "is_in_settings": true,
 
         "sticky": "w"
 
@@ -181,6 +189,8 @@
 
         "padx": [0, 5],
 
+        "is_in_settings": true,
+
         "sticky": "w"
 
     },
@@ -217,6 +227,113 @@
         "columnspan": 3,
 
         "padx": [0, 5],
+
+        "is_in_settings": true,
+
+        "sticky": "w"
+
+    },
+
+    "entry_hotkey_1_settings": {
+
+        "str_key": "entry_hotkey_1_settings",
+        "window_str_key": "window_settings",
+
+        "text": {
+            "linked_dict": "hotkey_1",
+            "linked_attribute": "message"
+        },
+        "text_loaded_value": "",
+
+        "linked_setting": {
+            "linked_dict": "hotkey_1",
+            "linked_attribute": "message",
+            "attribute_to_copy": "text_loaded_value"
+        },
+
+        "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
+
+        "width": 50,
+
+        "column": 2,
+        "row": 7,
+
+        "columnspan": 3,
+
+        "padx": [0, 5],
+        "pady": [2, 3],
+
+        "is_in_settings": true,
+
+        "sticky": "w"
+
+    },
+
+    "entry_hotkey_2_settings": {
+
+        "str_key": "entry_hotkey_2_settings",
+        "window_str_key": "window_settings",
+
+        "text": {
+            "linked_dict": "hotkey_2",
+            "linked_attribute": "message"
+        },
+        "text_loaded_value": "",
+
+        "linked_setting": {
+            "linked_dict": "hotkey_2",
+            "linked_attribute": "message",
+            "attribute_to_copy": "text_loaded_value"
+        },
+
+        "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
+
+        "width": 50,
+
+        "column": 2,
+        "row": 8,
+
+        "columnspan": 3,
+
+        "padx": [0, 5],
+        "pady": [2, 3],
+
+        "is_in_settings": true,
+
+        "sticky": "w"
+
+    },
+
+    "entry_hotkey_3_settings": {
+
+        "str_key": "entry_hotkey_3_settings",
+        "window_str_key": "window_settings",
+
+        "text": {
+            "linked_dict": "hotkey_3",
+            "linked_attribute": "message"
+        },
+        "text_loaded_value": "",
+
+        "linked_setting": {
+            "linked_dict": "hotkey_3",
+            "linked_attribute": "message",
+            "attribute_to_copy": "text_loaded_value"
+        },
+
+        "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
+
+        "width": 50,
+
+        "column": 2,
+        "row": 9,
+
+        "columnspan": 3,
+
+        "padx": [0, 5],
+        "pady": [2, 3],
+
+        "is_in_settings": true,
 
         "sticky": "w"
 

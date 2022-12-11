@@ -25,6 +25,8 @@
     "ipadx": null,
     "ipady": null,
 
-    "sticky": ""
+    "sticky": "",
+
+    "is_in_settings": false
 
 }
