@@ -10,7 +10,7 @@
             "linked_dict": "output",
             "linked_attribute": "path",
             "value_if_true": "Saving notes to:",
-            "value_if_false": "-----PLEASE SELECT AN OUTPUT FILE-----"
+            "value_if_false": "PLEASE SELECT AN OUTPUT FILE"
         },
 
         "wraplength": 264,
@@ -25,10 +25,34 @@
 
         "columnspan": 3,
 
+        "padx": [2, 0],
+
         "sticky": "sw"
 
     },
-    
+
+    "label_audio_path": {
+
+        "str_key": "label_audio_path",
+
+        "text": "Synced audio file (optional):",
+
+        "wraplength": 264,
+
+        "justify": "left",
+
+        "width": null,
+        "height": 1,
+
+        "column": 11,
+        "row": 1,
+
+        "columnspan": 8,
+
+        "sticky": "sw"
+
+    },
+
     "label_rewind_sec": {
 
         "str_key": "label_rewind_sec",

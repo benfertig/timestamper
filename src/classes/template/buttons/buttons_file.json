@@ -4,7 +4,9 @@
 
         "str_key": "button_output_select",
 
-        "text": "Choose output location",
+        "text": "Select output file",
+
+        "width": 14,
 
         "column": 8,
         "row": 0,
@@ -12,6 +14,7 @@
         "columnspan": 2,
         "rowspan": 1,
 
+        "padx": [2, 0],
         "pady": [5, 0],
 
         "ipadx": 15,
@@ -35,5 +38,24 @@
 
         "sticky": "nsew"
 
+    },
+
+    "button_audio_select": {
+
+        "str_key": "button_audio_select",
+
+        "text": "Select synced audio file",
+
+        "column": 11,
+        "row": 0,
+
+        "columnspan": 5,
+
+        "padx": [2, 28],
+        "pady": [5, 0],
+
+        "sticky": "nsew"
+
     }
+
 }

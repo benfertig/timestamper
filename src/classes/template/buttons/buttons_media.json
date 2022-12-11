@@ -79,7 +79,7 @@
             "print_message_attribute": "message"
         },
 
-        "to_enable": ["button_record", "button_output_select", "button_merge_output_files", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
+        "to_enable": ["button_record", "button_output_select", "button_merge_output_files", "button_audio_select", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
         "to_disable": ["button_pause", "button_play", "button_stop"],
 
         "width": 48,
@@ -169,7 +169,7 @@
         },
 
         "to_enable": ["button_pause", "button_stop"],
-        "to_disable": ["button_record", "button_output_select", "button_merge_output_files", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
+        "to_disable": ["button_record", "button_output_select", "button_merge_output_files", "button_audio_select", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
 
         "width": 48,
         "height": 48,

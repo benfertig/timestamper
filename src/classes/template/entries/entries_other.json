@@ -17,12 +17,42 @@
         "disabledbackground": "white",
         "disabledforeground": "black",
 
-        "width": 29,
+        "width": 1,
 
         "column": 8,
         "row": 2,
 
         "columnspan": 3,
+        "rowspan": 2,
+
+        "padx": [2, 0],
+
+        "sticky": "new",
+
+        "font_size": 9
+
+    },
+
+    "entry_audio_path": {
+
+        "str_key": "entry_audio_path",
+
+        "initial_state": false,
+
+        "text": null,
+
+        "background": "white",
+        "foreground": "black",
+
+        "disabledbackground": "white",
+        "disabledforeground": "black",
+
+        "width": 1,
+
+        "column": 11,
+        "row": 2,
+
+        "columnspan": 8,
         "rowspan": 2,
 
         "padx": [2, 0],

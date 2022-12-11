@@ -31,21 +31,11 @@ from .widgets.widgets import Widgets
 class TimeStamper():
     """This class runs the Time Stamper program."""
 
-    @dataclass
-    class TimeFields():
-        """This class stores the fields where the time is displayed in the Time Stamper program."""
-
-        hours_field = None
-        minutes_field = None
-        seconds_field = None
-        subseconds_field = None
-
     def __init__(self):
 
         self.root = None
         self.template = TimeStamperTemplate()
         settings = TimeStamperSettings()
-        self.time_fields = self.TimeFields()
         self.timer = TimeStamperTimer(self)
         self.widgets = Widgets(self.template, settings, self.timer, "window_main")
         self.macros = Macros(self.template, settings, self.widgets, self.timer)

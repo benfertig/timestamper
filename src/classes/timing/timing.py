@@ -2,7 +2,9 @@
 """This module contains the TimeStamperTimer class which allows
 for keeping track of time in the Time Stamper program."""
 
+from os.path import exists
 from time import perf_counter
+from pyglet.media import load, Player
 from .timing_helper_methods import print_to_field, pad_number, \
     h_m_s_to_timestamp, h_m_s_to_seconds, seconds_to_h_m_s
 
@@ -39,6 +41,8 @@ class TimeStamperTimer():
         self.is_running = False
         self.start_time = 0.0
         self.offset = 0.0
+
+        self.mapping = {"audio_source": None, "audio_player": None}
 
     def read_timer(self, raw=False):
         """This method reads in and returns the current time from the time fields. This method
@@ -125,6 +129,11 @@ class TimeStamperTimer():
         # Declare the timer as not running.
         self.is_running = False
 
+        # Pause the audio if it exists.
+        audio_player = self.mapping["audio_player"]
+        if audio_player:
+            audio_player.pause()
+
     def play(self):
         """This method starts the timer and is typically
         run when the play or record button is pressed."""
@@ -152,6 +161,25 @@ class TimeStamperTimer():
         else:
             self.time_stamper.macros["button_stop"]()
 
+        # Play the selected audio file if it exists.
+        audio_file_path = self.time_stamper.widgets["entry_audio_path"].get()
+        if exists(audio_file_path):
+
+            # Load the audio source.
+            audio_source = load(audio_file_path)
+            self.mapping["audio_source"] = audio_source
+
+            # Set the audio source to begin at the timer's current time.
+            audio_source.seek(self.get_current_seconds())
+
+            # Load the audio player.
+            audio_player = Player()
+            self.mapping["audio_player"] = audio_player
+            audio_player.queue(audio_source)
+
+            # Play the audio.
+            audio_player.play()
+
     def adjust_timer(self, seconds_to_adjust_by):
         """This method rewinds and fast_forwards the timer. Since the rewind and fast-forward
         procedures are very similar, they have been condensed into this single method."""
@@ -173,3 +201,11 @@ class TimeStamperTimer():
         # Display the updated time immediately.
         current_time_seconds += seconds_to_adjust_by
         self.display_time(current_time_seconds, pad=2)
+
+        # Adjust the start time of the audio if it exists.
+        audio_player = self.mapping["audio_player"]
+        if self.is_running and audio_player and audio_player.playing:
+
+            audio_player.pause()
+            self.mapping["audio_source"].seek(self.get_current_seconds())
+            audio_player.play()

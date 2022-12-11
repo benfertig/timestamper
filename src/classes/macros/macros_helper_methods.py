@@ -179,13 +179,13 @@ def print_button_message(button_template, template, settings, widgets, timer):
             # Add the current timestamp to the message that will be printed.
             to_print = f"{timer.current_time_to_timestamp()} {print_on_press_val}\n"
 
-            # Retrieve the putput path settings.
-            output_settings = settings["output"]
+            # Get the current output path from the output path entry widget.
+            output_path = widgets["entry_output_path"].get()
 
             # Print the button's message, along with the current
             # timestamp, to the notes log and the output file.
             print_to_text(to_print, widgets["text_log"])
-            print_to_file(to_print, output_settings["path"], output_settings["file_encoding"])
+            print_to_file(to_print, output_path, settings["output"]["file_encoding"])
 
 
 def rewind_or_fast_forward(user_input, is_rewind, adjust_timer_method):

@@ -40,6 +40,9 @@ class NoteButtonMacros():
     def button_save_note_macro(self):
         """This method will be executed when the "Save note" button is pressed."""
 
+        # Get the current output path from the output path entry widget.
+        output_path = self.widgets["entry_output_path"].get()
+
         # Get the current timestamp displayed next to the input text box.
         current_timestamp = self.widgets["label_timestamp"]["text"]
 
@@ -59,5 +62,4 @@ class NoteButtonMacros():
 
         # Print the current timestamp along with the current
         # text from the input text box to the output file.
-        print_to_file(to_write, self.settings["output"]["path"], \
-            self.settings["output"]["file_encoding"])
+        print_to_file(to_write, output_path, self.settings["output"]["file_encoding"])

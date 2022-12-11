@@ -43,44 +43,70 @@ class FileButtonMacros():
         self.settings = settings
         self.widgets = widgets
 
+    def file_select_macro(self, label_str_key, entry_str_key, window_title, file_types):
+        """This method is called on by button_output_select_macro and
+        button_audio_select_macro. Since both "button_output_select" and
+        "button_audio_file_select" prompt the user to select a file, the procedures for
+        their macros can, to a large extent, be condensed down into a single method."""
+
+        # Store  the template for the label, the widget for the label,
+        # and the widget for the entry into abbreviated file names.
+        label_template = self.template[label_str_key]
+        label_object = self.widgets[label_str_key]
+        entry_object = self.widgets[entry_str_key]
+
+        # Get the path to the selected file.
+        file_full_path = filedialog.askopenfilename(title=window_title, \
+            initialdir=self.template.starting_dir, filetypes=file_types)
+
+        # Only display the file path and enable the relevant buttons if a file has been selected.
+        if file_full_path:
+
+            # Change the text of the label that appears above the file
+            # path entry widget to indicate that a file has been selected.
+            if isinstance(label_template["text"], dict):
+                label_object["text"] = label_template["text"]["value_if_true"]
+
+            # Print the file path to the entry widget.
+            entry_object["state"] = NORMAL
+            entry_object.delete(0, END)
+            entry_object.insert(0, file_full_path)
+            entry_object["state"] = DISABLED
+
+        # If a file has not been selected, do not display a
+        # file path and do not enable the relevant buttons.
+        else:
+
+            # Change the text of the label to indicate that a file has not been selected.
+            if isinstance(label_template["text"], dict):
+                label_object["text"] = label_template["text"]["value_if_false"]
+
+            # Clear the entry widget.
+            entry_object["state"] = NORMAL
+            entry_object.delete(0, END)
+            entry_object["state"] = DISABLED
+
+        return file_full_path
+
     def button_output_select_macro(self):
         """This method will be executed when the "Choose output location" button is pressed."""
 
-        # Store the template for the output select button, the template for
-        # the output path label, the output path label widget, the output path
-        # text widget and the notes log text widget into abbreviated file names.
-        button_output_select_template = self.template["button_output_select"]
-        label_output_path_template = self.template["label_output_path"]
-        obj_label_output_path = self.widgets["label_output_path"]
-        obj_entry_output_path = self.widgets["entry_output_path"]
-        obj_text_log = self.widgets["text_log"]
-
         # Get the path to the selected output file.
         file_types = (("text files", "*.txt"), ('All files', '*.*'))
-        file_full_path = filedialog.askopenfilename(title="Select a file", \
-            initialdir=self.template.starting_dir, filetypes=file_types)
+        file_full_path = self.file_select_macro("label_output_path", \
+            "entry_output_path", "Select a text file", file_types)
 
-        # Only display the output file path, enable the relevant buttons and repopulate
-        # the text displaying the notes log if an output file has been selected.
+        # Store the template for the output select button and
+        # the notes log widget into abbreviated file names.
+        button_output_select_template = self.template["button_output_select"]
+        obj_text_log = self.widgets["text_log"]
+
+        # Clear the text displaying the notes log.
+        print_to_text("", obj_text_log, wipe_clean=True)
+
+        # Only repopulate the text in the notes log and enable the
+        # relevant buttons if an output file has been selected.
         if file_full_path:
-
-            # Change the text of the label that appears above the output path
-            # text widget to indicate that an output file has been selected.
-            obj_label_output_path["text"] = label_output_path_template["text"]["value_if_true"]
-
-            # Print the current output file path to the output path text widget.
-            obj_entry_output_path["state"] = NORMAL
-            obj_entry_output_path.delete(0, END)
-            obj_entry_output_path.insert(0, file_full_path)
-            obj_entry_output_path["state"] = DISABLED
-
-            # Clear the text displaying the notes log.
-            print_to_text("", obj_text_log, wipe_clean=True)
-
-            # Enable the relevant buttons if an output file has been selected.
-            for str_button in button_output_select_template["to_enable_toggle"]:
-                enable_button(self.widgets[str_button], \
-                    self.widgets.original_colors[str_button])
 
             # Any text already in the output file should be printed to the notes log.
             obj_text_log["state"] = NORMAL
@@ -91,21 +117,14 @@ class FileButtonMacros():
                     obj_text_log.see(END)
             obj_text_log["state"] = DISABLED
 
-        # If an output file has not been selected, do not display an
-        # output file path and do not enable the relevant buttons.
+            # Enable the relevant buttons if an output file has been selected.
+            for str_button in button_output_select_template["to_enable_toggle"]:
+                enable_button(self.widgets[str_button], \
+                    self.widgets.original_colors[str_button])
+
+        # If an output file has not been selected, disable the
+        # relevant buttons and do not repopulate the text log.
         else:
-
-            # Change the text of the label that appears above the output path
-            # text widget to indicate that an output file has not been selected.
-            obj_label_output_path["text"] = label_output_path_template["text"]["value_if_false"]
-
-            # Clear the output path text widget.
-            obj_entry_output_path["state"] = NORMAL
-            obj_entry_output_path.delete(0, END)
-            obj_entry_output_path["state"] = DISABLED
-
-            # Clear the text log.
-            print_to_text("", obj_text_log, wipe_clean=True)
 
             # Disable the relevant buttons if an output file has not been selected.
             for str_button in button_output_select_template["to_enable_toggle"]:
@@ -122,6 +141,16 @@ class FileButtonMacros():
         window_merge_first_message = self.widgets.create_entire_window(\
             "window_merge_first_message", close_window_macro=self.on_close_window_merge_1_macro)
         window_merge_first_message.mainloop()
+
+    def button_audio_select_macro(self):
+        """This method will be executed when the "Select synced audio file" button is pressed."""
+
+        # Get the path to the selected audio file.
+        file_types = \
+            (("Audio files", "*.wav *.mp3 *.flac *.aiff *.aac *.wma *.ogg *.alac *.dsd *.mqa"), \
+                ('All files', '*.*'))
+        self.file_select_macro("label_audio_path", "entry_audio_path", \
+            "Select an audio file", file_types)
 
     def on_close_window_merge_1_macro(self, window_merge_1):
         """This method will be executed when the FIRST window displaying

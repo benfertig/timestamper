@@ -64,6 +64,7 @@ class Macros():
             # File buttons
             "button_output_select": file.button_output_select_macro,
             "button_merge_output_files": file.button_merge_output_files_macro,
+            "button_audio_select": file.button_audio_select_macro,
 
             # Info buttons
             "button_help": info.button_help_macro,
