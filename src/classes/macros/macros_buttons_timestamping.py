@@ -25,10 +25,10 @@ from .macros_helper_methods import button_enable_disable_macro
 class TimestampingButtonMacros():
     """This class stores all of the macros that execute when timestamping buttons are pressed."""
 
-    def __init__(self, template, widgets, timer):
-        self.template = template
-        self.widgets = widgets
-        self.timer = timer
+    def __init__(self, parent):
+        self.template = parent.template
+        self.widgets = parent.widgets
+        self.timer = parent.timer
 
     def button_timestamp_macro(self):
         """This method will be executed when the timestamp button is pressed."""

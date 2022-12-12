@@ -23,10 +23,11 @@ that are executed when an info button in the Time Stamper program is pressed."""
 class InfoButtonMacros():
     """This class stores all of the macros that execute when info buttons are pressed."""
 
-    def __init__(self, template, widgets, parent):
-        self.template = template
-        self.widgets = widgets
+    def __init__(self, parent):
+
         self.parent = parent
+        self.template = parent.template
+        self.widgets = parent.widgets
 
     def button_help_macro(self):
         """This method will be executed when the "Help" button is pressed."""

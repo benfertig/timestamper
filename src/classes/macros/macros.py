@@ -11,6 +11,7 @@ from .macros_buttons_media import MediaButtonMacros
 from .macros_buttons_note import NoteButtonMacros
 from .macros_buttons_settings import SettingsButtonMacros
 from .macros_buttons_timestamping import TimestampingButtonMacros
+from .macros_helper_methods import print_to_text, print_to_file
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -42,16 +43,21 @@ class Macros():
 
     def __init__(self, template, settings, widgets, timer):
 
-        check = CheckbuttonMacros(template, widgets)
-        file = FileButtonMacros(template, settings, widgets)
-        info = InfoButtonMacros(template, widgets, self)
-        media = MediaButtonMacros(template, settings, widgets, timer)
-        note = NoteButtonMacros(template, settings, widgets, timer)
-        settings = SettingsButtonMacros(template, settings, widgets, self)
-        timestamping = TimestampingButtonMacros(template, widgets, timer)
+        self.template = template
+        self.settings = settings
+        self.widgets = widgets
+        self.timer = timer
+
+        check = CheckbuttonMacros(self)
+        file = FileButtonMacros(self)
+        info = InfoButtonMacros(self)
+        media = MediaButtonMacros(self)
+        note = NoteButtonMacros(self)
+        settings = SettingsButtonMacros(self)
+        timestamping = TimestampingButtonMacros(self)
 
         # Map buttons to their macros.
-        self.mapping = { \
+        self.mapping = {
 
             # Checkbuttons
             "checkbutton_pause_settings": check.checkbutton_pause_settings_macro,
@@ -99,3 +105,65 @@ class Macros():
             "button_clear_timestamp": timestamping.button_clear_timestamp_macro
 
         }
+
+    def timestamp_and_print_message(self, message):
+        """This method takes a message, timestamps it, and then
+        prints that message to the notes log and the output file."""
+
+        current_timestamp = self.timer.current_time_to_timestamp()
+
+        to_print = f"{current_timestamp} {message}"
+
+        # Get the current output path from the output path entry widget.
+        output_path = self.widgets["entry_output_path"].get()
+
+        # Print the button's message, along with the current
+        # timestamp, to the notes log and the output file.
+        print_to_text(to_print, self.widgets["text_log"])
+        print_to_file(to_print, output_path, self.settings["output"]["file_encoding"])
+
+    def get_button_message_input(self, button_str_key):
+        """This method, which is called upon by several button macros, uses a button's
+        template to determine whether a message should be printed when the button is pressed.
+        If this method determines that a message should be printed when the button is pressed,
+        then this method will return that message. Otherwise, this method will return None.
+        Keep in mind that this method does not substitute potential variables (e.g.,
+        $amount and $dest for the rewind and fast-forward messages) in the returned
+        message. Any variable substitution will need to be handled outside of this method."""
+
+        button_template = self.template[button_str_key]
+
+        # Determine whether a potential message exists for this button.
+        if "print_on_press" in button_template:
+
+            should_print = True
+            print_on_press_val = button_template["print_on_press"]
+
+            # If the text that gets printed when this button is
+            # pressed is based on attributes stored elsewhere.
+            if isinstance(print_on_press_val, dict):
+
+                print_on_press_dict = print_on_press_val
+                linked_dict_str = print_on_press_dict["linked_dict"]
+
+                # Determine whether this button's message information
+                # is stored in the settings or in the template.
+                if linked_dict_str in self.settings.user:
+                    linked_dict = self.settings[linked_dict_str]
+                else:
+                    linked_dict = self.template[linked_dict_str]
+
+                # Determine the button's message.
+                print_message_key = print_on_press_dict["print_message_attribute"]
+                print_on_press_val = linked_dict[print_message_key]
+
+                # Determine whether the button's associated message should be printed.
+                if "print_bool_attribute" in print_on_press_dict:
+                    print_bool_key = print_on_press_dict["print_bool_attribute"]
+                    should_print = linked_dict[print_bool_key]
+
+            if should_print:
+
+                return print_on_press_val
+
+        return None

@@ -184,7 +184,7 @@ class TimeStamperTimer():
 
         if seconds_to_adjust_by != 0:
 
-            pyglet_load_time = .79
+            pyglet_load_time = .8
 
             # Get the current time in seconds before adjusting the timer.
             current_time_seconds = self.get_current_seconds()
@@ -215,3 +215,5 @@ class TimeStamperTimer():
 
                 # Freeze the window while the audio loads.
                 sleep(pyglet_load_time)
+
+        return seconds_to_adjust_by

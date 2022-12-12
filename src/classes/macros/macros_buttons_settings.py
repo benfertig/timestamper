@@ -28,11 +28,11 @@ from .macros_helper_methods import button_enable_disable_macro
 class SettingsButtonMacros():
     """This class stores all of the macros that execute when settings buttons are pressed."""
 
-    def __init__(self, template, settings, widgets, parent):
-        self.template = template
-        self.settings = settings
-        self.widgets = widgets
+    def __init__(self, parent):
         self.parent = parent
+        self.template = parent.template
+        self.settings = parent.settings
+        self.widgets = parent.widgets
 
     def copy_entered_settings_to_dict(self):
         """This method copies the currently entered settings in the settings window to a dictionary

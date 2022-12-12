@@ -16,6 +16,20 @@
 
     },
 
+    "label_optional_variables": {
+
+        "str_key": "label_optional_variables",
+        "window_str_key": "window_settings",
+
+        "text": "Optional variables:",
+
+        "column": 5,
+        "row": 0,
+
+        "sticky": "sw"
+
+    },
+
     "label_pause_settings": {
 
         "str_key": "label_pause_settings",
@@ -72,6 +86,22 @@
 
     },
 
+    "label_rewind_optional_variables": {
+
+        "str_key": "label_rewind_optional_variables",
+        "window_str_key": "window_settings",
+
+        "text": "$amount (rewind amount), $dest (destination time)",
+
+        "column": 5,
+        "row": 4,
+
+        "columnspan": 1,
+
+        "sticky": "w"
+
+    },
+
     "label_fast_forward_settings": {
 
         "str_key": "label_fast_forward_settings",
@@ -83,6 +113,22 @@
         "row": 5,
 
         "sticky": "e"
+
+    },
+
+    "label_fast_forward_optional_variables": {
+
+        "str_key": "label_fast_forward_optional_variables",
+        "window_str_key": "window_settings",
+
+        "text": "$amount (fast-forward amount), $dest (destination time)",
+
+        "column": 5,
+        "row": 5,
+
+        "columnspan": 1,
+
+        "sticky": "w"
 
     },
 

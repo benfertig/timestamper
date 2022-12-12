@@ -5,27 +5,27 @@
     },
     "pause": {
         "message_enabled": false,
-        "message": "##### PAUSE #####"
+        "message": "PAUSE"
     },
     "play": {
         "message_enabled": false,
-        "message": "##### RESUME #####"
+        "message": "RESUME"
     },
     "stop": {
         "message_enabled": true,
-        "message": "##### STOP #####"
+        "message": "STOP"
     },
     "rewind": {
         "message_enabled": false,
-        "message": "##### REWIND #####"
+        "message": "REWIND $amount seconds to $dest"
     },
     "fast_forward": {
         "message_enabled": false,
-        "message": "##### FAST-FORWARD #####"
+        "message": "FAST-FORWARD $amount seconds to $dest"
     },
     "record": {
         "message_enabled": true,
-        "message": "##### START #####"
+        "message": "START"
     },
     "hotkey_1": {
         "message": "HOTKEY 1"

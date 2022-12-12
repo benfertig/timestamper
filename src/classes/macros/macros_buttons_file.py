@@ -38,10 +38,10 @@ def success_message(merged_output_file_name):
 class FileButtonMacros():
     """This class stores all of the macros that execute when file buttons are pressed."""
 
-    def __init__(self, template, settings, widgets):
-        self.template = template
-        self.settings = settings
-        self.widgets = widgets
+    def __init__(self, parent):
+        self.template = parent.template
+        self.settings = parent.settings
+        self.widgets = parent.widgets
 
     def file_select_macro(self, label_str_key, entry_str_key, window_title, file_types):
         """This method is called on by button_output_select_macro and

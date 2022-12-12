@@ -26,9 +26,9 @@ from .macros_helper_methods import checkbutton_enable_disable_macro
 class CheckbuttonMacros():
     """This class stores all of the macros that execute when checkbuttons are pressed."""
 
-    def __init__(self, template, widgets):
-        self.template = template
-        self.widgets = widgets
+    def __init__(self, parent):
+        self.template = parent.template
+        self.widgets = parent.widgets
 
     def checkbutton_pause_settings_macro(self):
         """This method will be executed when the pause settings checkbutton is pressed."""

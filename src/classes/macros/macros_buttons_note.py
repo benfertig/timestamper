@@ -3,7 +3,7 @@
 that are executed when a note button in the Time Stamper program is pressed."""
 
 from tkinter import END
-from .macros_helper_methods import print_button_message, print_to_text, print_to_file
+from .macros_helper_methods import print_to_text, print_to_file
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -27,32 +27,33 @@ from .macros_helper_methods import print_button_message, print_to_text, print_to
 class NoteButtonMacros():
     """This class stores all of the macros that execute when note buttons are pressed."""
 
-    def __init__(self, template, settings, widgets, timer):
-        self.template = template
-        self.settings = settings
-        self.widgets = widgets
-        self.timer = timer
+    def __init__(self, parent):
+        self.parent = parent
+        self.template = parent.template
+        self.settings = parent.settings
+        self.widgets = parent.widgets
+        self.timer = parent.timer
 
     def button_hotkey_1_macro(self):
         """This method will be executed when hotkey 1 is pressed."""
 
-        # Print the message associated with hotkey 1.
-        print_button_message(self.template["button_hotkey_1"], \
-            self.template, self.settings, self.widgets, self.timer)
+        # Timestamp and print the message associated with hotkey 1.
+        button_hotkey_1_message = self.parent.get_button_message_input("button_hotkey_1")
+        self.parent.timestamp_and_print_message(f"{button_hotkey_1_message}\n")
 
     def button_hotkey_2_macro(self):
         """This method will be executed when hotkey 2 is pressed."""
 
-        # Print the message associated with hotkey 2.
-        print_button_message(self.template["button_hotkey_2"], \
-            self.template, self.settings, self.widgets, self.timer)
+        # Timestamp and print the message associated with hotkey 2.
+        button_hotkey_2_message = self.parent.get_button_message_input("button_hotkey_2")
+        self.parent.timestamp_and_print_message(f"{button_hotkey_2_message}\n")
 
     def button_hotkey_3_macro(self):
         """This method will be executed when hotkey 3 is pressed."""
 
-        # Print the message associated with hotkey 3.
-        print_button_message(self.template["button_hotkey_3"], \
-            self.template, self.settings, self.widgets, self.timer)
+        # Timestamp and print the message associated with hotkey 3.
+        button_hotkey_3_message = self.parent.get_button_message_input("button_hotkey_3")
+        self.parent.timestamp_and_print_message(f"{button_hotkey_3_message}\n")
 
     def button_cancel_note_macro(self):
         """This method will be executed when the "Cancel note" button is pressed."""
@@ -63,12 +64,6 @@ class NoteButtonMacros():
     def button_save_note_macro(self):
         """This method will be executed when the "Save note" button is pressed."""
 
-        # Get the current output path from the output path entry widget.
-        output_path = self.widgets["entry_output_path"].get()
-
-        # Get the current timestamp displayed next to the input text box.
-        current_timestamp = self.widgets["label_timestamp"]["text"]
-
         # Get the current text in the input text box.
         obj_current_note = self.widgets["text_current_note"]
         current_note = obj_current_note.get(1.0, END)
@@ -76,13 +71,5 @@ class NoteButtonMacros():
         # Clear the current text in the input text box.
         print_to_text("", obj_current_note, wipe_clean=True)
 
-        # Generate the note that should be printed to the log and the output file.
-        to_write = f"{current_timestamp} {current_note}"
-
-        # Print the current timestamp along with the current
-        # text from the input text box to the screen.
-        print_to_text(to_write, self.widgets["text_log"])
-
-        # Print the current timestamp along with the current
-        # text from the input text box to the output file.
-        print_to_file(to_write, output_path, self.settings["output"]["file_encoding"])
+        # Timestamp and print the message in the input text box.
+        self.parent.timestamp_and_print_message(current_note)

@@ -139,55 +139,6 @@ def print_to_file(to_print, file_path, file_encoding="utf-8", access_mode="a+"):
             out_file.write(to_print)
 
 
-def print_button_message(button_template, template, settings, widgets, timer):
-    """This method, which is called upon by several button macros, uses a
-    button's template to determine whether a message should be printed when
-    the button is pressed. If a determination is made to print a message, then
-    the button's message will be printed to both the log and the output file."""
-
-    # Determine whether a potential message exists for this button.
-    if "print_on_press" in button_template:
-
-        should_print = True
-        print_on_press_val = button_template["print_on_press"]
-
-        # If the text that gets printed when this button is
-        # pressed is based on attributes stored elsewhere.
-        if isinstance(print_on_press_val, dict):
-
-            print_on_press_dict = print_on_press_val
-            linked_dict_str = print_on_press_dict["linked_dict"]
-
-            # Determine whether this button's message information
-            # is stored in the settings or in the template.
-            if linked_dict_str in settings.user:
-                linked_dict = settings[linked_dict_str]
-            else:
-                linked_dict = template[linked_dict_str]
-
-            # Determine the button's message.
-            print_message_key = print_on_press_dict["print_message_attribute"]
-            print_on_press_val = linked_dict[print_message_key]
-
-            # Determine whether the button's associated message should be printed.
-            if "print_bool_attribute" in print_on_press_dict:
-                print_bool_key = print_on_press_dict["print_bool_attribute"]
-                should_print = linked_dict[print_bool_key]
-
-        if should_print:
-
-            # Add the current timestamp to the message that will be printed.
-            to_print = f"{timer.current_time_to_timestamp()} {print_on_press_val}\n"
-
-            # Get the current output path from the output path entry widget.
-            output_path = widgets["entry_output_path"].get()
-
-            # Print the button's message, along with the current
-            # timestamp, to the notes log and the output file.
-            print_to_text(to_print, widgets["text_log"])
-            print_to_file(to_print, output_path, settings["output"]["file_encoding"])
-
-
 def rewind_or_fast_forward(user_input, is_rewind, adjust_timer_method):
     """This method is called by button_rewind_macro and button_fast_forward_macro in
     macros_buttons_media.py. The functions performed by both the rewind and fast-forward
@@ -202,11 +153,11 @@ def rewind_or_fast_forward(user_input, is_rewind, adjust_timer_method):
     # amount is not a number (this should never happen because we have restricted the
     # rewind/fast-forward entry field to digits, but it never hurts to add a failsafe).
     except ValueError:
-        return
+        return 0
 
     # Rewind the timer the requested amount.
     else:
-        adjust_timer_method(adjust_amount * -1 if is_rewind else adjust_amount)
+        return adjust_timer_method(adjust_amount * -1 if is_rewind else adjust_amount)
 
 
 def store_timestamper_output(output_file_paths, output_file_encoding="utf-8"):
