@@ -52,10 +52,26 @@
 
     },
 
-    "label_merge_failure": {
+    "label_merge_failure_file_not_readable": {
 
-        "str_key": "label_merge_failure",
-        "window_str_key": "window_merge_failure",
+        "str_key": "label_merge_failure_file_not_readable",
+        "window_str_key": "window_merge_failure_file_not_readable",
+
+        "justify": "left",
+
+        "column": 0,
+        "row": 0,
+
+        "sticky": "nw",
+
+        "font_size": 12
+
+    },
+
+    "label_merge_failure_repeated_file": {
+
+        "str_key": "label_merge_failure_repeated_file",
+        "window_str_key": "window_merge_failure_repeated_file",
 
         "text": "MERGE FAILED\n\nYou cannot save merged notes to a file\nwhose notes are already a part of the merge.\nPlease try again.\n\nClose this window to proceed.",
 

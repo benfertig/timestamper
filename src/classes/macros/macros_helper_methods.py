@@ -28,6 +28,25 @@ if platform == "darwin":
 # Contact: github.cqrde@simplelogin.com
 
 
+def merge_success_message(merged_output_file_name):
+    """This method generates the message that is displayed
+    when the program has successfully merged output files."""
+
+    return "MERGE SUCCESS\n\nYour merged notes have been saved in:\n" \
+           f"\"{merged_output_file_name}\".\n\nClose this window to proceed."
+
+
+def merge_failure_message_file_not_readable(unreadable_files):
+    """This method generates the message that is displayed when the program
+    cannot read one or more of the files that have been selected for a merge."""
+
+    unreadable_files_str = \
+        "\n".join(unreadable_files) if isinstance(unreadable_files, list) else unreadable_files
+
+    return "MERGE FAILED\n\nThe following file(s) could not be opened:\n\n" \
+           f"{unreadable_files_str}\n\nAre you sure you selected only text files?"
+
+
 def enable_button(button, original_color):
     """This method enables a button. For certain buttons on Mac computers, visual modifications
     are also made to the button to make it easier to tell that the button is enabled."""

@@ -6,7 +6,8 @@ from os.path import basename
 from tkinter import DISABLED, NORMAL, END, filedialog
 from pyglet.media import load, Player
 from pyglet.media.codecs.wave import WAVEDecodeException
-from .macros_helper_methods import enable_button, disable_button, merge_notes, print_to_text
+from .macros_helper_methods import merge_success_message, merge_failure_message_file_not_readable, \
+    enable_button, disable_button, merge_notes, print_to_text
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -27,16 +28,6 @@ from .macros_helper_methods import enable_button, disable_button, merge_notes, p
 # Contact: github.cqrde@simplelogin.com
 
 
-def success_message(merged_output_file_name):
-    """This method generates the message that is displayed
-    when the program has successfully merged output files."""
-
-    return "MERGE SUCCESS\n\n" \
-        "Your merged notes have been saved in:\n" \
-        f"\"{merged_output_file_name}\".\n\n" \
-        "Close this window to proceed."
-
-
 class FileButtonMacros():
     """This class stores all of the macros that execute when file buttons are pressed."""
 
@@ -46,11 +37,48 @@ class FileButtonMacros():
         self.settings = parent.settings
         self.widgets = parent.widgets
 
+    def verify_selected_file(self, file_full_path, entry_str_key=None, interpret_as=None):
+        """This method, which is called by file_select_macro, verifies that the file selected by
+        the user is manipulable in a way that is consistent with the program's expectations."""
+
+        # Only try to load the file if a non-empty file_full_path argument was passed.
+        if file_full_path:
+
+            # If the program should attempt to interpret file_full_path as a text file...
+            if entry_str_key == "entry_output_path" or interpret_as == "text":
+                try:
+                    file_encoding = self.settings["output"]["file_encoding"]
+                    with open(file_full_path, "a+", encoding=file_encoding) as output_file:
+                        output_file.write("")
+                    with open(file_full_path, "r", encoding=file_encoding) as output_file:
+                        output_file.readlines()
+                except (IOError, PermissionError, UnicodeDecodeError):
+                    return False
+                else:
+                    return True
+
+            # If the program should attempt to interpret file_full_path as an audio file...
+            elif entry_str_key == "entry_audio_path" or interpret_as == "audio":
+                try:
+                    self.parent.time_stamper.audio_source = load(file_full_path)
+                except WAVEDecodeException:
+                    return False
+                else:
+                    self.parent.time_stamper.audio_player = audio_player = Player()
+                    audio_player.queue(self.parent.time_stamper.audio_source)
+                    return True
+
+        # This statement will be reached if at least one of the following conditions was met:
+        #     1) file_full_path was not provided
+        #     2) entry_str_key did not match "entry_output_path" or "entry_audio_path"
+        #        AND interpret_as did not match "text" or "audio".
+        return False
+
     def file_select_macro(self, label_str_key, entry_str_key, window_title, file_types):
         """This method is called on by button_output_select_macro and
         button_audio_select_macro. Since both "button_output_select" and
-        "button_audio_file_select" prompt the user to select a file, the procedures for
-        their macros can, to a large extent, be condensed down into a single method."""
+        "button_audio_select" prompt the user to select a file, the procedures for
+        their macros can, to a large extent, be condensed down into this method."""
 
         # Store  the template for the label, the widget for the label,
         # and the widget for the entry into abbreviated file names.
@@ -63,31 +91,13 @@ class FileButtonMacros():
             initialdir=self.template.starting_dir, filetypes=file_types)
 
         # Check to see whether a valid file has been selected.
-        valid_file = True
-        if file_full_path:
-
-            if entry_str_key == "entry_output_path":
-                try:
-                    file_encoding = self.settings["output"]["file_encoding"]
-                    with open(file_full_path, "a+", encoding=file_encoding) as output_file:
-                        output_file.write("")
-                except (IOError, PermissionError):
-                    valid_file = False
-
-            elif entry_str_key == "entry_audio_path":
-                try:
-                    self.parent.time_stamper.audio_source = load(file_full_path)
-                except WAVEDecodeException:
-                    valid_file = False
-                else:
-                    self.parent.time_stamper.audio_player = audio_player = Player()
-                    audio_player.queue(self.parent.time_stamper.audio_source)
+        file_is_valid = self.verify_selected_file(file_full_path, entry_str_key=entry_str_key)
 
         ########################################
         # IF A VALID FILE HAS BEEN SELECTED
         ########################################
 
-        if file_full_path and valid_file:
+        if file_full_path and file_is_valid:
 
             # Change the text of the label that appears above the file
             # path entry widget to indicate that a file has been selected.
@@ -201,20 +211,40 @@ class FileButtonMacros():
         # Only merge the notes if at least one file was selected.
         if files_full_paths:
 
-            # Merge the notes from all of the selected files. We cannot write the merged notes
-            # to a new file yet because a new file has not yet been selected. The process of
-            # writing the merged notes to a new file occurs in on_close_window_merge_2_macro.
-            merged_notes = merge_notes(files_full_paths, self.settings["output"]["file_encoding"])
+            invalid_file_names = []
+            for file_path in files_full_paths:
+                if not self.verify_selected_file(file_path, interpret_as="text"):
+                    invalid_file_names.append(basename(file_path))
 
-            # Call the function that will display the second window with instructions on
-            # how to merge output files, passing a macro that will make the second file
-            # explorer window appear when the second merge instructions window is closed,
-            # wherein the user should select a destination file for their merged outputs.
-            merge_second_message_window = \
-                self.widgets.create_entire_window("window_merge_second_message", \
-                    close_window_macro=self.on_close_window_merge_2_macro, \
-                        macro_args=(merged_notes, files_full_paths,))
-            merge_second_message_window.mainloop()
+            # If the user selected any files that cannot be opened and read,
+            # do not merge the notes and instead display a failure message.
+            if invalid_file_names:
+                label_merge_failure = self.template["label_merge_failure_file_not_readable"]
+                label_merge_failure["text"] = \
+                    merge_failure_message_file_not_readable(invalid_file_names)
+                merge_failure_window = \
+                    self.widgets.create_entire_window("window_merge_failure_file_not_readable")
+                merge_failure_window.mainloop()
+
+            # If all of the files that the user selected can
+            # be opened and read, proceed with the merge.
+            else:
+
+                # Merge the notes from all of the selected files. We cannot write the merged notes
+                # to a new file yet because a new file has not yet been selected. The process of
+                # writing the merged notes to a new file occurs in on_close_window_merge_2_macro.
+                merged_notes = \
+                    merge_notes(files_full_paths, self.settings["output"]["file_encoding"])
+
+                # Call the function that will display the second window with instructions on
+                # how to merge output files, passing a macro that will make the second file
+                # explorer window appear when the second merge instructions window is closed,
+                # wherein the user should select a destination file for their merged outputs.
+                merge_second_message_window = \
+                    self.widgets.create_entire_window("window_merge_second_message", \
+                        close_window_macro=self.on_close_window_merge_2_macro, \
+                            macro_args=(merged_notes, files_full_paths,))
+                merge_second_message_window.mainloop()
 
     def on_close_window_merge_2_macro(self, window_merge_2, merged_notes, files_full_paths):
         """This method will be executed when the SECOND window displaying
@@ -229,20 +259,31 @@ class FileButtonMacros():
             filedialog.askopenfilename(title="Select destination for merged outputs", \
             initialdir=self.template.starting_dir, filetypes=file_types)
 
-        # Only proceed with attempting to merge the notes if
-        # the user selected a file to save the merged notes to.
+        # Only proceed with attempting to write the merged notes to a
+        # file if the user selected a file to save the merged notes to.
         if merged_notes_path:
 
-            # If the user tried to save the merged notes to a file whose notes were already going to
-            # be a part of the merge, do not merge the notes and instead display a failure message.
+            # If the user tried to save the merged notes to a file whose notes
+            # were already going to be a part of the merge, do not write the
+            # merged notes to a file and instead display a failure message.
             if merged_notes_path in files_full_paths:
 
                 merge_failure_window = \
-                    self.widgets.create_entire_window("window_merge_failure")
+                    self.widgets.create_entire_window("window_merge_failure_repeated_file")
                 merge_failure_window.mainloop()
 
-            # If the user chose a unique file to save the merged notes to that
-            # was NOT already a part of the merge, proceed with the merge.
+            # If the user tried to save the merged notes to an unreadable file, do not
+            # write the merged notes to a file and instaed display a failure message.
+            elif not self.verify_selected_file(merged_notes_path, interpret_as="text"):
+                label_merge_failure = self.template["label_merge_failure_file_not_readable"]
+                label_merge_failure["text"] = \
+                    merge_failure_message_file_not_readable(basename(merged_notes_path))
+                merge_failure_window = \
+                    self.widgets.create_entire_window("window_merge_failure_file_not_readable")
+                merge_failure_window.mainloop()
+
+            # If the user chose a unique file to save the merged notes to that was NOT already
+            # a part of the merge AND the chosen file is readable, proceed with the merge.
             else:
 
                 # Write the merged notes to the requested file.
@@ -253,7 +294,7 @@ class FileButtonMacros():
 
                 # Display a message stating that the notes were successfully merged.
                 label_merge_success = self.template["label_merge_success"]
-                label_merge_success["text"] = success_message(basename(merged_notes_path))
+                label_merge_success["text"] = merge_success_message(basename(merged_notes_path))
                 merge_success_window = \
                     self.widgets.create_entire_window("window_merge_success")
                 merge_success_window.mainloop()

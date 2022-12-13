@@ -60,10 +60,30 @@
 
     },
 
-    "window_merge_failure": {
+    "window_merge_failure_file_not_readable": {
 
-        "str_key": "window_merge_failure",
-        "window_str_key": "window_merge_failure",
+        "str_key": "window_merge_failure_file_not_readable",
+        "window_str_key": "window_merge_failure_file_not_readable",
+
+        "title": "Merge failure",
+        "icon_windows": "timestamp_icon.ico",
+        "icon_mac": "timestamp_icon.icns",
+
+        "background": null,
+        "foreground": null,
+
+        "width": null,
+        "height": null,
+
+        "num_columns": 1,
+        "num_rows": 1
+
+    },
+
+    "window_merge_failure_repeated_file": {
+
+        "str_key": "window_merge_failure_repeated_file",
+        "window_str_key": "window_merge_failure_repeated_file",
 
         "title": "Merge failure",
         "icon_windows": "timestamp_icon.ico",
