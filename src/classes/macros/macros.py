@@ -41,11 +41,12 @@ class Macros():
     def __getitem__(self, item):
         return self.mapping[item]
 
-    def __init__(self, template, settings, widgets, timer):
+    def __init__(self, time_stamper, settings, timer):
 
-        self.template = template
+        self.time_stamper = time_stamper
+        self.template = time_stamper.template
         self.settings = settings
-        self.widgets = widgets
+        self.widgets = time_stamper.widgets
         self.timer = timer
 
         check = CheckbuttonMacros(self)
@@ -106,13 +107,14 @@ class Macros():
 
         }
 
-    def timestamp_and_print_message(self, message):
+    def print_timestamped_message(self, message, timestamp=None):
         """This method takes a message, timestamps it, and then
         prints that message to the notes log and the output file."""
 
-        current_timestamp = self.timer.current_time_to_timestamp()
+        if timestamp is None:
+            timestamp = self.timer.current_time_to_timestamp()
 
-        to_print = f"{current_timestamp} {message}"
+        to_print = f"{timestamp} {message}"
 
         # Get the current output path from the output path entry widget.
         output_path = self.widgets["entry_output_path"].get()

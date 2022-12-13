@@ -2,9 +2,8 @@
 """This module contains the TimeStamperTimer class which allows
 for keeping track of time in the Time Stamper program."""
 
-from os.path import exists
-from time import perf_counter, sleep
-from pyglet.media import load, Player
+from time import perf_counter
+from pyglet.media import Player
 from .timing_helper_methods import print_to_field, pad_number, \
     h_m_s_to_timestamp, h_m_s_to_seconds, seconds_to_h_m_s
 
@@ -41,9 +40,6 @@ class TimeStamperTimer():
         self.is_running = False
         self.start_time = 0.0
         self.offset = 0.0
-
-        self.audio_source = None
-        self.audio_player = None
 
     def read_timer(self, raw=False):
         """This method reads in and returns the current time from the time fields. This method
@@ -108,11 +104,24 @@ class TimeStamperTimer():
         # Only tick the timer if it is currently running.
         if self.is_running:
 
-            # Only tick the timer if its current time is less than the maximum displayable time.
-            if self.get_current_seconds() < 359999.99:
+            # Store the audio player, the audio source, and
+            # the duration of the audio source into variables.
+            audio_player = self.time_stamper.audio_player
+            audio_source = self.time_stamper.audio_source
 
-                # Display the current time.
-                internal_time = perf_counter() - self.start_time + self.offset
+            # Only tick the timer if its current time is less than the maximum time.
+            max_time = \
+                min(359999.99, round(audio_source.duration, 2)) if audio_player else 359999.99
+            if self.get_current_seconds() < max_time:
+
+                # If audio is playing, sync the timer with the the audio player.
+                if audio_player and audio_player.playing:
+                    internal_time = audio_player.time
+
+                # If audio is not playing, set the timer using perf_counter().
+                else:
+                    internal_time = perf_counter() - self.start_time + self.offset
+
                 self.display_time(internal_time, pad=2)
 
                 # After a very short delay, tick the timer again.
@@ -131,17 +140,23 @@ class TimeStamperTimer():
         self.is_running = False
 
         # Pause the audio if it exists.
-        if self.audio_player:
-            self.audio_player.pause()
+        if self.time_stamper.audio_player:
+            self.time_stamper.audio_player.pause()
 
     def play(self):
         """This method starts the timer and is typically
         run when the play or record button is pressed."""
 
+        # Store the audio player, the audio source, and
+        # the duration of the audio source into variables.
+        audio_source = self.time_stamper.audio_source
+        audio_player = self.time_stamper.audio_player
+
         # Only run the timer if the currently displayed time is less
         # than the maximum time (99 hours, 59 minutes and 59.99 seconds).
         current_time_seconds = self.get_current_seconds()
-        if current_time_seconds < 359999.99:
+        max_time = min(359999.99, round(audio_source.duration, 2)) if audio_player else 359999.99
+        if current_time_seconds < max_time:
 
             # Save the current raw time.
             self.start_time = perf_counter()
@@ -154,21 +169,17 @@ class TimeStamperTimer():
             self.offset = current_time_seconds
 
             # Play the selected audio file if it exists.
-            audio_file_path = self.time_stamper.widgets["entry_audio_path"].get()
-            if exists(audio_file_path):
+            if audio_player:
 
-                # Load the audio source.
-                self.audio_source = load(audio_file_path)
+                # Refresh the audio player.
+                self.time_stamper.audio_player = audio_player = Player()
+                audio_player.queue(audio_source)
 
-                # Set the audio source to begin at the timer's current time.
-                self.audio_source.seek(current_time_seconds)
-
-                # Load the audio player.
-                self.audio_player = Player()
-                self.audio_player.queue(self.audio_source)
+                # Set the audio player to begin at the timer's current time.
+                audio_player.seek(current_time_seconds)
 
                 # Play the audio.
-                self.audio_player.play()
+                audio_player.play()
 
             # Begin ticking the timer.
             self.timer_tick()
@@ -184,36 +195,52 @@ class TimeStamperTimer():
 
         if seconds_to_adjust_by != 0:
 
-            pyglet_load_time = .8
+            # Store the audio player, the audio source, and
+            # the duration of the audio source into variables.
+            audio_player = self.time_stamper.audio_player
+            audio_source = self.time_stamper.audio_source
 
             # Get the current time in seconds before adjusting the timer.
             current_time_seconds = self.get_current_seconds()
 
-            # Figure out the amount of time to adjust the timer by, which may be less
-            # than the amount of requested time because that could bring the timer below
-            # the minumum time (00h 00m 00.00s) or above the maximum time (99h 59m 59.99s).
+            # If the requested adjustment brings the timer below the
+            # minimum displayable time (00h 00m 00.00s), then reduce the
+            # adjustment so that it brings the timer to the minimum time.
             if current_time_seconds + seconds_to_adjust_by < 0:
                 seconds_to_adjust_by = -current_time_seconds
-            elif current_time_seconds + seconds_to_adjust_by > 359999.99:
-                seconds_to_adjust_by = 359999.99 - current_time_seconds
 
-            # Display the updated time.
+            # The maximum time is either the maximum time displayable by the timer (99h 59m 59.99s)
+            # or the duration of the audio source. Figure out which time is shorter and set that to
+            # the maximum time. Then, reduce the adjustment amount so that it brings the timer to
+            # the maximum time if it would have previously brought the timer over the maximum time.
+            else:
+
+                max_time = \
+                    min(359999.99, round(audio_source.duration, 2)) if audio_player else 359999.99
+
+                if current_time_seconds + seconds_to_adjust_by > max_time:
+                    seconds_to_adjust_by = max_time - current_time_seconds
+
+            # Update the timer's time.
             current_time_seconds += seconds_to_adjust_by
             self.display_time(current_time_seconds, pad=2)
             self.offset += seconds_to_adjust_by
 
             # Adjust the start time of the audio if it exists.
-            if self.is_running and self.audio_player and self.audio_player.playing:
+            audio_playing = audio_player and audio_player.playing
+            if self.is_running and audio_playing:
+
+                # Pause the audio player.
+                audio_player.pause()
+
+                # Refresh the audio player.
+                self.time_stamper.audio_player = audio_player = Player()
+                audio_player.queue(audio_source)
 
                 # Adjust the start time of the audio.
-                self.audio_player.pause()
-                self.audio_source.seek(current_time_seconds)
-                self.audio_player.play()
+                audio_player.seek(current_time_seconds)
 
-                # Factor in the time that it takes for the pyglet audio to load.
-                self.offset -= pyglet_load_time
-
-                # Freeze the window while the audio loads.
-                sleep(pyglet_load_time)
+                # Play the audio.
+                audio_player.play()
 
         return seconds_to_adjust_by

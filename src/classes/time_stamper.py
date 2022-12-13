@@ -36,9 +36,10 @@ class TimeStamper():
         self.root = None
         self.template = TimeStamperTemplate()
         settings = TimeStamperSettings()
-        self.timer = TimeStamperTimer(self)
-        self.widgets = Widgets(self.template, settings, self.timer, "window_main")
-        self.macros = Macros(self.template, settings, self.widgets, self.timer)
+        timer = TimeStamperTimer(self)
+        self.widgets = Widgets(self.template, settings, timer, "window_main")
+        self.macros = Macros(self, settings, timer)
+        self.audio_source, self.audio_player = None, None
 
     def run(self):
         """This method runs the Time Stamper program."""

@@ -80,12 +80,9 @@ class MediaButtonMacros():
 
                 seconds_to_adjust_by = str(abs(round(seconds_to_adjust_by, 2)))
 
-                # Map the variables to their appropriate values.
-                variable_mapping = {"$amount": seconds_to_adjust_by, "$dest": second_timestamp}
-
-                # Replace any variables in the button message with their mapped values.
-                button_message = " ".join([variable_mapping[word] \
-                    if word in variable_mapping else word for word in button_message.split()])
+                # Replace any variables in the button message with their corresponding values.
+                button_message = button_message.replace("$amount", seconds_to_adjust_by)
+                button_message = button_message.replace("$dest", second_timestamp)
 
             # Add the current timestamp to the message that will be printed.
             to_print = f"{first_timestamp} {button_message}\n"

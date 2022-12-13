@@ -4,6 +4,8 @@ that are executed when a file button in the Time Stamper program is pressed."""
 
 from os.path import basename
 from tkinter import DISABLED, NORMAL, END, filedialog
+from pyglet.media import load, Player
+from pyglet.media.codecs.wave import WAVEDecodeException
 from .macros_helper_methods import enable_button, disable_button, merge_notes, print_to_text
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
@@ -39,6 +41,7 @@ class FileButtonMacros():
     """This class stores all of the macros that execute when file buttons are pressed."""
 
     def __init__(self, parent):
+        self.parent = parent
         self.template = parent.template
         self.settings = parent.settings
         self.widgets = parent.widgets
@@ -59,8 +62,32 @@ class FileButtonMacros():
         file_full_path = filedialog.askopenfilename(title=window_title, \
             initialdir=self.template.starting_dir, filetypes=file_types)
 
-        # Only display the file path and enable the relevant buttons if a file has been selected.
+        # Check to see whether a valid file has been selected.
+        valid_file = True
         if file_full_path:
+
+            if entry_str_key == "entry_output_path":
+                try:
+                    file_encoding = self.settings["output"]["file_encoding"]
+                    with open(file_full_path, "a+", encoding=file_encoding) as output_file:
+                        output_file.write("")
+                except (IOError, PermissionError):
+                    valid_file = False
+
+            elif entry_str_key == "entry_audio_path":
+                try:
+                    self.parent.time_stamper.audio_source = load(file_full_path)
+                except WAVEDecodeException:
+                    valid_file = False
+                else:
+                    self.parent.time_stamper.audio_player = audio_player = Player()
+                    audio_player.queue(self.parent.time_stamper.audio_source)
+
+        ########################################
+        # IF A VALID FILE HAS BEEN SELECTED
+        ########################################
+
+        if file_full_path and valid_file:
 
             # Change the text of the label that appears above the file
             # path entry widget to indicate that a file has been selected.
@@ -73,20 +100,27 @@ class FileButtonMacros():
             entry_object.insert(0, file_full_path)
             entry_object["state"] = DISABLED
 
-        # If a file has not been selected, do not display a
-        # file path and do not enable the relevant buttons.
-        else:
+            return file_full_path
 
-            # Change the text of the label to indicate that a file has not been selected.
-            if isinstance(label_template["text"], dict):
-                label_object["text"] = label_template["text"]["value_if_false"]
+        ########################################
+        # IF A VALID FILE HAS NOT BEEN SELECTED
+        ########################################
 
-            # Clear the entry widget.
-            entry_object["state"] = NORMAL
-            entry_object.delete(0, END)
-            entry_object["state"] = DISABLED
+        # Change the text of the label to indicate that a file has not been selected.
+        if isinstance(label_template["text"], dict):
+            label_object["text"] = label_template["text"]["value_if_false"]
 
-        return file_full_path
+        # Clear the entry widget.
+        entry_object["state"] = NORMAL
+        entry_object.delete(0, END)
+        entry_object["state"] = DISABLED
+
+        # Clear the audio players
+        if entry_str_key == "entry_audio_path":
+            self.parent.time_stamper.audio_source = None
+            self.parent.time_stamper.audio_player = None
+
+        return None
 
     def button_output_select_macro(self):
         """This method will be executed when the "Choose output location" button is pressed."""
@@ -149,8 +183,8 @@ class FileButtonMacros():
         file_types = \
             (("Audio files", "*.wav *.mp3 *.flac *.aiff *.aac *.wma *.ogg *.alac *.dsd *.mqa"), \
                 ('All files', '*.*'))
-        self.file_select_macro("label_audio_path", "entry_audio_path", \
-            "Select an audio file", file_types)
+        self.file_select_macro("label_audio_path", \
+            "entry_audio_path", "Select an audio file", file_types)
 
     def on_close_window_merge_1_macro(self, window_merge_1):
         """This method will be executed when the FIRST window displaying
