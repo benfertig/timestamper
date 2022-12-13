@@ -69,14 +69,22 @@ class SettingsButtonMacros():
         "This method will be executed when the settings button is pressed."
 
         # Display the settings window.
-        window_settings = self.widgets.create_entire_window("window_settings", self.parent)
+        if "window_settings" in self.widgets.mapping \
+            and self.widgets.mapping["window_settings"].winfo_exists():
 
-        # If the current settings are the same as the default
-        # settings, disable the "Reset to default" button.
-        if self.settings.user == self.settings.default:
-            self.widgets["button_reset_to_default"]["state"] = DISABLED
+            window_settings = self.widgets.mapping["window_settings"]
+            window_settings.lift()
 
-        window_settings.mainloop()
+        else:
+
+            window_settings = self.widgets.create_entire_window("window_settings", self.parent)
+
+            # If the current settings are the same as the default
+            # settings, disable the "Reset to default" button.
+            if self.settings.user == self.settings.default:
+                self.widgets["button_reset_to_default"]["state"] = DISABLED
+
+            window_settings.mainloop()
 
     def button_reset_to_default_macro(self):
         """This method will be executed when the "Reset to

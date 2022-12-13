@@ -121,30 +121,22 @@ class Widgets():
         """This method creates an entire window with all of its widgets
         based on the string key for a particular window (window_str_key)."""
 
-        # If the window already exists, simply bring it to the front instead of recreating it.
-        if window_str in self.mapping and self.mapping[window_str].winfo_exists():
+        # Create the window.
+        window_template = self.template[window_str]
+        window = create_window(window_template, self.main_window_str, self.template.images_dir)
+        self.mapping[window_str] = window
 
-            window = self.mapping[window_str]
-            window.lift()
+        # Define how the window should treat error messages
+        window.report_callback_exception = self.report_callback_exception
 
-        else:
+        # Create the widgets that should appear in the current window.
+        self.create_widgets(window_str, macros)
 
-            # Create the window.
-            window_template = self.template[window_str]
-            window = create_window(window_template, self.main_window_str, self.template.images_dir)
-            self.mapping[window_str] = window
-
-            # Define how the window should treat error messages
-            window.report_callback_exception = self.report_callback_exception
-
-            # Create the widgets that should appear in the current window.
-            self.create_widgets(window_str, macros)
-
-            # If a function should be executed when this
-            # new window is closed, set that function here.
-            if close_window_macro:
-                macro_args = (window,) + macro_args
-                window.protocol("WM_DELETE_WINDOW", lambda: close_window_macro(*macro_args))
+        # If a function should be executed when this
+        # new window is closed, set that function here.
+        if close_window_macro:
+            macro_args = (window,) + macro_args
+            window.protocol("WM_DELETE_WINDOW", lambda: close_window_macro(*macro_args))
 
         # Return the window object.
         return window

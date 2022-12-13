@@ -52,7 +52,7 @@ class FileButtonMacros():
                         output_file.write("")
                     with open(file_full_path, "r", encoding=file_encoding) as output_file:
                         output_file.readlines()
-                except (IOError, PermissionError, UnicodeDecodeError):
+                except (FileNotFoundError, IOError, PermissionError, UnicodeDecodeError):
                     return False
                 else:
                     return True

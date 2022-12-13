@@ -33,9 +33,17 @@ class InfoButtonMacros():
         """This method will be executed when the "Help" button is pressed."""
 
         # Display the window containing the help message along with its relevant label.
-        window_help = self.widgets.create_entire_window("window_help", \
-            self.parent, close_window_macro=self.on_close_window_help_macro)
-        window_help.mainloop()
+        if "window_help" in self.widgets.mapping \
+            and self.widgets.mapping["window_help"].winfo_exists():
+
+            window_help = self.widgets.mapping["window_help"]
+            window_help.lift()
+
+        else:
+
+            window_help = self.widgets.create_entire_window("window_help", \
+                self.parent, close_window_macro=self.on_close_window_help_macro)
+            window_help.mainloop()
 
     def change_help_page(self, next_page):
         """This method is called upon by the macros for the left/right arrow buttons in the
@@ -85,12 +93,28 @@ class InfoButtonMacros():
         """This method will be executed when the License button is pressed."""
 
         # Display the window containing the license.
-        window_license = self.widgets.create_entire_window("window_license")
-        window_license.mainloop()
+        if "window_license" in self.widgets.mapping \
+            and self.widgets.mapping["window_license"].winfo_exists():
+
+            window_license = self.widgets.mapping["window_license"]
+            window_license.lift()
+
+        else:
+
+            window_license = self.widgets.create_entire_window("window_license")
+            window_license.mainloop()
 
     def button_attribution_macro(self):
         """This method will be executed when the Attribution button is pressed."""
 
         # Display the window containing the attribution.
-        window_attribution = self.widgets.create_entire_window("window_attribution")
-        window_attribution.mainloop()
+        if "window_attribution" in self.widgets.mapping \
+            and self.widgets.mapping["window_attribution"].winfo_exists():
+
+            window_attribution = self.widgets.mapping["window_attribution"]
+            window_attribution.lift()
+
+        else:
+
+            window_attribution = self.widgets.create_entire_window("window_attribution")
+            window_attribution.mainloop()

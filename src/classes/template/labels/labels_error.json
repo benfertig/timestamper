@@ -5,7 +5,7 @@
         "str_key": "label_error",
         "window_str_key": "window_error",
 
-        "text": "It looks like you encountered an bug that has not yet been addressed. I would love to hear about it!\nCopy the error message below and send it to github.cqrde@simplelogin.com.",
+        "text": "It looks like you encountered an bug that has not yet been addressed.\nI would love to hear from you so that I can patch this bug in a future release!\nCopy the error message below and send it to github.cqrde@simplelogin.com.\nInclude a brief description of what you were trying to do and what went wrong.",
 
         "justify": "left",
 
