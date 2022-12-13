@@ -1,0 +1,21 @@
+{
+
+    "label_error": {
+
+        "str_key": "label_error",
+        "window_str_key": "window_error",
+
+        "text": "It looks like you encountered an bug that has not yet been addressed. I would love to hear about it!\nCopy the error message below and send it to github.cqrde@simplelogin.com.",
+
+        "justify": "left",
+
+        "column": 0,
+        "row": 0,
+
+        "sticky": "nw",
+
+        "font_size": 12
+
+    }
+
+}

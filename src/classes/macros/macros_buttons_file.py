@@ -37,7 +37,7 @@ class FileButtonMacros():
         self.settings = parent.settings
         self.widgets = parent.widgets
 
-    def verify_selected_file(self, file_full_path, entry_str_key=None, interpret_as=None):
+    def verify_selected_file(self, file_full_path, interpret_as):
         """This method, which is called by file_select_macro, verifies that the file selected by
         the user is manipulable in a way that is consistent with the program's expectations."""
 
@@ -45,7 +45,7 @@ class FileButtonMacros():
         if file_full_path:
 
             # If the program should attempt to interpret file_full_path as a text file...
-            if entry_str_key == "entry_output_path" or interpret_as == "text":
+            if interpret_as == "text":
                 try:
                     file_encoding = self.settings["output"]["file_encoding"]
                     with open(file_full_path, "a+", encoding=file_encoding) as output_file:
@@ -58,7 +58,7 @@ class FileButtonMacros():
                     return True
 
             # If the program should attempt to interpret file_full_path as an audio file...
-            elif entry_str_key == "entry_audio_path" or interpret_as == "audio":
+            elif interpret_as == "audio":
                 try:
                     self.parent.time_stamper.audio_source = load(file_full_path)
                 except WAVEDecodeException:
@@ -70,8 +70,7 @@ class FileButtonMacros():
 
         # This statement will be reached if at least one of the following conditions was met:
         #     1) file_full_path was not provided
-        #     2) entry_str_key did not match "entry_output_path" or "entry_audio_path"
-        #        AND interpret_as did not match "text" or "audio".
+        #     2) interpret_as did not match "text" or "audio".
         return False
 
     def file_select_macro(self, label_str_key, entry_str_key, window_title, file_types):
@@ -91,7 +90,8 @@ class FileButtonMacros():
             initialdir=self.template.starting_dir, filetypes=file_types)
 
         # Check to see whether a valid file has been selected.
-        file_is_valid = self.verify_selected_file(file_full_path, entry_str_key=entry_str_key)
+        interpret_as = "audio" if entry_str_key == "entry_audio_path" else "text"
+        file_is_valid = self.verify_selected_file(file_full_path, interpret_as)
 
         ########################################
         # IF A VALID FILE HAS BEEN SELECTED
@@ -213,7 +213,7 @@ class FileButtonMacros():
 
             invalid_file_names = []
             for file_path in files_full_paths:
-                if not self.verify_selected_file(file_path, interpret_as="text"):
+                if not self.verify_selected_file(file_path, "text"):
                     invalid_file_names.append(basename(file_path))
 
             # If the user selected any files that cannot be opened and read,
@@ -274,7 +274,7 @@ class FileButtonMacros():
 
             # If the user tried to save the merged notes to an unreadable file, do not
             # write the merged notes to a file and instaed display a failure message.
-            elif not self.verify_selected_file(merged_notes_path, interpret_as="text"):
+            elif not self.verify_selected_file(merged_notes_path, "text"):
                 label_merge_failure = self.template["label_merge_failure_file_not_readable"]
                 label_merge_failure["text"] = \
                     merge_failure_message_file_not_readable(basename(merged_notes_path))

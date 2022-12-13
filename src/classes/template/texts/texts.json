@@ -68,6 +68,26 @@
 
         "sticky": "nsew"
 
+    },
+
+    "text_error": {
+
+        "str_key": "text_error",
+        "window_str_key": "window_error",
+
+        "initial_state": false,
+
+        "width": 100,
+        "height": 15,
+
+        "column": 0,
+        "row": 1,
+
+        "padx": [5, 5],
+        "pady": [5, 5],
+
+        "sticky": "nsew"  
+
     }
 
 }

@@ -1,0 +1,17 @@
+{
+    
+    "window_error": {
+
+        "str_key": "window_error",
+        "window_str_key": "window_error",
+
+        "title": "Error",
+        "icon_windows": "timestamp_icon.ico",
+        "icon_mac": "timestamp_icon.icns",
+
+        "num_columns": 1,
+        "num_rows": 2
+
+    }
+
+}

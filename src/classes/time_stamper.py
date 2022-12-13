@@ -33,10 +33,11 @@ class TimeStamper():
 
     def __init__(self):
 
-        self.root = None
-        self.template = TimeStamperTemplate()
         settings = TimeStamperSettings()
         timer = TimeStamperTimer(self)
+
+        self.root = None
+        self.template = TimeStamperTemplate()
         self.widgets = Widgets(self.template, settings, timer, "window_main")
         self.macros = Macros(self, settings, timer)
         self.audio_source, self.audio_player = None, None
@@ -46,5 +47,4 @@ class TimeStamper():
 
         # Create the main window and all of its widgets.
         self.root = self.widgets.create_entire_window("window_main", self.macros)
-
         self.root.mainloop()

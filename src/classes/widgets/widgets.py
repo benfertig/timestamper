@@ -4,6 +4,7 @@ various Tkinter widgets as well as a mapping of widgets to their string keys. Th
 allows for easy reference of widgets. Also see the "widgets_creation_methods.py" and
 "widgets_helper_methods.py" modules for additional methods associated with widgets."""
 
+from traceback import format_exception
 from .widgets_creation_methods import create_button, \
     create_checkbutton, create_entry, create_label, create_text
 from .widgets_helper_methods import create_window, determine_widget_text
@@ -46,6 +47,14 @@ class Widgets():
 
     def __getitem__(self, item):
         return self.mapping[item]
+
+    def report_callback_exception(self, *args):
+        """This function replaces the default
+        report_callback_exception function for the root window."""
+
+        error_message = format_exception(*args)
+        self.template["text_error"]["text"] = error_message
+        self.create_entire_window("window_error")
 
     def create_widgets(self, window_str, macros=None):
         """This method creates all of the widgets that are meant
@@ -124,6 +133,9 @@ class Widgets():
             window_template = self.template[window_str]
             window = create_window(window_template, self.main_window_str, self.template.images_dir)
             self.mapping[window_str] = window
+
+            # Define how the window should treat error messages
+            window.report_callback_exception = self.report_callback_exception
 
             # Create the widgets that should appear in the current window.
             self.create_widgets(window_str, macros)
