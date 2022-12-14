@@ -4,9 +4,8 @@
 from collections import defaultdict
 from glob import glob
 from os import scandir
-from os.path import abspath, basename, isdir, join
+from os.path import basename, isdir, join
 from json import load
-import sys
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -27,17 +26,6 @@ import sys
 # Contact: github.cqrde@simplelogin.com
 
 
-def resource_path():
-    """This method gets the absolute path to the resource."""
-
-    try:
-        res_path = sys._MEIPASS
-    except AttributeError:
-        res_path = abspath(".")
-
-    return res_path
-
-
 def get_default_json_path(json_dir):
     """This method locates the default JSON file for a
     folder and returns the path to that JSON file."""
@@ -45,6 +33,7 @@ def get_default_json_path(json_dir):
     json_dir_name = basename(json_dir)
     default_json_path = join(json_dir, f"{json_dir_name}_default.json")
     return default_json_path
+
 
 def json_to_dict(json_path):
     """This method loads the contents of a JSON file (whose path is

@@ -2,7 +2,6 @@
 """This module contains the SettingsButtonMacros class which stores the functions
 that are executed when a settings button in the Time Stamper program is pressed."""
 
-from json import dump
 from tkinter import DISABLED, NORMAL
 from .macros_helper_methods import button_enable_disable_macro
 
@@ -143,9 +142,8 @@ class SettingsButtonMacros():
         # Update the settings to reflect the currently entered values in the settings window.
         self.settings.user = self.copy_entered_settings_to_dict()
 
-        # Write the changed settings to the settings JSON.
-        with open(self.settings.user_json_path, "w", encoding="utf-8") as user_settings_json:
-            dump(self.settings.user, user_settings_json, indent=4)
+        # Write the changed settings to settings_user.json.
+        self.settings.dump_dict_to_json(self.settings.user, self.settings.user_json_path, indent=4)
 
         # Enable and disable the relevant widgets for when the "Save settings" button is pressed.
         button_enable_disable_macro(self.template["button_save_settings"], self.widgets)

@@ -6,7 +6,7 @@ TimeStamper run() method (the method that runs the Time Stamper program)."""
 from dataclasses import dataclass
 from os import getcwd
 from os.path import dirname, join
-from .template_helper_methods import resource_path, map_all_templates
+from .template_helper_methods import map_all_templates
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -51,9 +51,11 @@ class TimeStamperTemplate():
 
     def __init__(self):
 
+        source_dir = join(dirname(__file__), "..", "..")
+
         self.starting_dir = getcwd()
-        self.images_dir = join(resource_path(), "images")
-        self.messages_dir = join(resource_path(), "messages")
+        self.images_dir = join(source_dir, "images")
+        self.messages_dir = join(source_dir, "messages")
 
         self.mapping = map_all_templates(dirname(__file__))
 
