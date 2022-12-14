@@ -41,7 +41,7 @@ class TimeStamperSettings():
         # Load the default settings from settings_default.json.
         self.default = self.load_json(self.default_json_path)
 
-        # Get the folder that the settings_user.json should be saved to.
+        # Get the folder that settings_user.json should be saved to.
         user_settings_folder = self.get_settings_folder()
 
         # Create the user settings directory if it does not exist.
@@ -88,7 +88,7 @@ class TimeStamperSettings():
             return join(getenv("APPDATA"), "Time Stamper")
 
         # If we are on a Mac, search for settings_user.json within Library/Preferences
-        if platform == "darwin":
+        if platform.startswith("darwin"):
             return join(expanduser("~"), "Library", "Preferences", "Time Stamper")
 
         # TODO: In the future, add a settings folder for Linux computers.
@@ -98,44 +98,43 @@ class TimeStamperSettings():
         """This method does not check whether two dictionaries are identical, but rather, whether
         the outer keys and inner keys of two dictionaries are identical (disregarding values)."""
 
-        # If the outer keys of the two dictionaries are the same...
-        if dict_1.keys() == dict_2.keys():
-
-            # Iterate through the key-value pairs of dict_1.
-            for dict_1_key, dict_1_value in dict_1.items():
-
-                # The current key for dict_2 is the same as the current key for dict_1 (we know
-                # this because this section of code is unreachable unless the keys for both
-                # dictionaries are identical), but the value corresponding to the current key in
-                # dict_2 may differ from that of dict_1, so we store the value from dict_2 here.
-                dict_2_value = dict_2[dict_1_key]
-
-                # Save the types of the values in both dictionaries
-                # that correspond to the current key.
-                dict_1_value_type = type(dict_1_value)
-                dict_2_value_type = type(dict_2_value)
-
-                # Return False if the type of the current value
-                # from both dictionaries is not the same.
-                if dict_1_value_type != dict_2_value_type:
-                    return False
-
-                # Return False if the current value from both dictionaries
-                # is another dictionary but their keys are not the same.
-                if dict_2_value_type == dict and dict_1_value.keys() != dict_2_value.keys():
-                    return False
-
         # Return False if the keys of dict_1 and dict_2 are not the same.
-        else:
+        if dict_1.keys() != dict_2.keys():
             return False
+
+        # If the outer keys of the two dictionaries are the
+        # same, iterate through the key-value pairs of dict_1.
+        for dict_1_key, dict_1_value in dict_1.items():
+
+            # The current key for dict_2 is the same as the current key for
+            # dict_1 (we know this because this section of code is unreachable
+            # unless the keys for both dictionaries are identical), but the
+            # value corresponding to the current key in dict_2 may differ from
+            # that of dict_1, so we store the current value from dict_2 here.
+            dict_2_value = dict_2[dict_1_key]
+
+            # Save the types of the current values from both dictionaries.
+            dict_1_value_type = type(dict_1_value)
+            dict_2_value_type = type(dict_2_value)
+
+            # Return False if the type of the current value
+            # from both dictionaries is not the same.
+            if dict_1_value_type != dict_2_value_type:
+                return False
+
+            # Return False if the current value from both dictionaries
+            # is another dictionary but their keys are not the same.
+            if dict_2_value_type == dict and dict_1_value.keys() != dict_2_value.keys():
+                return False
 
         # Return True if dict_1 is analogous with dict_2.
         return True
 
     def check_current_user_settings(self, user_json_path):
-        """This method returns a dictionary corresponding to the user settings IF settings_user.json
-        exists at the expected location AND the data hierarchy of settings_user.json
-        matches that of settings_default.json. Otherwise, this method returns None."""
+        """This method returns a dictionary corresponding to the user settings
+        IF settings_user.json exists at the provided location (user_json_path)
+        AND the data hierarchy of settings_user.json matches that of
+        settings_default.json. Otherwise, this method returns None."""
 
         # If the user settings JSON exists...
         if exists(user_json_path):
@@ -151,13 +150,13 @@ class TimeStamperSettings():
             # If settings_user.json was successfully loaded into a dictionary...
             else:
 
-                # Return the loaded user settings if the loaded user settings'
-                # data hierarchy MATCHES that of the default settings.
+                # If the data hierarchy of the loaded user settings MATCHES
+                # that of the default settings, return the loaded user settings.
                 if self.check_settings_structures_match(user_settings, self.default):
                     return user_settings
 
-                # Return None if the loaded user settings' data
-                # hierarchy DOES NOT MATCH that of the default settings.
+                # If the data hierarchy of the loaded user settings DOES
+                # NOT MATCH that of the default settings, return None.
                 return None
 
         # If settings_user.json does not exist at the expected location, return None...

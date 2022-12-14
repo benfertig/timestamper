@@ -6,7 +6,7 @@ from re import match
 from sys import platform
 from tkinter import DISABLED, NORMAL, END
 
-if platform == "darwin":
+if platform.startswith("darwin"):
     from tkmacosx.widget import Button as MacButton
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
@@ -47,7 +47,7 @@ def merge_failure_message_file_not_readable(unreadable_files):
            f"{unreadable_files_str}\n\nAre you sure you selected only text files?"
 
 
-def enable_button(button, original_color):
+def enable_button(button, original_color=None):
     """This method enables a button. For certain buttons on Mac computers, visual modifications
     are also made to the button to make it easier to tell that the button is enabled."""
 
@@ -58,11 +58,11 @@ def enable_button(button, original_color):
     # 3) the button has no text, then it will be hard to tell whether this
     # button is enabled unless we change its appearance. Therefore, the
     # tkmacosx button's background would be changed to its original color here.
-    if platform == "darwin" and isinstance(button, MacButton) and not button.cget("text"):
+    if platform.startswith("darwin") and isinstance(button, MacButton) and not button.cget("text"):
         button["background"] = original_color
 
 
-def disable_button(button, mac_disabled_color):
+def disable_button(button, mac_disabled_color=None):
     """This method disables a button. For certain buttons on Mac computers, visual modifications
     are also made to the button to make it easier to tell that the button is disabled."""
 
@@ -73,7 +73,7 @@ def disable_button(button, mac_disabled_color):
     # 3) the button has no text, then it will be hard to tell whether this button
     # is disabled unless we change its appearance. Therefore, the tkmacosx button's
     # background would be changed to the predetermined disabled color here.
-    if platform == "darwin" and isinstance(button, MacButton) and not button.cget("text"):
+    if platform.startswith("darwin") and isinstance(button, MacButton) and not button.cget("text"):
         button["background"] = mac_disabled_color
 
     # Disable the button.
@@ -135,6 +135,18 @@ def checkbutton_enable_disable_macro(checkbutton_template, widgets):
             to_disable = widgets[str_to_disable]
             to_disable["state"] = DISABLED
 
+
+def print_to_entry(to_print, entry_obj, wipe_clean=False):
+    """This method prints the value stored in to_print to the entry widget entry_obj. An optional
+    argument wipe_clean, which is set to False by default, determines whether any text currently
+    displayed in the entry widget should be removed before the new text is displayed."""
+
+    initial_state = entry_obj["state"]
+    entry_obj["state"] = NORMAL
+    if wipe_clean:
+        entry_obj.delete(0, END)
+    entry_obj.insert(END, to_print)
+    entry_obj["state"] = initial_state
 
 def print_to_text(to_print, text_obj, wipe_clean=False):
     """This method prints the value stored in to_print to the text widget text_obj. An optional

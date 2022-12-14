@@ -29,7 +29,8 @@ from .widgets.widgets import Widgets
 
 @dataclass
 class TimeStamper():
-    """This class runs the Time Stamper program."""
+    """To run the Time Stamper program, first create an instance
+    of this class. Then, call this class' run() method."""
 
     def __init__(self):
 

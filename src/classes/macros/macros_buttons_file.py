@@ -2,12 +2,15 @@
 """This module contains the FileButtonMacros class which stores the functions
 that are executed when a file button in the Time Stamper program is pressed."""
 
+from ntpath import sep as ntpath_sep
+from posixpath import sep as posixpath_sep
 from os.path import basename
+from sys import platform
 from tkinter import DISABLED, NORMAL, END, filedialog
 from pyglet.media import load, Player
 from pyglet.media.codecs.wave import WAVEDecodeException
 from .macros_helper_methods import merge_success_message, merge_failure_message_file_not_readable, \
-    enable_button, disable_button, merge_notes, print_to_text
+    enable_button, disable_button, merge_notes, print_to_entry, print_to_text
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -104,11 +107,12 @@ class FileButtonMacros():
             if isinstance(label_template["text"], dict):
                 label_object["text"] = label_template["text"]["value_if_true"]
 
+            # Change the file path to the Windows format if we are on a Windows computer.
+            if platform.startswith("win"):
+                file_full_path = file_full_path.replace(posixpath_sep, ntpath_sep)
+
             # Print the file path to the entry widget.
-            entry_object["state"] = NORMAL
-            entry_object.delete(0, END)
-            entry_object.insert(0, file_full_path)
-            entry_object["state"] = DISABLED
+            print_to_entry(file_full_path, entry_object, wipe_clean=True)
 
             return file_full_path
 

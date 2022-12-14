@@ -104,8 +104,7 @@ class TimeStamperTimer():
         # Only tick the timer if it is currently running.
         if self.is_running:
 
-            # Store the audio player, the audio source, and
-            # the duration of the audio source into variables.
+            # Store the audio player and the audio source into variables.
             audio_player = self.time_stamper.audio_player
             audio_source = self.time_stamper.audio_source
 
@@ -152,9 +151,12 @@ class TimeStamperTimer():
         audio_source = self.time_stamper.audio_source
         audio_player = self.time_stamper.audio_player
 
-        # Only run the timer if the currently displayed time is less
-        # than the maximum time (99 hours, 59 minutes and 59.99 seconds).
+        # Get the timer's current time in seconds.
         current_time_seconds = self.get_current_seconds()
+
+        # Only start the timer if the currently displayed time is less than the maximum time,
+        # which is either 99h 59m 59.99s (if an audio source is not loaded) or the minumum
+        # of 99h 59m 59.99s and the duration of the audio source (if an audio source is loaded).
         max_time = min(359999.99, round(audio_source.duration, 2)) if audio_player else 359999.99
         if current_time_seconds < max_time:
 
@@ -190,7 +192,8 @@ class TimeStamperTimer():
             self.time_stamper.macros["button_stop"]()
 
     def adjust_timer(self, seconds_to_adjust_by):
-        """This method rewinds and fast_forwards the timer. Since the rewind and fast-forward
+        """This method rewinds/fast_forwards the timer and is typically run when the
+        rewind or fast-forward button is pressed. Since the rewind and fast-forward
         procedures are very similar, they have been condensed into this single method."""
 
         if seconds_to_adjust_by != 0:
@@ -203,21 +206,29 @@ class TimeStamperTimer():
             # Get the current time in seconds before adjusting the timer.
             current_time_seconds = self.get_current_seconds()
 
-            # If the requested adjustment brings the timer below the
-            # minimum displayable time (00h 00m 00.00s), then reduce the
-            # adjustment so that it brings the timer to the minimum time.
+            # If the requested adjustment WOULD BRING the timer0
+            # below the minimum displayable time (00h 00m 00.00s)...
             if current_time_seconds + seconds_to_adjust_by < 0:
+
+                # Reduce the adjustment so that it brings the timer to the minimum time.
                 seconds_to_adjust_by = -current_time_seconds
 
-            # The maximum time is either the maximum time displayable by the timer (99h 59m 59.99s)
-            # or the duration of the audio source. Figure out which time is shorter and set that to
-            # the maximum time. Then, reduce the adjustment amount so that it brings the timer to
-            # the maximum time if it would have previously brought the timer over the maximum time.
+            # If the requested adjustment WOULD NOT BRING the timer below the
+            # minimum displayable time (00h 00m 00.00s), we need to check whether
+            # the requested adjustment would bring the timer over the maximum time.
             else:
 
+                # The maximum time is either the maximum time displayable by the
+                # timer (99h 59m 59.99s) or the duration of the audio source. If an
+                # audio source is loaded, figure out which of these is shorter and
+                # set that to the maximum time. If an audio source is not loaded,
+                # set the maximum time to the maxmimum time displayable by the timer.
                 max_time = \
                     min(359999.99, round(audio_source.duration, 2)) if audio_player else 359999.99
 
+                # IF the requested adjustment would have previously brought
+                # the timer over the maximum time, reduce the adjustment
+                # amount so that it brings the timer to the maximum time.
                 if current_time_seconds + seconds_to_adjust_by > max_time:
                     seconds_to_adjust_by = max_time - current_time_seconds
 

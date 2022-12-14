@@ -84,16 +84,9 @@ class MediaButtonMacros():
                 button_message = button_message.replace("$amount", seconds_to_adjust_by)
                 button_message = button_message.replace("$dest", second_timestamp)
 
-            # Add the current timestamp to the message that will be printed.
-            to_print = f"{first_timestamp} {button_message}\n"
-
-            # Get the current output path from the output path entry widget.
-            output_path = self.widgets["entry_output_path"].get()
-
             # Print the button's message, along with the current
             # timestamp, to the notes log and the output file.
-            print_to_text(to_print, self.widgets["text_log"])
-            print_to_file(to_print, output_path, self.settings["output"]["file_encoding"])
+            self.parent.print_timestamped_message(f"{button_message}\n", first_timestamp)
 
     def button_pause_macro(self):
         """This method will be executed when the pause button is pressed."""

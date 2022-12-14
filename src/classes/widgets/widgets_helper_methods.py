@@ -159,7 +159,7 @@ def create_font(widget_template):
     # Tkinter text shows up a bit smaller on Mac computers compared to Windows
     # computers. We compensate for this by making text a bit larger on Macs.
     font_size = widget_template["font_size"] + 2 \
-        if platform == "darwin" else widget_template["font_size"]
+        if platform.startswith("darwin") else widget_template["font_size"]
 
     return font.Font(family=widget_template["font_family"], \
         size=font_size, weight=widget_template["font_weight"], \
@@ -197,7 +197,7 @@ def create_window(window_template, main_window_str, images_dir):
 
     # If we are on a Mac, the window icon needs to be a .icns file.
     # On Windows, the window icon needs to be a .ico file.
-    if platform == "darwin":
+    if platform.startswith("darwin"):
         icon_file_name = window_template["icon_mac"]
     else:
         icon_file_name = window_template["icon_windows"]

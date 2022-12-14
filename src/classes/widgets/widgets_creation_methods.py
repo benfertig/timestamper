@@ -7,7 +7,7 @@ from tkinter import DISABLED, NORMAL, END, Button, \
 from .widgets_helper_methods import entry_helper_method, determine_widget_text, \
     determine_widget_attribute, create_font, grid_widget, create_image
 
-if platform == "darwin":
+if platform.startswith("darwin"):
     from tkmacosx import Button as MacButton
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
@@ -39,7 +39,7 @@ def create_button(template, settings, button_template, button_window, button_mac
     button_background = button_template["background"]
     button_foreground = button_template["foreground"]
     button_has_color = button_background is not None or button_foreground is not None
-    if platform == "darwin" and (button_has_color or not button_template["text"]):
+    if platform.startswith("darwin") and (button_has_color or not button_template["text"]):
         button_class = MacButton
     else:
         button_class = Button
@@ -68,7 +68,7 @@ def create_button(template, settings, button_template, button_window, button_mac
     # If we are on a Mac and this button is BOTH initially disabled AND an instance of the kind
     # of button whose background we would like to change when enabled/disabled, then set this
     # button's initial background color to our predefined color for disabled fields on Macs.
-    if platform == "darwin" and isinstance(button, MacButton) \
+    if platform.startswith("darwin") and isinstance(button, MacButton) \
         and not button.cget("text") and button["state"] == DISABLED:
         button["background"] = button_template.mac_disabled_color
 

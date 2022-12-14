@@ -108,8 +108,9 @@ class Macros():
         }
 
     def print_timestamped_message(self, message, timestamp=None):
-        """This method takes a message, timestamps it, and then
-        prints that message to the notes log and the output file."""
+        """This method takes a message, timestamps it, and then prints that
+        timestamped message to the notes log and the output file. If no timestamp is
+        provided, a timestamp will be generated using the timer's current time."""
 
         if timestamp is None:
             timestamp = self.timer.current_time_to_timestamp()
@@ -129,9 +130,9 @@ class Macros():
         template to determine whether a message should be printed when the button is pressed.
         If this method determines that a message should be printed when the button is pressed,
         then this method will return that message. Otherwise, this method will return None.
-        Keep in mind that this method does not substitute potential variables (e.g.,
-        $amount and $dest for the rewind and fast-forward messages) in the returned
-        message. Any variable substitution will need to be handled outside of this method."""
+        Keep in mind that this method does not substitute potential variables (e.g., $amount
+        and $dest for the rewind and fast-forward messages) in the returned message.
+        Any variable substitution will need to be handled after this method is called."""
 
         button_template = self.template[button_str_key]
 
