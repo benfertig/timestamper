@@ -2,10 +2,11 @@
 """This module contains methods that create Tkinter widgets."""
 
 from sys import platform
-from tkinter import DISABLED, NORMAL, END, Button, \
-    Checkbutton, Entry, IntVar, Label, StringVar, Text
-from .widgets_helper_methods import entry_helper_method, determine_widget_text, \
-    determine_widget_attribute, create_font, grid_widget, create_image
+from tkinter import DISABLED, NORMAL, HORIZONTAL, VERTICAL, END, Button, \
+    Checkbutton, DoubleVar, Entry, IntVar, Label, StringVar, Scale, Text
+from tkinter.ttk import Scale as ttk_scale
+from .widgets_helper_methods import entry_helper_method, scale_helper_method, \
+    determine_widget_text, determine_widget_attribute, create_font, grid_widget, create_image
 
 if platform.startswith("darwin"):
     from tkmacosx import Button as MacButton
@@ -44,16 +45,16 @@ def create_button(template, settings, button_template, button_window, button_mac
     else:
         button_class = Button
 
-    # Determine the button's initial state.
+    # Determine the Button's initial state.
     if determine_widget_attribute(button_template, "initial_state", template, settings):
         initial_state = NORMAL
     else:
         initial_state = DISABLED
 
-    # Determine what the button's initial text should be.
+    # Determine what the Button's initial text should be.
     button_text = determine_widget_text(button_template, template, settings)
 
-    # Determine what the button's image should be.
+    # Determine what the Button's image should be.
     button_image = create_image(button_template, template.images_dir)
 
     # Create the Button object.
@@ -79,7 +80,7 @@ def create_checkbutton(template, settings, \
     checkbutton_template, checkbutton_window, checkbutton_macro):
     """This method creates a Checkbutton object for the Time Stamper program."""
 
-    # Determine the checkbutton's initial state.
+    # Determine the Checkbutton's initial state.
     if determine_widget_attribute(checkbutton_template, "initial_state", template, settings):
         initial_state = NORMAL
     else:
@@ -112,12 +113,12 @@ def create_entry(template, settings, entry_template, entry_window, widgets):
     # Create the Entry's font.
     entry_font = create_font(entry_template)
 
-    # Determine what the entry's initial text should be.
+    # Determine what the Entry's initial text should be.
     entry_text_str = determine_widget_text(entry_template, template, settings)
     entry_text = StringVar()
     entry_text.set(entry_text_str)
 
-    # Determine the entry's initial state
+    # Determine the Entry's initial state
     if determine_widget_attribute(entry_template, "initial_state", template, settings):
         initial_state = NORMAL
     else:
@@ -149,7 +150,7 @@ def create_label(template, settings, label_template, label_window):
     # Create the Label's font.
     label_font = create_font(label_template)
 
-    # Determine what the label's initial text should be.
+    # Determine what the Label's initial text should be.
     label_text = determine_widget_text(label_template, template, settings)
 
     # Determine what the label's image should be.
@@ -168,13 +169,56 @@ def create_label(template, settings, label_template, label_window):
     return label, label_image
 
 
+def create_scale(widgets, scale_template, scale_window, timer):
+    """This method creates a Scale object for the Time Stamper program."""
+
+    template, settings = widgets.template, widgets.settings
+
+    # Determine the Scale's initial state.
+    if determine_widget_attribute(scale_template, "initial_state", template, settings):
+        initial_state = NORMAL
+    else:
+        initial_state = DISABLED
+
+    # Determine the Scale's orientation.
+    orient = HORIZONTAL if scale_template["is_horizontal"] else VERTICAL
+
+    double_var = DoubleVar()
+
+    # If the scale should be made using tkinter.ttk.Scale...
+    if scale_template["is_ttk_scale"]:
+
+        scale = ttk_scale(scale_window, variable=double_var, from_=scale_template["from_"], \
+            to=scale_template["to"], orient=orient, state=initial_state)
+
+    # If the scale should be made using tkinter.Scale...
+    else:
+
+        # Create the Scale's font.
+        scale_font = create_font(scale_template)
+
+        # Create the Scale object.
+        scale = Scale(scale_window, variable=double_var, \
+            from_=scale_template["from_"], to=scale_template["to"], orient=orient, \
+            tickinterval= scale_template["tickinterval"], font=scale_font, state=initial_state)
+
+    scale.variable = double_var
+
+    scale["command"] = lambda *args: scale_helper_method(scale, timer, widgets)
+
+    # Place the Scale.
+    grid_widget(scale, scale_template)
+
+    return scale
+
+
 def create_text(template, settings, text_template, text_window):
     """This method creates a Text object for the Time Stamper program."""
 
     # Create the Text's font.
     text_font = create_font(text_template)
 
-    # Determine the text's initial state
+    # Determine the Text's initial state
     if determine_widget_attribute(text_template, "initial_state", template, settings):
         initial_state = NORMAL
     else:

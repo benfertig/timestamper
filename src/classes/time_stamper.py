@@ -39,7 +39,7 @@ class TimeStamper():
 
         self.root = None
         self.template = TimeStamperTemplate()
-        self.widgets = Widgets(self.template, settings, timer, "window_main")
+        self.widgets = Widgets(self, settings, timer, "window_main")
         self.macros = Macros(self, settings, timer)
         self.audio_source, self.audio_player = None, None
 

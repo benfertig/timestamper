@@ -3,6 +3,8 @@
 that do not directly rely on class variables of TimeStamperTimer."""
 
 from tkinter import NORMAL, END
+from pyglet.media import load
+from pyglet.media.codecs.wave import WAVEDecodeException
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -23,20 +25,30 @@ from tkinter import NORMAL, END
 # Contact: github.cqrde@simplelogin.com
 
 
-def print_to_field(field, to_print):
-    """This method sets the text of "field" (which should be a Tkinter
-    Entry) to whatever is stored in "to_print" (which should be a string)."""
+def load_audio(audio_path):
+    """This method tries to load an audio file, whose path is specified by audio_path,
+    into a pyglet.media.Source object. If the loading is successful, this method
+    will return the loaded audio source. Otherwise, this method will return None."""
 
-    # Determine the field's state.
-    initial_state = field["state"]
+    try:
+        audio_source = load(audio_path)
+    except (FileNotFoundError, WAVEDecodeException):
+        return None
+    else:
+        return audio_source
 
-    # Print the passed information to the field.
-    field["state"] = NORMAL
-    field.delete(0, END)
-    field.insert(0, to_print)
 
-    # Set the field's state to whatever it was before this method began.
-    field["state"] = initial_state
+def print_to_entry(to_print, entry_obj, wipe_clean=True):
+    """This method prints the value stored in to_print to the entry widget entry_obj. An optional
+    argument wipe_clean, which is set to True by default, determines whether any text currently
+    displayed in the entry widget should be removed before the new text is displayed."""
+
+    initial_state = entry_obj["state"]
+    entry_obj["state"] = NORMAL
+    if wipe_clean:
+        entry_obj.delete(0, END)
+    entry_obj.insert(END, to_print)
+    entry_obj["state"] = initial_state
 
 
 def pad_number(number, target_length, pad_before):

@@ -3,6 +3,9 @@
         "path": null,
         "file_encoding": "utf-8"
     },
+    "audio": {
+        "path": null
+    },
     "pause": {
         "message_enabled": false,
         "message": "PAUSE"

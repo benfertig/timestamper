@@ -35,10 +35,11 @@ class FileButtonMacros():
     """This class stores all of the macros that execute when file buttons are pressed."""
 
     def __init__(self, parent):
-        self.parent = parent
+        self.time_stamper = parent.time_stamper
         self.template = parent.template
         self.settings = parent.settings
         self.widgets = parent.widgets
+        self.timer = parent.timer
 
     def verify_selected_file(self, file_full_path, interpret_as):
         """This method, which is called by file_select_macro, verifies that the file selected by
@@ -63,12 +64,11 @@ class FileButtonMacros():
             # If the program should attempt to interpret file_full_path as an audio file...
             elif interpret_as == "audio":
                 try:
-                    self.parent.time_stamper.audio_source = load(file_full_path)
-                except WAVEDecodeException:
+                    self.time_stamper.audio_source = load(file_full_path)
+                except (FileNotFoundError, WAVEDecodeException):
                     return False
                 else:
-                    self.parent.time_stamper.audio_player = audio_player = Player()
-                    audio_player.queue(self.parent.time_stamper.audio_source)
+                    self.time_stamper.audio_player = Player()
                     return True
 
         # This statement will be reached if at least one of the following conditions was met:
@@ -131,8 +131,8 @@ class FileButtonMacros():
 
         # Clear the audio players
         if entry_str_key == "entry_audio_path":
-            self.parent.time_stamper.audio_source = None
-            self.parent.time_stamper.audio_player = None
+            self.time_stamper.audio_source = None
+            self.time_stamper.audio_player = None
 
         return None
 
@@ -197,8 +197,20 @@ class FileButtonMacros():
         file_types = \
             (("Audio files", "*.wav *.mp3 *.flac *.aiff *.aac *.wma *.ogg *.alac *.dsd *.mqa"), \
                 ('All files', '*.*'))
-        self.file_select_macro("label_audio_path", \
+        file_full_path = self.file_select_macro("label_audio_path", \
             "entry_audio_path", "Select an audio file", file_types)
+
+        # Enable (if a valid audio file WAS selected) or disable (if
+        # a valid audio file WAS NOT selected) the relevant widgets.
+        button_audio_select_template = self.template["button_audio_select"]
+        if file_full_path:
+            self.timer.display_time(0.0, pad=2)
+            self.widgets["scale_audio_time"].variable.set(0.0)
+            for str_widget in button_audio_select_template["to_enable_toggle"]:
+                self.widgets[str_widget]["state"] = NORMAL
+        else:
+            for str_widget in button_audio_select_template["to_enable_toggle"]:
+                self.widgets[str_widget]["state"] = DISABLED
 
     def on_close_window_merge_1_macro(self, window_merge_1):
         """This method will be executed when the FIRST window displaying

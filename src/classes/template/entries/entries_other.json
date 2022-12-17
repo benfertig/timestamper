@@ -38,8 +38,11 @@
         "str_key": "entry_audio_path",
 
         "initial_state": false,
-
-        "text": null,
+        
+        "text": {
+            "linked_dict": "audio",
+            "linked_attribute": "path"
+        },
 
         "background": "white",
         "foreground": "black",

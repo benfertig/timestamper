@@ -54,7 +54,9 @@
         "padx": [2, 2],
         "pady": [5, 0],
 
-        "sticky": "nsew"
+        "sticky": "nsew",
+
+        "to_enable_toggle": ["scale_audio_time"]
 
     }
 

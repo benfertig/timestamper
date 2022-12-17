@@ -1,0 +1,28 @@
+{
+
+    "scale_audio_time": {
+
+        "str_key": "scale_audio_time",
+
+        "initial_state": {
+            "linked_dict": "audio",
+            "linked_attribute": "path"
+        },
+
+        "is_ttk_scale": true,
+
+        "tickinterval": 0,
+
+        "row": 3,
+        "column": 0,
+
+        "rowspan": 1,
+        "columnspan": 20,
+
+        "padx": [5, 5],
+
+        "sticky": "nsew"
+
+    }
+
+}

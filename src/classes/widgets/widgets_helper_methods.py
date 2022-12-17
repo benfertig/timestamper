@@ -1,10 +1,13 @@
 #-*- coding: utf-8 -*-
 """This module contains additional methods that the widgets module relies on."""
 
-from json import load
+from json import load as json_load
 from os.path import join, splitext
 from sys import platform
-from tkinter import DISABLED, NORMAL, font, Grid, PhotoImage, Tk, Toplevel
+from tkinter import DISABLED, NORMAL, END, font, Grid, PhotoImage, Tk, Toplevel
+from pyglet.media import load as media_load
+from pyglet.media import Player
+from pyglet.media.codecs.wave import WAVEDecodeException
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -26,8 +29,7 @@ from tkinter import DISABLED, NORMAL, font, Grid, PhotoImage, Tk, Toplevel
 
 
 def entry_helper_method(entry_text, entry_template, widgets):
-    """This method prevents any non-numerical characters from being entered
-    into an entry and also sets the maximum value of that entry."""
+    """This method will be executed every time an entry's text is manipulated."""
 
     max_val = entry_template["max_val"]
 
@@ -56,6 +58,43 @@ def entry_helper_method(entry_text, entry_template, widgets):
     # Save the entry's updated text in the entry's template.
     entry_template["text_loaded_value"] = entry_text.get()
 
+
+def scale_helper_method(scale, timer, widgets):
+    """This method will be executed every time a scale is moved."""
+
+    # If the user tries to move the audio slider and there is no existing audio player...
+    if not widgets.time_stamper.audio_player:
+
+        entry_audio_path = widgets["entry_audio_path"]
+
+        # Try to load the audio source.
+        try:
+            audio_path = entry_audio_path.get()
+            widgets.time_stamper.audio_source = media_load(audio_path)
+
+        # If the audio source fails to load...
+        except (FileNotFoundError, WAVEDecodeException):
+
+            # Clear the entry displaying the audio path.
+            entry_audio_path["state"] = NORMAL
+            entry_audio_path.delete(0, END)
+            entry_audio_path["state"] = DISABLED
+
+            # Reset and disable the audio slider.
+            scale_audio_time = widgets["scale_audio_time"]
+            scale_audio_time["state"] = DISABLED
+            scale_audio_time.variable.set(0.0)
+
+            # End the method.
+            return
+
+        # If the audio source loaded successfully, create a new audio player.
+        else:
+            widgets.time_stamper.audio_player = Player()
+
+    # Update the timer to match the new position of the slider.
+    new_time = scale.get() * timer.time_stamper.audio_source.duration
+    timer.update_timer(new_time)
 
 def determine_widget_text(widget_template, template, settings):
     """There are different ways that a widget's text can be set. The widget's text can be
@@ -97,7 +136,7 @@ def determine_widget_text(widget_template, template, settings):
             # initial text to the value (from the JSON) that is paired with the key
             # (from the JSON) that is asssociated with the widget's initial message.
             if splitext(message_file_loc)[1] == ".json":
-                json_text = load(message_file)
+                json_text = json_load(message_file)
                 widget_template["loaded_message_text"] = json_text
                 widget_text = json_text[widget_template["json_first_message_key"]]
                 return widget_text

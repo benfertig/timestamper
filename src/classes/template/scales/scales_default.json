@@ -1,0 +1,37 @@
+{
+
+    "window_str_key": "window_main",
+
+    "is_ttk_scale": false,
+
+    "initial_state": true,
+
+    "is_horizontal": true,
+
+    "from_": 0,
+    "to": 1,
+
+    "tickinterval": 1,
+
+    "row": 0,
+    "column": 0,
+
+    "rowspan": 1,
+    "columnspan": 1,
+
+    "padx": null,
+    "pady": null,
+
+    "ipadx": null,
+    "ipady": null,
+
+    "sticky": "",
+
+    "font_family": "",
+    "font_size": 12,
+    "font_weight": "normal",
+    "font_slant": "roman",
+    "font_underline": 0,
+    "font_overstrike": 0
+
+}

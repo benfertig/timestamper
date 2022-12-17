@@ -10,7 +10,7 @@
         "height": 1,
 
         "column": 0,
-        "row": 6,
+        "row": 7,
 
         "padx": [10, 0],
         "pady": [8, 0],
@@ -63,7 +63,7 @@
         "height": 1,
 
         "column": 1,
-        "row": 6,
+        "row": 7,
 
         "columnspan": 1,
         "rowspan": 1,
@@ -87,7 +87,7 @@
         "height": 1,
 
         "column": 0,
-        "row": 7,
+        "row": 8,
 
         "columnspan": 2,
         "rowspan": 1,
