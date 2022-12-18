@@ -106,6 +106,42 @@
 
     },
 
+    "label_audio_elapsed": {
+
+        "str_key": "label_audio_elapsed",
+
+        "text": "—:—:—",
+
+        "justify": "center",
+
+        "column": 0,
+        "row": 3,
+
+        "padx": [5, 0],
+
+        "sticky": "e"
+
+    },
+
+    "label_audio_remaining": {
+
+        "str_key": "label_audio_remaining",
+
+        "text": "—:—:—",
+
+        "justify": "center",
+
+        "column": 19,
+        "row": 3,
+
+        "columnspan": 2,
+
+        "padx": [0, 5],
+
+        "sticky": "w"
+
+    },
+
     "label_timestamp": {
 
         "str_key": "label_timestamp",

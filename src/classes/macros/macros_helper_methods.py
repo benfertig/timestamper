@@ -148,6 +148,7 @@ def print_to_entry(to_print, entry_obj, wipe_clean=False):
     entry_obj.insert(END, to_print)
     entry_obj["state"] = initial_state
 
+
 def print_to_text(to_print, text_obj, wipe_clean=False):
     """This method prints the value stored in to_print to the text widget text_obj. An optional
     argument wipe_clean, which is set to False by default, determines whether any text currently

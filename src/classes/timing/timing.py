@@ -99,10 +99,25 @@ class TimeStamperTimer():
             obj_timestamp = self.time_stamper.widgets["label_timestamp"]
             obj_timestamp["text"] = h_m_s_to_timestamp(*h_m_s)
 
-        # If an audio player exists, update the position of the audio slider.
+        # If an audio player exists, update the position of the audio
+        # slider as well as the displays of elapsed and remaining time.
         if self.time_stamper.audio_player:
-            audio_scale_position = round(new_time / self.time_stamper.audio_source.duration, 2)
+
+            audio_duration = self.time_stamper.audio_source.duration
+
+            # Update the audio slider.
+            audio_scale_position = round(new_time / audio_duration, 2)
             self.time_stamper.widgets["scale_audio_time"].variable.set(audio_scale_position)
+
+            # Update the elapsed time.
+            label_audio_elapsed = self.time_stamper.widgets["label_audio_elapsed"]
+            label_audio_elapsed["text"] = f"{h_m_s[0]}:{h_m_s[1]}:{h_m_s[2]}"
+
+            # Update the remaining time.
+            h_m_s_remaining = seconds_to_h_m_s(audio_duration - new_time, pad)
+            label_audio_remaining = self.time_stamper.widgets["label_audio_remaining"]
+            label_audio_remaining["text"] = \
+                f"{h_m_s_remaining[0]}:{h_m_s_remaining[1]}:{h_m_s_remaining[2]}"
 
     def update_audio(self, new_time):
         """This method adjusts the start time of the current audio

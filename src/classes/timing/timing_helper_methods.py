@@ -2,7 +2,7 @@
 """This module contains helper methods for the TimeStamperTimer class
 that do not directly rely on class variables of TimeStamperTimer."""
 
-from tkinter import DISABLED, NORMAL, END
+from tkinter import NORMAL, END
 from pyglet.media import load, Player
 from pyglet.media.codecs.wave import WAVEDecodeException
 
@@ -23,19 +23,6 @@ from pyglet.media.codecs.wave import WAVEDecodeException
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 # Contact: github.cqrde@simplelogin.com
-
-
-def load_audio(audio_path):
-    """This method tries to load an audio file, whose path is specified by audio_path,
-    into a pyglet.media.Source object. If the loading is successful, this method
-    will return the loaded audio source. Otherwise, this method will return None."""
-
-    try:
-        audio_source = load(audio_path)
-    except (FileNotFoundError, WAVEDecodeException):
-        return None
-    else:
-        return audio_source
 
 
 def confirm_audio(audio_source, audio_player, entry_audio_path):

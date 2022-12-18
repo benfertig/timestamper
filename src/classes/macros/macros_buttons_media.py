@@ -2,8 +2,7 @@
 """This module contains the MediaButtonMacros class which stores the functions
 that are executed when a media button in the Time Stamper program is pressed."""
 
-from .macros_helper_methods import button_enable_disable_macro, \
-    print_to_file, print_to_text, rewind_or_fast_forward
+from .macros_helper_methods import button_enable_disable_macro, rewind_or_fast_forward
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig

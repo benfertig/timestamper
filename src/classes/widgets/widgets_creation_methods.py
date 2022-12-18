@@ -30,6 +30,38 @@ if platform.startswith("darwin"):
 # Contact: github.cqrde@simplelogin.com
 
 
+class ModifiedTkScale(Scale):
+    """This class is identical to the tkinter.Scale class except
+    that left-mouse-clicks function just like right-mouse-clicks."""
+
+    def __init__(self, master=None, **kwargs):
+        Scale.__init__(self, master, **kwargs)
+        self.variable = None
+        self.bind("<Button-1>", self.set_value)
+
+    def set_value(self, event):
+        """This method gets bound to the left-mouse-click in this class' constructor."""
+
+        self.event_generate("<Button-3>", x=event.x, y=event.y)
+        return "break"
+
+
+class ModifiedTtkScale(ttk_scale):
+    """This class is identical to the tkinter.ttk.Scale class except
+    that left-mouse-clicks function just like right-mouse-clicks."""
+
+    def __init__(self, master=None, **kwargs):
+        ttk_scale.__init__(self, master, **kwargs)
+        self.variable = None
+        self.bind("<Button-1>", self.set_value)
+
+    def set_value(self, event):
+        """This method gets bound to the left-mouse-click in this class' constructor."""
+
+        self.event_generate("<Button-3>", x=event.x, y=event.y)
+        return "break"
+
+
 def create_button(template, settings, button_template, button_window, button_macro):
     """This method creates a Button object for the Time Stamper program."""
 
@@ -188,23 +220,33 @@ def create_scale(widgets, scale_template, scale_window, timer):
     # If the scale should be made using tkinter.ttk.Scale...
     if scale_template["is_ttk_scale"]:
 
-        scale = ttk_scale(scale_window, variable=double_var, from_=scale_template["from_"], \
+        # Utilize a modified version of tkinter.ttk.Scale if this Scale's
+        # left-click event should be identical to its right-click event.
+        scale_class = ModifiedTtkScale if scale_template["snap_on_left_click"] else ttk_scale
+
+        # Create the Scale.
+        scale = scale_class(scale_window, variable=double_var, from_=scale_template["from_"], \
             to=scale_template["to"], orient=orient, state=initial_state)
 
     # If the scale should be made using tkinter.Scale...
     else:
 
+        # Utilize a modified version of tkinter.Scale if this Scale's
+        # left-click event should be identical to its right-click event.
+        scale_class = ModifiedTkScale if scale_template["snap_on_left_click"] else Scale
+
         # Create the Scale's font.
         scale_font = create_font(scale_template)
 
         # Create the Scale object.
-        scale = Scale(scale_window, variable=double_var, \
+        scale = scale_class(scale_window, variable=double_var, \
             from_=scale_template["from_"], to=scale_template["to"], orient=orient, \
-            tickinterval= scale_template["tickinterval"], font=scale_font, state=initial_state)
+            tickinterval=scale_template["tickinterval"], font=scale_font, \
+            state=initial_state, showvalue=scale_template["showvalue"])
 
     scale.variable = double_var
 
-    scale["command"] = lambda *args: scale_helper_method(scale, timer, widgets)
+    scale["command"] = lambda *args: scale_helper_method(scale, template, timer, widgets)
 
     # Place the Scale.
     grid_widget(scale, scale_template)

@@ -122,10 +122,12 @@
         "column": 18,
         "row": 7,
 
-        "columnspan": 1,
+        "columnspan": 2,
         "rowspan": 2,
 
         "pady": [8, 8],
+
+        "ipadx": 5,
 
         "sticky": "ne",
 

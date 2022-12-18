@@ -11,13 +11,20 @@
 
         "is_ttk_scale": true,
 
+        "snap_on_left_click": true,
+
+        "from_": 0,
+        "to": 1,
+
         "tickinterval": 0,
 
+        "showvalue": false,
+
+        "column": 1,
         "row": 3,
-        "column": 0,
 
         "rowspan": 1,
-        "columnspan": 20,
+        "columnspan": 18,
 
         "padx": [5, 5],
 

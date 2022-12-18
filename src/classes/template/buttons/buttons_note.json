@@ -73,6 +73,7 @@
         "column": 18,
         "row": 0,
 
+        "columnspan": 2,
         "rowspan": 2,
 
         "pady": [22, 10],

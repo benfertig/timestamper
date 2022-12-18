@@ -59,7 +59,7 @@ def entry_helper_method(entry_text, entry_template, widgets):
     entry_template["text_loaded_value"] = entry_text.get()
 
 
-def scale_helper_method(scale, timer, widgets):
+def scale_helper_method(scale, template, timer, widgets):
     """This method will be executed every time a scale is moved."""
 
     # If the user tries to move the audio slider and there is no existing audio player...
@@ -85,6 +85,10 @@ def scale_helper_method(scale, timer, widgets):
             scale_audio_time["state"] = DISABLED
             scale_audio_time.variable.set(0.0)
 
+            # Reset the elapsed/remaining time labels.
+            widgets["label_audio_elapsed"]["text"] = template["label_audio_elapsed"]["text"]
+            widgets["label_audio_remaining"]["text"] = template["label_audio_remaining"]["text"]
+
             # End the method.
             return
 
@@ -95,6 +99,7 @@ def scale_helper_method(scale, timer, widgets):
     # Update the timer to match the new position of the slider.
     new_time = scale.get() * timer.time_stamper.audio_source.duration
     timer.update_timer(new_time)
+
 
 def determine_widget_text(widget_template, template, settings):
     """There are different ways that a widget's text can be set. The widget's text can be

@@ -200,15 +200,22 @@ class FileButtonMacros():
         file_full_path = self.file_select_macro("label_audio_path", \
             "entry_audio_path", "Select an audio file", file_types)
 
-        # Enable (if a valid audio file WAS selected) or disable (if
-        # a valid audio file WAS NOT selected) the relevant widgets.
+        # If a valid audio file WAS selected, enable the
+        # relevant widgets and reset the timer/audio slider.
         button_audio_select_template = self.template["button_audio_select"]
         if file_full_path:
             self.timer.display_time(0.0, pad=2)
-            self.widgets["scale_audio_time"].variable.set(0.0)
             for str_widget in button_audio_select_template["to_enable_toggle"]:
                 self.widgets[str_widget]["state"] = NORMAL
+
+        # If a valid audio file WAS NOT selected, disable the relevant widgets, reset the audio
+        # elapsed/remaining labels and reset the audio slider (but do not reset the timer).
         else:
+            self.widgets["scale_audio_time"].variable.set(0.0)
+            self.widgets["label_audio_elapsed"]["text"] = \
+                self.template["label_audio_elapsed"]["text"]
+            self.widgets["label_audio_remaining"]["text"] = \
+                self.template["label_audio_remaining"]["text"]
             for str_widget in button_audio_select_template["to_enable_toggle"]:
                 self.widgets[str_widget]["state"] = DISABLED
 

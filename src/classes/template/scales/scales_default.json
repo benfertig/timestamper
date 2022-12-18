@@ -8,10 +8,14 @@
 
     "is_horizontal": true,
 
+    "snap_on_left_click": false,
+
     "from_": 0,
     "to": 1,
 
     "tickinterval": 1,
+
+    "showvalue": true,
 
     "row": 0,
     "column": 0,
