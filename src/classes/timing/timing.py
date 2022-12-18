@@ -3,9 +3,9 @@
 for keeping track of time in the Time Stamper program."""
 
 from time import perf_counter
-from tkinter import END
+from tkinter import DISABLED
 from pyglet.media import Player
-from .timing_helper_methods import load_audio, print_to_entry, \
+from .timing_helper_methods import confirm_audio, print_to_entry, \
     pad_number, h_m_s_to_timestamp, h_m_s_to_seconds, seconds_to_h_m_s
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
@@ -81,12 +81,12 @@ class TimeStamperTimer():
 
         return h_m_s_to_timestamp(*self.read_timer(raw=True))
 
-    def display_time(self, time_in_seconds, pad=0):
+    def display_time(self, new_time, pad=0):
         """This method, after converting the provided time in seconds to hours, minutes,
         seconds and subseconds, will display this time to timer fields of self.time_stamper."""
 
         # Convert the provided time in seconds to hours, minutes, seconds and subseconds.
-        h_m_s = seconds_to_h_m_s(time_in_seconds, pad)
+        h_m_s = seconds_to_h_m_s(new_time, pad)
 
         # Print the hours, minutes, seconds and subseconds to their relevant Tkinter entries.
         print_to_entry(h_m_s[0], self.time_stamper.widgets["entry_hours"])
@@ -98,6 +98,68 @@ class TimeStamperTimer():
         if not self.timestamp_set:
             obj_timestamp = self.time_stamper.widgets["label_timestamp"]
             obj_timestamp["text"] = h_m_s_to_timestamp(*h_m_s)
+
+        # If an audio player exists, update the position of the audio slider.
+        if self.time_stamper.audio_player:
+            audio_scale_position = round(new_time / self.time_stamper.audio_source.duration, 2)
+            self.time_stamper.widgets["scale_audio_time"].variable.set(audio_scale_position)
+
+    def update_audio(self, new_time):
+        """This method adjusts the start time of the current audio
+        source to new_time and then plays that audio source."""
+
+        if self.is_running:
+
+            # Pause the audio player.
+            self.time_stamper.audio_player.pause()
+
+            # Refresh the audio player.
+            self.time_stamper.audio_player.delete()
+            self.time_stamper.audio_player = Player()
+            self.time_stamper.audio_player.queue(self.time_stamper.audio_source)
+
+            # Adjust the start time of the audio.
+            self.time_stamper.audio_player.seek(new_time)
+
+            # Play the audio.
+            self.time_stamper.audio_player.play()
+
+    def attempt_audio_playback(self, start_time):
+        """If an audio player can be initialized with the current information provided in
+        the Time Stamper program, then this method will begin playing the audio from the
+        time specified by start_time. Otherwise, no audio will begin playing and the
+        widgets that are only relevant to audio playback will be cleared and/or disabled."""
+
+        # Retrieve the audio source and the audio player if they can be retrieved.
+        entry_audio_path = self.time_stamper.widgets["entry_audio_path"]
+        self.time_stamper.audio_source, self.time_stamper.audio_player = confirm_audio(\
+            self.time_stamper.audio_source, self.time_stamper.audio_player, entry_audio_path)
+
+        # Play the selected audio player if it WAS successfully retrieved.
+        if self.time_stamper.audio_player:
+            self.update_audio(start_time)
+
+        # Clear the audio path and disable the audio slider
+        # if an audio player WAS NOT successfully retrieved.
+        else:
+            print_to_entry("", entry_audio_path)
+            self.time_stamper.widgets["scale_audio_time"]["state"] = DISABLED
+
+    def update_timer(self, new_time):
+        """This method updates the timer to the new time passed
+        in new_time (which should be a time in seconds)."""
+
+        # Find the time we are adjusting FROM.
+        prev_time = self.get_current_seconds()
+
+        # Set the new offset.
+        self.offset += (new_time - prev_time)
+
+        # Display the new time.
+        self.display_time(new_time, pad=2)
+
+        # Try to play the specified audio file if one has been specified.
+        self.attempt_audio_playback(new_time)
 
     def timer_tick(self):
         """This method runs continuously while the timer is running to update the current time."""
@@ -113,16 +175,9 @@ class TimeStamperTimer():
                 if self.time_stamper.audio_player else 359999.99
             if current_time_seconds < max_time:
 
-                # If audio is playing...
+                # If audio is playing, sync the timer with the the audio player.
                 if self.time_stamper.audio_player and self.time_stamper.audio_player.playing:
-
-                    # Sync the timer with the the audio player
                     internal_time = self.time_stamper.audio_player.time
-
-                    # Update the position of the audio slider.
-                    audio_scale_position = round(current_time_seconds / audio_source.duration, 2)
-                    autio_time_scale = self.time_stamper.widgets["scale_audio_time"]
-                    autio_time_scale.variable.set(audio_scale_position)
 
                 # If audio is not playing, set the timer using perf_counter().
                 else:
@@ -136,8 +191,6 @@ class TimeStamperTimer():
             # If the timer's currently displayed time is not less
             # than the maximum displayable time, stop the timer.
             else:
-                if self.time_stamper.audio_player:
-                    self.time_stamper.widgets["scale_audio_time"].variable.set(1.0)
                 self.time_stamper.macros["button_stop"]()
 
     def pause(self):
@@ -175,28 +228,8 @@ class TimeStamperTimer():
             # offset for the calculation of the running time.
             self.offset = current_time_seconds
 
-            # If the audio file specified by the audio path
-            # has not yet been loaded, try to load it now.
-            entry_audio_path = self.time_stamper.widgets["entry_audio_path"]
-            audio_path = entry_audio_path.get()
-            if audio_path and not self.time_stamper.audio_player:
-
-                # Try to load the audio source specified in the audio path entry.
-                self.time_stamper.audio_source = load_audio(audio_path)
-
-                # If the audio source specified in the audio path entry
-                # was successfully loaded, initialize an audio player.
-                if self.time_stamper.audio_source:
-                    self.time_stamper.audio_player = Player()
-
-                # If the audio source specified in the audio path entry was not successfully loaded,
-                # do not initialize an audio player and instead erase the the audio path entry text.
-                else:
-                    print_to_entry("", entry_audio_path)
-
-            # Play the selected audio file if it exists.
-            if self.time_stamper.audio_player:
-                self.update_audio(current_time_seconds)
+            # Try to play the specified audio file if one has been specified.
+            self.attempt_audio_playback(current_time_seconds)
 
             # Begin ticking the timer.
             self.timer_tick()
@@ -204,50 +237,8 @@ class TimeStamperTimer():
         # If the timer's currently displayed time is not less
         # than the maximum displayable time, stop the timer.
         else:
-            if self.time_stamper.audio_player:
-                self.time_stamper.widgets["scale_audio_time"].variable.set(1.0)
+            self.display_time(max_time, pad=2)
             self.time_stamper.macros["button_stop"]()
-
-    def update_audio(self, new_time):
-        """This method adjusts the start time of the current audio
-        source to new_time and then plays that audio source."""
-
-        # Adjust the audio slider.
-        audio_scale_position = round(new_time / self.time_stamper.audio_source.duration, 2)
-        self.time_stamper.widgets["scale_audio_time"].variable.set(audio_scale_position)
-
-        if self.is_running:
-
-            # Pause the audio player.
-            self.time_stamper.audio_player.pause()
-
-            # Refresh the audio player.
-            self.time_stamper.audio_player.delete()
-            self.time_stamper.audio_player = Player()
-            self.time_stamper.audio_player.queue(self.time_stamper.audio_source)
-
-            # Adjust the start time of the audio.
-            self.time_stamper.audio_player.seek(new_time)
-
-            # Play the audio.
-            self.time_stamper.audio_player.play()
-
-    def update_timer(self, new_time):
-        """This method updates the timer to the new time passed
-        in new_time (which should be a time in seconds)."""
-
-        # Find the time we are adjusting FROM.
-        prev_time = self.get_current_seconds()
-
-        # Set the new offset.
-        self.offset += (new_time - prev_time)
-
-        # Display the new time.
-        self.display_time(new_time, pad=2)
-
-        # Update the audio if it is playing.
-        if self.time_stamper.audio_player:
-            self.update_audio(new_time)
 
     def adjust_timer(self, seconds_to_adjust_by):
         """This method rewinds/fast_forwards the timer and is typically run when the
@@ -256,19 +247,16 @@ class TimeStamperTimer():
 
         if seconds_to_adjust_by != 0:
 
-            # Get the current time in seconds before adjusting the timer.
             current_time_seconds = self.get_current_seconds()
 
-            # If the requested adjustment WOULD BRING the timer
-            # below the minimum displayable time (00h 00m 00.00s)...
+            # If the requested adjustment WOULD BRING the timer below
+            # the minimum time (00h 00m 00.00s), reduce the adjustment
+            # so that it brings the timer to the minimum time.
             if current_time_seconds + seconds_to_adjust_by < 0:
-
-                # Reduce the adjustment so that it brings the timer to the minimum time.
                 seconds_to_adjust_by = -current_time_seconds
 
-            # If the requested adjustment WOULD NOT BRING the timer below the
-            # minimum displayable time (00h 00m 00.00s), we need to check whether
-            # the requested adjustment would bring the timer over the maximum time.
+            # If the requested adjustment WOULD NOT BRING the
+            # timer below the minimum time (00h 00m 00.00s)...
             else:
 
                 # The maximum time is either the maximum time displayable by the
@@ -280,8 +268,8 @@ class TimeStamperTimer():
                         if self.time_stamper.audio_player else 359999.99
 
                 # IF the requested adjustment would have previously brought
-                # the timer over the maximum time, reduce the adjustment
-                # amount so that it brings the timer to the maximum time.
+                # the timer OVER the maximum time, reduce the adjustment
+                # amount so that it brings the timer TO the maximum time.
                 if current_time_seconds + seconds_to_adjust_by > max_time:
                     seconds_to_adjust_by = max_time - current_time_seconds
 

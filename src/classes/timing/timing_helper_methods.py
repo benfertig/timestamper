@@ -2,8 +2,8 @@
 """This module contains helper methods for the TimeStamperTimer class
 that do not directly rely on class variables of TimeStamperTimer."""
 
-from tkinter import NORMAL, END
-from pyglet.media import load
+from tkinter import DISABLED, NORMAL, END
+from pyglet.media import load, Player
 from pyglet.media.codecs.wave import WAVEDecodeException
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
@@ -36,6 +36,39 @@ def load_audio(audio_path):
         return None
     else:
         return audio_source
+
+
+def confirm_audio(audio_source, audio_player, entry_audio_path):
+    """This method checks whether an audio player can be initialized with the
+    current information provided in the Time Stamper program. If an audio player
+    can be loaded, then a tuple containing the appropriate audio source and
+    audio player is returned. Otherwise, the tuple (None, None) is returned."""
+
+    # Return the audio player if it exists.
+    if audio_player:
+        return audio_source, audio_player
+
+    # Retrieve the current text from the audio path Entry widget.
+    audio_path = entry_audio_path.get()
+
+    # If there is no audio player and also no audio path, return
+    # None in place of both the audio source and the audio player.
+    if not audio_path:
+        return None, None
+
+    # Try to load the audio source specified in the audio path entry.
+    try:
+        audio_source = load(audio_path)
+
+    # If the audio source specified in the audio path entry was not successfully
+    # loaded, return None in place of both the audio source and the audio player.
+    except (FileNotFoundError, WAVEDecodeException):
+        return None, None
+
+    # If the audio source specified in the audio path entry was successfully
+    # loaded, return the audio source and a freshly initialized audio player.
+    else:
+        return audio_source, Player()
 
 
 def print_to_entry(to_print, entry_obj, wipe_clean=True):
