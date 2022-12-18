@@ -39,6 +39,7 @@ class TimeStamperTimer():
 
         self.timestamp_set = False
         self.is_running = False
+        self.temporary_pause = False
         self.start_time = 0.0
         self.offset = 0.0
 
@@ -208,20 +209,36 @@ class TimeStamperTimer():
             else:
                 self.time_stamper.macros["button_stop"]()
 
-    def pause(self):
-        """This method halts the timer and is typically
-        run when the pause or stop button is pressed."""
+    def pause(self, temporary_pause=False):
+        """This method halts the timer and is typically run when the pause or stop button
+        is pressed or when the audio slider is dragged. An optional argument temporary_pause,
+        which is set to False by default, is only ever set to True if this method is called
+        from scale_audio_time_left_mouse_press in widgets_helper_methods.py and if the
+        timer was previously unpaused. When the audio slider is then released (i.e., when
+        scale_audio_time_left_mouse_release from widgets_helper_methods.py is called),
+        then the timer will immediately resume if temporary_pause was set to True."""
 
-        # Declare the timer as not running.
-        self.is_running = False
+        # Only pause the timer if it is currently running.
+        if self.is_running:
 
-        # Pause the audio if it exists.
-        if self.time_stamper.audio_player:
-            self.time_stamper.audio_player.pause()
+            # Declare the timer as not running.
+            self.is_running = False
+
+            # If this method is being called from scale_audio_time_left_mouse_press, then
+            # indicate that the timer should be resumed when the audio slider is released.
+            if temporary_pause:
+                self.temporary_pause = True
+
+            # Pause the audio if it exists.
+            if self.time_stamper.audio_player:
+                self.time_stamper.audio_player.pause()
 
     def play(self):
         """This method starts the timer and is typically
         run when the play or record button is pressed."""
+
+        # The timer is no longer paused, so self.temporary_pause cannot possibly apply any longer.
+        self.temporary_pause = False
 
         # Get the timer's current time in seconds.
         current_time_seconds = self.get_current_seconds()

@@ -35,12 +35,12 @@ class TimeStamper():
     def __init__(self):
 
         settings = TimeStamperSettings()
-        timer = TimeStamperTimer(self)
 
+        self.timer = TimeStamperTimer(self)
         self.root = None
         self.template = TimeStamperTemplate()
-        self.widgets = Widgets(self, settings, timer, "window_main")
-        self.macros = Macros(self, settings, timer)
+        self.widgets = Widgets(self, settings, "window_main")
+        self.macros = Macros(self, settings)
         self.audio_source, self.audio_player = None, None
 
     def run(self):

@@ -41,13 +41,13 @@ class Macros():
     def __getitem__(self, item):
         return self.mapping[item]
 
-    def __init__(self, time_stamper, settings, timer):
+    def __init__(self, time_stamper, settings):
 
         self.time_stamper = time_stamper
         self.template = time_stamper.template
         self.settings = settings
         self.widgets = time_stamper.widgets
-        self.timer = timer
+        self.timer = time_stamper.timer
 
         check = CheckbuttonMacros(self)
         file = FileButtonMacros(self)

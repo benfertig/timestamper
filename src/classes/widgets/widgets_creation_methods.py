@@ -5,7 +5,8 @@ from sys import platform
 from tkinter import DISABLED, NORMAL, HORIZONTAL, VERTICAL, END, Button, \
     Checkbutton, DoubleVar, Entry, IntVar, Label, StringVar, Scale, Text
 from tkinter.ttk import Scale as ttk_scale
-from .widgets_helper_methods import entry_helper_method, scale_helper_method, \
+from .widgets_helper_methods import entry_helper_method, \
+    scale_audio_time_left_mouse_press, scale_audio_time_left_mouse_release, \
     determine_widget_text, determine_widget_attribute, create_font, grid_widget, create_image
 
 if platform.startswith("darwin"):
@@ -34,10 +35,17 @@ class ModifiedTkScale(Scale):
     """This class is identical to the tkinter.Scale class except
     that left-mouse-clicks function just like right-mouse-clicks."""
 
-    def __init__(self, master=None, **kwargs):
+    def __init__(self, widgets, master=None, **kwargs):
         Scale.__init__(self, master, **kwargs)
         self.variable = None
+
+        # Make the left-mouse-click behave like the right-mouse-click.
         self.bind("<Button-1>", self.set_value)
+
+        # Set the functions for releasing the left, middle and right mouse buttons.
+        self.bind("<ButtonRelease-1>", lambda _: scale_audio_time_left_mouse_release(widgets))
+        self.bind("<ButtonRelease-2>", lambda _: scale_audio_time_left_mouse_release(widgets))
+        self.bind("<ButtonRelease-3>", lambda _: scale_audio_time_left_mouse_release(widgets))
 
     def set_value(self, event):
         """This method gets bound to the left-mouse-click in this class' constructor."""
@@ -50,10 +58,17 @@ class ModifiedTtkScale(ttk_scale):
     """This class is identical to the tkinter.ttk.Scale class except
     that left-mouse-clicks function just like right-mouse-clicks."""
 
-    def __init__(self, master=None, **kwargs):
+    def __init__(self, widgets, master=None, **kwargs):
         ttk_scale.__init__(self, master, **kwargs)
         self.variable = None
+
+        # Make the left-mouse-click behave like the right-mouse-click.
         self.bind("<Button-1>", self.set_value)
+
+        # Set the functions for releasing the left, middle and right mouse buttons.
+        self.bind("<ButtonRelease-1>", lambda _: scale_audio_time_left_mouse_release(widgets))
+        self.bind("<ButtonRelease-2>", lambda _: scale_audio_time_left_mouse_release(widgets))
+        self.bind("<ButtonRelease-3>", lambda _: scale_audio_time_left_mouse_release(widgets))
 
     def set_value(self, event):
         """This method gets bound to the left-mouse-click in this class' constructor."""
@@ -168,7 +183,7 @@ def create_entry(template, settings, entry_template, entry_window, widgets):
     grid_widget(entry, entry_template)
 
     # Set the Entry input restrictions.
-    entry_text.trace("w", lambda *args: entry_helper_method(entry_text, entry_template, widgets))
+    entry_text.trace("w", lambda *_: entry_helper_method(entry_text, entry_template, widgets))
 
     # Load the entry's initial text into its template.
     entry_template["text_loaded_value"] = entry_text_str
@@ -201,13 +216,13 @@ def create_label(template, settings, label_template, label_window):
     return label, label_image
 
 
-def create_scale(widgets, scale_template, scale_window, timer):
+def create_scale(widgets, scale_template, scale_window):
     """This method creates a Scale object for the Time Stamper program."""
 
-    template, settings = widgets.template, widgets.settings
+    settings = widgets.settings
 
     # Determine the Scale's initial state.
-    if determine_widget_attribute(scale_template, "initial_state", template, settings):
+    if determine_widget_attribute(scale_template, "initial_state", widgets.template, settings):
         initial_state = NORMAL
     else:
         initial_state = DISABLED
@@ -220,33 +235,33 @@ def create_scale(widgets, scale_template, scale_window, timer):
     # If the scale should be made using tkinter.ttk.Scale...
     if scale_template["is_ttk_scale"]:
 
-        # Utilize a modified version of tkinter.ttk.Scale if this Scale's
-        # left-click event should be identical to its right-click event.
-        scale_class = ModifiedTtkScale if scale_template["snap_on_left_click"] else ttk_scale
+        # Utilize a modified version of tkinter.ttk.Scale if this is the audio time slider.
+        scale_class = ModifiedTtkScale \
+            if scale_template["str_key"] == "scale_audio_time" else ttk_scale
 
         # Create the Scale.
-        scale = scale_class(scale_window, variable=double_var, from_=scale_template["from_"], \
-            to=scale_template["to"], orient=orient, state=initial_state)
+        scale = scale_class(widgets, master=scale_window, variable=double_var, \
+            from_=scale_template["from_"], to=scale_template["to"], \
+            orient=orient, state=initial_state)
 
     # If the scale should be made using tkinter.Scale...
     else:
 
-        # Utilize a modified version of tkinter.Scale if this Scale's
-        # left-click event should be identical to its right-click event.
-        scale_class = ModifiedTkScale if scale_template["snap_on_left_click"] else Scale
+        # Utilize a modified version of tkinter.Scale if this is the audio time slider.
+        scale_class = ModifiedTkScale if scale_template["str_key"] == "scale_audio_time" else Scale
 
         # Create the Scale's font.
         scale_font = create_font(scale_template)
 
         # Create the Scale object.
-        scale = scale_class(scale_window, variable=double_var, \
+        scale = scale_class(widgets, master=scale_window, variable=double_var, \
             from_=scale_template["from_"], to=scale_template["to"], orient=orient, \
             tickinterval=scale_template["tickinterval"], font=scale_font, \
             state=initial_state, showvalue=scale_template["showvalue"])
 
     scale.variable = double_var
 
-    scale["command"] = lambda *args: scale_helper_method(scale, template, timer, widgets)
+    scale["command"] = lambda _: scale_audio_time_left_mouse_press(scale, widgets)
 
     # Place the Scale.
     grid_widget(scale, scale_template)

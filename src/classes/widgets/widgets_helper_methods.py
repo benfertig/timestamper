@@ -59,8 +59,20 @@ def entry_helper_method(entry_text, entry_template, widgets):
     entry_template["text_loaded_value"] = entry_text.get()
 
 
-def scale_helper_method(scale, template, timer, widgets):
-    """This method will be executed every time a scale is moved."""
+def scale_audio_time_left_mouse_press(scale, widgets):
+    """This method will be executed when the user presses the left mouse button on the audio
+    slider (but not when the user releases the left mouse button from the audio slider)."""
+
+    # Pause the timer.
+    widgets.time_stamper.timer.pause(temporary_pause=True)
+
+    # Update the timer to match the new position of the slider.
+    new_time = scale.get() * widgets.time_stamper.audio_source.duration
+    widgets.time_stamper.timer.update_timer(new_time)
+
+def scale_audio_time_left_mouse_release(widgets):
+    """This method will be executed when the user releases the left mouse button from the
+    audio slider (but not when the user presses the left mouse button on the audio slider)."""
 
     # If the user tries to move the audio slider and there is no existing audio player...
     if not widgets.time_stamper.audio_player:
@@ -86,6 +98,7 @@ def scale_helper_method(scale, template, timer, widgets):
             scale_audio_time.variable.set(0.0)
 
             # Reset the elapsed/remaining time labels.
+            template = widgets.template
             widgets["label_audio_elapsed"]["text"] = template["label_audio_elapsed"]["text"]
             widgets["label_audio_remaining"]["text"] = template["label_audio_remaining"]["text"]
 
@@ -96,10 +109,9 @@ def scale_helper_method(scale, template, timer, widgets):
         else:
             widgets.time_stamper.audio_player = Player()
 
-    # Update the timer to match the new position of the slider.
-    new_time = scale.get() * timer.time_stamper.audio_source.duration
-    timer.update_timer(new_time)
-
+    # If the timer was previously paused when the user dragged the audio slider, resume the timer.
+    if widgets.time_stamper.timer.temporary_pause:
+        widgets.time_stamper.timer.play()
 
 def determine_widget_text(widget_template, template, settings):
     """There are different ways that a widget's text can be set. The widget's text can be

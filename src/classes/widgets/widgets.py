@@ -35,7 +35,7 @@ class Widgets():
     reference Widgets["button_pause"]. Also see the "widgets_creation_methods.py" and
     "widgets_helper_methods.py" modules for additional methods associated with widgets."""
 
-    def __init__(self, time_stamper, settings, timer, main_window_str):
+    def __init__(self, time_stamper, settings, main_window_str):
 
         self.time_stamper = time_stamper
         self.template = time_stamper.template
@@ -44,7 +44,7 @@ class Widgets():
         self.original_colors = {}
         self.determine_widget_text = determine_widget_text
 
-        self.mapping = {"time_stamper_timer": timer}
+        self.mapping = {"time_stamper_timer": time_stamper.timer}
 
     def __getitem__(self, item):
         return self.mapping[item]
@@ -122,9 +122,8 @@ class Widgets():
         to appear in the window indicated by window_str."""
 
         scale_window = self[window_str]
-        timer = self["time_stamper_timer"]
         for scale_template in self.template["scales"][window_str]:
-            scale = create_scale(self, scale_template, scale_window, timer)
+            scale = create_scale(self, scale_template, scale_window)
             self.mapping[scale_template["str_key"]] = scale
 
     def create_texts(self, window_str):

@@ -8,8 +8,6 @@
 
     "is_horizontal": true,
 
-    "snap_on_left_click": false,
-
     "from_": 0,
     "to": 1,
 
