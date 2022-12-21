@@ -237,7 +237,7 @@ class TimeStamperTimer():
         """This method starts the timer and is typically
         run when the play or record button is pressed."""
 
-        # The timer is no longer paused, so self.temporary_pause cannot possibly apply any longer.
+        # The timer is no longer paused, so self.temporary_pause should be set to False.
         self.temporary_pause = False
 
         # Get the timer's current time in seconds.

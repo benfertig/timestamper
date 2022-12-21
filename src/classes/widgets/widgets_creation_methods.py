@@ -32,8 +32,9 @@ if platform.startswith("darwin"):
 
 
 class ModifiedTkScale(Scale):
-    """This class is identical to the tkinter.Scale class except
-    that left-mouse-clicks function just like right-mouse-clicks."""
+    """This class is identical to the tkinter.Scale class except that
+    left-mouse-clicks function just like right-mouse-clicks and a custom
+    command is set for the release of left, middle and right mouse clicks."""
 
     def __init__(self, widgets, master=None, **kwargs):
         Scale.__init__(self, master, **kwargs)
@@ -55,8 +56,9 @@ class ModifiedTkScale(Scale):
 
 
 class ModifiedTtkScale(ttk_scale):
-    """This class is identical to the tkinter.ttk.Scale class except
-    that left-mouse-clicks function just like right-mouse-clicks."""
+    """This class is identical to the tkinter.ttk.Scale class except that
+    left-mouse-clicks function just like right-mouse-clicks and a custom
+    command is set for the release of left, middle and right mouse clicks."""
 
     def __init__(self, widgets, master=None, **kwargs):
         ttk_scale.__init__(self, master, **kwargs)

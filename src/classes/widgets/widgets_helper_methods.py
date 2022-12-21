@@ -70,6 +70,7 @@ def scale_audio_time_left_mouse_press(scale, widgets):
     new_time = scale.get() * widgets.time_stamper.audio_source.duration
     widgets.time_stamper.timer.update_timer(new_time)
 
+
 def scale_audio_time_left_mouse_release(widgets):
     """This method will be executed when the user releases the left mouse button from the
     audio slider (but not when the user presses the left mouse button on the audio slider)."""
@@ -112,6 +113,7 @@ def scale_audio_time_left_mouse_release(widgets):
     # If the timer was previously paused when the user dragged the audio slider, resume the timer.
     if widgets.time_stamper.timer.temporary_pause:
         widgets.time_stamper.timer.play()
+
 
 def determine_widget_text(widget_template, template, settings):
     """There are different ways that a widget's text can be set. The widget's text can be

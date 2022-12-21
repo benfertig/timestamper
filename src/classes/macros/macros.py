@@ -131,8 +131,8 @@ class Macros():
         If this method determines that a message should be printed when the button is pressed,
         then this method will return that message. Otherwise, this method will return None.
         Keep in mind that this method does not substitute potential variables (e.g., $amount
-        and $dest for the rewind and fast-forward messages) in the returned message.
-        Any variable substitution will need to be handled after this method is called."""
+        and $dest for the rewind and fast-forward messages) in the returned message. Any
+        variable substitution will need to be performed on the string returned by this method."""
 
         button_template = self.template[button_str_key]
 
@@ -165,8 +165,8 @@ class Macros():
                     print_bool_key = print_on_press_dict["print_bool_attribute"]
                     should_print = linked_dict[print_bool_key]
 
+            # If it is determined that this button's message should be printed, return its message.
             if should_print:
-
                 return print_on_press_val
 
         return None
