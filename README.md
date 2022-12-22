@@ -175,6 +175,13 @@ If you would like to run and build this program from the source code, check out 
         * License
             * *Py2App* is licensed under the [MIT License](https://github.com/ronaldoussoren/py2app/blob/master/LICENSE.txt).<br />
 
+    *  [*Pyglet*](https://pyglet.org/)
+        * [GitHub](https://github.com/pyglet/pyglet)
+        * [conda](https://anaconda.org/conda-forge/pyglet)
+        * [PyPi](https://pypi.org/project/pyglet/)
+        * License
+            * *Pyglet* is licensed under the [BSD 3-Clause "New" or "Revised" License](https://github.com/pyglet/pyglet/blob/master/LICENSE).<br />
+
 ### File editing
 * [*Resource Hacker*](http://www.angusj.com/resourcehacker/)
     * License
