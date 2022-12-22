@@ -137,6 +137,17 @@ class TimeStamperTimer():
             # Adjust the start time of the audio.
             self.time_stamper.audio_player.seek(new_time)
 
+            # If the volume is currently muted, set the audio player's volume to zero.
+            if self.time_stamper.widgets["button_mute"].image == \
+                self.time_stamper.widgets["volume_mute.png"]:
+                self.time_stamper.audio_player.volume = 0.0
+
+            # If the volume is not currently muted, set the audio
+            # player's volume to the value of the volume slider.
+            else:
+                self.time_stamper.audio_player.volume = \
+                    self.time_stamper.widgets["scale_audio_volume"].variable.get() / 100
+
             # Play the audio.
             self.time_stamper.audio_player.play()
 

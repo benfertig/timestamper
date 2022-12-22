@@ -14,17 +14,53 @@
         "from_": 0,
         "to": 1,
 
-        "tickinterval": 0,
+        "bind_left_click_to_right_click": true,
 
-        "showvalue": false,
+        "run_release_macro_on_left_release": true,
+        "run_release_macro_on_middle_release": true,
+        "run_release_macro_on_right_release": true,
 
         "column": 1,
         "row": 3,
 
         "rowspan": 1,
-        "columnspan": 18,
+        "columnspan": 16,
 
         "padx": [5, 5],
+
+        "sticky": "nsew"
+
+    },
+
+    "scale_audio_volume": {
+
+        "str_key": "scale_audio_volume",
+
+        "initial_state": {
+            "linked_dict": "audio",
+            "linked_attribute": "path"
+        },
+
+        "is_horizontal": false,
+
+        "is_ttk_scale": true,
+
+        "bind_left_click_to_right_click": true,
+
+        "from_": 100,
+        "to": 0,
+
+        "initial_value": {
+            "linked_dict": "label_audio_volume",
+            "linked_attribute": "text"
+        },
+
+        "column": 17,
+        "row": 5,
+
+        "columnspan": 2,
+
+        "pady": [5, 5],
 
         "sticky": "nsew"
 

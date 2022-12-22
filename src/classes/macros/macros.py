@@ -4,14 +4,18 @@ methods that are executed when any button in the Time Stamper program is pressed
 The actual macros are stored in submodules (all of which are imported below)."""
 
 from dataclasses import dataclass
+from tkinter import DISABLED, NORMAL, END
+from pyglet.media import load, Player
+from pyglet.media.codecs.wave import WAVEDecodeException
 from .macros_checkbuttons import CheckbuttonMacros
+from .macros_scales import ScaleMacros
 from .macros_buttons_file import FileButtonMacros
 from .macros_buttons_info import InfoButtonMacros
 from .macros_buttons_media import MediaButtonMacros
 from .macros_buttons_note import NoteButtonMacros
 from .macros_buttons_settings import SettingsButtonMacros
 from .macros_buttons_timestamping import TimestampingButtonMacros
-from .macros_helper_methods import print_to_text, print_to_file
+from .macros_helper_methods import disable_button, print_to_text, print_to_file
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -50,6 +54,7 @@ class Macros():
         self.timer = time_stamper.timer
 
         check = CheckbuttonMacros(self)
+        scales = ScaleMacros(self)
         file = FileButtonMacros(self)
         info = InfoButtonMacros(self)
         media = MediaButtonMacros(self)
@@ -67,6 +72,11 @@ class Macros():
             "checkbutton_rewind_settings": check.checkbutton_rewind_settings_macro,
             "checkbutton_fast_forward_settings": check.checkbutton_fast_forward_settings_macro,
             "checkbutton_record_settings": check.checkbutton_record_settings_macro,
+
+            # Scales
+            "scale_audio_time": scales.scale_audio_time_macro,
+            "scale_audio_time_ONRELEASE": scales.scale_audio_time_release_macro,
+            "scale_audio_volume": scales.scale_audio_volume_macro,
 
             # File buttons
             "button_output_select": file.button_output_select_macro,
@@ -87,6 +97,7 @@ class Macros():
             "button_rewind": media.button_rewind_macro,
             "button_fast_forward": media.button_fast_forward_macro,
             "button_record": media.button_record_macro,
+            "button_mute": media.button_mute_macro,
 
             # Note buttons
             "button_hotkey_1": note.button_hotkey_1_macro,
@@ -170,3 +181,83 @@ class Macros():
                 return print_on_press_val
 
         return None
+
+    def validate_audio_player(self):
+        """If an audio player is already loaded into the Time Stamper program, this
+        method will return that audio player. Otherwise, this method will attempt to
+        create an audio player with the information the user has provided. If an audio
+        player is successfully created, this method will return that audio player. Otherwise,
+        this method will clear the text displayed in the audio path entry and return None."""
+
+        # If an audio player is already loaded, return that audio player.
+        if self.time_stamper.audio_player:
+            return self.time_stamper.audio_player
+
+        # Try to load the audio source.
+        try:
+            entry_audio_path = self.widgets["entry_audio_path"]
+            audio_path = entry_audio_path.get()
+            self.time_stamper.audio_source = load(audio_path)
+
+        # If the audio source fails to load, return None in place of an audio player
+        except (FileNotFoundError, WAVEDecodeException):
+            return None
+
+        # If the audio source loaded successfully, create a new audio player.
+        else:
+            return Player()
+
+    def disable_audio_widgets(self):
+        """This method alters all of the widgets in the Time Stamper program that are
+        associated with audio playback to indicate that no audio source is available."""
+
+        entry_audio_path = self.widgets["entry_audio_path"]
+
+        # Clear the entry displaying the audio path.
+        entry_audio_path["state"] = NORMAL
+        entry_audio_path.delete(0, END)
+        entry_audio_path["state"] = DISABLED
+
+        # Reset and disable the audio slider.
+        scale_audio_time = self.widgets["scale_audio_time"]
+        scale_audio_time.variable.set(self.template["scale_audio_time"]["initial_value"])
+        scale_audio_time["state"] = DISABLED
+
+        # Reset and disable the volume slider.
+        scale_audio_volume = self.widgets["scale_audio_volume"]
+        scale_audio_volume.variable.set(self.template["label_audio_volume"]["text"])
+        scale_audio_volume["state"] = DISABLED
+
+        # Reset the volume label.
+        self.widgets["label_audio_volume"]["text"] = self.template["label_audio_volume"]["text"]
+
+        # Reset the elapsed/remaining time labels.
+        self.widgets["label_audio_elapsed"]["text"] = \
+            self.template["label_audio_elapsed"]["text"]
+        self.widgets["label_audio_remaining"]["text"] = \
+            self.template["label_audio_remaining"]["text"]
+
+        # Disable the mute button.
+        disable_button(self.widgets["button_mute"], \
+            self.template["button_mute"]["mac_disabled_color"])
+
+    def updated_mute_button_image(self, volume_scale_value):
+        """Assuming that the volume is not muted, this method returns the
+        string corresponding to the PhotoImage object from self.widgets.mapping
+        that best matches the current value of the volume slider."""
+
+        # If the volume is at zero, return "volume_zero.png".
+        if volume_scale_value == 0.0:
+            return "volume_zero.png"
+
+        # If the volume is between 0 and 33.3, return "volume_low.png".
+        if 0 < volume_scale_value < 100 * (1 / 3):
+            return "volume_low.png"
+
+        # If the volume is between 0 and 66.6, return "volume_medium.png".
+        if 100 * (1 / 3) <= volume_scale_value < 100 * (2/3):
+            return "volume_medium.png"
+
+        # If the volume is between 66.6 and 100, set the
+        # picture of the mute button to "volume_high.png".
+        return "volume_high.png"

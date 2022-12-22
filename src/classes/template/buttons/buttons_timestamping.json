@@ -10,12 +10,12 @@
         "to_disable": [],
 
         "column": 0,
-        "row": 6,
+        "row": 7,
 
         "columnspan": 1,
         "rowspan": 1,
 
-        "padx": [10, 0],
+        "padx": [5, 0],
 
         "sticky": "nsew"
 
@@ -36,12 +36,12 @@
         "height": 1,
 
         "column": 1,
-        "row": 6,
+        "row": 7,
 
         "columnspan": 1,
         "rowspan": 1,
 
-        "padx": [0, 10],
+        "padx": [0, 5],
 
         "sticky": "nsew"
 

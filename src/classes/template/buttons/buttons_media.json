@@ -184,6 +184,30 @@
 
         "sticky": "nsew"
 
+    },
+
+    "button_mute": {
+
+        "str_key": "button_mute",
+
+        "initial_state": {
+            "linked_dict": "audio",
+            "linked_attribute": "path"
+        },
+
+        "image_file_name": "volume_high.png",
+
+        "column": 17,
+        "row": 6,
+
+        "columnspan": 2,
+        "rowspan": 2,
+
+        "padx": [5, 5],
+        "pady": [6, 0],
+
+        "sticky": "nsew"
+
     }
 
 }

@@ -16,7 +16,7 @@
             "print_message_attribute": "message"
         },
 
-        "column": 16,
+        "column": 14,
         "row": 0,
 
         "rowspan": 2,
@@ -43,7 +43,7 @@
             "print_message_attribute": "message"
         },
 
-        "column": 17,
+        "column": 15,
         "row": 0,
 
         "rowspan": 2,
@@ -70,10 +70,9 @@
             "print_message_attribute": "message"
         },
 
-        "column": 18,
+        "column": 16,
         "row": 0,
 
-        "columnspan": 2,
         "rowspan": 2,
 
         "pady": [22, 10],
@@ -94,7 +93,7 @@
         "height": 1,
 
         "column": 2,
-        "row": 7,
+        "row": 8,
 
         "columnspan": 6,
         "rowspan": 2,
@@ -122,9 +121,9 @@
         "height": 1,
 
         "column": 8,
-        "row": 7,
+        "row": 8,
 
-        "columnspan": 4,
+        "columnspan": 2,
         "rowspan": 2,
 
         "padx": [4, 3],

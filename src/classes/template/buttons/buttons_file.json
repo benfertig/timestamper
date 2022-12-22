@@ -11,13 +11,10 @@
         "column": 8,
         "row": 0,
 
-        "columnspan": 2,
         "rowspan": 1,
 
         "padx": [2, 0],
         "pady": [5, 0],
-
-        "ipadx": 15,
 
         "sticky": "nsew",
 
@@ -31,7 +28,7 @@
 
         "text": "Merge output files",
 
-        "column": 10,
+        "column": 9,
         "row": 0,
 
         "pady": [5, 0],
@@ -46,17 +43,17 @@
 
         "text": "Select synced audio file",
 
-        "column": 11,
+        "column": 10,
         "row": 0,
 
-        "columnspan": 5,
+        "columnspan": 4,
 
         "padx": [2, 2],
         "pady": [5, 0],
 
         "sticky": "nsew",
 
-        "to_enable_toggle": ["scale_audio_time"]
+        "to_enable_toggle": ["button_mute", "scale_audio_time", "scale_audio_volume"]
 
     }
 

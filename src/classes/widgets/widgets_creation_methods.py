@@ -5,9 +5,8 @@ from sys import platform
 from tkinter import DISABLED, NORMAL, HORIZONTAL, VERTICAL, END, Button, \
     Checkbutton, DoubleVar, Entry, IntVar, Label, StringVar, Scale, Text
 from tkinter.ttk import Scale as ttk_scale
-from .widgets_helper_methods import entry_helper_method, \
-    scale_audio_time_left_mouse_press, scale_audio_time_left_mouse_release, \
-    determine_widget_text, determine_widget_attribute, create_font, grid_widget, create_image
+from .widgets_helper_methods import entry_helper_method, determine_widget_text, \
+    determine_widget_attribute, create_font, grid_widget, create_image
 
 if platform.startswith("darwin"):
     from tkmacosx import Button as MacButton
@@ -31,52 +30,11 @@ if platform.startswith("darwin"):
 # Contact: github.cqrde@simplelogin.com
 
 
-class ModifiedTkScale(Scale):
-    """This class is identical to the tkinter.Scale class except that
-    left-mouse-clicks function just like right-mouse-clicks and a custom
-    command is set for the release of left, middle and right mouse clicks."""
+def set_value(scale, event):
+    """This method binds a scale's left-mouse-click event to its right-mouse-click event."""
 
-    def __init__(self, widgets, master=None, **kwargs):
-        Scale.__init__(self, master, **kwargs)
-        self.variable = None
-
-        # Make the left-mouse-click behave like the right-mouse-click.
-        self.bind("<Button-1>", self.set_value)
-
-        # Set the functions for releasing the left, middle and right mouse buttons.
-        self.bind("<ButtonRelease-1>", lambda _: scale_audio_time_left_mouse_release(widgets))
-        self.bind("<ButtonRelease-2>", lambda _: scale_audio_time_left_mouse_release(widgets))
-        self.bind("<ButtonRelease-3>", lambda _: scale_audio_time_left_mouse_release(widgets))
-
-    def set_value(self, event):
-        """This method gets bound to the left-mouse-click in this class' constructor."""
-
-        self.event_generate("<Button-3>", x=event.x, y=event.y)
-        return "break"
-
-
-class ModifiedTtkScale(ttk_scale):
-    """This class is identical to the tkinter.ttk.Scale class except that
-    left-mouse-clicks function just like right-mouse-clicks and a custom
-    command is set for the release of left, middle and right mouse clicks."""
-
-    def __init__(self, widgets, master=None, **kwargs):
-        ttk_scale.__init__(self, master, **kwargs)
-        self.variable = None
-
-        # Make the left-mouse-click behave like the right-mouse-click.
-        self.bind("<Button-1>", self.set_value)
-
-        # Set the functions for releasing the left, middle and right mouse buttons.
-        self.bind("<ButtonRelease-1>", lambda _: scale_audio_time_left_mouse_release(widgets))
-        self.bind("<ButtonRelease-2>", lambda _: scale_audio_time_left_mouse_release(widgets))
-        self.bind("<ButtonRelease-3>", lambda _: scale_audio_time_left_mouse_release(widgets))
-
-    def set_value(self, event):
-        """This method gets bound to the left-mouse-click in this class' constructor."""
-
-        self.event_generate("<Button-3>", x=event.x, y=event.y)
-        return "break"
+    scale.event_generate("<Button-3>", x=event.x, y=event.y)
+    return "break"
 
 
 def create_button(template, settings, button_template, button_window, button_macro):
@@ -104,7 +62,7 @@ def create_button(template, settings, button_template, button_window, button_mac
     button_text = determine_widget_text(button_template, template, settings)
 
     # Determine what the Button's image should be.
-    button_image = create_image(button_template, template.images_dir)
+    button_image = create_image(template.images_dir, obj_template=button_template)
 
     # Create the Button object.
     button = button_class(button_window, height=button_template["height"], \
@@ -203,7 +161,7 @@ def create_label(template, settings, label_template, label_window):
     label_text = determine_widget_text(label_template, template, settings)
 
     # Determine what the label's image should be.
-    label_image = create_image(label_template, template.images_dir)
+    label_image = create_image(template.images_dir, obj_template=label_template)
 
     # Create the Label object.
     label = Label(label_window, height=label_template["height"], \
@@ -218,13 +176,12 @@ def create_label(template, settings, label_template, label_window):
     return label, label_image
 
 
-def create_scale(widgets, scale_template, scale_window):
+def create_scale(widgets, scale_template, scale_window, scale_command=None, release_command=None):
     """This method creates a Scale object for the Time Stamper program."""
 
-    settings = widgets.settings
-
     # Determine the Scale's initial state.
-    if determine_widget_attribute(scale_template, "initial_state", widgets.template, settings):
+    if determine_widget_attribute(scale_template, \
+        "initial_state", widgets.template, widgets.settings):
         initial_state = NORMAL
     else:
         initial_state = DISABLED
@@ -237,33 +194,48 @@ def create_scale(widgets, scale_template, scale_window):
     # If the scale should be made using tkinter.ttk.Scale...
     if scale_template["is_ttk_scale"]:
 
-        # Utilize a modified version of tkinter.ttk.Scale if this is the audio time slider.
-        scale_class = ModifiedTtkScale \
-            if scale_template["str_key"] == "scale_audio_time" else ttk_scale
-
         # Create the Scale.
-        scale = scale_class(widgets, master=scale_window, variable=double_var, \
+        scale = ttk_scale(scale_window, variable=double_var, \
             from_=scale_template["from_"], to=scale_template["to"], \
-            orient=orient, state=initial_state)
+            orient=orient, state=initial_state, command=scale_command)
 
     # If the scale should be made using tkinter.Scale...
     else:
-
-        # Utilize a modified version of tkinter.Scale if this is the audio time slider.
-        scale_class = ModifiedTkScale if scale_template["str_key"] == "scale_audio_time" else Scale
 
         # Create the Scale's font.
         scale_font = create_font(scale_template)
 
         # Create the Scale object.
-        scale = scale_class(widgets, master=scale_window, variable=double_var, \
+        scale = Scale(scale_window, variable=double_var, \
             from_=scale_template["from_"], to=scale_template["to"], orient=orient, \
             tickinterval=scale_template["tickinterval"], font=scale_font, \
-            state=initial_state, showvalue=scale_template["showvalue"])
+            state=initial_state, showvalue=scale_template["showvalue"], command=scale_command)
 
+    initial_value = determine_widget_attribute(scale_template, \
+        "initial_value", widgets.template, widgets.settings)
+
+    double_var.set(initial_value)
     scale.variable = double_var
 
-    scale["command"] = lambda _: scale_audio_time_left_mouse_press(scale, widgets)
+    # If the left-mouse-click should function like the right-mouse-click,
+    # map the left-mouse-click function to the right-mouse-click function.
+    if scale_template["bind_left_click_to_right_click"]:
+        scale.bind("<Button-1>", lambda event: set_value(scale, event))
+
+    # If a macro for the mouse release was specified in macros.py...
+    if release_command:
+
+        # Map the release macro to the left-mouse-click if it was specified in the template.
+        if scale_template["run_release_macro_on_left_release"]:
+            scale.bind("<ButtonRelease-1>", release_command)
+
+        # Map the release macro to the middle-mouse-click if it was specified in the template.
+        if scale_template["run_release_macro_on_middle_release"]:
+            scale.bind("<ButtonRelease-2>", release_command)
+
+        # Map the release macro to the right-mouse-click if it was specified in the template.
+        if scale_template["run_release_macro_on_right_release"]:
+            scale.bind("<ButtonRelease-3>", release_command)
 
     # Place the Scale.
     grid_widget(scale, scale_template)

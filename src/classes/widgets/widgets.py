@@ -7,7 +7,7 @@ allows for easy reference of widgets. Also see the "widgets_creation_methods.py"
 from traceback import format_exception
 from .widgets_creation_methods import create_button, create_checkbutton, \
     create_entry, create_label, create_scale, create_text
-from .widgets_helper_methods import create_window, determine_widget_text
+from .widgets_helper_methods import create_image, create_window, determine_widget_text
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -61,14 +61,26 @@ class Widgets():
         """This method creates all of the widgets that are meant
         to appear in the window indicated by window_str."""
 
+        self.create_extra_images()
         self.create_buttons(window_str, macros)
         self.create_checkbuttons(window_str, macros)
         self.create_entries(window_str)
         self.create_labels(window_str)
-        self.create_scales(window_str)
+        self.create_scales(window_str, macros)
         self.create_texts(window_str)
 
-    def create_buttons(self, window_str, macros=None):
+    def create_extra_images(self):
+        """Some Tkinter image objects need to be created even if they are not immediately
+        displayed. Create those images here so that they can be referenced later (if needed)."""
+
+        extra_image_file_names = ("volume_medium.png", \
+            "volume_low.png", "volume_zero.png", "volume_mute.png")
+
+        for image_file_name in extra_image_file_names:
+            extra_image = create_image(self.template.images_dir, image_file_name=image_file_name)
+            self.mapping[image_file_name] = extra_image
+
+    def create_buttons(self, window_str, macros):
         """This method creates all of the buttons that are meant
         to appear in the window indicated by window_str."""
 
@@ -79,12 +91,13 @@ class Widgets():
             button, button_image, button_orig_color = \
                 create_button(self.template, self.settings, \
                     button_template, button_window, button_macro)
+            button.image = button_image
             self.original_colors[button_template["str_key"]] = button_orig_color
             if button_image:
                 self.mapping[button_template["image_file_name"]] = button_image
             self.mapping[button_template["str_key"]] = button
 
-    def create_checkbuttons(self, window_str, macros=None):
+    def create_checkbuttons(self, window_str, macros):
         """This method creates all of the checkbuttons that are
         meant to appear in the window indicated by window_str."""
 
@@ -117,13 +130,17 @@ class Widgets():
                 self.mapping[label_template["image_file_name"]] = label_image
             self.mapping[label_template["str_key"]] = label
 
-    def create_scales(self, window_str):
+    def create_scales(self, window_str, macros):
         """This method creates all of the scales that are meant
         to appear in the window indicated by window_str."""
 
         scale_window = self[window_str]
         for scale_template in self.template["scales"][window_str]:
-            scale = create_scale(self, scale_template, scale_window)
+            str_key = scale_template["str_key"]
+            scale_macro = macros[str_key] if str_key in macros.mapping else None
+            release_macro = \
+                macros[f"{str_key}_ONRELEASE"] if f"{str_key}_ONRELEASE" in macros.mapping else None
+            scale = create_scale(self, scale_template, scale_window, scale_macro, release_macro)
             self.mapping[scale_template["str_key"]] = scale
 
     def create_texts(self, window_str):

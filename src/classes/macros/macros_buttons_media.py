@@ -28,6 +28,7 @@ class MediaButtonMacros():
 
     def __init__(self, parent):
         self.parent = parent
+        self.time_stamper = parent.time_stamper
         self.template = parent.template
         self.settings = parent.settings
         self.widgets = parent.widgets
@@ -129,3 +130,43 @@ class MediaButtonMacros():
 
         # Start the timer.
         self.timer.play()
+
+    def button_mute_macro(self):
+        """This method will be executed when the mute button is pressed."""
+
+        # Attempt to retrieve an audio player.
+        self.time_stamper.audio_player = self.parent.validate_audio_player()
+
+        # If an audio player was successfully retrieved...
+        if self.time_stamper.audio_player:
+
+            # If the volume was previoulsy muted...
+            if self.widgets["button_mute"]["image"] == self.widgets["volume_mute.png"].name:
+
+                # Get the value of the volume slider.
+                volume_scale_value = self.widgets["scale_audio_volume"].variable.get()
+
+                # Set the volume to the current value of the volume slider.
+                self.time_stamper.audio_player.volume = volume_scale_value / 100
+
+                # The mute button image should reflect the current value of the volume slider.
+                updated_image_str_key = self.parent.updated_mute_button_image(volume_scale_value)
+
+            # If the volume was previously unmuted...
+            else:
+
+                # Mute the volume.
+                self.time_stamper.audio_player.volume = 0.0
+
+                # The mute button image should show that the audio is now muted.
+                updated_image_str_key = "volume_mute.png"
+
+            # Update the mute button image.
+            button_mute = self.widgets["button_mute"]
+            button_mute_image_new = self.widgets[updated_image_str_key]
+            button_mute.config(image=button_mute_image_new)
+            button_mute.image = button_mute_image_new
+
+        # If an audio player was not successfully retrieved, disable all audio playback settings.
+        else:
+            self.parent.disable_audio_widgets()

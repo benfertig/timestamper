@@ -19,10 +19,9 @@
 
         "width": 2,
 
-        "column": 12,
-        "row": 7,
+        "column": 10,
+        "row": 8,
 
-        "columnspan": 1,
         "rowspan": 2,
 
         "padx": [3, 0],
@@ -53,10 +52,9 @@
 
         "width": 2,
 
-        "column": 14,
-        "row": 7,
+        "column": 12,
+        "row": 8,
 
-        "columnspan": 1,
         "rowspan": 2,
 
         "pady": [8, 8],
@@ -86,15 +84,14 @@
 
         "width": 2,
 
-        "column": 16,
-        "row": 7,
+        "column": 14,
+        "row": 8,
 
-        "columnspan": 1,
         "rowspan": 2,
 
         "pady": [8, 8],
 
-        "sticky": "ne",
+        "sticky": "nw",
 
         "font_size": 30
 
@@ -119,15 +116,12 @@
 
         "width": 2,
 
-        "column": 18,
-        "row": 7,
+        "column": 16,
+        "row": 8,
 
-        "columnspan": 2,
         "rowspan": 2,
 
         "pady": [8, 8],
-
-        "ipadx": 5,
 
         "sticky": "ne",
 

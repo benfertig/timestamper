@@ -12,10 +12,10 @@
         "column": 0,
         "row": 4,
 
-        "columnspan": 21,
-        "rowspan": 1,
+        "columnspan": 17,
+        "rowspan": 2,
 
-        "padx": [5, 5],
+        "padx": [5, 0],
 
         "ipady": 33,
 
@@ -31,12 +31,11 @@
         "height": 3,
 
         "column": 2,
-        "row": 5,
+        "row": 6,
 
-        "columnspan": 19,
+        "columnspan": 15,
         "rowspan": 2,
 
-        "padx": [0, 5],
         "pady": [6, 0],
 
         "sticky": "nsew"

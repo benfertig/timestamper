@@ -6,7 +6,7 @@
 
         "image_file_name": "gear.png",
 
-        "column": 20,
+        "column": 18,
         "row": 0,
 
         "padx": [2, 5],

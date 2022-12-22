@@ -4,10 +4,7 @@
 from json import load as json_load
 from os.path import join, splitext
 from sys import platform
-from tkinter import DISABLED, NORMAL, END, font, Grid, PhotoImage, Tk, Toplevel
-from pyglet.media import load as media_load
-from pyglet.media import Player
-from pyglet.media.codecs.wave import WAVEDecodeException
+from tkinter import DISABLED, NORMAL, font, Grid, PhotoImage, Tk, Toplevel
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -57,62 +54,6 @@ def entry_helper_method(entry_text, entry_template, widgets):
 
     # Save the entry's updated text in the entry's template.
     entry_template["text_loaded_value"] = entry_text.get()
-
-
-def scale_audio_time_left_mouse_press(scale, widgets):
-    """This method will be executed when the user presses the left mouse button on the audio
-    slider (but not when the user releases the left mouse button from the audio slider)."""
-
-    # Pause the timer.
-    widgets.time_stamper.timer.pause(temporary_pause=True)
-
-    # Update the timer to match the new position of the slider.
-    new_time = scale.get() * widgets.time_stamper.audio_source.duration
-    widgets.time_stamper.timer.update_timer(new_time)
-
-
-def scale_audio_time_left_mouse_release(widgets):
-    """This method will be executed when the user releases the left mouse button from the
-    audio slider (but not when the user presses the left mouse button on the audio slider)."""
-
-    # If the user tries to move the audio slider and there is no existing audio player...
-    if not widgets.time_stamper.audio_player:
-
-        entry_audio_path = widgets["entry_audio_path"]
-
-        # Try to load the audio source.
-        try:
-            audio_path = entry_audio_path.get()
-            widgets.time_stamper.audio_source = media_load(audio_path)
-
-        # If the audio source fails to load...
-        except (FileNotFoundError, WAVEDecodeException):
-
-            # Clear the entry displaying the audio path.
-            entry_audio_path["state"] = NORMAL
-            entry_audio_path.delete(0, END)
-            entry_audio_path["state"] = DISABLED
-
-            # Reset and disable the audio slider.
-            scale_audio_time = widgets["scale_audio_time"]
-            scale_audio_time["state"] = DISABLED
-            scale_audio_time.variable.set(0.0)
-
-            # Reset the elapsed/remaining time labels.
-            template = widgets.template
-            widgets["label_audio_elapsed"]["text"] = template["label_audio_elapsed"]["text"]
-            widgets["label_audio_remaining"]["text"] = template["label_audio_remaining"]["text"]
-
-            # End the method.
-            return
-
-        # If the audio source loaded successfully, create a new audio player.
-        else:
-            widgets.time_stamper.audio_player = Player()
-
-    # If the timer was previously paused when the user dragged the audio slider, resume the timer.
-    if widgets.time_stamper.timer.temporary_pause:
-        widgets.time_stamper.timer.play()
 
 
 def determine_widget_text(widget_template, template, settings):
@@ -264,22 +205,33 @@ def create_window(window_template, main_window_str, images_dir):
     window.iconbitmap(join(images_dir, icon_file_name))
 
     # Configure the main window's columns.
-    for column_num in range(window_template["num_columns"]):
-        Grid.columnconfigure(window, column_num, weight=1)
+    for col_num in range(window_template["num_columns"]):
+        col_weights = window_template["column_weights"]
+        col_weight = int(col_weights[str(col_num)]) if str(col_num) in col_weights else 1
+        Grid.columnconfigure(window, col_num, weight=col_weight)
 
     # Configure the main window's rows.
     for row_num in range(window_template["num_rows"]):
-        Grid.rowconfigure(window, row_num, weight=1)
+        row_weights = window_template["row_weights"]
+        row_weight = int(row_weights[str(row_num)]) if str(row_num) in row_weights else 1
+        Grid.rowconfigure(window, row_num, weight=row_weight)
 
     return window
 
 
-def create_image(obj_template, images_dir):
+def create_image(images_dir, obj_template=None, image_file_name=None):
     """This method creates an image object for the Time Stamper program."""
 
-    # Return a PhotoImage only if there is an image associated with the object.
-    if "image_file_name" in obj_template and obj_template["image_file_name"]:
+    # If an image file name was passed, return a new PhotoImage from the corresponding image file.
+    if image_file_name is not None:
+        return PhotoImage(file=join(images_dir, image_file_name))
+
+    # If there is no image file name but there is an object template, return
+    # an image only if an image file name was specified in the object template.
+    if obj_template is not None \
+        and "image_file_name" in obj_template and obj_template["image_file_name"]:
         return PhotoImage(file=join(images_dir, obj_template["image_file_name"]))
 
-    # If there is no image associated with the object, return None.
+    # If there was neither a passed image file name nor an image
+    # file name associated with the object template, return None.
     return None

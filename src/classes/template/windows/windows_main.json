@@ -15,8 +15,10 @@
         "width": 960,
         "height": 540,
 
-        "num_columns": 21,
-        "num_rows": 9
+        "num_columns": 19,
+        "num_rows": 10,
+
+        "row_weights": {"5": 30}
 
     }
 

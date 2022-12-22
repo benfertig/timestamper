@@ -23,7 +23,7 @@
         "column": 8,
         "row": 1,
 
-        "columnspan": 3,
+        "columnspan": 2,
 
         "padx": [2, 0],
 
@@ -35,19 +35,16 @@
 
         "str_key": "label_audio_path",
 
-        "text": "Synced audio file (optional):",
-
-        "wraplength": 264,
+        "text": "Synced audio (optional):",
 
         "justify": "left",
 
-        "width": null,
-        "height": 1,
-
-        "column": 11,
+        "column": 10,
         "row": 1,
 
-        "columnspan": 8,
+        "columnspan": 5,
+
+        "padx": [2, 0],
 
         "sticky": "sw"
 
@@ -59,8 +56,10 @@
 
         "text": "Hotkeys:",
 
-        "column": 16,
+        "column": 14,
         "row": 0,
+
+        "columnspan": 2,
 
         "sticky": "nw"
 
@@ -131,7 +130,7 @@
 
         "justify": "center",
 
-        "column": 19,
+        "column": 17,
         "row": 3,
 
         "columnspan": 2,
@@ -151,11 +150,30 @@
         "justify": "center",
 
         "column": 0,
-        "row": 5,
+        "row": 6,
 
         "columnspan": 2,
 
         "pady": [5, 0],
+
+        "sticky": "nsew",
+
+        "font_size": 12
+
+    },
+
+    "label_audio_volume": {
+
+        "str_key": "label_audio_volume",
+
+        "text": "100",
+
+        "justify": "center",
+
+        "column": 17,
+        "row": 4,
+
+        "columnspan": 2,
 
         "sticky": "nsew",
 
