@@ -123,6 +123,12 @@ If you would like to run and build this program from the source code, check out 
                 * [Rewind icon](https://www.iconfinder.com/icons/211816/rewind_icon)
                 * [Fastforward icon](https://www.iconfinder.com/icons/211741/fastforward_icon)
                 * [Record icon](https://www.iconfinder.com/icons/211881/record_icon)
+                * [Gear icon](https://www.iconfinder.com/icons/211751/gear_icon)
+                * [Volume, mute icon](https://www.iconfinder.com/icons/211942/volume_mute_icon)
+                * [Volume, low icon](https://www.iconfinder.com/icons/211845/volume_low_icon)
+                * [Volume, low icon](https://www.iconfinder.com/icons/211940/volume_low_icon)
+                * [Volume, medium icon](https://www.iconfinder.com/icons/211941/volume_medium_icon)
+                * [High, volume icon](https://www.iconfinder.com/icons/211939/high_volume_icon)
                 * [A, left, arrow icon ](https://www.iconfinder.com/icons/211616/a_left_arrow_icon)
                 * [A, right, arrow icon](https://www.iconfinder.com/icons/211619/a_right_arrow_icon)
         * License
@@ -168,6 +174,13 @@ If you would like to run and build this program from the source code, check out 
         * [PyPI](https://pypi.org/project/py2app/)
         * License
             * *Py2App* is licensed under the [MIT License](https://github.com/ronaldoussoren/py2app/blob/master/LICENSE.txt).<br />
+
+    *  [*Pyglet*](https://pyglet.org/)
+        * [GitHub](https://github.com/pyglet/pyglet)
+        * [conda](https://anaconda.org/conda-forge/pyglet)
+        * [PyPi](https://pypi.org/project/pyglet/)
+        * License
+            * *Pyglet* is licensed under the [BSD 3-Clause "New" or "Revised" License](https://github.com/pyglet/pyglet/blob/master/LICENSE).<br />
 
 ### File editing
 * [*Resource Hacker*](http://www.angusj.com/resourcehacker/)
