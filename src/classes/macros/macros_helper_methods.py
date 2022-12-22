@@ -4,7 +4,7 @@ macros. These methods do not rely on class variables."""
 
 from re import match
 from sys import platform
-from tkinter import DISABLED, NORMAL, END
+from tkinter import DISABLED, NORMAL, END, Button
 
 if platform.startswith("darwin"):
     from tkmacosx.widget import Button as MacButton
@@ -97,6 +97,27 @@ def button_enable_disable_macro(button_template, widgets):
     for str_to_disable in button_template["to_disable"]:
         disable_button(widgets[str_to_disable], \
             button_template["mac_disabled_color"])
+
+
+def toggle_widgets(widget_template, to_enable, template, widgets):
+    """This method enables/disables the widgets in a template's to_enable_toggle attribute."""
+
+    # Iterate through the widget string keys in this template's "to_enable_toggle" attribute.
+    for str_widget in widget_template["to_enable_toggle"]:
+
+        widget_toggle = widgets[str_widget]
+
+        # Call the custom enable_button or disable_button method if the widget is a button.
+        if isinstance(widget_toggle, Button) or \
+            (platform.startswith("darwin") and isinstance(widget_toggle, MacButton)):
+            if to_enable:
+                enable_button(widget_toggle, widgets.original_colors[str_widget])
+            else:
+                disable_button(widget_toggle, template[str_widget]["mac_disabled_color"])
+
+        # Simply enable/disable the widget if it is not a button.
+        else:
+            widget_toggle["state"] = NORMAL if to_enable else DISABLED
 
 
 def checkbutton_enable_disable_macro(checkbutton_template, widgets):

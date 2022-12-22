@@ -6,14 +6,11 @@ from ntpath import sep as ntpath_sep
 from posixpath import sep as posixpath_sep
 from os.path import basename
 from sys import platform
-from tkinter import DISABLED, NORMAL, END, Button, filedialog
+from tkinter import DISABLED, NORMAL, END, filedialog
 from pyglet.media import load, Player
 from pyglet.media.codecs.wave import WAVEDecodeException
 from .macros_helper_methods import merge_success_message, merge_failure_message_file_not_readable, \
-    enable_button, disable_button, merge_notes, print_to_entry, print_to_text
-
-if platform.startswith("darwin"):
-    from tkmacosx.widget import Button as MacButton
+    toggle_widgets, merge_notes, print_to_entry, print_to_text
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -38,31 +35,12 @@ class FileButtonMacros():
     """This class stores all of the macros that execute when file buttons are pressed."""
 
     def __init__(self, parent):
+        self.parent = parent
         self.time_stamper = parent.time_stamper
         self.template = parent.template
         self.settings = parent.settings
         self.widgets = parent.widgets
         self.timer = parent.timer
-
-    def toggle_widgets(self, widget_template, to_enable):
-        """This method enables the widgets in a template's to_enable_toggle attribute."""
-
-        # Enable the relevant widget if an output file has been selected.
-        for str_widget in widget_template["to_enable_toggle"]:
-
-            widget_toggle = self.widgets[str_widget]
-
-            # Call the custom enable_button or disable_button method if the widget is a button.
-            if isinstance(widget_toggle, Button) or \
-                (platform.startswith("darwin") and isinstance(widget_toggle, MacButton)):
-                if to_enable:
-                    enable_button(widget_toggle, self.widgets.original_colors[str_widget])
-                else:
-                    disable_button(widget_toggle, self.template[str_widget]["mac_disabled_color"])
-
-            # Simply enable/disable the widget if it is not a button.
-            else:
-                widget_toggle["state"] = NORMAL if to_enable else DISABLED
 
     def verify_selected_file(self, file_full_path, interpret_as):
         """This method, which is called by file_select_macro, verifies that the file selected by
@@ -95,7 +73,7 @@ class FileButtonMacros():
                     return True
 
         # This statement will be reached if at least one of the following conditions was met:
-        #     1) file_full_path was not provided
+        #     1) file_full_path was empty
         #     2) interpret_as did not match "text" or "audio".
         return False
 
@@ -119,10 +97,7 @@ class FileButtonMacros():
         interpret_as = "audio" if entry_str_key == "entry_audio_path" else "text"
         file_is_valid = self.verify_selected_file(file_full_path, interpret_as)
 
-        ########################################
-        # IF A VALID FILE HAS BEEN SELECTED
-        ########################################
-
+        # If a valid file HAS been selected...
         if file_full_path and file_is_valid:
 
             # Change the text of the label that appears above the file
@@ -139,9 +114,7 @@ class FileButtonMacros():
 
             return file_full_path
 
-        ########################################
-        # IF A VALID FILE HAS NOT BEEN SELECTED
-        ########################################
+        # If a valid file has NOT been selected...
 
         # Change the text of the label to indicate that a file has not been selected.
         if isinstance(label_template["text"], dict):
@@ -151,11 +124,6 @@ class FileButtonMacros():
         entry_object["state"] = NORMAL
         entry_object.delete(0, END)
         entry_object["state"] = DISABLED
-
-        # Clear the audio players
-        if entry_str_key == "entry_audio_path":
-            self.time_stamper.audio_source = None
-            self.time_stamper.audio_player = None
 
         return None
 
@@ -187,11 +155,12 @@ class FileButtonMacros():
             obj_text_log["state"] = DISABLED
 
             # Enable the relevant widget if an output file has been selected.
-            self.toggle_widgets(self.template["button_output_select"], True)
+            toggle_widgets(self.template["button_output_select"], True, self.template, self.widgets)
 
         # If an output file has not been selected, disable the relevant widgets.
         else:
-            self.toggle_widgets(self.template["button_output_select"], False)
+            toggle_widgets(self.template["button_output_select"], \
+                False, self.template, self.widgets)
 
     def button_merge_output_files_macro(self):
         """This method will be executed when the "Merge output files" button is pressed."""
@@ -221,36 +190,17 @@ class FileButtonMacros():
             self.timer.display_time(0.0, pad=2)
 
             # Enable the relevant widget if an audio file has been selected.
-            self.toggle_widgets(self.template["button_audio_select"], True)
+            toggle_widgets(self.template["button_audio_select"], True, self.template, self.widgets)
 
         # If a valid audio file WAS NOT selected...
         else:
 
-            # Reset the audio slider.
-            self.widgets["scale_audio_time"].variable.set(\
-                self.template["scale_audio_time"]["initial_value"])
+            # Clear the audio source and the audio player.
+            self.time_stamper.audio_source = None
+            self.time_stamper.audio_player = None
 
-            # Reset the labels displaying the elapsed/remaining time in the audio source.
-            self.widgets["label_audio_elapsed"]["text"] = \
-                self.template["label_audio_elapsed"]["text"]
-            self.widgets["label_audio_remaining"]["text"] = \
-                self.template["label_audio_remaining"]["text"]
-
-            # Reset the scale that adjusts the audio volume.
-            self.widgets["scale_audio_volume"].variable.set(\
-                self.template["label_audio_volume"]["text"])
-
-            # Reset the label displaying the audio volume.
-            self.widgets["label_audio_volume"]["text"] = self.template["label_audio_volume"]["text"]
-
-            # Update the mute button image.
-            button_mute = self.widgets["button_mute"]
-            button_mute_image_new = self.widgets["volume_high.png"]
-            button_mute.config(image=button_mute_image_new)
-            button_mute.image = button_mute_image_new
-
-            # Disable the relevant widgets.
-            self.toggle_widgets(self.template["button_audio_select"], False)
+            # Reset and disable the widgets associated with audio.
+            self.parent.disable_audio_widgets()
 
     def on_close_window_merge_1_macro(self, window_merge_1):
         """This method will be executed when the FIRST window displaying

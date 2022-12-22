@@ -237,6 +237,12 @@ class Macros():
         self.widgets["label_audio_remaining"]["text"] = \
             self.template["label_audio_remaining"]["text"]
 
+        # Reset the mute button image.
+        button_mute = self.widgets["button_mute"]
+        button_mute_image_new = self.widgets["volume_high.png"]
+        button_mute.config(image=button_mute_image_new)
+        button_mute.image = button_mute_image_new
+
         # Disable the mute button.
         disable_button(self.widgets["button_mute"], \
             self.template["button_mute"]["mac_disabled_color"])
@@ -254,10 +260,9 @@ class Macros():
         if 0 < volume_scale_value < 100 * (1 / 3):
             return "volume_low.png"
 
-        # If the volume is between 0 and 66.6, return "volume_medium.png".
+        # If the volume is between 33.3 and 66.6, return "volume_medium.png".
         if 100 * (1 / 3) <= volume_scale_value < 100 * (2/3):
             return "volume_medium.png"
 
-        # If the volume is between 66.6 and 100, set the
-        # picture of the mute button to "volume_high.png".
+        # If the volume is between 66.6 and 100 return "volume_high.png".
         return "volume_high.png"
