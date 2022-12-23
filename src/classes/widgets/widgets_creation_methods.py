@@ -53,10 +53,7 @@ def create_button(template, settings, button_template, button_window, button_mac
         button_class = Button
 
     # Determine the Button's initial state.
-    if determine_widget_attribute(button_template, "initial_state", template, settings):
-        initial_state = NORMAL
-    else:
-        initial_state = DISABLED
+    is_enabled = determine_widget_attribute(button_template, "initial_state", template, settings)
 
     # Determine what the Button's initial text should be.
     button_text = determine_widget_text(button_template, template, settings)
@@ -67,20 +64,27 @@ def create_button(template, settings, button_template, button_window, button_mac
     # Create the Button object.
     button = button_class(button_window, height=button_template["height"], \
         width=button_template["width"], text=button_text, image=button_image, \
-        state=initial_state, font=button_font, background=button_background, \
+        state=NORMAL, font=button_font, background=button_background, \
         foreground=button_foreground, command=button_macro)
+
+    # Save the button's default, non-disabled color.
+    original_color = button.cget["background"]
 
     # Place the Button.
     grid_widget(button, button_template)
+
+    # Disable the button if it should initially be disabled.
+    if not is_enabled:
+        button["state"] = DISABLED
 
     # If we are on a Mac and this button is BOTH initially disabled AND an instance of the kind
     # of button whose background we would like to change when enabled/disabled, then set this
     # button's initial background color to our predefined color for disabled fields on Macs.
     if platform.startswith("darwin") and isinstance(button, MacButton) \
-        and not button.cget("text") and button["state"] == DISABLED:
+        and not button.cget("text") and not is_enabled:
         button["background"] = button_template["mac_disabled_color"]
 
-    return button, button_image, button.cget("background")
+    return button, button_image, original_color
 
 
 def create_checkbutton(template, settings, \
