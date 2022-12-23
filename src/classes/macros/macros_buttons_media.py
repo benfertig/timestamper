@@ -2,6 +2,7 @@
 """This module contains the MediaButtonMacros class which stores the functions
 that are executed when a media button in the Time Stamper program is pressed."""
 
+from sys import platform
 from .macros_helper_methods import button_enable_disable_macro, rewind_or_fast_forward
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
@@ -140,8 +141,15 @@ class MediaButtonMacros():
         # If an audio player was successfully retrieved...
         if self.time_stamper.audio_player:
 
+            # The way that the name of the current mute button image is
+            # referenced changes depending on whether we are currently using a Mac.
+            if platform.startswith("darwin"):
+                button_mute_image_name = self.widgets["button_mute"]["image"].name
+            else:
+                button_mute_image_name = self.widgets["button_mute"]["image"]
+
             # If the volume was previoulsy muted...
-            if self.widgets["button_mute"]["image"] == self.widgets["volume_mute.png"].name:
+            if button_mute_image_name == self.widgets["volume_mute.png"].name:
 
                 # Get the value of the volume slider.
                 volume_scale_value = 100 - self.widgets["scale_audio_volume"].variable.get()
