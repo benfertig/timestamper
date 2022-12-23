@@ -144,7 +144,7 @@ class MediaButtonMacros():
             if self.widgets["button_mute"]["image"] == self.widgets["volume_mute.png"].name:
 
                 # Get the value of the volume slider.
-                volume_scale_value = self.widgets["scale_audio_volume"].variable.get()
+                volume_scale_value = 100 - self.widgets["scale_audio_volume"].variable.get()
 
                 # Set the volume to the current value of the volume slider.
                 self.time_stamper.audio_player.volume = volume_scale_value / 100

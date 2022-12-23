@@ -146,7 +146,7 @@ class TimeStamperTimer():
             # player's volume to the value of the volume slider.
             else:
                 self.time_stamper.audio_player.volume = \
-                    self.time_stamper.widgets["scale_audio_volume"].variable.get() / 100
+                    (100 - self.time_stamper.widgets["scale_audio_volume"].variable.get()) / 100
 
             # Play the audio.
             self.time_stamper.audio_player.play()

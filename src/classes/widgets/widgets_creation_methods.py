@@ -215,10 +215,7 @@ def create_scale(widgets, scale_template, scale_window, scale_command=None, rele
             tickinterval=scale_template["tickinterval"], font=scale_font, \
             state=initial_state, showvalue=scale_template["showvalue"], command=scale_command)
 
-    initial_value = determine_widget_attribute(scale_template, \
-        "initial_value", widgets.template, widgets.settings)
-
-    double_var.set(initial_value)
+    double_var.set(scale_template["initial_value"])
     scale.variable = double_var
 
     # If the left-mouse-click should function like the right-mouse-click,

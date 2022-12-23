@@ -47,13 +47,8 @@
 
         "bind_left_click_to_right_click": true,
 
-        "from_": 100,
-        "to": 0,
-
-        "initial_value": {
-            "linked_dict": "label_audio_volume",
-            "linked_attribute": "text"
-        },
+        "from_": 0,
+        "to": 100,
 
         "column": 17,
         "row": 5,

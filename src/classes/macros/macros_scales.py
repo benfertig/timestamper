@@ -67,7 +67,7 @@ class ScaleMacros():
         middle or right mouse button on the audio volume slider."""
 
         # Convert the passed value from a string to a float.
-        volume_scale_value = float(volume_scale_value)
+        volume_scale_value = 100 - float(volume_scale_value)
 
         # Attempt to retrieve an audio player.
         self.time_stamper.audio_player = self.parent.validate_audio_player()
