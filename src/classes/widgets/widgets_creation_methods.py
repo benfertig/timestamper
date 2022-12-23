@@ -78,7 +78,7 @@ def create_button(template, settings, button_template, button_window, button_mac
     # button's initial background color to our predefined color for disabled fields on Macs.
     if platform.startswith("darwin") and isinstance(button, MacButton) \
         and not button.cget("text") and button["state"] == DISABLED:
-        button["background"] = button_template.mac_disabled_color
+        button["background"] = button_template["mac_disabled_color"]
 
     return button, button_image, button.cget("background")
 
