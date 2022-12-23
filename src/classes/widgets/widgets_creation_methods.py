@@ -68,7 +68,7 @@ def create_button(template, settings, button_template, button_window, button_mac
         foreground=button_foreground, command=button_macro)
 
     # Save the button's default, non-disabled color.
-    original_color = button.cget["background"]
+    original_color = button.cget("background")
 
     # Place the Button.
     grid_widget(button, button_template)
