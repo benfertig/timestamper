@@ -92,7 +92,7 @@
 
         "os_specific_settings": {
             "darwin": {
-                "ipadx": 1
+                "ipadx": 5
             }
         }
 
@@ -126,7 +126,7 @@
 
         "os_specific_settings": {
             "darwin": {
-                "ipadx": 1
+                "ipadx": 5
             }
         }
 
