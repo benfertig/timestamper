@@ -42,6 +42,8 @@
     "font_weight": "normal",
     "font_slant": "roman",
     "font_underline": 0,
-    "font_overstrike": 0
+    "font_overstrike": 0,
+
+    "os_specific_settings": {}
 
 }

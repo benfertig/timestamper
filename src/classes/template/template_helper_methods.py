@@ -6,6 +6,7 @@ from glob import glob
 from os import scandir
 from os.path import basename, isdir, join
 from json import load
+from sys import platform
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -68,6 +69,58 @@ def get_json_dict_mapping(json_dict, default_mapping):
     return mapping
 
 
+def store_jsons_in_mapping(mapping, json_dir):
+    """This method adds all of the information in the json files in "json_dir" to "mapping"."""
+
+    # Find the default JSON file of the current
+    # subdirectory and load it into a dictionary.
+    default_json_path = get_default_json_path(json_dir)
+    default_mapping = json_to_dict(default_json_path)
+
+    # Store the name of the base directory
+    # of the path to the current subitem.
+    json_dir_name = basename(json_dir)
+
+    # Initialize an empty dictionary which will store the mapping of
+    # all the widgets whose type is indicated by the name of the current
+    # subdirectory (e.g., "buttons", "checkbuttons", "labels", etc.).
+    mapping[json_dir_name] = defaultdict(list)
+    inner_json_paths = set(glob(join(json_dir, "*.json")))
+
+    # Do not include the current directory's "default" JSON file in the main
+    # mapping (although we will still rely on the "default" JSON file to set
+    # the values for attributes that are not stored in the other JSON files).
+    inner_json_paths.discard(default_json_path)
+
+    # Iterate through the paths to all of the JSON files in the current subdirectory.
+    for json_path in inner_json_paths:
+
+        # Retrieve the mapping from the current JSON file, falling back
+        # on the values from the "default" JSON file when there is
+        # no value for a specific attribute in the current JSON file.
+        json_dict = json_to_dict(json_path)
+        cur_json_mapping = get_json_dict_mapping(json_dict, default_mapping)
+
+        # Map the key-value pairs from the current JSON file to "mapping".
+        for widget_str_key, widget_template in cur_json_mapping.items():
+
+            # Change any os-specific template values.
+            if platform in widget_template["os_specific_settings"]:
+                for key, value in widget_template["os_specific_settings"][platform].items():
+                    widget_template[key] = value
+
+            # Map the widget's template to its string key.
+            mapping[widget_str_key] = widget_template
+
+            # Map the widget's template to its window.
+            window_str_key = widget_template["window_str_key"]
+            mapping[json_dir_name][window_str_key].append(widget_template)
+
+            # If the widget is marked as a settings widget, map it to the "settings" key.
+            if "is_in_settings" in widget_template and widget_template["is_in_settings"]:
+                mapping["settings"].append(widget_template)
+
+
 def map_all_templates(templates_dir):
     """This method loads the contents of all JSON files from all subdirectories of
     this file's current directory into the "mapping" attribute of this class."""
@@ -77,51 +130,12 @@ def map_all_templates(templates_dir):
     # Iterate through the subitems of the directory that template.py is in.
     for inner_dir in scandir(templates_dir):
 
-        # Store the name of the base directory
-        # of the path to the current subitem.
+        # Store the base name of the path to the current subitem.
         inner_dir_name = basename(inner_dir)
 
-        # If the current subitem of templates_dir is also a
-        # directory and that directory is not __pychache__...
+        # If the current subitem of templates_dir is also a directory and that directory
+        # is not __pychache__, add the jsons of this subdirectory to the mapping.
         if isdir(inner_dir) and inner_dir_name != "__pycache__":
-
-            # Find the default JSON file of the current
-            # subdirectory and load it into a dictionary.
-            default_json_path = get_default_json_path(inner_dir)
-            default_mapping = json_to_dict(default_json_path)
-
-            # Initialize an empty dictionary which will store the mapping of
-            # all the widgets whose type is indicated by the name of the current
-            # subdirectory (e.g., "buttons", "checkbuttons", "labels", etc.).
-            mapping[inner_dir_name] = defaultdict(list)
-            inner_json_paths = set(glob(join(inner_dir, "*.json")))
-
-            # Do not include the current directory's "default" JSON file in the main
-            # mapping (although we will still rely on the "default" JSON file to set
-            # the values for attributes that are not stored in the other JSON files).
-            inner_json_paths.discard(default_json_path)
-
-            # Iterate through the paths to all of the JSON files in the current subdirectory.
-            for json_path in inner_json_paths:
-
-                # Retrieve the mapping from the current JSON file, falling back
-                # on the values from the "default" JSON file when there is
-                # no value for a specific attribute in the current JSON file.
-                json_dict = json_to_dict(json_path)
-                cur_json_mapping = get_json_dict_mapping(json_dict, default_mapping)
-
-                # Map the key-value pairs from the current JSON file to "mapping".
-                for widget_str_key, widget_template in cur_json_mapping.items():
-
-                    # Map the widget's template to its string key.
-                    mapping[widget_str_key] = widget_template
-
-                    # Map the widget's template to its window.
-                    window_str_key = widget_template["window_str_key"]
-                    mapping[inner_dir_name][window_str_key].append(widget_template)
-
-                    # If the widget is marked as a settings widget, map it to the "settings" key.
-                    if "is_in_settings" in widget_template and widget_template["is_in_settings"]:
-                        mapping["settings"].append(widget_template)
+            store_jsons_in_mapping(mapping, inner_dir)
 
     return mapping

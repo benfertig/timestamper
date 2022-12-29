@@ -18,6 +18,8 @@
     "column_weights": {},
     "row_weights": {},
 
-    "is_in_settings": false
+    "is_in_settings": false,
+
+    "os_specific_settings": {}
 
 }
