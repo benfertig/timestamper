@@ -59,7 +59,7 @@ If you would like to run and build this program from the source code, check out 
 
 ### 10 - Audio select button
 ![extra_files/help_images/button_audio_select.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_audio_select.png?raw=true)
-* Optionally, you can press this button to select an audio file which will be synced with the timer (see 27). This will also enable the use of the audio time slider (see 14) as well as the volume slider (see 16) and mute button (see 17). However, you must already have selected an output file (see 7) to be able to play and manipulate audio.
+* Optionally, you can press this button to select an audio file which will be synced with the timer (see 27). This will also enable the use of the audio time slider (see 14) as well as the volume slider (see 16) and mute button (see 17). However, keep in mind that you must already have selected an output file (see 7) to be able to play and manipulate audio.
 
 ### 11 - Audio file path
 ![extra_files/help_images/audio_path.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/audio_path.png?raw=true)
