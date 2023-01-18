@@ -43,7 +43,7 @@ If you would like to run and build this program from the source code, check out 
 * This button starts the timer (see 18). Pressing the record button will also record a new note, timestamped with the current time on the timer (see 18), indicating that the user has begun entering notes. You cannot press the record button until you have selected an output file (see 7).
 
 ### 7 - Output select button
-![extra_files/help_images/button_output_select.png]()
+![extra_files/help_images/button_output_select.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_output_select.png?raw=true)
 * Press this button to open a new file dialog window in which you can select an output file to save your notes to. Output file names normally end in ".txt". You must have selected an output file to be able to enter notes.
 
 ### 8 - Merge output files button
