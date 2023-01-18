@@ -16,31 +16,31 @@ If you would like to run and build this program from the source code, check out 
 
 ### 2 - Play button
 ![extra_files/help_images/button_play.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_play.png?raw=true)
-* This button resumes the timer (see 18). You must already be paused (see 1) to be able to press the play button.
+* This button resumes the timer (see 27). You must already be paused (see 1) to be able to press the play button.
 
 ### 3 - Stop button
 ![extra_files/help_images/button_stop.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_stop.png?raw=true)
-* This button stops the timer (see 18). Pressing the stop button will also record a new note, timestamped with the timer's current time, indicating that the user has finished entering notes, as well as allow the user to select a different output file (see 7). After you have pressed the stop button, you cannot enter new notes until you have pressed the record button (see 6) again.
+* This button stops the timer (see 27). Pressing this button will also allow you to select a different output file (see 7). After you have pressed the stop button, you cannot enter new notes until you have pressed the record button (see 6) again.
 
 ### 4 - Rewind button
 ![extra_files/help_images/button_rewind.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_rewind.png?raw=true)
-* This button rewinds the timer (see 18) the number of seconds specified in the rewind amount field (see 4.1).
+* This button rewinds the timer (see 27) the number of seconds specified in the rewind amount field (see 4.1).
 
 ### 4.1 - Rewind amount
 ![extra_files/help_images/rewind_fast_forward_seconds.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/rewind_fast_forward_seconds.png?raw=true)
-* This is where you should enter the number of seconds you would like the timer (see 18) to rewind when you press the rewind button (see 4).
+* This is where you should enter the number of seconds you would like the timer (see 27) to rewind when you press the rewind button (see 4).
 
 ### 5 - Fast-forward button
 ![extra_files/help_images/button_fast_forward.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_fast_forward.png?raw=true)
-* This button fast-forwards the timer (see 18) the number of seconds specified in the fast-forward amount field (see 5.1).
+* This button fast-forwards the timer (see 27) the number of seconds specified in the fast-forward amount field (see 5.1).
 
 ### 5.1 - Fast-forward amount
 ![extra_files/help_images/rewind_fast_forward_seconds.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/rewind_fast_forward_seconds.png?raw=true)
-* This is where you should enter the number of seconds you would like the timer (see 18) to fast-forward when you press the fast-forward button (see 5).
+* This is where you should enter the number of seconds you would like the timer (see 27) to fast-forward when you press the fast-forward button (see 5).
 
 ### 6 - Record button
 ![extra_files/help_images/button_record.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_record.png?raw=true)
-* This button starts the timer (see 18). Pressing the record button will also record a new note, timestamped with the current time on the timer (see 18), indicating that the user has begun entering notes. You cannot press the record button until you have selected an output file (see 7).
+* This button starts the timer (see 27). You cannot press the record button until you have selected an output file (see 7).
 
 ### 7 - Output select button
 ![extra_files/help_images/button_output_select.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_output_select.png?raw=true)
@@ -48,7 +48,7 @@ If you would like to run and build this program from the source code, check out 
 
 ### 8 - Merge output files button
 ![extra_files/help_images/button_merge_output_files.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_merge_output_files.png?raw=true)
-* If you have multiple output files whose notes you would like to merge and sort based on their timestamps, press this button. You will first be prompted to select the output files whose notes you would like to merge. Then, you will be prompted to select the file you would like to save the merged notes to.
+* If you have multiple output files whose notes you would like to merge and sort based on their timestamps, then you should press this button. You will first be prompted to select the output files whose notes you would like to merge. Then, you will be prompted to select the file that you would like to save those merged notes to. Normally, all files involved in this process should end in ".txt".
 
 ### 9 - Output path
 * If an output file is currently selected, the path to that file will be displayed here. For example:</br>
@@ -59,11 +59,11 @@ If you would like to run and build this program from the source code, check out 
 
 ### 10 - Audio select button
 ![extra_files/help_images/button_audio_select.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_audio_select.png?raw=true)
-* Optionally, you can press this button to select an audio file which will be synced with the timer. This will also enable the use of the audio time slider (see 14) as well as the volume slider (see 16) and mute button (see 17).
+* Optionally, you can press this button to select an audio file which will be synced with the timer (see 27). This will also enable the use of the audio time slider (see 14) as well as the volume slider (see 16) and mute button (see 17). However, you must already have selected an output file (see 7) to be able to play and manipulate audio.
 
 ### 11 - Audio file path
 ![extra_files/help_images/audio_path.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/audio_path.png?raw=true)
-* If you have selected an audio file to sync with the timer (see 10), the path to that audio file will be displayed here.
+* If you have selected an audio file (see 10) to sync with the timer (see 27), then the path to that audio file will be displayed here.
 
 ### 12 - Hotkeys
 ![extra_files/help_images/hotkeys.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/hotkeys.png?raw=true)
@@ -71,7 +71,7 @@ If you would like to run and build this program from the source code, check out 
 
 ### 13 - Settings button
 ![extra_files/help_images/button_settings.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_settings.png?raw=true)
-* Pressing this button will open the settings menu wherein you can specify whether a message should get printed for each individual media button (see 1-6), and if so, what those messages should be. In the settings menu, you can also edit the messages that get printed when each hotkey (see 12) is pressed.
+* Pressing this button will open the settings menu wherein you can specify, for each individual media button (see 1-6), whether a message should get printed when one is pressed, and if so, what each of those messages should be. In the settings menu, you can also edit the messages that get printed when each hotkey (see 12) is pressed.
 
 ### 14 - Audio time slider
 ![extra_files/help_images/scale_audio_time.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/scale_audio_time.png?raw=true)
@@ -86,9 +86,9 @@ If you would like to run and build this program from the source code, check out 
 
 ### 17 - Mute button
 * If an audio file has been selected (see 10), then this button will allow you to mute and unmute the audio.
-* When the audio is unmuted, the image of the mute button will display the audio's relative loudness. For example, if the current volume level is greater than or equal to 66.6, then the mute button will appear like this:</br>
+* When the audio is unmuted, the image of the mute button will display the audio's relative loudness. For example, if the volume is set to a loudness level that is greater than or equal to 66.6, then the mute button will look like this:</br>
 ![extra_files/help_images/button_mute_deactivated.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_mute_deactivated.png?raw=true)
-* Alternatively, if the volume is muted, then the mute button will appear like this:</br>
+* If the volume is muted, then the mute button will look like this:</br>
 ![extra_files/help_images/button_mute_activated.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_mute_activated.png?raw=true)
 
 ### 18 - Timestamp
@@ -120,11 +120,11 @@ If you would like to run and build this program from the source code, check out 
 
 ### 25 - Cancel note button
 ![extra_files/help_images/button_cancel_note.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_cancel_note.png?raw=true)
-* Press this button to clear the "Current note" box (see 21) WITHOUT RECORDING THE TIMESTAMP (see 18) OR THE CURRENT NOTE in the notes log (see 15) or in the current output file (see 9).
+* Press this button to clear the "Current note" box (see 21) WITHOUT RECORDING THE TIMESTAMP (see 18) OR THE CURRENT NOTE to the notes log (see 15) or to the current output file (see 9).
 
 ### 26 - Save note button
 ![extra_files/help_images/button_save_note.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_save_note.png?raw=true)
-* Press this button to clear the "Current note" box (see 21) AND RECORD THE TIMESTAMP (see 18) ALONG WITH THE CURRENT NOTE in the notes log (see 15) and in the current output file (see 9). You must have selected an output file (see 7) to be able to press this button.
+* Press this button to clear the "Current note" box (see 21) AND RECORD THE TIMESTAMP (see 18) ALONG WITH THE CURRENT NOTE to the notes log (see 15) and to the current output file (see 9). You must have already selected an output file (see 7) to be able to press this button.
 
 ### 27 - Timer
 ![extra_files/help_images/timer.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/timer.png?raw=true)
