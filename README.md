@@ -86,9 +86,9 @@ If you would like to run and build this program from the source code, check out 
 
 ### 17 - Mute button
 * If an audio file has been selected (see 10), then this button will allow you to mute and unmute the audio.
-* When the audio is unmuted, the image of the mute button will display the audio's relative loudness. For example, if the current volume level is greater than or equal to 66.6, then the mute button will appear like this:
+* When the audio is unmuted, the image of the mute button will display the audio's relative loudness. For example, if the current volume level is greater than or equal to 66.6, then the mute button will appear like this:</br>
 ![extra_files/help_images/button_mute_deactivated.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_mute_deactivated.png?raw=true)
-* Alternatively, if the volume is muted, then the mute button will appear like this:
+* Alternatively, if the volume is muted, then the mute button will appear like this:</br>
 ![extra_files/help_images/button_mute_activated.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_mute_activated.png?raw=true)
 
 ### 18 - Timestamp
