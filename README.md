@@ -12,7 +12,7 @@ If you would like to run and build this program from the source code, check out 
 
 ### 1 - Pause button
 ![extra_files/help_images/button_pause.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_pause.png?raw=true)
-* This button pauses the timer. You must have already selected an output file (see 7) and begun recording (see 6) to be able to press the pause button.
+* This button pauses the timer (see 27). You must have already selected an output file (see 7) and begun recording (see 6) to be able to press the pause button.
 
 ### 2 - Play button
 ![extra_files/help_images/button_play.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_play.png?raw=true)
