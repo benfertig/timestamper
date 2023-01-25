@@ -34,7 +34,8 @@ You will be downloading one of the *Windows* installers for *Miniconda*. There i
 
 Once you have downloaded the correct *Miniconda* installer for your *Windows* computer, run the installer to install *Python* with *Miniconda*.
 
-## Install *Pyglet*
+## Run from source on *Windows*
+### Install *Pyglet*
 To make the *Time Stamper* program function on a *Windows* computer, you will need to install one additional *Python* package called *Pyglet*. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [*Pyglet*](https://anaconda.org/conda-forge/pyglet) through *conda***, which you can do by entering the following command from a *Command Prompt* window:
 ```
 conda install -c conda-forge pyglet
@@ -45,7 +46,7 @@ conda install -c conda-forge pyglet
 pip3 install pyglet
 ```
 
-## Run from source on *Windows*
+### Run *Time Stamper.py*
 [**Head over to the releases page for the *Time Stamper* program**](https://github.com/benfertig/timestamper/releases) and download the source code for the version of the *Time Stamper* program that you would like to build. To find the source code, expand the "Assets" tab for your desired version and download the "Source code (zip)" or "Source code (tar.gz)" file. Once you have downloaded the compressed archive of the source code, extract its contents.<br />
 
 Open a new *Command Prompt* window and navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer:
@@ -63,6 +64,9 @@ The *Time Stamper* program should now open in a new window. Congratulations, you
 If you would like to build your own standalone executable (.exe) of the *Time Stamper* program from the source code, follow the instructions below.
 
 ## Build from source on *Windows*
+### *Pyglet*
+If you have been following along with these instructions since the section titled [**Run from source on *Windows***](), then you should have already installed and *Pyglet*. If you have not yet installed *Pyglet*, go ahead and do so now by referring to the above section titled [**Install *Pyglet***]() before coming back here.
+
 ### Install *Auto PY to EXE*
 The *Windows* executable (.exe) for the *Time Stamper* program was made using [*Auto PY to EXE*](https://pypi.org/project/auto-py-to-exe/), which you can install through *pip*. Type the following command from a *Command Prompt* window:
 ```
