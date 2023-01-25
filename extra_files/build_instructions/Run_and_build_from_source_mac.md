@@ -89,7 +89,7 @@ conda install -c saad_7 tkmacosx
 conda install -c conda-forge pyglet
 ```
 
-**Alternatively**, you can **install [*Tkmacosx*](https://pypi.org/project/tkmacosx/) and [*Pyglet*](https://pypi.org/project/pyglet/) through *pip*** by entering the following commands from a *Terminal* window:
+Alternatively, you can **install [*Tkmacosx*](https://pypi.org/project/tkmacosx/) and [*Pyglet*](https://pypi.org/project/pyglet/) through *pip*** by entering the following commands from a *Terminal* window:
 ```
 pip3 install tkmacosx
 ```
