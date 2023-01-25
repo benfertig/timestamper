@@ -23,15 +23,13 @@ Later steps in this guide will require you to know the architecture of your *Mac
 **NOTE:** If you have a *Mac* that was produced in November 2005 or earlier, then it will likely contain neither an *Intel*-based nor an *Apple* silicon-based CPU, but rather a CPU manufactured by *Motorola* (i.e., a *PowerPC*-based *Mac*), in which case it will likely be unable to run the *Time Stamper* program and will therefore also be incompatible with this guide.
 
 To find out whether your *Mac* has an *Intel*-based or *Apple* silicon-based CPU:
-* Click on the *Apple* logo in the top-left corner of your screen.<br />
-* Select "About This Mac".<br />
+* Click on the *Apple* logo in the top-left corner of your screen.
+* Select "About This Mac".
 * In the "Overview" tab, look for a field labeled either "Chip" or "Processor".
     * **If you see a field labeled "Chip":**
         * Your *Mac* has an *Apple* silicon-based processor
-        * Download the *Miniconda* installer with "M{X}" (where {X} is any number) in its name.
     * **If you see a field labeled "Processor":**
         * Your *Mac* has an *Intel*-based processor
-        * Download the *Miniconda* installer with "Intel" in its name.<br />
 
 ## Make sure your default shell is set to *Z shell*
 Open the application *Terminal*. You can find *Terminal* by searching for it at the top-right of the screen from the toolbar.<br />
@@ -57,7 +55,12 @@ If you have no other uses for *Python* and all you are looking to do is run/buil
 
 Unless you know what you are doing, do not concern yourself with any of the installers that end in "bash". Only select from the installers that that end in "pkg".<br />
 
-There are *Miniconda* installers for *Intel*-based *Macs* as well as *Apple* silicon-based *Macs*. You should choose the installer that matches the CPU architecture of your *Mac*. If you do not already know what CPU architecture your *Mac* has, refer to the above section titled [**Determine your *Mac*'s CPU architecture**]().
+There are *Miniconda* installers for *Intel*-based *Macs* as well as *Apple* silicon-based *Macs*. You should choose the installer that matches the CPU architecture of your *Mac*. If you do not already know what CPU architecture your *Mac* has, refer to the above section titled [**Determine your *Mac*'s CPU architecture**](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#determine-your-macs-cpu-architecture).
+
+If your *Mac* has an *Apple* silicon-based CPU:
+* Download the *Miniconda* installer with "M{X}" in its name, where {X} might be any number (e.g., "M1").
+If your *Mac* has an *Intel*-based CPU:
+* Download the *Miniconda* installer with "Intel" in its name.
 
 Once you have downloaded the correct *Miniconda* installer for your *Mac*, run the installer to install *Python* with *Miniconda*.<br />
 
