@@ -12,15 +12,15 @@ If you would like to run and build this program from the source code, check out 
 
 ### 1 - Pause button
 ![extra_files/help_images/button_pause.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_pause.png?raw=true)
-* This button pauses the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)). You must have already selected an output file ([see 7](https://github.com/benfertig/timestamper/#7---output-select-button)) and begun recording (see 6) to be able to press the pause button.
+* This button pauses the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)). You must have already selected an output file ([see 7](https://github.com/benfertig/timestamper/#7---output-select-button)) and begun recording ([see 6](https://github.com/benfertig/timestamper/#6---record-button)) to be able to press the pause button.
 
 ### 2 - Play button
 ![extra_files/help_images/button_play.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_play.png?raw=true)
-* This button resumes the timer (see 27). You must already be paused (see 1) to be able to press the play button.
+* This button resumes the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)). You must already be paused ([see 1](https://github.com/benfertig/timestamper/#6---pause-button)) to be able to press the play button.
 
 ### 3 - Stop button
 ![extra_files/help_images/button_stop.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_stop.png?raw=true)
-* This button stops the timer (see 27). Pressing this button will also allow you to select a different output file (see 7). After you have pressed the stop button, you cannot enter new notes until you have pressed the record button (see 6) again.
+* This button stops the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)). Pressing this button will also allow you to select a different output file ([see 7](https://github.com/benfertig/timestamper/#7---output-select-button)). After you have pressed the stop button, you cannot enter new notes until you have pressed the record button ([see 6](https://github.com/benfertig/timestamper/#6---record-button)) again.
 
 ### 4 - Rewind button
 ![extra_files/help_images/button_rewind.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_rewind.png?raw=true)
