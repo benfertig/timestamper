@@ -66,15 +66,23 @@ This command should have activated your base *conda* environment. You will know 
 Remember, **ALWAYS** make sure that you enter any *conda*/*pip*/*python* commands from within your base *conda* environment.
 
 ## Run from source on *Mac*
-### Install *Tkmacosx*
-To make the *Time Stamper* program function on a *Macintosh* computer, you will need to install one additional *Python* package called *Tkmacosx*. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you [install *Tkmacosx* through *conda*](https://anaconda.org/saad_7/tkmacosx), which you can do by entering the following command from a *Terminal* window:
+### Install *Tkmacosx* and *Pyglet*
+To make the *Time Stamper* program function on a *Macintosh* computer, you will need to install two additional *Python* packages, *Tkmacosx* and *Pyglet*. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you install [*Tkmacosx*](https://anaconda.org/saad_7/tkmacosx) and [*Pyglet*](https://anaconda.org/conda-forge/pyglet) through *conda*, which you can do by entering the following commands from a *Terminal* window:
 ```
 conda install -c saad_7 tkmacosx
 ```
 
-Alternatively, you can [install *Tkmacosx* through *pip*](https://pypi.org/project/tkmacosx/) by entering the following command from a *Terminal* window:
+```
+conda install -c conda-forge pyglet
+```
+
+Alternatively, you can install [*Tkmacosx*](https://pypi.org/project/tkmacosx/) and [*Pyglet*](https://pypi.org/project/pyglet/) through *pip* by entering the following commands from a *Terminal* window:
 ```
 pip3 install tkmacosx
+```
+
+```
+pip3 install pyglet
 ```
 
 ### Run *Time Stamper.py*
