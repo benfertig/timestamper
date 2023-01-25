@@ -9,7 +9,7 @@
     * [Install *Tkmacosx* and *Pyglet*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#install-tkmacosx-and-pyglet)
     * [Run *Time Stamper.py*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#run-time-stamperpy)
 * [Build from source on *Mac*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#build-from-source-on-mac)
-    * [*Tkmacosx*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#tkmacosx)
+    * [*Tkmacosx* and *Pyglet*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#tkmacosx-and-pyglet)
     * [Install *Py2App*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#install-py2app)
     * [Build the *Time Stamper* application (.app)](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#build-the-time-stamper-application-app)
     * [Copy some extra libraries to the *Time Stamper* application (.app) package](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#copy-some-extra-libraries-to-the-time-stamper-application-app-package)
