@@ -42,7 +42,7 @@ To make the *Time Stamper* program function on a *Windows* computer, you will ne
 conda install -c conda-forge pyglet
 ```
 
-**Alternatively**, you can **install [*Pyglet*](https://pypi.org/project/pyglet/) through *pip*** by entering the following command from a *Command Prompt* window:
+Alternatively, you can **install [*Pyglet*](https://pypi.org/project/pyglet/) through *pip*** by entering the following command from a *Command Prompt* window:
 ```
 pip3 install pyglet
 ```
