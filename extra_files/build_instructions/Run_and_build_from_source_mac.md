@@ -23,15 +23,15 @@ Later steps in this guide will require you to know the architecture of your *Mac
 **NOTE:** If you have a *Mac* that was produced in November 2005 or earlier, then it will likely contain neither an *Intel*-based nor an *Apple* silicon-based CPU, but rather a CPU manufactured by *Motorola* (i.e., a *PowerPC*-based *Mac*), in which case it will likely be unable to run the *Time Stamper* program and will therefore also be incompatible with this guide.
 
 To find out whether your *Mac* has an *Intel*-based or *Apple* silicon-based CPU:
-    * Click on the *Apple* logo in the top-left corner of your screen.<br />
-    * Select "About This Mac".<br />
-    * In the "Overview" tab, look for a field labeled either "Chip" or "Processor".
-        * **If you see a field labeled "Chip":**
-            * Your *Mac* has an *Apple* silicon-based processor
-            * Download the *Miniconda* installer with "M{X}" (where {X} is any number) in its name.
-        * **If you see a field labeled "Processor":**
-            * Your *Mac* has an *Intel*-based processor
-            * Download the *Miniconda* installer with "Intel" in its name.<br />
+* Click on the *Apple* logo in the top-left corner of your screen.<br />
+* Select "About This Mac".<br />
+* In the "Overview" tab, look for a field labeled either "Chip" or "Processor".
+    * **If you see a field labeled "Chip":**
+        * Your *Mac* has an *Apple* silicon-based processor
+        * Download the *Miniconda* installer with "M{X}" (where {X} is any number) in its name.
+    * **If you see a field labeled "Processor":**
+        * Your *Mac* has an *Intel*-based processor
+        * Download the *Miniconda* installer with "Intel" in its name.<br />
 
 ## Make sure your default shell is set to *Z shell*
 Open the application *Terminal*. You can find *Terminal* by searching for it at the top-right of the screen from the toolbar.<br />
