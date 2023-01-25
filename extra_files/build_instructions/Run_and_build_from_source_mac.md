@@ -115,6 +115,8 @@ The *Time Stamper* program should now open in a new window. Congratulations, you
 If you would like to build your own standalone application (.app) of the *Time Stamper* program from the source code, follow the instructions below.
 
 ## Build from source on *Mac*
+### *Python 3*
+If you have been following along with these instructions since the section titled [**Install *Python 3***](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#install-python-3), then you should have already installed *Python 3*. If you have not yet installed *Python 3*, go ahead and do so now by referring to the above sections titled [**Install *Python 3***](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#install-python-3) and [**Activate your *conda* environment**](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#activate-your-conda-environment) before coming back here.
 ### *Tkmacosx* and *Pyglet*
 If you have been following along with these instructions since the section titled [**Run from source on *Mac***](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#run-from-source-on-mac), then you should have already installed *Tkmacosx* and *Pyglet*. If you have not yet installed *Tkmacosx* and *Pyglet*, go ahead and do so now by referring to the above section titled [**Install *Tkmacosx* and *Pyglet***](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#install-tkmacosx-and-pyglet) before coming back here.
 
