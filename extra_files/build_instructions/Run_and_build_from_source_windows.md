@@ -6,18 +6,19 @@
     * [Install *Pyglet*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#install-pyglet)
     * [Run *Time Stamper.py*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#run-time-stamperpy)
 * [Build from source on *Windows*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#build-from-source-on-windows)
-     * [*Pyglet*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#pyglet)
-     * [Install *Auto PY to EXE*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#install-auto-py-to-exe)
-     * [Run *Auto PY to EXE*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#run-auto-py-to-exe)
-     * [*Auto PY to EXE* configuration](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#auto-py-to-exe-configuration)
-         * [Script location](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#script-location)
-         * [Onefile](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#onefile)
-         * [Console Window](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#console-window)
-         * [Icon](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#icon)
-         * [Additional files](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#additional-files)
-         * [Advanced](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#advanced)
-         * [Settings](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#settings)
-         * [CONVERT .PY TO .EXE](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#convert-py-to-exe)
+    * [*Python 3*] ()
+    * [*Pyglet*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#pyglet)
+    * [Install *Auto PY to EXE*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#install-auto-py-to-exe)
+    * [Run *Auto PY to EXE*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#run-auto-py-to-exe)
+    * [*Auto PY to EXE* configuration](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#auto-py-to-exe-configuration)
+        * [Script location](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#script-location)
+        * [Onefile](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#onefile)
+        * [Console Window](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#console-window)
+        * [Icon](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#icon)
+        * [Additional files](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#additional-files)
+        * [Advanced](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#advanced)
+        * [Settings](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#settings)
+        * [CONVERT .PY TO .EXE](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#convert-py-to-exe)
 * [Create a *Windows* installer for the *Time Stamper* program (optional)](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#create-a-windows-installer-for-the-time-stamper-program-optional)
     * [Move the *Time Stamper* executable to the appropriate directory](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#move-the-time-stamper-executable-to-the-appropriate-directory)
     * [Download *Inno Setup*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#download-inno-setup)
@@ -66,6 +67,9 @@ The *Time Stamper* program should now open in a new window. Congratulations, you
 If you would like to build your own standalone executable (.exe) of the *Time Stamper* program from the source code, follow the instructions below.
 
 ## Build from source on *Windows*
+### *Python 3*
+If you have been following along with these instructions since the section titled [**Install *Python 3***](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#install-python-3), then you should have already installed and *Python 3*. If you have not yet installed *Python 3*, go ahead and do so now by referring to the above section titled [**Install *Python 3***](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#install-python-3) before coming back here.
+
 ### *Pyglet*
 If you have been following along with these instructions since the section titled [**Run from source on *Windows***](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#run-from-source-on-windows), then you should have already installed and *Pyglet*. If you have not yet installed *Pyglet*, go ahead and do so now by referring to the above section titled [**Install *Pyglet***](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#install-pyglet) before coming back here.
 
