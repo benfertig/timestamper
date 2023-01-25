@@ -71,7 +71,6 @@ To make the *Time Stamper* program function on a *Macintosh* computer, you will 
 ```
 conda install -c saad_7 tkmacosx
 ```
-
 ```
 conda install -c conda-forge pyglet
 ```
@@ -80,7 +79,6 @@ Alternatively, you can install [*Tkmacosx*](https://pypi.org/project/tkmacosx/) 
 ```
 pip3 install tkmacosx
 ```
-
 ```
 pip3 install pyglet
 ```
