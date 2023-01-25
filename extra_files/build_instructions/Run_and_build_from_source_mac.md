@@ -60,6 +60,7 @@ There are *Miniconda* installers for both *Intel*-based *Macs* and *Apple* silic
 
 If your *Mac* has an *Apple* silicon-based CPU:
 * Download the *Miniconda* installer with "M{X}" in its name, where {X} might be any number (e.g., "M1").
+
 If your *Mac* has an *Intel*-based CPU:
 * Download the *Miniconda* installer with "Intel" in its name.
 
