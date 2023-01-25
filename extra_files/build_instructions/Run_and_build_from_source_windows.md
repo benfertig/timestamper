@@ -66,7 +66,7 @@ If you would like to build your own standalone executable (.exe) of the *Time St
 
 ## Build from source on *Windows*
 ### *Pyglet*
-If you have been following along with these instructions since the section titled [**Run from source on *Windows***](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#run-from-source-on-windows), then you should have already installed and *Pyglet*. If you have not yet installed *Pyglet*, go ahead and do so now by referring to the above section titled [**Install *Pyglet***]() before coming back here.
+If you have been following along with these instructions since the section titled [**Run from source on *Windows***](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#run-from-source-on-windows), then you should have already installed and *Pyglet*. If you have not yet installed *Pyglet*, go ahead and do so now by referring to the above section titled [**Install *Pyglet***](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#install-pyglet) before coming back here.
 
 ### Install *Auto PY to EXE*
 The *Windows* executable (.exe) for the *Time Stamper* program was made using [*Auto PY to EXE*](https://pypi.org/project/auto-py-to-exe/), which you can install through *pip*. Type the following command from a *Command Prompt* window:
