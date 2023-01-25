@@ -24,7 +24,7 @@ If you would like to run and build this program from the source code, check out 
 
 ### 4 - Rewind button
 ![extra_files/help_images/button_rewind.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_rewind.png?raw=true)
-* This button rewinds the timer (see 27) the number of seconds specified in the rewind amount field (see 4.1).
+* This button rewinds the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)) the number of seconds specified in the rewind amount field ([see 4.1](https://github.com/benfertig/timestamper#4.1---rewind-amount)).
 
 ### 4.1 - Rewind amount
 ![extra_files/help_images/rewind_fast_forward_seconds.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/rewind_fast_forward_seconds.png?raw=true)
