@@ -63,29 +63,29 @@ If you would like to run and build this program from the source code, check out 
 
 ### 11 - Audio file path
 ![extra_files/help_images/audio_path.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/audio_path.png?raw=true)
-* If you have selected an audio file (see 10) to sync with the timer (see 27), then the path to that audio file will be displayed here.
+* If you have selected an audio file ([see 10](https://github.com/benfertig/timestamper/#10---audio-select-button)) to sync with the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)), then the path to that audio file will be displayed here.
 
 ### 12 - Hotkeys
 ![extra_files/help_images/hotkeys.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/hotkeys.png?raw=true)
-* This section contains three buttons (labeled "HK1", "HK2" and "HK3") which, when pressed, will print a predetermined timestamped note to the notes log (see 15) and the current output file (see 9). The timestamped note that gets printed when each one of these buttons is pressed can be edited in the settings menu (see 13).
+* This section contains three buttons (labeled "HK1", "HK2" and "HK3") which, when pressed, will print a predetermined timestamped note to the notes log ([see 15](https://github.com/benfertig/timestamper#15---notes-log)) and the current output file ([see 9](https://github.com/benfertig/timestamper#9---output-path)). The timestamped note that gets printed when each one of these buttons is pressed can be edited in the settings menu ([see 13](https://github.com/benfertig/timestamper#13---settings-button)).
 
 ### 13 - Settings button
 ![extra_files/help_images/button_settings.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_settings.png?raw=true)
-* Pressing this button will open the settings menu wherein you can specify, for each individual media button (see 1-6), whether a message should get printed when one is pressed, and if so, what each of those messages should be. In the settings menu, you can also edit the messages that get printed when each hotkey (see 12) is pressed.
+* Pressing this button will open the settings menu wherein you can specify, for each individual media button ([see 1-6](https://github.com/benfertig/timestamper/#1---pause-button)), whether a message should get printed when one is pressed, and if so, what each of those messages should be. In the settings menu, you can also edit the messages that get printed when each hotkey ([see 12](https://github.com/benfertig/timestamper/#12---hotkeys)) is pressed.
 
 ### 14 - Audio time slider
 ![extra_files/help_images/scale_audio_time.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/scale_audio_time.png?raw=true)
-* If an audio file has been selected (see 10), then this slider will allow you to manipulate the time within the audio file at which playback should resume. Timestamps to the left and right of the audio time slider indicate the elapsed and remaining time within the audio file, respectively.
+* If an audio file has been selected ([see 10](https://github.com/benfertig/timestamper/#10---audio-select-button)), then this slider will allow you to manipulate the time within the audio file at which playback should resume. Timestamps to the left and right of the audio time slider indicate the elapsed and remaining time within the audio file, respectively.
 
 ### 15 - Notes log
 * All past notes will be displayed here. This area cannot be edited by the user.
 
 ### 16 - Volume slider
 ![extra_files/help_images/scale_audio_volume.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/scale_audio_volume.png?raw=true)
-* If an audio file has been selected (see 10), then this slider will allow you to manipulate the volume of the audio. If you have muted the audio (see 17), then moving the audio slider will immediately unmute the audio.
+* If an audio file has been selected ([see 10](https://github.com/benfertig/timestamper/#10---audio-select-button)), then this slider will allow you to manipulate the volume of the audio. If you have muted the audio ([see 17](https://github.com/benfertig/timestamper/#17---mute-button)), then moving the audio slider will immediately unmute the audio.
 
 ### 17 - Mute button
-* If an audio file has been selected (see 10), then this button will allow you to mute and unmute the audio.
+* If an audio file has been selected ([see 10](https://github.com/benfertig/timestamper/#10---audio-select-button)), then this button will allow you to mute and unmute the audio.
 * When the audio is unmuted, the image of the mute button will display the audio's relative loudness. For example, if the volume is set to a loudness level that is greater than or equal to 66.6, then the mute button will look like this:</br>
 ![extra_files/help_images/button_mute_deactivated.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_mute_deactivated.png?raw=true)
 * If the volume is muted, then the mute button will look like this:</br>
@@ -93,18 +93,18 @@ If you would like to run and build this program from the source code, check out 
 
 ### 18 - Timestamp
 ![extra_files/help_images/label_timestamp.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/label_timestamp.png?raw=true)
-* This displays the current timestamp. The value displayed here will be added to the beginning of your next note. To freeze the current timestamp and set it to the current value on the timer (see 27), press the timestamp button (see 19). To unfreeze the current timestamp and resynchronize it with the timer, press the clear timestamp button (see 20).
+* This displays the current timestamp. The value displayed here will be added to the beginning of your next note. To freeze the current timestamp and set it to the current value on the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)), press the timestamp button ([see 19](https://github.com/benfertig/timestamper#19---timestamp-button)). To unfreeze the current timestamp and resynchronize it with the timer, press the clear timestamp button ([see 20](https://github.com/benfertig/timestamper#20---clear-timestamp-button)).
 
 ### 19 - Timestamp button
 ![extra_files/help_images/button_timestamp.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_timestamp.png?raw=true)
-* Press this button to freeze the timestamp (see 18), setting it to the value currently displayed on the timer (see 27). The timestamp button does NOT stop the timer.
+* Press this button to freeze the timestamp ([see 18](https://github.com/benfertig/timestamper#18---timestamp)), setting it to the value currently displayed on the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)). The timestamp button does NOT stop the timer.
 
 ### 20 - Clear timestamp button
 ![extra_files/help_images/button_clear_timestamp.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_clear_timestamp.png?raw=true)
-* Press this button to unfreeze the timestamp (see 18), resynchronizing it with the timer (see 27).
+* Press this button to unfreeze the timestamp ([see 18](https://github.com/benfertig/timestamper#18---timestamp)), resynchronizing it with the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)).
 
 ### 21 - Current note
-* This is the area where the user should type their current note. Pressing the "Cancel note" button (see 25) will clear this area. Pressing the "Save note" button (see 26) will clear this area AND record BOTH the previously entered text AS WELL AS the current timestamp (see 18) in the current output file (see 9) as well as in the notes log (see 15).
+* This is the area where the user should type their current note. Pressing the "Cancel note" button ([see 25](https://github.com/benfertig/timestamper#25---cancel-note-button)) will clear this area. Pressing the "Save note" button ([see 26](https://github.com/benfertig/timestamper#26---save-note-button)) will clear this area AND record BOTH the previously entered text AS WELL AS the current timestamp ([see 18](https://github.com/benfertig/timestamper#18---timestamp)) in the current output file ([see 9](https://github.com/benfertig/timestamper#9---output-path)) as well as in the notes log ([see 15](https://github.com/benfertig/timestamper#15---notes-log)).
 
 ### 22 - Help button
 ![extra_files/help_images/button_help.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_help.png?raw=true)
@@ -120,11 +120,11 @@ If you would like to run and build this program from the source code, check out 
 
 ### 25 - Cancel note button
 ![extra_files/help_images/button_cancel_note.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_cancel_note.png?raw=true)
-* Press this button to clear the "Current note" box (see 21) WITHOUT RECORDING THE TIMESTAMP (see 18) OR THE CURRENT NOTE to the notes log (see 15) or to the current output file (see 9).
+* Press this button to clear the "Current note" box ([see 21](https://github.com/benfertig/timestamper#21---current-note)) WITHOUT RECORDING THE TIMESTAMP ([see 18](https://github.com/benfertig/timestamper#18---timestamp)) OR THE CURRENT NOTE to the notes log ([see 15](https://github.com/benfertig/timestamper#15---notes-log)) or to the current output file ([see 9](https://github.com/benfertig/timestamper#9---output-path)).
 
 ### 26 - Save note button
 ![extra_files/help_images/button_save_note.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_save_note.png?raw=true)
-* Press this button to clear the "Current note" box (see 21) AND RECORD THE TIMESTAMP (see 18) ALONG WITH THE CURRENT NOTE to the notes log (see 15) and to the current output file (see 9). You must have already selected an output file (see 7) to be able to press this button.
+* Press this button to clear the "Current note" box ([see 21](https://github.com/benfertig/timestamper#21---current-note)) AND RECORD THE TIMESTAMP ([see 18](https://github.com/benfertig/timestamper#18---timestamp)) ALONG WITH THE CURRENT NOTE to the notes log ([see 15](https://github.com/benfertig/timestamper#15---notes-log)) and to the current output file ([see 9](https://github.com/benfertig/timestamper#9---output-path)). You must have already selected an output file ([see 7](https://github.com/benfertig/timestamper#7---output-select-button)) to be able to press this button.
 
 ### 27 - Timer
 ![extra_files/help_images/timer.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/timer.png?raw=true)
