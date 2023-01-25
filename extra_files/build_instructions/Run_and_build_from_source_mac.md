@@ -18,9 +18,11 @@
     * [Create the *Time Stamper* disk image (.dmg)](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#create-the-time-stamper-disk-image-dmg)
 
 ### Determine your *Mac*'s CPU architecture:
-* Later steps in this guide will require you to know the architecture of your *Mac*'s CPU. Your *Mac*'s CPU architecture should either be *Intel*-based or *Apple* silicon-based.
-    * If you have a *Mac* that was produced in November 2005 or earlier, then it will likely contain neither an *Intel*-based nor an *Apple* silicon-based CPU, but rather a CPU manufactured by *Motorola* (i.e., a *PowerPC*-based *Mac*), in which case it will likely be unable to run the *Time Stamper* program and will therefore also be incompatible with this guide.
-* To find out whether your *Mac* has an *Intel*-based or *Apple* silicon-based CPU:
+Later steps in this guide will require you to know the architecture of your *Mac*'s CPU. Your *Mac*'s CPU architecture should either be *Intel*-based or *Apple* silicon-based.
+
+**NOTE:** If you have a *Mac* that was produced in November 2005 or earlier, then it will likely contain neither an *Intel*-based nor an *Apple* silicon-based CPU, but rather a CPU manufactured by *Motorola* (i.e., a *PowerPC*-based *Mac*), in which case it will likely be unable to run the *Time Stamper* program and will therefore also be incompatible with this guide.
+
+To find out whether your *Mac* has an *Intel*-based or *Apple* silicon-based CPU:
     * Click on the *Apple* logo in the top-left corner of your screen.<br />
     * Select "About This Mac".<br />
     * In the "Overview" tab, look for a field labeled either "Chip" or "Processor".
