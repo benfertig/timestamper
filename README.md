@@ -16,7 +16,7 @@ If you would like to run and build this program from the source code, check out 
 
 ### 2 - Play button
 ![extra_files/help_images/button_play.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_play.png?raw=true)
-* This button resumes the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)). You must already be paused ([see 1](https://github.com/benfertig/timestamper/#6---pause-button)) to be able to press the play button.
+* This button resumes the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)). You must already be paused ([see 1](https://github.com/benfertig/timestamper/#1---pause-button)) to be able to press the play button.
 
 ### 3 - Stop button
 ![extra_files/help_images/button_stop.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_stop.png?raw=true)
