@@ -2,6 +2,7 @@
 
 ## Table of Contents
 * [Install *Python 3*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#install-python-3)
+* [Install *Pyglet*]()
 * [Run from source on *Windows*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#run-from-source-on-windows)
 * [Build from source on *Windows*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#build-from-source-on-windows)
      * [Install *Auto PY to EXE*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#install-auto-py-to-exe)
@@ -39,7 +40,7 @@ To make the *Time Stamper* program function on a *Windows* computer, you will ne
 conda install -c conda-forge pyglet
 ```
 
-**Alternatively**, you can **install [*Pyglet*](https://pypi.org/project/pyglet/) through *pip*** by entering the following commands from a *Command Prompt* window:
+**Alternatively**, you can **install [*Pyglet*](https://pypi.org/project/pyglet/) through *pip*** by entering the following command from a *Command Prompt* window:
 ```
 pip3 install pyglet
 ```
