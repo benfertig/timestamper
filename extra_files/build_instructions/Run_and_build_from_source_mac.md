@@ -115,8 +115,8 @@ The *Time Stamper* program should now open in a new window. Congratulations, you
 If you would like to build your own standalone application (.app) of the *Time Stamper* program from the source code, follow the instructions below.
 
 ## Build from source on *Mac*
-### *Tkmacosx*
-If you have been following along with these instructions since the section titled [**Run from source on Mac**](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#run-from-source-on-mac), then you should have already installed *Tkmacosx*. If you have not yet installed *Tkmacosx*, go ahead and refer to the above section titled [**Install Tkmacosx**](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#install-tkmacosx) before coming back here.
+### *Tkmacosx* and *Pyglet*
+If you have been following along with these instructions since the section titled [**Run from source on Mac**](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#run-from-source-on-mac), then you should have already installed *Tkmacosx* and *Pyglet*. If you have not yet installed *Tkmacosx* and *Pyglet*, go ahead and do so now by referring to the above section titled [**Install *Tkmacosx* and *Pyglet***](https://github.com/benfertig/timestamper/blob/main/MAC_RUN_AND_BUILD_FROM_SOURCE.md#install-tkmacosx) before coming back here.
 
 ### Install *Py2App*
 The *Mac* application (.app) for the *Time Stamper* program was made using *Py2App*, which you can install through either *conda* or *pip*.<br />
