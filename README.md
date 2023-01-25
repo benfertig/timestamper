@@ -28,11 +28,11 @@ If you would like to run and build this program from the source code, check out 
 
 ### 4.1 - Rewind amount
 ![extra_files/help_images/rewind_fast_forward_seconds.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/rewind_fast_forward_seconds.png?raw=true)
-* This is where you should enter the number of seconds you would like the timer (see 27) to rewind when you press the rewind button (see 4).
+* This is where you should enter the number of seconds you would like the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)) to rewind when you press the rewind button ([see 4](https://github.com/benfertig/timestamper#4---rewind-button)).
 
 ### 5 - Fast-forward button
 ![extra_files/help_images/button_fast_forward.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_fast_forward.png?raw=true)
-* This button fast-forwards the timer (see 27) the number of seconds specified in the fast-forward amount field (see 5.1).
+* This button fast-forwards the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)) the number of seconds specified in the fast-forward amount field ([see 5.1](https://github.com/benfertig/timestamper#51---fast-forward-amount)).
 
 ### 5.1 - Fast-forward amount
 ![extra_files/help_images/rewind_fast_forward_seconds.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/rewind_fast_forward_seconds.png?raw=true)
