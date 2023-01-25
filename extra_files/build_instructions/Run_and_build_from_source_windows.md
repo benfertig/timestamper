@@ -33,6 +33,17 @@ You will be downloading one of the *Windows* installers for *Miniconda*. There i
 
 Once you have downloaded the correct *Miniconda* installer for your *Windows* computer, run the installer to install *Python* with *Miniconda*.
 
+## Install *Pyglet*
+To make the *Time Stamper* program function on a *Windows* computer, you will need to install one additional *Python* package called *Pyglet*. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [*Pyglet*](https://anaconda.org/conda-forge/pyglet) through *conda***, which you can do by entering the following command from a *Command Prompt* window:
+```
+conda install -c conda-forge pyglet
+```
+
+**Alternatively**, you can **install [*Pyglet*](https://pypi.org/project/pyglet/) through *pip*** by entering the following commands from a *Command Prompt* window:
+```
+pip3 install pyglet
+```
+
 ## Run from source on *Windows*
 [**Head over to the releases page for the *Time Stamper* program**](https://github.com/benfertig/timestamper/releases) and download the source code for the version of the *Time Stamper* program that you would like to build. To find the source code, expand the "Assets" tab for your desired version and download the "Source code (zip)" or "Source code (tar.gz)" file. Once you have downloaded the compressed archive of the source code, extract its contents.<br />
 
