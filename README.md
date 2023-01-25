@@ -36,11 +36,11 @@ If you would like to run and build this program from the source code, check out 
 
 ### 5.1 - Fast-forward amount
 ![extra_files/help_images/rewind_fast_forward_seconds.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/rewind_fast_forward_seconds.png?raw=true)
-* This is where you should enter the number of seconds you would like the timer (see 27) to fast-forward when you press the fast-forward button (see 5).
+* This is where you should enter the number of seconds you would like the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)) to fast-forward when you press the fast-forward button ([see 5](https://github.com/benfertig/timestamper#5---fast-forward-button)).
 
 ### 6 - Record button
 ![extra_files/help_images/button_record.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_record.png?raw=true)
-* This button starts the timer (see 27). You cannot press the record button until you have selected an output file (see 7).
+* This button starts the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)). You cannot press the record button until you have selected an output file ([see 7](https://github.com/benfertig/timestamper/#7---output-select-button)).
 
 ### 7 - Output select button
 ![extra_files/help_images/button_output_select.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_output_select.png?raw=true)
@@ -55,11 +55,11 @@ If you would like to run and build this program from the source code, check out 
 ![extra_files/help_images/label_output_path_selected.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/label_output_path_selected.png?raw=true)
 * If an output file is not currently selected, a message prompting the user to select an output file will be displayed here. For example:</br>
 ![extra_files/help_images/label_output_path_default.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/label_output_path_default.png?raw=true)
-* If you have not selected an output file, you cannot write notes. To select an output file, press the output select button (see 7).
+* If you have not selected an output file, you cannot write notes. To select an output file, press the output select button ([see 7](https://github.com/benfertig/timestamper/#7---output-select-button)).
 
 ### 10 - Audio select button
 ![extra_files/help_images/button_audio_select.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_audio_select.png?raw=true)
-* Optionally, you can press this button to select an audio file which will be synced with the timer (see 27). This will also enable the use of the audio time slider (see 14) as well as the volume slider (see 16) and mute button (see 17). However, keep in mind that you must have already selected an output file (see 7) to be able to play and manipulate audio.
+* Optionally, you can press this button to select an audio file which will be synced with the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)). This will also enable the use of the audio time slider ([see 14](https://github.com/benfertig/timestamper#14---audio-time-slider)) as well as the volume slider ([see 16](https://github.com/benfertig/timestamper#16---volume-slider)) and mute button ([see 17](https://github.com/benfertig/timestamper#17---mute-button)). However, keep in mind that you must have already selected an output file ([see 7](https://github.com/benfertig/timestamper/#7---output-select-button)) to be able to play and manipulate audio.
 
 ### 11 - Audio file path
 ![extra_files/help_images/audio_path.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/audio_path.png?raw=true)
