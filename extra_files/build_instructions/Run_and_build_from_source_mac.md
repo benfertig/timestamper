@@ -28,9 +28,9 @@ To find out whether your *Mac* has an *Intel*-based or an *Apple* silicon-based 
 * Select "About This Mac".
 * In the "Overview" tab, look for a field labeled either "Chip" or "Processor".
     * **If you see a field labeled "Chip":**
-        * Your *Mac* has an *Apple* silicon-based processor
+        * Your *Mac* has an *Apple* silicon-based CPU
     * **If you see a field labeled "Processor":**
-        * Your *Mac* has an *Intel*-based processor
+        * Your *Mac* has an *Intel*-based CPU
 
 ## Make sure your default shell is set to *Z shell*
 Open the application *Terminal*. You can find *Terminal* by searching for it at the top-right of the screen from the toolbar.<br />
