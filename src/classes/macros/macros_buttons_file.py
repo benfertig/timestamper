@@ -7,10 +7,8 @@ from posixpath import sep as posixpath_sep
 from os.path import basename
 from sys import platform
 from tkinter import DISABLED, NORMAL, END, filedialog
-from pyglet.media import load, Player
-from pyglet.media.codecs.wave import WAVEDecodeException
 from .macros_helper_methods import merge_success_message, merge_failure_message_file_not_readable, \
-    toggle_widgets, merge_notes, print_to_entry, print_to_text
+    toggle_widgets, merge_notes, print_to_entry, print_to_text, verify_text_file, verify_audio_file
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -42,41 +40,6 @@ class FileButtonMacros():
         self.widgets = parent.widgets
         self.timer = parent.timer
 
-    def verify_selected_file(self, file_full_path, interpret_as):
-        """This method, which is called by file_select_macro, verifies that the file selected by
-        the user is manipulable in a way that is consistent with the program's expectations."""
-
-        # Only try to load the file if a non-empty file_full_path argument was passed.
-        if file_full_path:
-
-            # If the program should attempt to interpret file_full_path as a text file...
-            if interpret_as == "text":
-                try:
-                    file_encoding = self.settings["output"]["file_encoding"]
-                    with open(file_full_path, "a+", encoding=file_encoding) as output_file:
-                        output_file.write("")
-                    with open(file_full_path, "r", encoding=file_encoding) as output_file:
-                        output_file.readlines()
-                except (FileNotFoundError, IOError, PermissionError, UnicodeDecodeError):
-                    return False
-                else:
-                    return True
-
-            # If the program should attempt to interpret file_full_path as an audio file...
-            elif interpret_as == "audio":
-                try:
-                    self.time_stamper.audio_source = load(file_full_path)
-                except (FileNotFoundError, WAVEDecodeException):
-                    return False
-                else:
-                    self.time_stamper.audio_player = Player()
-                    return True
-
-        # This statement will be reached if at least one of the following conditions was met:
-        #     1) file_full_path was empty
-        #     2) interpret_as did not match "text" or "audio".
-        return False
-
     def file_select_macro(self, label_str_key, entry_str_key, window_title, file_types):
         """This method is called on by button_output_select_macro and
         button_audio_select_macro. Since both "button_output_select" and
@@ -94,8 +57,12 @@ class FileButtonMacros():
             initialdir=self.template.starting_dir, filetypes=file_types)
 
         # Check to see whether a valid file has been selected.
-        interpret_as = "audio" if entry_str_key == "entry_audio_path" else "text"
-        file_is_valid = self.verify_selected_file(file_full_path, interpret_as)
+        if entry_str_key == "entry_output_path":
+            file_is_valid = verify_text_file(file_full_path, self.settings)
+        elif entry_str_key == "entry_audio_path":
+            file_is_valid = verify_audio_file(file_full_path, self.time_stamper)
+        else:
+            file_is_valid = False
 
         # If a valid file HAS been selected...
         if file_full_path and file_is_valid:
@@ -114,17 +81,7 @@ class FileButtonMacros():
 
             return file_full_path
 
-        # If a valid file has NOT been selected...
-
-        # Change the text of the label to indicate that a file has not been selected.
-        if isinstance(label_template["text"], dict):
-            label_object["text"] = label_template["text"]["value_if_false"]
-
-        # Clear the entry widget.
-        entry_object["state"] = NORMAL
-        entry_object.delete(0, END)
-        entry_object["state"] = DISABLED
-
+        # If a valid file has NOT been selected, return None...
         return None
 
     def button_output_select_macro(self):
@@ -159,8 +116,7 @@ class FileButtonMacros():
 
         # If an output file has not been selected, disable the relevant widgets.
         else:
-            toggle_widgets(self.template["button_output_select"], \
-                False, self.template, self.widgets)
+            self.parent.disable_output_widgets()
 
     def button_merge_output_files_macro(self):
         """This method will be executed when the "Merge output files" button is pressed."""
@@ -219,7 +175,7 @@ class FileButtonMacros():
 
             invalid_file_names = []
             for file_path in files_full_paths:
-                if not self.verify_selected_file(file_path, "text"):
+                if not verify_text_file(file_path, self.settings):
                     invalid_file_names.append(basename(file_path))
 
             # If the user selected any files that cannot be opened and read,
@@ -280,7 +236,7 @@ class FileButtonMacros():
 
             # If the user tried to save the merged notes to an unreadable file, do not
             # write the merged notes to a file and instaed display a failure message.
-            elif not self.verify_selected_file(merged_notes_path, "text"):
+            elif not verify_text_file(merged_notes_path, self.settings):
                 label_merge_failure = self.template["label_merge_failure_file_not_readable"]
                 label_merge_failure["text"] = \
                     merge_failure_message_file_not_readable(basename(merged_notes_path))

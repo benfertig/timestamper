@@ -2,9 +2,12 @@
 """This module contains helper methods for button
 macros. These methods do not rely on class variables."""
 
+from os.path import isdir
 from re import match
 from sys import platform
 from tkinter import DISABLED, NORMAL, END, Button
+from pyglet.media import load, Player
+from pyglet.media.codecs.wave import WAVEDecodeException
 
 if platform.startswith("darwin"):
     from tkmacosx.widget import Button as MacButton
@@ -155,6 +158,55 @@ def checkbutton_enable_disable_macro(checkbutton_template, widgets):
         for str_to_disable in checkbutton_template["to_enable_toggle"]:
             to_disable = widgets[str_to_disable]
             to_disable["state"] = DISABLED
+
+
+def verify_text_file(file_full_path, settings):
+    """This method verifies the readability and writability of a text file."""
+
+    # If the provided file path is actually a path to a directory, return False.
+    if isdir(file_full_path):
+        return False
+
+    # Try to load the file specified by file_full_path and see
+    # if it can be read and written to as if it were a text file.
+    try:
+        file_encoding = settings["output"]["file_encoding"]
+        with open(file_full_path, "a+", encoding=file_encoding) as output_file:
+            output_file.write("")
+        with open(file_full_path, "r", encoding=file_encoding) as output_file:
+            output_file.readlines()
+
+    # If the file CANNOT be read and written to like a text file, return False.
+    except (FileNotFoundError, IOError, PermissionError, UnicodeDecodeError):
+        return False
+
+    # IF the file CAN be read and written to like a text file, return True.
+    else:
+        return True
+
+
+def verify_audio_file(file_full_path, time_stamper):
+    """This method verifies that an audio file can be loaded by Pyglet,
+    and if so, stores the relevant audio source and audio player."""
+
+    # If the provided file path is actually a path to a directory, return False.
+    if isdir(file_full_path):
+        return False
+
+    # Try loading the file specified by file_full_path into
+    # a Pyglet media source and storing that media source.
+    try:
+        time_stamper.audio_source = load(file_full_path)
+
+    # If the file CANNOT be loaded into a Pyglet media source, return False.
+    except (FileNotFoundError, WAVEDecodeException):
+        return False
+
+    # If the file CAN be loaded into a Pyglet media player, declare a new,
+    # empty audio player for the Time Stamper program and return True.
+    else:
+        time_stamper.audio_player = Player()
+        return True
 
 
 def print_to_entry(to_print, entry_obj, wipe_clean=False):

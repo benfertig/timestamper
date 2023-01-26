@@ -3,7 +3,8 @@
 that are executed when a media button in the Time Stamper program is pressed."""
 
 from sys import platform
-from .macros_helper_methods import button_enable_disable_macro, rewind_or_fast_forward
+from .macros_helper_methods import button_enable_disable_macro, \
+    verify_text_file, rewind_or_fast_forward
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -127,10 +128,21 @@ class MediaButtonMacros():
         """This method will be executed when the record
         button is pressed, and will begin the timer."""
 
-        self.media_button_macro("button_record")
+        # If the output path currently specified in the output path entry
+        # widget IS a valid text file that can be read and written to...
+        if verify_text_file(self.widgets["entry_output_path"].get(), self.settings):
 
-        # Start the timer.
-        self.timer.play()
+            self.media_button_macro("button_record")
+
+            # Start the timer.
+            self.timer.play()
+
+        # If the output path currently specified in the output path entry widget IS
+        # NOT a valid text file that can be read and written to, then alter all of the
+        # relevant widgets to indicate that no valid output file is currently active.
+        else:
+
+            self.parent.disable_output_widgets()
 
     def button_mute_macro(self):
         """This method will be executed when the mute button is pressed."""

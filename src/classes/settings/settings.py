@@ -5,7 +5,7 @@ the attributes that can be edited by the user in the Time Stamper program."""
 from dataclasses import dataclass
 from json import dump, load
 from json.decoder import JSONDecodeError
-from os import getenv, mkdir
+from os import getenv, mkdir, sep
 from os.path import dirname, exists, expanduser, join
 from sys import platform
 
@@ -35,21 +35,27 @@ class TimeStamperSettings():
 
     def __init__(self):
 
+        # Save the version of the Time Stamper program that this source code corresponds to.
+        program_version_number = "0.3.0"
+
         # Save the path to settings_default.json.
-        self.default_json_path = join(dirname(__file__), "settings_default.json")
+        self.default_json_path = join(f"{dirname(__file__)}{sep}", "settings_default.json")
 
         # Load the default settings from settings_default.json.
         self.default = self.load_json(self.default_json_path)
 
         # Get the folder that settings_user.json should be saved to.
-        user_settings_folder = self.get_settings_folder()
+        user_settings_folder = self.get_settings_folder(version_number=program_version_number)
 
         # Create the user settings directory if it does not exist.
-        if not exists(user_settings_folder):
-            mkdir(user_settings_folder)
+        dir_so_far = ""
+        for isolated_dir_name in user_settings_folder.split(sep):
+            dir_so_far = join(f"{dir_so_far}{sep}", isolated_dir_name)
+            if not exists(dir_so_far):
+                mkdir(dir_so_far)
 
         # Define the full path to settings_user.json.
-        self.user_json_path = join(user_settings_folder, "settings_user.json")
+        self.user_json_path = join(f"{user_settings_folder}{sep}", "settings_user.json")
 
         # Retrieve the current user settings if they exist.
         user_settings = self.check_current_user_settings(self.user_json_path)
@@ -79,20 +85,21 @@ class TimeStamperSettings():
         with open(json_path, "w", encoding="utf-8") as json_file:
             dump(dict_to_dump, json_file, indent=indent)
 
-    def get_settings_folder(self):
+    def get_settings_folder(self, version_number=""):
         """This method returns the folder that settings_user.json should be
         saved to. This folder varies based on the current operating system."""
 
-        # If we are on Windows, search for the settings_user.json within APPDATA/Roaming.
+        # If we are on Windows, search for the settings_user.json within %APPDATA%.
         if platform.startswith("win"):
-            return join(getenv("APPDATA"), "Time Stamper")
+            return join(f"{getenv('APPDATA')}{sep}", f"Time Stamper{sep}", f"{version_number}{sep}")
 
         # If we are on a Mac, search for settings_user.json within Library/Preferences
         if platform.startswith("darwin"):
-            return join(expanduser("~"), "Library", "Preferences", "Time Stamper")
+            return join(f"{expanduser('~')}{sep}", f"Library{sep}", \
+                f"Preferences{sep}", f"Time Stamper{sep}", f"{version_number}{sep}")
 
         # TODO: In the future, add a settings folder for Linux computers.
-        return dirname(__file__)
+        return join(f"{dirname(__file__)}{sep}", f"{version_number}{sep}")
 
     def check_settings_structures_match(self, dict_1, dict_2):
         """This method does not check whether two dictionaries are identical, but rather, whether
@@ -108,9 +115,9 @@ class TimeStamperSettings():
 
             # The current key for dict_2 is the same as the current key for
             # dict_1 (we know this because this section of code is unreachable
-            # unless the keys for both dictionaries are identical), but the
-            # value corresponding to the current key in dict_2 may differ from
-            # that of dict_1, so we store the current value from dict_2 here.
+            # unless the outer keys for both dictionaries are identical), but
+            # the value corresponding to the current key in dict_2 may differ
+            # from that of dict_1, so we store the current value from dict_2 here.
             dict_2_value = dict_2[dict_1_key]
 
             # Save the types of the current values from both dictionaries.
@@ -159,5 +166,5 @@ class TimeStamperSettings():
                 # NOT MATCH that of the default settings, return None.
                 return None
 
-        # If settings_user.json does not exist at the expected location, return None...
+        # If settings_user.json does not exist at the expected location, return None.
         return None

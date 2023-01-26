@@ -1,10 +1,10 @@
 {
     "output": {
-        "path": null,
+        "path": "",
         "file_encoding": "utf-8"
     },
     "audio": {
-        "path": null
+        "path": ""
     },
     "pause": {
         "message_enabled": false,

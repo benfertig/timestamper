@@ -111,7 +111,10 @@
 
         "str_key": "button_save_note",
 
-        "initial_state": false,
+        "initial_state": {
+            "linked_dict": "output",
+            "linked_attribute": "path"
+        },
 
         "text": "Save note",
 

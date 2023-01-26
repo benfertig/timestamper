@@ -4,6 +4,7 @@ methods that are executed when any button in the Time Stamper program is pressed
 The actual macros are stored in submodules (all of which are imported below)."""
 
 from dataclasses import dataclass
+from os.path import isdir
 from tkinter import DISABLED, NORMAL, END
 from pyglet.media import load, Player
 from pyglet.media.codecs.wave import WAVEDecodeException
@@ -15,7 +16,8 @@ from .macros_buttons_media import MediaButtonMacros
 from .macros_buttons_note import NoteButtonMacros
 from .macros_buttons_settings import SettingsButtonMacros
 from .macros_buttons_timestamping import TimestampingButtonMacros
-from .macros_helper_methods import disable_button, print_to_text, print_to_file
+from .macros_helper_methods import disable_button, toggle_widgets, \
+    print_to_entry, print_to_text, print_to_file, verify_text_file
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -119,22 +121,38 @@ class Macros():
         }
 
     def print_timestamped_message(self, message, timestamp=None):
-        """This method takes a message, timestamps it, and then prints that
-        timestamped message to the notes log and the output file. If no timestamp is
-        provided, a timestamp will be generated using the timer's current time."""
-
-        if timestamp is None:
-            timestamp = self.timer.current_time_to_timestamp()
-
-        to_print = f"{timestamp} {message}"
+        """If the currently selected output file IS valid, then this method takes a
+        message, timestamps it, and then prints that timestamped message to the notes
+        log and the output file (if no timestamp is provided, then a timestamp will be
+        generated using the timer's current time). If the currently selected output file
+        IS NOT valid, then this method will adjust the configuration of the Time Stamper
+        program to the configuration that is expected when no output file has been selected."""
 
         # Get the current output path from the output path entry widget.
         output_path = self.widgets["entry_output_path"].get()
 
-        # Print the button's message, along with the current
-        # timestamp, to the notes log and the output file.
-        print_to_text(to_print, self.widgets["text_log"])
-        print_to_file(to_print, output_path, self.settings["output"]["file_encoding"])
+        # If the file specified in the output path entry widget
+        # CAN be read and written to as if it were a text file...
+        if verify_text_file(output_path, self.settings):
+
+            # If no timestamp was provided, set the timestamp to the timer's current time.
+            if timestamp is None:
+                timestamp = self.timer.current_time_to_timestamp()
+
+            # Generate the complete message that should be printed, including the timestamp.
+            to_print = f"{timestamp} {message}"
+
+            # Print the message passed in the argument "message" along with
+            # the current timestamp to the notes log and the output file.
+            print_to_text(to_print, self.widgets["text_log"])
+            print_to_file(to_print, output_path, self.settings["output"]["file_encoding"])
+
+        # If the file specified in the output path entry widget CANNOT be read
+        # and written to as if it were a text file, then alter all of the relevant
+        # widgets to indicate that no valid output file is currently active...
+        else:
+
+            self.disable_output_widgets()
 
     def get_button_message_input(self, button_str_key):
         """This method, which is called upon by several button macros, uses a button's
@@ -193,10 +211,16 @@ class Macros():
         if self.time_stamper.audio_player:
             return self.time_stamper.audio_player
 
+        # Retrieve the path to the audio file from the audio path entry widget.
+        audio_path = self.widgets["entry_audio_path"].get()
+
+        # If the path to the audio file is actually a path to a directory, then
+        # this method should return None, as this is an invalid audio file path.
+        if isdir(audio_path):
+            return None
+
         # Try to load the audio source.
         try:
-            entry_audio_path = self.widgets["entry_audio_path"]
-            audio_path = entry_audio_path.get()
             self.time_stamper.audio_source = load(audio_path)
 
         # If the audio source fails to load, return None in place of an audio player
@@ -206,6 +230,25 @@ class Macros():
         # If the audio source loaded successfully, create a new audio player.
         else:
             return Player()
+
+    def disable_output_widgets(self):
+        """This method alters all of the relevant widgets in the Time Stamper
+        program to indicate that no valid output file is currently active."""
+
+        # Set the text of the label that displays above the output path entry widget
+        # to the value that should be displayed when no output file is active.
+        self.widgets["label_output_path"]["text"] = \
+            self.template["label_output_path"]["text"]["value_if_false"]
+
+        # Clear the entry displaying the output path.
+        print_to_entry("", self.widgets["entry_output_path"], wipe_clean=True)
+
+        # Clear the text displaying the notes log.
+        print_to_text("", self.widgets["text_log"], wipe_clean=True)
+
+        # Disable the relevant widgets for when no output file is active.
+        toggle_widgets(self.template["button_output_select"], \
+            False, self.template, self.widgets)
 
     def disable_audio_widgets(self):
         """This method alters all of the widgets in the Time Stamper program that are
@@ -225,7 +268,7 @@ class Macros():
 
         # Reset and disable the volume slider.
         scale_audio_volume = self.widgets["scale_audio_volume"]
-        scale_audio_volume.variable.set(self.template["label_audio_volume"]["text"])
+        scale_audio_volume.variable.set(100 - float(self.template["label_audio_volume"]["text"]))
         scale_audio_volume["state"] = DISABLED
 
         # Reset the volume label.
