@@ -71,6 +71,7 @@ class MediaButtonMacros():
 
         # Only print a message for this button if:
         #     1) a message was specified for this button
+        #     AND
         #     2) the rewind/fast-forward amount was not zero seconds (this condition does not apply
         #        if the user pressed a media button other than the rewind or fast-forward button).
         if button_message is not None and seconds_to_adjust_by != 0:
@@ -80,7 +81,13 @@ class MediaButtonMacros():
             # to swap the user's input for the button's message with other values.
             if entry_str_key:
 
-                seconds_to_adjust_by = str(abs(round(seconds_to_adjust_by, 2)))
+                # We may need to print the exact number of seconds that the
+                # user rewound/fast-forwarded by. Manipulate the displayed
+                # adjustment amount to make it as readable as possible here.
+                seconds_to_adjust_by = abs(round(seconds_to_adjust_by, 2))
+                if seconds_to_adjust_by % 1 == 0:
+                    seconds_to_adjust_by = int(seconds_to_adjust_by)
+                seconds_to_adjust_by = str(seconds_to_adjust_by)
 
                 # Replace any variables in the button message with their corresponding values.
                 button_message = button_message.replace("$amount", seconds_to_adjust_by)
