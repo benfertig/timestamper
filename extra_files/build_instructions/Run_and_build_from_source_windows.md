@@ -96,7 +96,11 @@ This should point to the *Python* file titled "Time Stamper.py" in the *timestam
 ```
 
 #### Onefile
-This option is up to you. Selecting the "One File" option will package the entire *Time Stamper* program into a single .exe file, providing maximum portability and convenience.
+This option is up to you. Selecting the "One File" option will package the entire *Time Stamper* program into a single executable (.exe) file, providing maximum portability and convenience. However, keep in mind that the section of this guide titled [**Create a *Windows* installer for the *Time Stamper* program (optional)**](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#create-the-inno-setup-installer-for-the-time-stamper-program) assumes that you have **not** selected the option titled "One File" but have instead selected the option titled "One Directory". If you would like to make a *Windows* installer for the *Time Stamper* program and insist on building the *Time Stamper* executable using "One File" mode, then you will need to tweak some of the settings in the *Inno Setup* (.iss) file, which is located in the following directory:
+```
+{path_to_repository}\extra_files\setup_files\windows
+```
+This guide will not go over the meanings of individual settings in *Inno Setup* (.iss) files. For more information on custom *Inno Setup* settings, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/)
 
 #### Console Window
 Selecting "Console Based" will cause a *Command Prompt* window to appear each time you run the *Time Stamper* program. If you are interested in running the program in "debug" mode to view any error messages, this option is for you.<br />
