@@ -35,9 +35,6 @@ class ScaleMacros():
         or right mouse button on the audio slider (but not when the user releases
         the left, middle or right mouse button from the audio slider)."""
 
-        # Attempt to retrieve an audio player.
-        self.time_stamper.audio_player = self.parent.validate_audio_player()
-
         # If an audio player was successfully retrieved...
         if self.time_stamper.audio_player:
 
@@ -68,9 +65,6 @@ class ScaleMacros():
 
         # Convert the passed value from a string to a float.
         volume_scale_value = 100 - float(volume_scale_value)
-
-        # Attempt to retrieve an audio player.
-        self.time_stamper.audio_player = self.parent.validate_audio_player()
 
         # If an audio player was successfully retrieved...
         if self.time_stamper.audio_player:

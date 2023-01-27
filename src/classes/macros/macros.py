@@ -4,10 +4,7 @@ methods that are executed when any button in the Time Stamper program is pressed
 The actual macros are stored in submodules (all of which are imported below)."""
 
 from dataclasses import dataclass
-from os.path import isdir
 from tkinter import DISABLED, NORMAL, END
-from pyglet.media import load, Player
-from pyglet.media.codecs.wave import WAVEDecodeException
 from .macros_checkbuttons import CheckbuttonMacros
 from .macros_scales import ScaleMacros
 from .macros_buttons_file import FileButtonMacros
@@ -16,8 +13,8 @@ from .macros_buttons_media import MediaButtonMacros
 from .macros_buttons_note import NoteButtonMacros
 from .macros_buttons_settings import SettingsButtonMacros
 from .macros_buttons_timestamping import TimestampingButtonMacros
-from .macros_helper_methods import disable_button, toggle_widgets, \
-    print_to_entry, print_to_text, print_to_file, verify_text_file
+from .macros_helper_methods import disable_button, toggle_widgets, print_to_entry, \
+    print_to_text, print_to_file, copy_text_file_to_text_widget, verify_text_file, verify_audio_file
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -131,28 +128,17 @@ class Macros():
         # Get the current output path from the output path entry widget.
         output_path = self.widgets["entry_output_path"].get()
 
-        # If the file specified in the output path entry widget
-        # CAN be read and written to as if it were a text file...
-        if verify_text_file(output_path, self.settings):
+        # If no timestamp was provided, set the timestamp to the timer's current time.
+        if timestamp is None:
+            timestamp = self.timer.current_time_to_timestamp()
 
-            # If no timestamp was provided, set the timestamp to the timer's current time.
-            if timestamp is None:
-                timestamp = self.timer.current_time_to_timestamp()
+        # Generate the complete message that should be printed, including the timestamp.
+        to_print = f"{timestamp} {message}"
 
-            # Generate the complete message that should be printed, including the timestamp.
-            to_print = f"{timestamp} {message}"
-
-            # Print the message passed in the argument "message" along with
-            # the current timestamp to the notes log and the output file.
-            print_to_text(to_print, self.widgets["text_log"])
-            print_to_file(to_print, output_path, self.settings["output"]["file_encoding"])
-
-        # If the file specified in the output path entry widget CANNOT be read
-        # and written to as if it were a text file, then alter all of the relevant
-        # widgets to indicate that no valid output file is currently active...
-        else:
-
-            self.disable_output_widgets()
+        # Print the message passed in the argument "message" along with
+        # the current timestamp to the notes log and the output file.
+        print_to_text(to_print, self.widgets["text_log"])
+        print_to_file(to_print, output_path, self.settings["output"]["file_encoding"])
 
     def get_button_message_input(self, button_str_key):
         """This method, which is called upon by several button macros, uses a button's
@@ -200,36 +186,61 @@ class Macros():
 
         return None
 
-    def validate_audio_player(self):
-        """If an audio player is already loaded into the Time Stamper program, this
-        method will return that audio player. Otherwise, this method will attempt to
-        create an audio player with the information the user has provided. If an audio
-        player is successfully created, this method will return that audio player. Otherwise,
-        this method will clear the text displayed in the audio path entry and return None."""
+    def configure_program_for_notetaking(self, file_path):
+        """This method configures the program to reflect that an output file is active."""
 
-        # If an audio player is already loaded, return that audio player.
-        if self.time_stamper.audio_player:
-            return self.time_stamper.audio_player
+        # Any text already in the output file should be printed to the notes log.
+        file_encoding = self.settings["output"]["file_encoding"]
+        copy_text_file_to_text_widget(file_path, file_encoding, self.widgets["text_log"])
 
-        # Retrieve the path to the audio file from the audio path entry widget.
-        audio_path = self.widgets["entry_audio_path"].get()
+        # Enable the relevant widgets.
+        toggle_widgets(self.template["button_output_select"], True, self.template, self.widgets)
 
-        # If the path to the audio file is actually a path to a directory, then
-        # this method should return None, as this is an invalid audio file path.
-        if isdir(audio_path):
-            return None
+    def validate_output_file(self):
+        """This method will check the validity of file_path to make sure it corresponds to a valid
+        text file that can be read and written to. This method will then edit the configuration
+        of the program depending on whether or not that path corresponds to a valid text file."""
 
-        # Try to load the audio source.
-        try:
-            self.time_stamper.audio_source = load(audio_path)
+        # Store the path to the output file into an abbreviated variable name.
+        file_path = self.widgets["entry_output_path"].get()
 
-        # If the audio source fails to load, return None in place of an audio player
-        except (FileNotFoundError, WAVEDecodeException):
-            return None
+        # If a file path was provided and if that path corresponds to a valid text file...
+        file_encoding = self.settings["output"]["file_encoding"]
+        if file_path and verify_text_file(file_path, file_encoding, True, True):
 
-        # If the audio source loaded successfully, create a new audio player.
+            self.configure_program_for_notetaking(file_path)
+
+        # If an output file path was not provided or if the corresponding
+        # file was not a valid text file, disable the relevant widgets.
         else:
-            return Player()
+            self.disable_output_widgets()
+
+    def validate_audio_player(self):
+        """This method will check whether a valid audio player currently exists, and if
+        not, will try to create one based on the information provided by the user. If
+        an audio player was successfully created or retrieved, then this method will
+        configure the program to reflect that an audio player IS active. Otherwise, this
+        method will configure the program to reflect that an audio player IS NOT active."""
+
+        # If an audio player is not already loaded...
+        if not self.time_stamper.audio_player:
+
+            # Attempt to create an audio player with the user-provided information.
+            verify_audio_file(self.widgets["entry_audio_path"].get(), self.time_stamper)
+
+        # If a valid audio player WAS created/retrieved...
+        if self.time_stamper.audio_player:
+
+            # Reset the timer/audio slider.
+            self.timer.display_time(0.0, pad=2)
+
+            # Enable the relevant widgets for when a valid audio player is active.
+            toggle_widgets(self.template["button_audio_select"], True, self.template, self.widgets)
+
+        # If a valid audio player WAS NOT created/retrieved,
+        # reset and disable the widgets associated with audio.
+        else:
+            self.disable_audio_widgets()
 
     def disable_output_widgets(self):
         """This method alters all of the relevant widgets in the Time Stamper

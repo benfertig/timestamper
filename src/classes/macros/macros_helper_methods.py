@@ -2,7 +2,7 @@
 """This module contains helper methods for button
 macros. These methods do not rely on class variables."""
 
-from os.path import isdir
+from os.path import exists, isdir
 from re import match
 from sys import platform
 from tkinter import DISABLED, NORMAL, END, Button
@@ -160,21 +160,42 @@ def checkbutton_enable_disable_macro(checkbutton_template, widgets):
             to_disable["state"] = DISABLED
 
 
-def verify_text_file(file_full_path, settings):
-    """This method verifies the readability and writability of a text file."""
+def copy_text_file_to_text_widget(file_full_path, file_encoding, text_obj):
+    """This method prints the entire contents of the text file
+    indicated by file_full_path to the text widget text_obj."""
+
+    text_obj_initial_state = text_obj["state"]
+    text_obj["state"] = NORMAL
+    with open(file_full_path, "r", encoding=file_encoding) as out_file:
+        for line in out_file.readlines():
+            text_obj.insert(END, line)
+            text_obj.see(END)
+    text_obj["state"] = text_obj_initial_state
+
+
+def verify_text_file(file_full_path, file_encoding, test_readability, test_writability):
+    """This method verifies the readability and writability of a text file. Of
+    the two boolean arguments, test_readability and test_writability, AT LEAST
+    ONE of these should be set to True (they can also BOTH be set to True
+    simultaneously). The reason that test_readability and test_writability should
+    not both be set to False simultaneously is because, if this is the case, then
+    this method will return True as long as the path corresponding to file_full_path
+    exists and that path does not point to a directory, without checking whether
+    the path provided in file_full_path corresponds to an actual text file."""
 
     # If the provided file path is actually a path to a directory, return False.
-    if isdir(file_full_path):
+    if isdir(file_full_path) or not exists(file_full_path):
         return False
 
     # Try to load the file specified by file_full_path and see
     # if it can be read and written to as if it were a text file.
     try:
-        file_encoding = settings["output"]["file_encoding"]
-        with open(file_full_path, "a+", encoding=file_encoding) as output_file:
-            output_file.write("")
-        with open(file_full_path, "r", encoding=file_encoding) as output_file:
-            output_file.readlines()
+        if test_readability:
+            with open(file_full_path, "r", encoding=file_encoding) as output_file:
+                output_file.readlines()
+        if test_writability:
+            with open(file_full_path, "a+", encoding=file_encoding) as output_file:
+                output_file.write("")
 
     # If the file CANNOT be read and written to like a text file, return False.
     except (FileNotFoundError, IOError, PermissionError, UnicodeDecodeError):
@@ -187,10 +208,12 @@ def verify_text_file(file_full_path, settings):
 
 def verify_audio_file(file_full_path, time_stamper):
     """This method verifies that an audio file can be loaded by Pyglet,
-    and if so, stores the relevant audio source and audio player."""
+    and if so, stores the relevant audio source and audio player into
+    class attributes of the passed instance of the time_stamper class."""
 
     # If the provided file path is actually a path to a directory, return False.
-    if isdir(file_full_path):
+    if isdir(file_full_path) or not exists(file_full_path):
+        time_stamper.audio_player = None
         return False
 
     # Try loading the file specified by file_full_path into
@@ -200,6 +223,7 @@ def verify_audio_file(file_full_path, time_stamper):
 
     # If the file CANNOT be loaded into a Pyglet media source, return False.
     except (FileNotFoundError, WAVEDecodeException):
+        time_stamper.audio_player = None
         return False
 
     # If the file CAN be loaded into a Pyglet media player, declare a new,

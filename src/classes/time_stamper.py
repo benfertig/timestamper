@@ -48,4 +48,17 @@ class TimeStamper():
 
         # Create the main window and all of its widgets.
         self.root = self.widgets.create_entire_window("window_main", self.macros)
+
+        # Perform a check to see whether a default OUTPUT file path was provided,
+        # and if so, whether that path corresponds to a TEXT file that is suitable
+        # for the Time Stamper program. If this is the case, then the program
+        # will change its configuration to reflect that an OUTPUT file is active.
+        self.macros.validate_output_file()
+
+        # Perform a check to see whether a default AUDIO file path was provided,
+        # and if so, whether that path corresponds to an AUDIO file that is suitable
+        # for the Time Stamper program. If this is the case, then the program
+        # will change its configuration to reflect that an AUDIO file is active.
+        self.macros.validate_audio_player()
+
         self.root.mainloop()

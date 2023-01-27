@@ -6,7 +6,7 @@ from ntpath import sep as ntpath_sep
 from posixpath import sep as posixpath_sep
 from os.path import basename
 from sys import platform
-from tkinter import DISABLED, NORMAL, END, filedialog
+from tkinter import filedialog
 from .macros_helper_methods import merge_success_message, merge_failure_message_file_not_readable, \
     toggle_widgets, merge_notes, print_to_entry, print_to_text, verify_text_file, verify_audio_file
 
@@ -46,7 +46,7 @@ class FileButtonMacros():
         "button_audio_select" prompt the user to select a file, the procedures for
         their macros can, to a large extent, be condensed down into this method."""
 
-        # Store  the template for the label, the widget for the label,
+        # Store the template for the label, the widget for the label,
         # and the widget for the entry into abbreviated file names.
         label_template = self.template[label_str_key]
         label_object = self.widgets[label_str_key]
@@ -58,7 +58,8 @@ class FileButtonMacros():
 
         # Check to see whether a valid file has been selected.
         if entry_str_key == "entry_output_path":
-            file_is_valid = verify_text_file(file_full_path, self.settings)
+            file_encoding = self.settings["output"]["file_encoding"]
+            file_is_valid = verify_text_file(file_full_path, file_encoding, True, True)
         elif entry_str_key == "entry_audio_path":
             file_is_valid = verify_audio_file(file_full_path, self.time_stamper)
         else:
@@ -98,23 +99,13 @@ class FileButtonMacros():
         # Clear the text displaying the notes log.
         print_to_text("", obj_text_log, wipe_clean=True)
 
-        # Only repopulate the text in the notes log and enable the
-        # relevant buttons if an output file has been selected.
+        # If a valid output file WAS selected, configure the
+        # program to reflect that an output file is active.
         if file_full_path:
+            self.parent.configure_program_for_notetaking(file_full_path)
 
-            # Any text already in the output file should be printed to the notes log.
-            obj_text_log["state"] = NORMAL
-            with open(file_full_path, "r", \
-                encoding=self.settings["output"]["file_encoding"]) as out_file:
-                for line in out_file.readlines():
-                    obj_text_log.insert(END, line)
-                    obj_text_log.see(END)
-            obj_text_log["state"] = DISABLED
-
-            # Enable the relevant widget if an output file has been selected.
-            toggle_widgets(self.template["button_output_select"], True, self.template, self.widgets)
-
-        # If an output file has not been selected, disable the relevant widgets.
+        # If a valid output file WAS NOT selected, configure the
+        # program to reflect that an output file is not active.
         else:
             self.parent.disable_output_widgets()
 
@@ -139,10 +130,10 @@ class FileButtonMacros():
         file_full_path = self.file_select_macro("label_audio_path", \
             "entry_audio_path", "Select an audio file", file_types)
 
-        # If a valid audio file WAS selected, enable the
-        # relevant widgets and reset the timer/audio slider.
+        # If a valid audio file WAS selected...
         if file_full_path:
 
+            # Reset the timer/audio slider.
             self.timer.display_time(0.0, pad=2)
 
             # Enable the relevant widget if an audio file has been selected.
@@ -173,9 +164,13 @@ class FileButtonMacros():
         # Only merge the notes if at least one file was selected.
         if files_full_paths:
 
+            # Save the specified output file encoding into an abbreviated file name.
+            file_encoding = self.settings["output"]["file_encoding"]
+
+            # Verify the validity of the text files whose notes the user would like to merge.
             invalid_file_names = []
             for file_path in files_full_paths:
-                if not verify_text_file(file_path, self.settings):
+                if not verify_text_file(file_path, file_encoding, True, False):
                     invalid_file_names.append(basename(file_path))
 
             # If the user selected any files that cannot be opened and read,
@@ -195,8 +190,7 @@ class FileButtonMacros():
                 # Merge the notes from all of the selected files. We cannot write the merged notes
                 # to a new file yet because a new file has not yet been selected. The process of
                 # writing the merged notes to a new file occurs in on_close_window_merge_2_macro.
-                merged_notes = \
-                    merge_notes(files_full_paths, self.settings["output"]["file_encoding"])
+                merged_notes = merge_notes(files_full_paths, file_encoding)
 
                 # Call the function that will display the second window with instructions on
                 # how to merge output files, passing a macro that will make the second file
@@ -225,6 +219,9 @@ class FileButtonMacros():
         # file if the user selected a file to save the merged notes to.
         if merged_notes_path:
 
+            # Save the specified output file encoding into an abbreviated file name.
+            file_encoding = self.settings["output"]["file_encoding"]
+
             # If the user tried to save the merged notes to a file whose notes
             # were already going to be a part of the merge, do not write the
             # merged notes to a file and instead display a failure message.
@@ -236,7 +233,7 @@ class FileButtonMacros():
 
             # If the user tried to save the merged notes to an unreadable file, do not
             # write the merged notes to a file and instaed display a failure message.
-            elif not verify_text_file(merged_notes_path, self.settings):
+            elif not verify_text_file(merged_notes_path, file_encoding, False, True):
                 label_merge_failure = self.template["label_merge_failure_file_not_readable"]
                 label_merge_failure["text"] = \
                     merge_failure_message_file_not_readable(basename(merged_notes_path))
@@ -249,8 +246,7 @@ class FileButtonMacros():
             else:
 
                 # Write the merged notes to the requested file.
-                with open(merged_notes_path, "a+", \
-                    encoding=self.settings["output"]["file_encoding"]) as out:
+                with open(merged_notes_path, "a+", encoding=file_encoding) as out:
                     for note in merged_notes:
                         out.write(note)
 
