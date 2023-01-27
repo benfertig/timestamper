@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
-"""This module contains the Macros class which serves as a container for all
-methods that are executed when any button in the Time Stamper program is pressed.
-The actual macros are stored in submodules (all of which are imported below)."""
+"""This module contains the Macros class which serves as a container for all methods
+that are executed when any button, checkbutton, or scale in the Time Stamper program is
+manipulated. The actual macros are stored in submodules (all of which are imported below)."""
 
 from dataclasses import dataclass
 from tkinter import DISABLED, NORMAL, END
@@ -197,21 +197,24 @@ class Macros():
         toggle_widgets(self.template["button_output_select"], True, self.template, self.widgets)
 
     def validate_output_file(self):
-        """This method will check the validity of file_path to make sure it corresponds to a valid
-        text file that can be read and written to. This method will then edit the configuration
-        of the program depending on whether or not that path corresponds to a valid text file."""
+        """This method will check the validity of the path that is
+        currently displayed in the output path entry widget to make sure
+        it corresponds to a valid text file that can be read and written to.
+        This method will then edit the configuration of the program depending
+        on whether or not that path corresponds to a valid text file."""
 
         # Store the path to the output file into an abbreviated variable name.
         file_path = self.widgets["entry_output_path"].get()
 
-        # If a file path was provided and if that path corresponds to a valid text file...
+        # If the current path in the output path entry widget DOES correspond to a valid text file,
+        # then edit the configuration of the program to reflect that an output file is active.
         file_encoding = self.settings["output"]["file_encoding"]
         if file_path and verify_text_file(file_path, file_encoding, True, True):
 
             self.configure_program_for_notetaking(file_path)
 
-        # If an output file path was not provided or if the corresponding
-        # file was not a valid text file, disable the relevant widgets.
+        # If the current path in the output path entry widget DOES NOT
+        # correspond to a valid text file, disable the relevant widgets.
         else:
             self.disable_output_widgets()
 
@@ -222,11 +225,8 @@ class Macros():
         configure the program to reflect that an audio player IS active. Otherwise, this
         method will configure the program to reflect that an audio player IS NOT active."""
 
-        # If an audio player is not already loaded...
-        if not self.time_stamper.audio_player:
-
-            # Attempt to create an audio player with the user-provided information.
-            verify_audio_file(self.widgets["entry_audio_path"].get(), self.time_stamper)
+        # Attempt to create an audio player with the user-provided information.
+        verify_audio_file(self.widgets["entry_audio_path"].get(), self.time_stamper)
 
         # If a valid audio player WAS created/retrieved...
         if self.time_stamper.audio_player:

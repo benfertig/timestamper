@@ -56,58 +56,31 @@ class FileButtonMacros():
         file_full_path = filedialog.askopenfilename(title=window_title, \
             initialdir=self.template.starting_dir, filetypes=file_types)
 
-        # Check to see whether a valid file has been selected.
-        if entry_str_key == "entry_output_path":
-            file_encoding = self.settings["output"]["file_encoding"]
-            file_is_valid = verify_text_file(file_full_path, file_encoding, True, True)
-        elif entry_str_key == "entry_audio_path":
-            file_is_valid = verify_audio_file(file_full_path, self.time_stamper)
-        else:
-            file_is_valid = False
+        # Change the text of the label that appears above the file
+        # path entry widget to indicate that a file has been selected.
+        if isinstance(label_template["text"], dict):
+            label_object["text"] = label_template["text"]["value_if_true"]
 
-        # If a valid file HAS been selected...
-        if file_full_path and file_is_valid:
+        # Change the file path to the Windows format if we are on a Windows computer.
+        if platform.startswith("win"):
+            file_full_path = file_full_path.replace(posixpath_sep, ntpath_sep)
 
-            # Change the text of the label that appears above the file
-            # path entry widget to indicate that a file has been selected.
-            if isinstance(label_template["text"], dict):
-                label_object["text"] = label_template["text"]["value_if_true"]
-
-            # Change the file path to the Windows format if we are on a Windows computer.
-            if platform.startswith("win"):
-                file_full_path = file_full_path.replace(posixpath_sep, ntpath_sep)
-
-            # Print the file path to the entry widget.
-            print_to_entry(file_full_path, entry_object, wipe_clean=True)
-
-            return file_full_path
-
-        # If a valid file has NOT been selected, return None...
-        return None
+        # Print the file path to the entry widget.
+        print_to_entry(file_full_path, entry_object, wipe_clean=True)
 
     def button_output_select_macro(self):
         """This method will be executed when the "Choose output location" button is pressed."""
 
         # Get the path to the selected output file.
         file_types = (("text files", "*.txt"), ('All files', '*.*'))
-        file_full_path = self.file_select_macro("label_output_path", \
+        self.file_select_macro("label_output_path", \
             "entry_output_path", "Select a text file", file_types)
 
-        # Store the notes log widget into an abbreviated file name.
-        obj_text_log = self.widgets["text_log"]
-
         # Clear the text displaying the notes log.
-        print_to_text("", obj_text_log, wipe_clean=True)
+        print_to_text("", self.widgets["text_log"], wipe_clean=True)
 
-        # If a valid output file WAS selected, configure the
-        # program to reflect that an output file is active.
-        if file_full_path:
-            self.parent.configure_program_for_notetaking(file_full_path)
-
-        # If a valid output file WAS NOT selected, configure the
-        # program to reflect that an output file is not active.
-        else:
-            self.parent.disable_output_widgets()
+        # Check whether or not the selected output file is valid and respond accordingly.
+        self.parent.validate_output_file()
 
     def button_merge_output_files_macro(self):
         """This method will be executed when the "Merge output files" button is pressed."""
@@ -125,29 +98,13 @@ class FileButtonMacros():
 
         # Get the path to the selected audio file.
         file_types = \
-            (("Audio files", "*.wav *.mp3 *.flac *.aiff *.aac *.wma *.ogg *.alac *.dsd *.mqa"), \
-                ('All files', '*.*'))
-        file_full_path = self.file_select_macro("label_audio_path", \
+            (("Audio files", "*.wav *.mp3 *.flac *.aiff *.aac *.m4a "
+              "*.wma *.ogg *.alac *.dsd *.mqa"), ('All files', '*.*'))
+        self.file_select_macro("label_audio_path", \
             "entry_audio_path", "Select an audio file", file_types)
 
-        # If a valid audio file WAS selected...
-        if file_full_path:
-
-            # Reset the timer/audio slider.
-            self.timer.display_time(0.0, pad=2)
-
-            # Enable the relevant widget if an audio file has been selected.
-            toggle_widgets(self.template["button_audio_select"], True, self.template, self.widgets)
-
-        # If a valid audio file WAS NOT selected...
-        else:
-
-            # Clear the audio source and the audio player.
-            self.time_stamper.audio_source = None
-            self.time_stamper.audio_player = None
-
-            # Reset and disable the widgets associated with audio.
-            self.parent.disable_audio_widgets()
+        # Check whether or not the selected audio file is valid and respond accordingly.
+        self.parent.validate_audio_player()
 
     def on_close_window_merge_1_macro(self, window_merge_1):
         """This method will be executed when the FIRST window displaying
