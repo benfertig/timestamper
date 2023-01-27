@@ -8,7 +8,7 @@ from os.path import basename
 from sys import platform
 from tkinter import filedialog
 from .macros_helper_methods import merge_success_message, merge_failure_message_file_not_readable, \
-    toggle_widgets, merge_notes, print_to_entry, print_to_text, verify_text_file, verify_audio_file
+    merge_notes, print_to_entry, print_to_text, verify_text_file
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
