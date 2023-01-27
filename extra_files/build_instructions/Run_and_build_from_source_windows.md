@@ -30,7 +30,7 @@
 ## Install *Python 3*
 It is highly recommended that you install a version of *Python* that includes *conda* i.e., *Anaconda* or *Miniconda*. If you have no other uses for *Python* and all you are looking to do is run/build the *Time Stamper* program from the source code, *Miniconda* will provide everything you need. [You can download the latest *Miniconda* installer here](https://docs.conda.io/en/latest/miniconda.html).<br />
 
-You will be downloading one of the *Windows* installers for *Miniconda*. You should download the *Miniconda* installer that matches yor operating system type.
+You will be downloading one of the *Windows* installers for *Miniconda*. You should download the *Miniconda* installer that matches your operating system type.
 
 **NOTE:** There is a 32-bit and a 64-bit *Miniconda* installer. The *Time Stamper* program has not been tested on 32-bit *Windows* machines, so it is not guaranteed that you will be able to produce a functional build of the *Time Stamper* program if you follow along with this guide on a 32-bit *Windows* computer. If you have a 32-bit *Windows* computer, your only option is to download the 32-bit *Miniconda* installer and hope for the best. If you have a 64-bit *Windows* computer, you should absolutely download the 64-bit *Miniconda* installer (even though your computer would be able to run the 32-bit *Miniconda* installer as well).
 
