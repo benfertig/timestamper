@@ -104,7 +104,7 @@ If neither of these conditions apply to you (i.e., if you are trying to build ve
 ```
 {path_to_repository}\extra_files\setup_files\windows
 ```
-* This guide will **not** go over the meanings of individual settings in *Inno Setup* (.iss) files. For more information on custom *Inno Setup* settings, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
+This guide will **not** go over the meanings of individual settings in *Inno Setup* (.iss) files. For more information on custom *Inno Setup* settings, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
 
 #### Console Window
 Selecting "Console Based" will cause a *Command Prompt* window to appear each time you run the *Time Stamper* program. If you are interested in running the program in "debug" mode to view any error messages, this option is for you.<br />
