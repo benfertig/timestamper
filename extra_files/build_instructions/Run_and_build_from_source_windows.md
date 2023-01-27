@@ -151,12 +151,17 @@ With that being said, packaging the *Time Stamper* program into an *Inno Setup* 
 
 If you would like to know how to package the *Time Stamper* program into an *Inno Setup* installer, follow the instructions below.
 
-### Move the *Time Stamper* executable to the appropriate directory
+### Move the *Time Stamper* program files to the appropriate directory
 You are free to include whichever files you like within the *Inno Setup* installer for the *Time Stamper* program.
 
 Versions 0.2.0 and later of the official *Time Stamper* release bundle the following files alongside the *Time Stamper* program in the *Inno Setup* installer:
 * A copy of the *Time Stamper* program's license ("LICENSE.txt")
 * A list of outside sources that were used to help create the *Time Stamper* program ("ATTRIBUTION.txt")
+
+As mentioned in [**the "Onefile" subsection within the section titled "Build from source on *Windows*"**](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#onefile), this current section of the instructions assumes that you previously built the *Time Stamper* program having selected the "One Directory" option during the *Auto PY to EXE* configuration. If you built the *Time Stamper* program having selected the "One File" option, you will need to tweak some settings within the *Inno Setup* .iss file located in the following directory:
+```
+{path_to_repository}\extra_files\setup_files\windows
+```
 
 To include the aforementioned files in the *Time Stamper* installer, move the *Time Stamper* executable (.exe) that you previously generated into the following directory:
 ```
