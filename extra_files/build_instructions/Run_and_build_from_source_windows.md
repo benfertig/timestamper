@@ -157,7 +157,7 @@ The *Time Stamper* program should now run as a standalone executable (without ne
 ## Create a *Windows* installer for the *Time Stamper* program (optional)
 The *Time Stamper* executable (.exe) file that you just generated using *Auto PY to EXE* provides a fully functional build of the *Time Stamper* program. By simply double-clicking on this executable, you can run the *Time Stamper* program.
 
-However, the *Windows* executables (.exe) for the *Time Stamper* program on the [releases page for this repository](https://github.com/benfertig/timestamper/releases/) are not simply standalone *Time Stamper* executables like the one you just generated, but rather *Inno Setup* installation wizards that extract the *Time Stamper* program files onto your computer.
+However, the *Windows* executable (.exe) files for the *Time Stamper* program on the [releases page for this repository](https://github.com/benfertig/timestamper/releases/) are not simply standalone *Time Stamper* executable files like the one you just generated, but rather *Inno Setup* installation wizards that extract the *Time Stamper* program files onto your computer.
 
 Some of the advantages of packaging the *Time Stamper* executable into an *Inno Setup* installer are...
 * you can display additional information about the *Time Stamper* program within the *Inno Setup* installation wizard.
