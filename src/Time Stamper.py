@@ -1,5 +1,8 @@
 #-*- coding: utf-8 -*-
-"""A person who wants to run the Time Stamper program should run this file in Python 3."""
+"""This module not only contains the TimeStamper class, but also, if run
+in Python 3, will initialize an instance of that class and execute its
+"run" function (see the very bottom of this file). Therefore, a person who
+wants to run the Time Stamper program should run this file in Python 3."""
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
