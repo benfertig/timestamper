@@ -268,7 +268,7 @@ You can edit any properties of the *Time Stamper* installer in this configuratio
 
 Also, if you are trying to package a build of version 0.1.0 of the *Time Stamper* program into an *Inno Setup* installer, then this *Inno Setup* (.iss) file will not exist and you will need to create it yourself.
 
-I will not go over the meanings of all of the potential variables that can be included in this *Inno Setup* configuration file (.iss file). To learn more about what each setting in this *Inno Setup* configuration file (.iss file) does, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
+I will not go over the meanings of all of the potential variables that can be included in an *Inno Setup* configuration file (.iss file). To learn more about what each setting in an *Inno Setup* configuration file (.iss file) does, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
 
 ### Create the *Inno Setup* installer for the *Time Stamper* program
 Once you are satisfied with the configuration that you have specified in the *Inno Setup* configuration file (.iss file), do the following:
