@@ -260,15 +260,15 @@ timestamper-r0.3.0-windows-64.iss
 ```
 
 ### Edit the *Inno Setup* configuration file
-After you have found the *Inno Setup* configuration file (.iss file), open it using *Inno Setup*.
+After you have found the *Inno Setup* (.iss) file, open it using *Inno Setup*.
 
-You can edit any properties of the *Time Stamper* installer in this configuration file (.iss file). Remember that, **as per [this section of the instructions](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#onefile)**, you will **need** to edit this *Inno Setup* configuration file (.iss file) if you did one of the following:
+You can edit any properties of the *Time Stamper* installer in this *Inno Setup* file. Remember that, **as per [this section of the instructions](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#onefile)**, you will **need** to edit this *Inno Setup* (.iss) file if you did one of the following:
 * You built version 0.3.0 or later of the *Time Stamper* program in "One File" mode.
 * You built version 0.2.0 of the *Time Stamper* program in "One Directory" mode.
 
 Also, if you are trying to package a build of version 0.1.0 of the *Time Stamper* program into an *Inno Setup* installer, then this *Inno Setup* (.iss) file will not exist and you will need to create it yourself.
 
-I will not go over the meanings of all of the potential variables that can be included in an *Inno Setup* configuration file (.iss file). To learn more about what each setting in an *Inno Setup* configuration file (.iss file) does, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
+I will not go over the meanings of all of the potential variables that can be included in an *Inno Setup* (.iss) file. To learn more about what each setting in an *Inno Setup* (.iss) file does, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
 
 ### Create the *Inno Setup* installer for the *Time Stamper* program
 Once you are satisfied with the configuration that you have specified in the *Inno Setup* configuration file (.iss file), do the following:
