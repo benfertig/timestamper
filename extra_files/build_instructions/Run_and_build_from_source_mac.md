@@ -252,7 +252,7 @@ To bundle your *Time Stamper* application (.app), as well as any other extra fil
 ```
 If you have the source code associated with version 0.1.0 of the *Time Stamper* program, then this directory will not exist and you will need to create it.
 
-Then, find the folder whose name corresponds to the version of the *Time Stamper* program the source code you downloaded is associated with. The name of this folder will have the following format, where {release_number} is replaced with the version of the *Time Stamper* program that is associated with the source code you downloaded:
+Then, find the folder whose name corresponds to the version of the *Time Stamper* program that is associated with the source code you downloaded. The name of this folder will have the following format, where {release_number} is replaced with the version of the *Time Stamper* program that is associated with the source code you downloaded:
 ```
 Time Stamper {release_number}
 ```
