@@ -110,7 +110,7 @@ Selecting the "One File" option will package the entire *Time Stamper* program i
 * **If you are building version 0.3.0 or later of the *Time Stamper* program**, then you selected the "One Directory" option here.
 * **If you are building a version of the *Time Stamper* program that is older than version 0.3.0 (e.g., version 0.1.0 or 0.2.0)**, then you selected the "One File" option here.
 
-If neither of these conditions apply to you (i.e., if you are trying to build either version 0.3.0 or greater in "One File" mode or a version prior to 0.3.0 in "One Directory" mode), then you are on your own, as you will need to tweak some settings within the *Inno Setup* .iss file, which you can find in the following directory, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer:
+If neither of these conditions apply to you (i.e., if you are trying to build either version 0.3.0 or greater of the *Time Stamper* program in "One File" mode or a version prior to 0.3.0 of the *Time Stamper* program in "One Directory" mode), then you are on your own, as you will need to tweak some settings within the *Inno Setup* .iss file, which you can find in the following directory, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer:
 ```
 {path_to_repository}\extra_files\setup_files\windows
 ```
