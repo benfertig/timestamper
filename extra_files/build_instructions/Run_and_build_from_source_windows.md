@@ -254,9 +254,9 @@ In the source code files for versions 0.2.0 and later of the *Time Stamper* prog
 ```
 timestamper-{version}-windows-{bits}.iss
 ```
-For example, if you have compiled the source code associated with release 0.2.0 of the *Time Stamper* program for 64-bit *Windows* computers, then you should replace {version} and {bits} in the above example with "r0.2.0" and "64" respectively. So, in this case, the name of the *Inno Setup* configuration file for the *Time Stamper* program would be...
+For example, if you have compiled the source code associated with release 0.3.0 of the *Time Stamper* program for 64-bit *Windows* computers, then you should replace {version} and {bits} in the above example with "r0.3.0" and "64" respectively. So, in this case, the name of the *Inno Setup* configuration file for the *Time Stamper* program would be...
 ```
-timestamper-r0.2.0-windows-64.iss
+timestamper-r0.3.0-windows-64.iss
 ```
 
 ### Edit the *Inno Setup* configuration file
