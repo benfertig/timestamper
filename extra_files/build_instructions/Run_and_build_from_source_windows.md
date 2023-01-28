@@ -229,6 +229,9 @@ You can edit any properties of the *Time Stamper* installer in this configuratio
 I will not go over the meanings of all of the potential variables that can be included in this *Inno Setup* configuration file (.iss file). To learn more about what each setting in this *Inno Setup* configuration file (.iss file) does, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
 
 ### Create the *Inno Setup* installer for the *Time Stamper* program
-Once you are satisfied with the configuration that you have specified in the .iss file, make sure you have the .iss file open in *Inno Setup*. Then, run the script by first clicking on the "Run" drop-down menu at the top of the *Inno Setup* window and then clicking on the option named "Run". By default, the "Run" function is also mapped to the F9 key.
+Once you are satisfied with the configuration that you have specified in the .iss file, perform the following steps:
+* Open the .iss file in *Inno Setup* if you have not done so already.
+* Click on the "Run" drop-down menu at the top of the *Inno Setup* window.
+* Click on the option named "Run" (by default, the "Run" function is also mapped to the F9 key).
 
-Once *Inno Setup* has finished creating the *Time Stamper* installer, you will find the installer in the directory that you specified in the "OutputDir" attribute in the .iss file. Congratulations, you have successfully created an installer for the *Time Stamper* program using *Inno Setup*.
+Once this "Run" process has finished, *Inno Setup* will have created the *Time Stamper* installer. You will find the installer in the directory that you specified in the "OutputDir" attribute in the *Inno Setup* configuration file (.iss file). Congratulations, you have successfully created an installer for the *Time Stamper* program using *Inno Setup*.
