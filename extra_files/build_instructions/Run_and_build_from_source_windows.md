@@ -124,7 +124,7 @@ For more information on custom *Inno Setup* settings, refer to [the "Help" page 
 #### Console Window
 Selecting "Console Based" will cause a *Command Prompt* window to appear each time you run the *Time Stamper* program. If you are interested in running the *Time Stamper* program in "debug" mode to view any terminal output, then this option is for you.<br />
 
-Selecting "Window Based" will suppress the *Command Prompt* window when the *Time Stamper* program is run.
+Selecting "Window Based" will suppress the *Command Prompt* window when the *Time Stamper* program is run. This is the option that was selected for all *Windows* builds of the *Time Stamper* program on the [official *Time Stamper* releases page](https://github.com/benfertig/timestamper/releases/).
 
 #### Icon
 You can provide a .ico file here to set the *Time Stamper* executable's icon. A pregenerated icon can be found under:
