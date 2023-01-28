@@ -35,7 +35,7 @@ You will be downloading one of the *Windows* installers for *Miniconda*. You sho
 * There is a 32-bit and a 64-bit *Miniconda* installer for *Windows*.
     * The *Time Stamper* program has not been tested on 32-bit *Windows* machines, so it is not guaranteed that you will be able to produce a functional build of the *Time Stamper* program if you follow along with this guide on a 32-bit *Windows* computer.
     * If you have a 32-bit *Windows* computer, your only option is to download the 32-bit *Miniconda* installer for *Windows* and hope for the best.
-    * If you have a 64-bit *Windows* computer, you should absolutely download the 64-bit *Miniconda* installer (even though your computer would be able to run the 32-bit *Miniconda* installer as well).
+    * If you have a 64-bit *Windows* computer, you should absolutely download the 64-bit *Miniconda* installer (even though your computer would be able to run both the 32-bit as well as the 64-bit *Miniconda* installer).
 
 To find out whether your *Windows* computer is 32-bit or 64-bit:<br />
 * Search for "This PC" from the *Windows* search bar.<br />
