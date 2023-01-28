@@ -244,11 +244,13 @@ You should now move the *Time Stamper* program files that you previously generat
 To be able to read *Inno Setup* configuration files, you must have *Inno Setup* installed on your computer. [You can download the *Inno Setup* installer here](https://jrsoftware.org/isdl.php).
 
 ### Locate the *Inno Setup* configuration file
-The name of the *Inno Setup* configuration file for the *Time Stamper* installer will change depending on which version of the *Time Stamper* program the source code you downloaded is associated with. You can find the *Inno Setup* configuration file for the *Time Stamper* program in the following directory, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer:
+The name of the *Inno Setup* (.iss) file for the *Time Stamper* installer will change depending on which version of the *Time Stamper* program the source code you downloaded is associated with. You can find the *Inno Setup* (.iss) file for the *Time Stamper* program in the following directory, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer:
 ```
 {path_to_repository}\extra_files\setup_files\windows
 ```
-The name of the *Inno Setup* configuration file for the *Time Stamper* program has the following format:
+As previously mentioned, the *Inno Setup* (.iss) file will only appear in the aforementioned directory if you downloaded the source code for version 0.2.0 or later of the *Time Stamper* program. If you downloaded version 0.1.0 of the *Time Stamper* program, you will need to make and ocnfigure your own *Inno Setup* (.iss) file.
+
+In the source code files for versions 0.2.0 and later of the *Time Stamper* program, the name of the *Inno Setup* configuration file has the following format:
 ```
 timestamper-{version}-windows-{bits}.iss
 ```
