@@ -7,6 +7,7 @@
 * [Activate your *conda* environment](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#activate-your-conda-environment)
 * [Run from source on *Mac*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#run-from-source-on-mac)
     * [Install *Tkmacosx*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#install-tkmacosx)
+    * [Install *Pyglet* (version 0.3.0 and later only)](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#install-pyglet-version-030-and-later-only)
     * [Run *Time Stamper.py*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#run-time-stamperpy)
 * [Build from source on *Mac*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#build-from-source-on-mac)
     * [*Python 3*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#python-3)
