@@ -207,8 +207,8 @@ Application (.app) builds for versions 0.3.0 or later of the *Time Stamper* prog
 * Delete the .zip file whose contents you just extracted.
 * Add ".zip" to the end of the name of the folder you just extracted. Ignore any warnings that your computer may display to you about renaming a folder in such a way.
     * The folder you just renamed should now have a name that is identical to the name of the .zip file you just deleted.
-* Enter the folder whose name you just appended with ".zip" in *Finder*.
-* Paste the "images" and "messages" folders you copied earlier into this folder.
+* Within *Finder*, Enter the folder whose name you just appended with ".zip".
+* Paste the "images" and "messages" folders you copied earlier into the folder you just entered.
 
 #### Completed *Time Stamper* application
 You can now exit out of all *Finder* windows. You should now check to see if your *Time Stamper* application runs properly. If you have closely followed all of the instructions up to this point, your *Time Stamper* application (.app) should now run when you double-click on it, even when you have no aftermarket *Python* distribution installed on your *Mac*. Congratulations, you have successfully built the *Time Stamper* program from the source code on a *Mac*.
