@@ -248,7 +248,7 @@ The name of the *Inno Setup* (.iss) file for the *Time Stamper* installer will c
 ```
 {path_to_repository}\extra_files\setup_files\windows
 ```
-As previously mentioned, the *Inno Setup* (.iss) file will only appear in the aforementioned directory if you downloaded the source code for version 0.2.0 or later of the *Time Stamper* program. If you downloaded version 0.1.0 of the *Time Stamper* program, you will need to make and ocnfigure your own *Inno Setup* (.iss) file.
+As previously mentioned, the *Inno Setup* (.iss) file will only appear in the aforementioned directory if you downloaded the source code for version 0.2.0 or later of the *Time Stamper* program. If you downloaded version 0.1.0 of the *Time Stamper* program, you will need to make and configure your own *Inno Setup* (.iss) file.
 
 In the source code files for versions 0.2.0 and later of the *Time Stamper* program, the name of the *Inno Setup* configuration file has the following format:
 ```
