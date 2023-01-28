@@ -51,7 +51,7 @@ Once you have downloaded the correct *Miniconda* installer for your *Windows* co
 If you have been following along with these instructions since the section titled [**Install *Python 3***](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#install-python-3), then you should have already installed *Python 3*. If you have not yet installed *Python 3*, go ahead and do so now by referring to the above section titled [**Install *Python 3***](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#install-python-3) before coming back here.
 
 ### Install *Pyglet*
-To make the *Time Stamper* program function on a *Windows* computer, you will need to install one additional *Python* package called *Pyglet*. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [*Pyglet*](https://anaconda.org/conda-forge/pyglet) through *conda***, which you can do by entering the following command from a *Command Prompt* window:
+To make the *Time Stamper* program function on a *Windows* computer, you will need to install one additional *Python* package called *Pyglet*. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [*Pyglet* through *conda*]**(https://anaconda.org/conda-forge/pyglet), which you can do by entering the following command from a *Command Prompt* window:
 ```
 conda install -c conda-forge pyglet
 ```
