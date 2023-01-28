@@ -142,7 +142,7 @@ From a *Terminal* window, navigate to the *Time Stamper* source code directory b
 cd {path_to_repository}/src
 ```
 
-Enter the following command:
+Then, enter the following command:
 ```
 python3 mac_setup.py py2app
 ```
