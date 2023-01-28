@@ -222,11 +222,11 @@ timestamper-r0.2.0-windows-64.iss
 ### Edit the *Inno Setup* configuration file
 After you have found the *Inno Setup* configuration file (.iss file), open it using *Inno Setup*.
 
-You can edit any properties of the *Time Stamper* installer in this configuration file. Remember that, **as per [this section of the instructions](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#onefile)**, you will **need** to edit this *Inno Setup* configuration file (.iss file) if you did one of the following:
+You can edit any properties of the *Time Stamper* installer in this configuration file (.iss file). Remember that, **as per [this section of the instructions](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#onefile)**, you will **need** to edit this *Inno Setup* configuration file (.iss file) if you did one of the following:
 * You built version 0.3.0 or later of the *Time Stamper* program in "One File" mode.
 * You built a version of the *Time Stamper* program prior to version 0.3.0 in "One Directory" mode.
 
-I will not go over the meanings of the variables found in this configuration file. To learn more about what each setting in this configuration file does, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
+I will not go over the meanings of all of the potential variables that can be manipulated in this *Inno Setup* configuration file (.iss file). To learn more about what each setting in this *Inno Setup* configuration file (.iss file) does, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
 
 ### Create the *Inno Setup* installer for the *Time Stamper* program
 Once you are satisfied with the configuration that you have specified in the .iss file, run the script by clicking on the "Run" drop-down menu at the top of the *Inno Setup* page and then clicking on the option named "Run". By default, the "Run" function is also mapped to the F9 key.
