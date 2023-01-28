@@ -22,7 +22,7 @@
 ## Determine your *Mac*'s CPU architecture:
 Later steps in this guide will require you to know the architecture of your *Mac*'s CPU, which should either be *Intel*-based or *Apple* silicon-based.
 
-**NOTE:** If you have a *Mac* that was produced in November 2005 or earlier, then it will likely contain neither an *Intel*-based nor an *Apple* silicon-based CPU, but rather a CPU manufactured by *Motorola* (i.e., a *PowerPC*-based CPU), in which case your *Mac* will likely be unable to run the *Time Stamper* program, which also means that your *Mac* will be incompatible with this guide.
+**NOTE:** If you have a *Mac* that was produced in November 2005 or earlier, then it will likely contain neither an *Intel*-based nor an *Apple* silicon-based CPU, but rather a CPU manufactured by *Motorola* (i.e., a *PowerPC*-based CPU). Unfortunately, if this is the case for you, then your *Mac* will likely be unable to run the *Time Stamper* program, which also means that your *Mac* will be incompatible with this guide.
 
 To find out whether your *Mac* has an *Intel*-based or an *Apple* silicon-based CPU (assuming that the above situation does not apply to you):
 * Click on the *Apple* logo in the top-left corner of your screen.
