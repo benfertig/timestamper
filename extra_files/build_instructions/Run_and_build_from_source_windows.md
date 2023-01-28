@@ -214,7 +214,7 @@ This step assumes that you already have a finalized *Inno Setup* (.iss) file and
 * Following along with this step will require a little extra effort on your part, as you will need to create your own *Inno Setup* (.iss) file and configure it to meet your own needs, but you will probably not find it too difficult to reverse-engineer this step and recreate all of the necessary files and directories that this step assumes you already have.
 
 **As mentioned directly above, if you are trying to package a working build of version 0.2.0 or later of the *Time Stamper* program into an *Inno Setup* installer, and, if you have been following these instructions down to the letter up to now...**
-* The *Inno Setup* (.iss) file that was included in the source code you downloaded should not require any changes.
+* You should be good to go, as the *Inno Setup* (.iss) file that was included in the source code you downloaded should not require any changes.
 * Of course, you are always welcome to change any of the settings within the *Inno Setup* (.iss) file, provided that you know what you are doing.
 
 You should now move the *Time Stamper* program files that you previously generated using *Auto PY to EXE* into the appropriate folder.
