@@ -175,7 +175,7 @@ There is a workaround for this problem which involves copying a few libraries fr
         libtcl8.6.dylib
         libtk8.6.dylib
         ```
-    * Now navigate to the *Time Stamper* application (.app) you created earlier, right-click on it and select "Show Package Contents".
+    * Now, navigate to the *Time Stamper* application (.app) you created earlier, right-click on it and select "Show Package Contents".
     * Then, go to "Contents" -> "Frameworks".
     * Paste the three .dylib files you just copied into this "Frameworks" folder.<br />
 * **Alternatively, if your *Mac* has an *Intel*-based CPU:**
@@ -192,6 +192,22 @@ There is a workaround for this problem which involves copying a few libraries fr
 You can now exit out of all *Finder* windows. You should now be able to run the *Time Stamper* application (.app) as a standalone program that does not require any external libraries. Congratulations, you have successfully built the *Time Stamper* program from the source code on a *Mac*.
 
 #### Copy additional folders (version 0.3.0 and later only)
+If you have built version 0.3.0 or later of the *Time Stamper* program for your *Mac*, then your *Time Stamper* application (.app) will **not** run unless you copy some additional folders to their appropriate locations. If this applies to you, follow the instructions below.
+* From a *Finder* window, navigate to the *Time Stamper* application (.app) you created earlier, right-click on it and select "Show Package Contents".
+* Then, go to "Contents" -> "Frameworks".
+* Copy the following two folders to your clipboard:
+    ```
+    images
+    messages
+    ```
+* Within the same "Resources" directory that you currently have open in *Finder*, enter the folder named "lib".
+* Find the .zip file whose name reflects the *Python* version that you used to generate your *Time Stamper* application (.app) file. For example, if you generated the *Time Stamper* application using *Python 3.9*, then you should see a .zip file named "python39.zip".
+* Extract the contents of this .zip file to the same directory you are currently located in within *Finder* (i.e., the "lib" directory).
+* Delete the .zip file whose contents you just extracted.
+* Add ".zip" to the end of the name of the folder that was just extracted from the .zip file you just deleted. Ignore any warnings that your computer may display to you about renaming a folder in such a way.
+    * The folder you just renamed should now have a name that is identical to the name of the .zip file you just deleted.
+* Enter this folder in *Finder* (the folder whose name you just appended with ".zip").
+* Paste the "images" and "messages" folders you copied earlier into this folder.
 
 ## Bundle the *Time Stamper* program into a disk image (.dmg) (optional)
 The *Time Stamper* application (.app) that you just generated provides a fully functional build of the *Time Stamper* program. By simply double-clicking on this application (.app), you can run the *Time Stamper* program.
