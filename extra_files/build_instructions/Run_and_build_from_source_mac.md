@@ -194,7 +194,7 @@ You can now exit out of all *Finder* windows. You should now be able to run the 
 #### Copy additional folders (version 0.3.0 and later only)
 If you have built version 0.3.0 or later of the *Time Stamper* program for your *Mac*, then your *Time Stamper* application (.app) will **not** run unless you copy some additional folders to their appropriate locations. If this applies to you, follow the instructions below.
 * From a *Finder* window, navigate to the *Time Stamper* application (.app) you created earlier, right-click on it and select "Show Package Contents".
-* Then, go to "Contents" -> "Frameworks".
+* Then, go to "Contents" -> "Resources".
 * Copy the following two folders to your clipboard:
     ```
     images
