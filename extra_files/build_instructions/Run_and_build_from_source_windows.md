@@ -36,7 +36,7 @@ You will be downloading one of the *Windows* installers for *Miniconda*. There a
 * If you have a 32-bit *Windows* computer, your only option is to download the 32-bit *Miniconda* installer for *Windows* and hope for the best.
 * If you have a 64-bit *Windows* computer, you should absolutely download the 64-bit *Miniconda* installer (even though your computer would be able to run both the 32-bit as well as the 64-bit *Miniconda* installer).
 
-To find out whether your *Windows* computer is 32-bit or 64-bit:<br />
+To find your operating system type:<br />
 * Search for "This PC" from the *Windows* search bar.<br />
 * Right-click on the entry that says "This PC".<br />
 * Select "Properties".<br />
