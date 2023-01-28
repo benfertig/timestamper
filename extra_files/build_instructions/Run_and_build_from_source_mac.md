@@ -250,7 +250,7 @@ To bundle your *Time Stamper* application (.app), as well as any other extra fil
 ```
 {path_to_repository}/extra_files/setup_files/mac
 ```
-If you have the source code associated with version 0.1.0 of the *Time Stamper* program, then this directory will not exist and you should create it.
+If you have the source code associated with version 0.1.0 of the *Time Stamper* program, then this directory will not exist and you will need to create it.
 
 Then, find the folder whose name corresponds to the version of the *Time Stamper* program the source code you downloaded is associated with. The name of this folder will have the following format, where {release_number} is replaced with the version of the *Time Stamper* program that is associated with the source code you downloaded:
 ```
@@ -260,7 +260,7 @@ For example, if you downloaded the source code associated with release 0.2.0 of 
 ```
 Time Stamper 0.2.0
 ```
-Once again, if you have the source code associated with version 0.1.0 of the *Time Stamper* program, then this directory will not exist and you should create it.
+Once again, if you have the source code associated with version 0.1.0 of the *Time Stamper* program, then this directory will not exist and you will need to create it.
 
 Once you have located the correct folder, place the *Time Stamper* application (.app) you previously generated into this folder.
 
