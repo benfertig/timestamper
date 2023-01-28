@@ -153,12 +153,12 @@ From a *Terminal* window, navigate to the *Time Stamper* source code directory b
 cd {path_to_repository}/src
 ```
 
-If you are building version 0.2.0 or later of the *Time Stamper* program, enter the following command:
+**If you are building version 0.2.0 or later of the *Time Stamper* program**, enter the following command:
 ```
 python3 mac_setup.py py2app
 ```
 
-Alternatively, if you are building version 0.1.0 of the *Time Stamper* program, enter the following command:
+**Alternatively, if you are building version 0.1.0 of the *Time Stamper* program**, enter the following command:
 ```
 python3 setup.py py2app
 ```
