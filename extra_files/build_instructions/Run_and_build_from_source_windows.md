@@ -172,7 +172,7 @@ With that being said, packaging the *Time Stamper* program into an *Inno Setup* 
 
 If you would like to know how to package the *Time Stamper* program into an *Inno Setup* installer, follow the instructions below.
 
-### A note on "One File" and "One Directory" mode
+### A note on "One File" mode and "One Directory" mode
 As mentioned in [**the "Onefile" subsection within the section titled "Build from source on *Windows*"**](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#onefile), this current section of the instructions assumes the following:
 * **If you are building version 0.3.0 or later of the *Time Stamper* program**, then you selected "One Directory" during the *Auto PY to EXE* configuration.
 * **If you are building a version of the *Time Stamper* program that is older than version 0.3.0 (e.g., version 0.1.0 or 0.2.0)**, then you selected "One File" during the *Auto PY to EXE* configuration.
