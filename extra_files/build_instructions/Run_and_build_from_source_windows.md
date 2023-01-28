@@ -108,12 +108,17 @@ This should point to the *Python* file titled "Time Stamper.py" in the *timestam
 #### Onefile
 Selecting the "One File" option will package the entire *Time Stamper* program into a single executable (.exe) file, providing maximum portability and convenience, while selecting the "One Directory" option will allow you to manipulate the source code of the *Time Stamper* program, giving you more control. **However, keep in mind that the section of this guide titled [Create a *Windows* installer for the *Time Stamper* program (optional)](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#create-a-windows-installer-for-the-time-stamper-program-optional) assumes the following:**
 * **If you are building version 0.3.0 or later of the *Time Stamper* program**, then you selected the "One Directory" option here.
-* **If you are building a version of the *Time Stamper* program that is older than version 0.3.0 (e.g., version 0.1.0 or 0.2.0)**, then you selected the "One File" option here.
+* **If you are building version 0.2.0 *Time Stamper* program**, then you selected the "One File" option here.
 
-If neither of these conditions apply to you (i.e., if you either are trying to build version 0.3.0 or later of the *Time Stamper* program in "One File" mode or are tyring to build a version of the *Time Stamper* program prior to version 0.3.0 in "One Directory" mode), then you are on your own, as you will need to tweak some settings within the *Inno Setup* (.iss) file, and this guide will **not** go over the meanings of individual settings in *Inno Setup* (.iss) files. You can find the *Inno Setup* (.iss) file in the following directory, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer:
+If you either are trying to build version 0.3.0 or later of the *Time Stamper* program in "One File" mode or are tyring to build version 0.2.0 of the *Time Stamper* program in "One Directory" mode, then you are on your own, as you will need to tweak some settings within the *Inno Setup* (.iss) file, and this guide will **not** go over the meanings of individual settings in *Inno Setup* (.iss) files.
+
+If you are trying to build version 0.1.0 of the *Time Stamper* program and you would like to package your build into an *Inno Setup* installer, then you are also on your own, as version 0.1.0 of the *Time Stamper* program did not include a .iss file, which means you will need to make one yourself.
+
+If you are building version 0.2.0 or later of the *Time Stamper* program, then you can find the *Inno Setup* (.iss) file in the following directory, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer:
 ```
 {path_to_repository}\extra_files\setup_files\windows
 ```
+
 For more information on custom *Inno Setup* settings, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
 
 #### Console Window
@@ -172,13 +177,18 @@ If you would like to know how to package the *Time Stamper* program into an *Inn
 
 ### A note on "One File" mode and "One Directory" mode
 As mentioned in [**the "Onefile" subsection within the section titled "Build from source on *Windows*"**](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#onefile), this current section of the instructions assumes the following:
-* **If you are building version 0.3.0 or later of the *Time Stamper* program**, then you selected "One Directory" during the *Auto PY to EXE* configuration.
-* **If you are building a version of the *Time Stamper* program that is older than version 0.3.0 (e.g., version 0.1.0 or 0.2.0)**, then you selected "One File" during the *Auto PY to EXE* configuration.
+* **If you are building version 0.3.0 or later of the *Time Stamper* program**, then you selected the "One Directory" option during the *Auto PY to EXE* configuration.
+* **If you are building version 0.2.0 *Time Stamper* program**, then you selected the "One File" option during the *Auto PY to EXE* configuration.
 
-If neither of these conditions apply to you (i.e., if you either are trying to build version 0.3.0 or later of the *Time Stamper* program in "One File" mode or are tyring to build a version of the *Time Stamper* program prior to version 0.3.0 in "One Directory" mode), then you are on your own, as you will need to tweak some settings within the *Inno Setup* (.iss) file, and this guide will **not** go over the meanings of individual settings in *Inno Setup* (.iss) files. You can find the *Inno Setup* (.iss) file in the following directory, replacing {path_to_repository} with the directory that you have saved the timestamper repository to on your computer:
+If you either are trying to build version 0.3.0 or later of the *Time Stamper* program in "One File" mode or are tyring to build version 0.2.0 of the *Time Stamper* program in "One Directory" mode, then you are on your own, as you will need to tweak some settings within the *Inno Setup* (.iss) file, and this guide will **not** go over the meanings of individual settings in *Inno Setup* (.iss) files.
+
+If you are trying to build version 0.1.0 of the *Time Stamper* program and you would like to package your build into an *Inno Setup* installer, then you are also on your own, as version 0.1.0 of the *Time Stamper* program did not include a .iss file, which means you will need to make one yourself.
+
+If you are building version 0.2.0 or later of the *Time Stamper* program, then you can find the *Inno Setup* (.iss) file in the following directory, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer:
 ```
 {path_to_repository}\extra_files\setup_files\windows
 ```
+
 For more information on custom *Inno Setup* settings, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
 
 ### Move the *Time Stamper* program files to the appropriate directory
