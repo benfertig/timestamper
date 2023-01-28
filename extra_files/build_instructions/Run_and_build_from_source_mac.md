@@ -85,18 +85,22 @@ Remember, **ALWAYS** make sure that you enter any *conda*/*pip*/*python* command
 
 ## Run from source on *Mac*
 ### Install *Tkmacosx* and *Pyglet*
-To make the *Time Stamper* program function on a *Macintosh* computer, you will need to install two additional *Python* packages, *Tkmacosx* and *Pyglet*. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [*Tkmacosx*](https://anaconda.org/saad_7/tkmacosx) and [*Pyglet*](https://anaconda.org/conda-forge/pyglet) through *conda***, which you can do by entering the following commands from a *Terminal* window:
+To make the *Time Stamper* program function on a *Macintosh* computer, you will need to install at least one additional *Python* package, possibly two packages.
+
+The first package that you must install is *Tkmacosx*. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [*Tkmacosx*](https://anaconda.org/saad_7/tkmacosx) through *conda***, which you can do by entering the following command from a *Terminal* window:
 ```
 conda install -c saad_7 tkmacosx
 ```
-```
-conda install -c conda-forge pyglet
-```
-
-Alternatively, you can **install [*Tkmacosx*](https://pypi.org/project/tkmacosx/) and [*Pyglet*](https://pypi.org/project/pyglet/) through *pip*** by entering the following commands from a *Terminal* window:
+Alternatively, you can **install [*Tkmacosx*](https://pypi.org/project/tkmacosx/) through *pip*** by entering the following command from a *Terminal* window:
 ```
 pip3 install tkmacosx
 ```
+
+You will only need to install the second package, *Pyglet*, if you are building version 0.3.0 or later of the *Time Stamper* program. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [*Pyglet*](https://anaconda.org/conda-forge/pyglet) through *conda***, which you can do by entering the following command from a *Terminal* window:
+```
+conda install -c conda-forge pyglet
+```
+Alternatively, you can **install [*Pyglet*](https://pypi.org/project/pyglet/) through *pip*** by entering the following command from a *Terminal* window:
 ```
 pip3 install pyglet
 ```
