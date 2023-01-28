@@ -135,12 +135,28 @@ src\file_icons\file_icon_windows.ico
 #### Additional files
 This is the most crucial section. You *must* provide all of the necessary dependencies here for your *Time Stamper* executable (.exe) to run properly.<br />
 
-You must add three folders. Select "Add folder" three times and add one of each of the following folders each time, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to.
-```
-{path_to_repository}\src\classes
-{path_to_repository}\src\images
-{path_to_repository}\src\messages
-```
+**If you are building version 0.2.0 or later of the *Time Stamper* program:**
+* You must add three folders.
+* Select "Add folder" three times and add one of each of the following folders each time, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer.
+    ```
+    {path_to_repository}\src\classes
+    {path_to_repository}\src\images
+    {path_to_repository}\src\messages
+    ```
+
+**If you are building version 0.1.0 of the *Time Stamper* program:**
+* You must add one file and four folders.
+* Select "Add Files" and add the following file, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer.
+    ```
+    {path_to_repository}\time_stamper_class.py
+    ```
+* Now, select "Add folder" four times and add one of each of the following folders each time, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer.
+    ```
+    {path_to_repository}\src\ts_images
+    {path_to_repository}\src\ts_macros
+    {path_to_repository}\src\ts_template
+    {path_to_repository}\src\ts_timer
+    ```
 
 #### Advanced
 You should not need to make any changes to this section.
