@@ -266,6 +266,8 @@ You can edit any properties of the *Time Stamper* installer in this configuratio
 * You built version 0.3.0 or later of the *Time Stamper* program in "One File" mode.
 * You built a version of the *Time Stamper* program prior to version 0.3.0 in "One Directory" mode.
 
+If you are trying to package a build of version 0.1.0 of the *Time Stamper* program into an *Inno Setup* installer, this *Inno Setup* (.iss) file will not exist and you will need to create it.
+
 I will not go over the meanings of all of the potential variables that can be included in this *Inno Setup* configuration file (.iss file). To learn more about what each setting in this *Inno Setup* configuration file (.iss file) does, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
 
 ### Create the *Inno Setup* installer for the *Time Stamper* program
