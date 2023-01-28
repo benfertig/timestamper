@@ -211,7 +211,7 @@ To include the aforementioned files in the *Time Stamper* disk image (.dmg), fir
 ```
 {path_to_repository}/extra_files/setup_files/mac
 ```
-Then, find the folder whose name corresponds to the version of the *Time Stamper* program the source code you downloaded is associated with. The name of this folder will have the following format (where {release_number} is replaced with the version of the *Time Stamper* program that is associated with the source code you downloaded):
+Then, find the folder whose name corresponds to the version of the *Time Stamper* program the source code you downloaded is associated with. The name of this folder will have the following format, where {release_number} is replaced with the version of the *Time Stamper* program that is associated with the source code you downloaded:
 ```
 Time Stamper {release_number}
 ```
