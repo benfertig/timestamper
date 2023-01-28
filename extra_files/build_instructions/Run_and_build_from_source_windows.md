@@ -229,7 +229,7 @@ You can edit any properties of the *Time Stamper* installer in this configuratio
 I will not go over the meanings of all of the potential variables that can be included in this *Inno Setup* configuration file (.iss file). To learn more about what each setting in this *Inno Setup* configuration file (.iss file) does, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
 
 ### Create the *Inno Setup* installer for the *Time Stamper* program
-Once you are satisfied with the configuration that you have specified in the .iss file, perform the following steps:
+Once you are satisfied with the configuration that you have specified in the .iss file, do the following:
 * Open the .iss file in *Inno Setup* if you have not done so already.
 * Click on the "Run" drop-down menu at the top of the *Inno Setup* window.
 * Click on the option named "Run" (by default, the "Run" function is also mapped to the F9 key).
