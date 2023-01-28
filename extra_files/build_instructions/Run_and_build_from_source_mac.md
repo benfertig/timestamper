@@ -84,7 +84,7 @@ This command should have activated your base *conda* environment. You will know 
 Remember, **ALWAYS** make sure that you enter any *conda*/*pip*/*python* commands from within your base *conda* environment.
 
 ## Run from source on *Mac*
-### Install *Tkmacosx* and *Pyglet*
+### Install *Tkmacosx* and (potentially) *Pyglet*
 To make the *Time Stamper* program function on a *Macintosh* computer, you will need to install at least one additional *Python* package, possibly two packages.
 
 The first package that you must install is *Tkmacosx*. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [*Tkmacosx*](https://anaconda.org/saad_7/tkmacosx) through *conda***, which you can do by entering the following command from a *Terminal* window:
