@@ -101,7 +101,7 @@ pip3 install pyglet
 ### Run *Time Stamper.py*
 [**Head over to the releases page for the *Time Stamper* program**](https://github.com/benfertig/timestamper/releases) and download the source code for the version of the *Time Stamper* program that you would like to build. To find the source code, expand the "Assets" tab for your desired version and download the "Source code (zip)" or "Source code (tar.gz)" file. Once you have downloaded the compressed archive of the source code, extract its contents.<br />
 
-From a *Terminal* window, navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to:
+From a *Terminal* window, navigate to the source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer:
 ```
 cd {path_to_repository}/src
 ```
@@ -137,7 +137,7 @@ pip3 install py2app
 **NOTE:** In recreating the steps for this build so that I could list them in detail here in this README, I was able to build the *Time Stamper* application (.app) without ever needing to explicitly download *Py2App* through *conda* or *pip*, which is peculiar. There is clearly something I do not quite understand about the way *Py2App* works. Nonetheless, it will not hurt to install *Py2App* manually as outlined in this section. If you are feeling adventurous, you can go ahead and try following along with the rest of this README without installing *Py2App*.
 
 ### Build the *Time Stamper* application (.app)
-From a *Terminal* window, navigate to the *Time Stamper* source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to:
+From a *Terminal* window, navigate to the *Time Stamper* source code directory by entering the command below, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer:
 ```
 cd {path_to_repository}/src
 ```
