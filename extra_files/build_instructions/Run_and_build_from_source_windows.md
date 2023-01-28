@@ -234,4 +234,4 @@ Once you are satisfied with the configuration that you have specified in the *In
 * Click on the "Run" drop-down menu at the top of the *Inno Setup* window.
 * Click on the option named "Run" (by default, the "Run" function is also mapped to the F9 key).
 
-Once this "Run" process has finished, *Inno Setup* will have created the *Time Stamper* installer. You will find the *Inno Setup* installer for the *Time Stamper* program in the directory that you specified in the "OutputDir" attribute in the *Inno Setup* configuration file (.iss file). Congratulations, you have successfully created an installer for the *Time Stamper* program using *Inno Setup*.
+Once this "Run" process has finished, *Inno Setup* will have created an installer for the *Time Stamper* program. You will find the *Inno Setup* installer for the *Time Stamper* program in the directory that you specified in the "OutputDir" attribute in the *Inno Setup* configuration file (.iss file). Congratulations, you have successfully created an installer for the *Time Stamper* program using *Inno Setup*.
