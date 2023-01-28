@@ -227,7 +227,7 @@ You should now move the *Time Stamper* program files that you previously generat
 * **Remember**, this guide assumes the following:
     * **If you built version 0.3.0 or later of the *Time Stamper* program**, then you previously selected "One Directory" during the *Auto PY to EXE* configuration.
     * **If you built version 0.2.0 of the *Time Stamper* program**, then you previously selected "One File" during the *Auto PY to EXE* configuration.
-* If neither of the above conditions apply to you, then you will need to make some manual changes to your *Inno Setup* (.iss) file to make the *Inno Setup* installer correctly package your build of the *Time Stamper* program. If you are packaging version 0.1.0 of the *Time Stamper* program, then you will need to create and configure an entire *Inno Setup* (.iss) file on your own.
+* If neither of the above conditions apply to you, then you will need to make some manual changes to your *Inno Setup* (.iss) file to make the *Inno Setup* installer correctly package your build of the *Time Stamper* program. If you are packaging version 0.1.0 of the *Time Stamper* program into an *Inno Setup* installer, then you will need to create and configure an entire *Inno Setup* (.iss) file on your own.
 * Paste the file(s) you copied into the following directory, replacing {path_to_repository} with the directory that you have saved the *timestamper* repository to on your computer and replacing {version_number} with the version of the *Time Stamper* program the source code you downloaded is associated with:
     ```
     {path_to_repository}\extra_files\setup_files\windows\inno_setup_source_files\Time Stamper\{version_number}
