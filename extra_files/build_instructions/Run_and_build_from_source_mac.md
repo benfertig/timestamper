@@ -15,7 +15,8 @@
     * [Build the *Time Stamper* application (.app)](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#build-the-time-stamper-application-app)
     * [Copy additional files to the *Time Stamper* application (.app) package](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#copy-additional-files-to-the-time-stamper-application-app-package)
         * [Copy additional dynamic library (.dylib) files](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#copy-additional-dynamic-library-dylib-files)
-        *  [Copy additional folders (version 0.3.0 and later only)](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#copy-additional-folders-version-030-and-later-only)
+        * [Copy additional folders (version 0.3.0 and later only)](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#copy-additional-folders-version-030-and-later-only)
+        * [Completed *Time Stamper* application](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#completed-time-stamper-application) 
 * [Bundle the *Time Stamper* program into a disk image (.dmg) (optional)](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#bundle-the-time-stamper-program-into-a-disk-image-dmg-optional)
     * [Move the *Time Stamper* application (.app) to the appropriate directory](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#move-the-time-stamper-application-app-to-the-appropriate-directory)
     * [Include any other files that you would like to be bundled in the *Time Stamper* disk image (.dmg)](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#include-any-other-files-that-you-would-like-to-be-bundled-in-the-time-stamper-disk-image-dmg)
@@ -189,7 +190,7 @@ There is a workaround for this problem which involves copying a few libraries fr
     * Then, go to "Contents" -> "Resources" -> "lib".
     * Paste the three .dylib files you just copied into this "lib" folder.<br />
 
-If you have built version 0.3.0 or later of the *Time Stamper* program for your *Mac*, there are several more steps you need to perform in order to make the program run properly. If this applies to you, continue on with the section below. Otherwise, you can skip to the section titled [**Completed *Time Stamper* application**]().
+If you have built version 0.3.0 or later of the *Time Stamper* program for your *Mac*, there are several more steps you need to perform in order to make the program run properly. If this applies to you, continue on with the section below. Otherwise, you can skip to the section titled [**Completed *Time Stamper* application**](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#completed-time-stamper-application).
 
 #### Copy additional folders (version 0.3.0 and later only)
 Application (.app) builds for versions 0.3.0 or later of the *Time Stamper* program will **not** run unless some additional folders are copied to their appropriate locations. 
