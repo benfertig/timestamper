@@ -96,7 +96,7 @@ auto-py-to-exe
 ```
 A new tab should open in your internet browser.<br />
 
-You should complete the following steps within the *Auto PY to EXE* browser tab that has appeared. The following steps are labeled with their corresponding section in the *Auto PY to EXE* browser tab.
+You should complete the following steps within the *Auto PY to EXE* browser tab that has just appeared. The following steps are labeled with their corresponding section in the *Auto PY to EXE* browser tab.
 
 ### *Auto PY to EXE* configuration
 #### Script location
