@@ -119,7 +119,7 @@ If neither of these conditions apply to you (i.e., if you are trying to build ei
 This guide will **not** go over the meanings of individual settings in *Inno Setup* (.iss) files. For more information on custom *Inno Setup* settings, refer to [the "Help" page on the *Inno Setup* website](https://jrsoftware.org/ishelp/).
 
 #### Console Window
-Selecting "Console Based" will cause a *Command Prompt* window to appear each time you run the *Time Stamper* program. If you are interested in running the program in "debug" mode to view any error messages, this option is for you.<br />
+Selecting "Console Based" will cause a *Command Prompt* window to appear each time you run the *Time Stamper* program. If you are interested in running the program in "debug" mode to view any terminal output, this option is for you.<br />
 
 Selecting "Window Based" will suppress the *Command Prompt* window when the *Time Stamper* program is run.
 
