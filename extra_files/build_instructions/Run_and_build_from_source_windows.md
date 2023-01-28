@@ -198,7 +198,7 @@ You should now move the *Time Stamper* program files that you previously generat
     ```
     {path_to_repository}\extra_files\setup_files\windows\inno_setup_source_files\Time Stamper\0.3.0
     ```
-* You should also copy any other files you would like to include in the *Time Stamper* program into the aforementioned folder. Versions 0.2.0 and later of the official *Time Stamper* release bundle the following files alongside the *Time Stamper* program:
+* You should also copy any other files you would like to include with the *Time Stamper* program into the aforementioned folder. Versions 0.2.0 and later of the official *Time Stamper* release bundle the following files alongside the *Time Stamper* program:
     * A copy of the *Time Stamper* program's license ("LICENSE.txt")
     * A list of outside sources that were used to help create the *Time Stamper* program ("ATTRIBUTION.txt")
 
