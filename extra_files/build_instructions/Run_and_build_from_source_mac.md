@@ -149,7 +149,7 @@ python3 mac_setup.py py2app
 
 Your new *Time Stamper* application (.app) will be created in a directory called "dist" within the "src" directory. This program should run when you double-click on it. However, you will likely need to follow one additional step in order to make the *Time Stamper* application you built a truly standalone program.<br />
 
-### Copy additional files *Time Stamper* application (.app) package
+### Copy additional files to the *Time Stamper* application (.app) package
 
 #### Copy additional dynamic library (.dylib) files
 On the particular *Macintosh* computer where the *Time Stamper* application (.app) was initially built, a glitch was causing the *Time Stamper* application not to run if the preconfigured *Anaconda*/*Miniconda* distribution from earlier had not been installed on the computer.<br />
