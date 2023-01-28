@@ -262,10 +262,12 @@ Time Stamper 0.2.0
 ```
 Once again, if you have the source code associated with version 0.1.0 of the *Time Stamper* program, then this directory will not exist and you will need to create it.
 
-Once you have located the correct folder, place the *Time Stamper* application (.app) you previously generated into this folder.
+Once you have located/created the correct folder, place the *Time Stamper* application (.app) you previously generated into this folder.
 
 ### Include any other files that you would like to be bundled in the *Time Stamper* disk image (.dmg)
-In addition to the *Time Stamper* application (.app) that you previously generated, you should now place any other files that you would like to be included in the *Time Stamper* disk image (.dmg) into the folder that you just placed the *Time Stamper* application (.app) into.
+In addition to the *Time Stamper* application (.app) that you previously generated, you should now place any other files that you would like to be included in the *Time Stamper* disk image (.dmg) into the folder that you just placed the *Time Stamper* application (.app) into. As previously mentioned, versions 0.2.0 and later of the official release for the *Time Stamper* program (which can be found on the [official *Time Stamper* releases page](https://github.com/benfertig/timestamper/releases/)) bundle the following files alongside the *Time Stamper* application (.app) in the *Time Stamper* disk image (.dmg):
+* A copy of the *Time Stamper* program's license ("LICENSE.txt")
+* A list of outside sources that were used to help create the *Time Stamper* program ("ATTRIBUTION.txt")
 
 ### Create the *Time Stamper* disk image (.dmg)
 You are now ready to create the *Time Stamper* disk image (.dmg).
