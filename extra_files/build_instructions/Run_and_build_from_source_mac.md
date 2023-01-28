@@ -246,10 +246,12 @@ Versions 0.2.0 and later of the official *Time Stamper* release bundle the follo
 * A copy of the *Time Stamper* program's license ("LICENSE.txt")
 * A list of outside sources that were used to help create the *Time Stamper* program ("ATTRIBUTION.txt")
 
-To include the aforementioned files in the *Time Stamper* disk image (.dmg), first navigate to the following directory, replacing {path_to_repository} with the location that you have saved the *timestamper* repository to on your computer:
+To bundle your *Time Stamper* application (.app), as well as any other extra files (such as those mentioned directly above), into a disk image (.dmg), first navigate to the following directory, replacing {path_to_repository} with the location that you have saved the *timestamper* repository to on your computer:
 ```
 {path_to_repository}/extra_files/setup_files/mac
 ```
+If you have the source code associated with version 0.1.0 of the *Time Stamper* program, then this directory will not exist and you should create it.
+
 Then, find the folder whose name corresponds to the version of the *Time Stamper* program the source code you downloaded is associated with. The name of this folder will have the following format, where {release_number} is replaced with the version of the *Time Stamper* program that is associated with the source code you downloaded:
 ```
 Time Stamper {release_number}
@@ -258,6 +260,8 @@ For example, if you downloaded the source code associated with release 0.2.0 of 
 ```
 Time Stamper 0.2.0
 ```
+Once again, if you have the source code associated with version 0.1.0 of the *Time Stamper* program, then this directory will not exist and you should create it.
+
 Once you have located the correct folder, place the *Time Stamper* application (.app) you previously generated into this folder.
 
 ### Include any other files that you would like to be bundled in the *Time Stamper* disk image (.dmg)
