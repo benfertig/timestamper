@@ -86,7 +86,9 @@ Remember, **ALWAYS** make sure that you enter any *conda*/*pip*/*python* command
 
 ## Run from source on *Mac*
 ### Install *Tkmacosx*
-To make the *Time Stamper* program function on a *Macintosh* computer, you will need to install a *Python* package called *Tkmacosx*. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [*Tkmacosx*](https://anaconda.org/saad_7/tkmacosx) through *conda***, which you can do by entering the following command from a *Terminal* window:
+To make the *Time Stamper* program function on a *Macintosh* computer, you will need to install a *Python* package called *Tkmacosx*.
+
+If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [*Tkmacosx*](https://anaconda.org/saad_7/tkmacosx) through *conda***, which you can do by entering the following command from a *Terminal* window:
 ```
 conda install -c saad_7 tkmacosx
 ```
@@ -96,7 +98,9 @@ pip3 install tkmacosx
 ```
 
 ### Install *Pyglet* (version 0.3.0 and later only)
-You will only need to install a second *Python* package, *Pyglet*, if you are building version 0.3.0 or later of the *Time Stamper* program. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [*Pyglet*](https://anaconda.org/conda-forge/pyglet) through *conda***, which you can do by entering the following command from a *Terminal* window:
+You will only need to install a second *Python* package, *Pyglet*, if you are building version 0.3.0 or later of the *Time Stamper* program.
+
+If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [*Pyglet*](https://anaconda.org/conda-forge/pyglet) through *conda***, which you can do by entering the following command from a *Terminal* window:
 ```
 conda install -c conda-forge pyglet
 ```
