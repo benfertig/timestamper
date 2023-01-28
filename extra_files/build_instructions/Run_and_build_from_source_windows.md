@@ -264,7 +264,7 @@ After you have found the *Inno Setup* configuration file (.iss file), open it us
 
 You can edit any properties of the *Time Stamper* installer in this configuration file (.iss file). Remember that, **as per [this section of the instructions](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#onefile)**, you will **need** to edit this *Inno Setup* configuration file (.iss file) if you did one of the following:
 * You built version 0.3.0 or later of the *Time Stamper* program in "One File" mode.
-* You built a version of the *Time Stamper* program prior to version 0.3.0 in "One Directory" mode.
+* You built version 0.2.0 of the *Time Stamper* program in "One Directory" mode.
 
 If you are trying to package a build of version 0.1.0 of the *Time Stamper* program into an *Inno Setup* installer, this *Inno Setup* (.iss) file will not exist and you will need to create it.
 
