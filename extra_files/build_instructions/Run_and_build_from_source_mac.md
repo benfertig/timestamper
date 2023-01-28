@@ -189,10 +189,10 @@ There is a workaround for this problem which involves copying a few libraries fr
     * Then, go to "Contents" -> "Resources" -> "lib".
     * Paste the three .dylib files you just copied into this "lib" folder.<br />
 
-You can now exit out of all *Finder* windows. You should now be able to run the *Time Stamper* application (.app) as a standalone program that does not require any external libraries. Congratulations, you have successfully built the *Time Stamper* program from the source code on a *Mac*.
+If you have built version 0.3.0 or later of the *Time Stamper* program for your *Mac*, there are several more steps you need to perform in order to make the program run properly. If this applies to you, continue on with the section below. Otherwise, you can skip to the section titled [**Completed *Time Stamper* application**]().
 
 #### Copy additional folders (version 0.3.0 and later only)
-If you have built version 0.3.0 or later of the *Time Stamper* program for your *Mac*, then your *Time Stamper* application (.app) will **not** run unless you copy some additional folders to their appropriate locations. If this applies to you, follow the instructions below.
+Application (.app) builds for versions 0.3.0 or later of the *Time Stamper* program will **not** run unless some additional folders are copied to their appropriate locations. 
 * From a *Finder* window, navigate to the *Time Stamper* application (.app) you created earlier, right-click on it and select "Show Package Contents".
 * Then, go to "Contents" -> "Resources".
 * Copy the following two folders to your clipboard:
@@ -208,6 +208,9 @@ If you have built version 0.3.0 or later of the *Time Stamper* program for your 
     * The folder you just renamed should now have a name that is identical to the name of the .zip file you just deleted.
 * Enter this folder in *Finder* (the folder whose name you just appended with ".zip").
 * Paste the "images" and "messages" folders you copied earlier into this folder.
+
+#### Completed *Time Stamper* application
+You can now exit out of all *Finder* windows. You should now check to see if your *Time Stamper* application runs properly. If you have closely followed all of the instructions up to this point, your *Time Stamper* application (.app) should now run when you double-click on it, even when you have no aftermarket *Python* distribution installed on your *Mac*. Congratulations, you have successfully built the *Time Stamper* program from the source code on a *Mac*.
 
 ## Bundle the *Time Stamper* program into a disk image (.dmg) (optional)
 The *Time Stamper* application (.app) that you just generated provides a fully functional build of the *Time Stamper* program. By simply double-clicking on this application (.app), you can run the *Time Stamper* program.
