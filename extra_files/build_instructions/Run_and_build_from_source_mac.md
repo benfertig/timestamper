@@ -163,7 +163,7 @@ There is a workaround for this problem which involves copying a few libraries fr
 * Navigate to the displayed *anaconda3*/*miniconda3* directory from a *Finder* window, disregarding the part of the file path that comes after "anaconda3"/"miniconda3".
 * Your *anaconda3*/*miniconda3* directory may very well be hidden in *Finder*, but you can make *Finder* display hidden files and folders by pressing command+shift+. (command shift dot). You can hide these files and folders by pressing the same keys again.
 * Once you have navigated to your *anaconda3*/*miniconda3* folder, enter the folder named "lib"
-* This next step will require you to know the architecture of your *Mac*'s CPU. If you do not already know what CPU architecture your *Mac* has, refer to the above section titled [**Determine your *Mac*'s CPU architecture**](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#determine-your-macs-cpu-architecture).
+* This next step will require you to know the architecture of your *Mac*'s CPU. If you do not already know what CPU architecture your *Mac* has, refer to the above section titled [**Determine your *Mac*'s CPU architecture**](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#determine-your-macs-cpu-architecture) before coming back here.
 * **If your *Mac* has an *Apple* silicon-based CPU:**
     * Copy the following three files to your clipboard:
         ```
