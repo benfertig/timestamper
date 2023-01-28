@@ -202,7 +202,7 @@ You should now move the *Time Stamper* program files that you previously generat
     * A copy of the *Time Stamper* program's license ("LICENSE.txt")
     * A list of outside sources that were used to help create the *Time Stamper* program ("ATTRIBUTION.txt")
 
-### Download *Inno Setup*
+### Install *Inno Setup*
 To be able to read *Inno Setup* configuration files, you must have *Inno Setup* installed on your computer. **You can download the *Inno Setup* installer [here](https://jrsoftware.org/isdl.php)**.
 
 ### Locate the *Inno Setup* configuration file
