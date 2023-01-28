@@ -23,7 +23,7 @@
 * [Create a *Windows* installer for the *Time Stamper* program (optional)](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#create-a-windows-installer-for-the-time-stamper-program-optional)
     * [A note on "One File" and "One Directory" mode](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#a-note-on-one-file-and-one-directory-mode)
     * [Move the *Time Stamper* program files to the appropriate directory](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#move-the-time-stamper-program-files-to-the-appropriate-directory)
-    * [Download *Inno Setup*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#download-inno-setup)
+    * [Install *Inno Setup*](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#install-inno-setup)
     * [Locate the *Inno Setup* configuration file](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#locate-the-inno-setup-configuration-file)
     * [Edit the *Inno Setup* configuration file](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#edit-the-inno-setup-configuration-file)
     * [Create the *Inno Setup* installer for the *Time Stamper* program](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_windows.md#create-the-inno-setup-installer-for-the-time-stamper-program)
