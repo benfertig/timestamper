@@ -205,7 +205,7 @@ Application (.app) builds for versions 0.3.0 or later of the *Time Stamper* prog
 * Find the .zip file whose name reflects the *Python* version that you used to generate your *Time Stamper* application (.app) file. For example, if you generated the *Time Stamper* application using *Python 3.9*, then you should see a .zip file named "python39.zip".
 * Extract the contents of this .zip file to the same directory you are currently located in within *Finder* (i.e., the "lib" directory).
 * Delete the .zip file whose contents you just extracted.
-* Add ".zip" to the end of the name of the folder that was just extracted from the .zip file you just deleted. Ignore any warnings that your computer may display to you about renaming a folder in such a way.
+* Add ".zip" to the end of the name of the folder you just extracted. Ignore any warnings that your computer may display to you about renaming a folder in such a way.
     * The folder you just renamed should now have a name that is identical to the name of the .zip file you just deleted.
 * Enter this folder in *Finder* (the folder whose name you just appended with ".zip").
 * Paste the "images" and "messages" folders you copied earlier into this folder.
