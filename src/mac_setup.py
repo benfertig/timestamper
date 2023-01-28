@@ -15,11 +15,16 @@ DATA_FILES = [
     # Add the macros.
     ("classes/macros", glob("classes/macros/*.*")),
 
+    # Add the settings
+    ("classes/settings", glob("classes/settings/*.*")),
+
     # Add the templates.
     ("classes/template", glob("classes/template/*.*")),
     ("classes/template/buttons", glob("classes/template/buttons/*.*")),
+    ("classes/template/checkbuttons", glob("classes/template/checkbuttons/*.*")),
     ("classes/template/entries", glob("classes/template/entries/*.*")),
     ("classes/template/labels", glob("classes/template/labels/*.*")),
+    ("classes/template/scales", glob("classes/template/scales/*.*")),
     ("classes/template/texts", glob("classes/template/texts/*.*")),
     ("classes/template/windows", glob("classes/template/windows/*.*")),
 
@@ -34,9 +39,10 @@ DATA_FILES = [
 
     # Add the messages.
     ("messages", glob("messages/*.*"))
+
 ]
 
-OPTIONS = {"includes": ["tkmacosx"],
+OPTIONS = {"includes": ["tkmacosx", "pyglet"],
 "iconfile": "../extra_files/setup_files/mac/file_icon_mac.icns"}
 
 setup(
