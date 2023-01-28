@@ -84,10 +84,8 @@ This command should have activated your base *conda* environment. You will know 
 Remember, **ALWAYS** make sure that you enter any *conda*/*pip*/*python* commands from within your base *conda* environment.
 
 ## Run from source on *Mac*
-### Install *Tkmacosx* and (potentially) *Pyglet*
-To make the *Time Stamper* program function on a *Macintosh* computer, you will need to install at least one additional *Python* package (possibly two packages).
-
-The first package that you must install is *Tkmacosx*. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [*Tkmacosx*](https://anaconda.org/saad_7/tkmacosx) through *conda***, which you can do by entering the following command from a *Terminal* window:
+### Install *Tkmacosx*
+To make the *Time Stamper* program function on a *Macintosh* computer, you will need to install a *Python* package called *Tkmacosx. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [*Tkmacosx*](https://anaconda.org/saad_7/tkmacosx) through *conda***, which you can do by entering the following command from a *Terminal* window:
 ```
 conda install -c saad_7 tkmacosx
 ```
@@ -96,7 +94,8 @@ Alternatively, you can **install [*Tkmacosx*](https://pypi.org/project/tkmacosx/
 pip3 install tkmacosx
 ```
 
-You will only need to install the second package, *Pyglet*, if you are building version 0.3.0 or later of the *Time Stamper* program. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [*Pyglet*](https://anaconda.org/conda-forge/pyglet) through *conda***, which you can do by entering the following command from a *Terminal* window:
+### Install *Pyglet* (version 0.3.0 and later only)
+You will only need to install a second *Python* package, *Pyglet*, if you are building version 0.3.0 or later of the *Time Stamper* program. If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [*Pyglet*](https://anaconda.org/conda-forge/pyglet) through *conda***, which you can do by entering the following command from a *Terminal* window:
 ```
 conda install -c conda-forge pyglet
 ```
