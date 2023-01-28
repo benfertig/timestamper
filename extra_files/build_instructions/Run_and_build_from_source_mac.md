@@ -57,12 +57,12 @@ If you have no other uses for *Python* and all you are looking to do is run/buil
 
 Unless you know what you are doing, do not concern yourself with any of the installers that end in "bash". Only select from the installers that that end in "pkg".<br />
 
-There are *Miniconda* installers for both *Intel*-based *Macs* as well as *Apple* silicon-based *Macs*. You should download the *Miniconda* installer that matches **your** *Mac*'s CPU architecture. If you do not already know what CPU architecture your *Mac* has, refer to the above section titled [**Determine your *Mac*'s CPU architecture**](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#determine-your-macs-cpu-architecture).
+There are *Miniconda* installers for both *Intel*-based *Macs* as well as *Apple* silicon-based *Macs*. You should download the *Miniconda* installer that matches **your** *Mac*'s CPU architecture. If you do not already know what CPU architecture your *Mac* has, refer to the above section titled [**Determine your *Mac*'s CPU architecture**](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#determine-your-macs-cpu-architecture) before coming back here.
 
-If your *Mac* has an *Apple* silicon-based CPU:
+**If your *Mac* has an *Apple* silicon-based CPU**:
 * Download the *Miniconda* installer with "M{X}" in its name, where {X} might be any number (e.g., "M1").
 
-If your *Mac* has an *Intel*-based CPU:
+**If your *Mac* has an *Intel*-based CPU**:
 * Download the *Miniconda* installer with "Intel" in its name.
 
 Once you have downloaded the correct *Miniconda* installer for your *Mac*, run the installer to install *Python* with *Miniconda*.<br />
