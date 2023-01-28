@@ -207,7 +207,7 @@ Application (.app) builds for versions 0.3.0 or later of the *Time Stamper* prog
 * Delete the .zip file whose contents you just extracted.
 * Add ".zip" to the end of the name of the folder you just extracted. Ignore any warnings that your computer may display to you about renaming a folder in such a way.
     * The folder you just renamed should now have a name that is identical to the name of the .zip file you just deleted.
-* Enter this folder in *Finder* (the folder whose name you just appended with ".zip").
+* Enter the folder whose name you just appended with ".zip" in *Finder*.
 * Paste the "images" and "messages" folders you copied earlier into this folder.
 
 #### Completed *Time Stamper* application
