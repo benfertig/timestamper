@@ -153,9 +153,14 @@ From a *Terminal* window, navigate to the *Time Stamper* source code directory b
 cd {path_to_repository}/src
 ```
 
-Then, enter the following command:
+If you are building version 0.2.0 or later of the *Time Stamper* program, enter the following command:
 ```
 python3 mac_setup.py py2app
+```
+
+Alternatively, if you are building version 0.1.0 of the *Time Stamper* program, enter the following command:
+```
+python3 setup.py py2app
 ```
 
 Your new *Time Stamper* application (.app) will be created in a directory called "dist" within the "src" directory. This program should run when you double-click on it. However, you will likely need to follow one additional step in order to make the *Time Stamper* application you built a truly standalone program. Follow the instructions below for more information.
