@@ -172,7 +172,7 @@ On the particular *Macintosh* computer where the *Time Stamper* application (.ap
 
 This obviously defeats the purpose of creating a *Time Stamper* application (.app) package, as the standalone *Time Stamper* application is meant to be truly standalone in the sense that it should not need to rely on any outside libraries that do not already come preinstalled on any modern *Macintosh* computer.<br />
 
-There is a workaround for this problem which involves copying a few libraries from your *anaconda3*/*miniconda3* folder to the *Time Stamper* .app package:
+There is a workaround for this problem which involves copying a few libraries from your *anaconda3*/*miniconda3* folder to the *Time Stamper* application (.app) package:
 * Find your *anaconda3*/*miniconda3* directory by entering the following command from *Terminal*:
     ```
     which python
