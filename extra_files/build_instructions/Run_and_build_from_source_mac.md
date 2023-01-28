@@ -193,7 +193,7 @@ There is a workaround for this problem which involves copying a few libraries fr
 If you have built version 0.3.0 or later of the *Time Stamper* program for your *Mac*, there are several more steps you need to perform in order to make the *Time Stamper* program run properly. If this applies to you, continue on with the section below. Otherwise, you can skip to the section titled [**Completed *Time Stamper* application**](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#completed-time-stamper-application).
 
 #### Copy additional folders (version 0.3.0 and later only)
-Application (.app) builds for versions 0.3.0 or later of the *Time Stamper* program will **not** run unless some additional folders are copied to their appropriate locations. If you have built an application (.app) for version 0.3.0 or later of the *Time Stamper* program, follow these steps in order to make your *Time Stamper* application (.app) run properly.
+Application (.app) builds for version 0.3.0 or later of the *Time Stamper* program will **not** run unless some additional folders are copied to their appropriate locations. If you have built an application (.app) for version 0.3.0 or later of the *Time Stamper* program, follow these steps in order to make your *Time Stamper* application (.app) run properly.
 * From a *Finder* window, navigate to the *Time Stamper* application (.app) you created earlier, right-click on it and select "Show Package Contents".
 * Then, go to "Contents" -> "Resources".
 * Copy the following two folders to your clipboard:
