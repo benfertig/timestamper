@@ -135,12 +135,12 @@ If you have been following along with these instructions since the section title
 ### Install *Py2App*
 The *Mac* application (.app) for the *Time Stamper* program was made using *Py2App*, which you can install through either *conda* or *pip*.<br />
 
-If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you [install Py2App through *conda*](https://anaconda.org/conda-forge/py2app), which you can do by entering the following command from a *Terminal* window:
+If you installed *Python* through *Anaconda*/*Miniconda*, it is **recommended** that you **install [Py2App through *conda*](https://anaconda.org/conda-forge/py2app)**, which you can do by entering the following command from a *Terminal* window:
 ```
 conda install -c conda-forge py2app
 ```
 
-Alternatively, you can [install *Py2App* through *pip*](https://pypi.org/project/py2app/) by entering the following command from a *Terminal* window:
+Alternatively, you can **install [*Py2App* through *pip*](https://pypi.org/project/py2app/)** by entering the following command from a *Terminal* window:
 ```
 pip3 install py2app
 ```
