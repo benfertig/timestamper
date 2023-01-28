@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Time Stamper"
-#define MyAppVersion "0.2.0"
+#define MyAppVersion "0.3.0"
 #define MyAppPublisher "Benjamin Fertig"
 #define MyAppURL "https://github.com/benfertig/timestamper/"
 #define MyAppExeName "MyProg.exe"
@@ -19,17 +19,18 @@ AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 CreateAppDir=no
-LicenseFile=inno_setup_source_files\LICENSE.txt
+LicenseFile="inno_setup_source_files\Time Stamper\0.3.0\LICENSE.txt"
 InfoAfterFile=setup_windows_post_message.txt
 ; Remove the following line to run in administrative install mode (install for all users.)
-PrivilegesRequired=lowest
+;PrivilegesRequired=lowest
 OutputDir=.
-OutputBaseFilename=timestamper-r0.2.0-windows-64
+OutputBaseFilename=timestamper-r0.3.0-windows-64
 SetupIconFile=file_icon_windows.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
-UninstallFilesDir="{userdesktop}\Time Stamper 0.2.0"
+UninstallFilesDir="{commonpf64}\Time Stamper\0.3.0\uninstall"
+DefaultGroupName=Time Stamper 0.3.0
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -59,6 +60,9 @@ Name: "turkish"; MessagesFile: "compiler:Languages\Turkish.isl"
 Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Files]
-Source: "inno_setup_source_files\*"; DestDir: "{userdesktop}\Time Stamper 0.2.0"; Flags: ignoreversion
+Source: "inno_setup_source_files\Time Stamper\0.3.0\*"; DestDir: "{commonpf64}\Time Stamper\0.3.0"; Flags: ignoreversion recursesubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
+
+[Icons]
+Name: "{userdesktop}\Time Stamper 0.3.0"; Filename: "{commonpf64}\Time Stamper\0.3.0\Time Stamper.exe"; WorkingDir: "{userdocs}"
 
