@@ -8,7 +8,6 @@ from json.decoder import JSONDecodeError
 from os import getenv, mkdir, sep
 from os.path import dirname, exists, expanduser, join
 from sys import platform
-from .settings_default import settings_default
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -39,8 +38,11 @@ class TimeStamperSettings():
         # Save the version of the Time Stamper program that this source code corresponds to.
         program_version_number = "0.3.0"
 
-        # Load the default settings from settings_default.py
-        self.default = settings_default
+        # Save the path to settings_default.json.
+        self.default_json_path = join(f"{dirname(__file__)}{sep}", "settings_default.json")
+
+        # Load the default settings from settings_default.json.
+        self.default = self.load_json(self.default_json_path)
 
         # Get the folder that settings_user.json should be saved to.
         user_settings_folder = self.get_settings_folder(version_number=program_version_number)
