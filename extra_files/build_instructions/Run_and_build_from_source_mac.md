@@ -192,7 +192,7 @@ There is a workaround for this problem which involves copying a few libraries fr
     * "libffi"
     * "libtcl"
     * "libtk"
-* Simply copy the three .dylib files **you** see within **your** "lib" folder. Remember, each of these three .dylib files should uniquely have one of the three, aforementioned prefixes.
+* Simply copy the three .dylib files **you** see within **your** "lib" folder. Remember, each of these three .dylib files should uniquely have one of the three aforementioned prefixes.
 * Be wary of copying "files" that appear to be .dylib folders but are actually just aliases for other files (i.e., "shortcuts").
     * You can tell that a "file" is actually an alias if there is black arrow in the bottom-left corner of its icon.
     * You do **not** want to be copying these aliases to your clipboard, as they are useless, so you should make sure all of the .dylib files you copy to your clipboard are truly .dylib files and not aliases.
