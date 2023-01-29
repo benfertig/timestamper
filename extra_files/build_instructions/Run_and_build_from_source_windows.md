@@ -196,7 +196,7 @@ As mentioned in [**the "Onefile" subsection within the section titled "Build fro
 * **If you are building version 0.3.0 or later of the *Time Stamper* program**, then you selected the "One Directory" option during the *Auto PY to EXE* configuration.
 * **If you are building version 0.2.0 *Time Stamper* program**, then you selected the "One File" option during the *Auto PY to EXE* configuration.
 
-If you either are trying to build version 0.3.0 or later of the *Time Stamper* program in "One File" mode or are tyring to build version 0.2.0 of the *Time Stamper* program in "One Directory" mode, then you are on your own, as you will need to tweak some settings within the *Inno Setup* (.iss) file, and this guide will **not** go over the meanings of individual settings in *Inno Setup* (.iss) files.
+If you either are trying to build version 0.3.0 or later of the *Time Stamper* program in "One File" mode or are trying to build version 0.2.0 of the *Time Stamper* program in "One Directory" mode, then you are on your own, as you will need to tweak some settings within the *Inno Setup* (.iss) file, and this guide will **not** go over the meanings of individual settings in *Inno Setup* (.iss) files.
 
 If you are trying to build version 0.1.0 of the *Time Stamper* program and you would like to package your build into an *Inno Setup* installer, then you are also on your own, as version 0.1.0 of the *Time Stamper* program did not include a .iss file, which means you will need to make one yourself.
 
