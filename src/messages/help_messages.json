@@ -1,7 +1,7 @@
 {
     "1": "Pause button\n\nThis button pauses the timer (see 27). You must have already selected an output file (see 7) and begun recording (see 6) to be able to press the pause button.",
     "2": "Play button\n\nThis button resumes the timer (see 27). You must already be paused (see 1) to be able to press the play button.",
-    "3": "Stop button\n\nThis button stops the timer (see 27). Pressing this button will also allow you to select a different output file (see 7). After you have pressed the stop button, you cannot enter new notes until you have pressed the record button (see 6) again.",
+    "3": "Stop button\n\nThis button stops the timer (see 27). Pressing this button will also allow you to select a different output file (see 7) as well as a different audio file (see 10).",
     "4": "Rewind button\n\nThis button rewinds the timer (see 27) the number of seconds specified in the rewind amount field (see 4.1).",
     "4.1": "Rewind amount\n\nThis is where you should enter the number of seconds you would like the timer (see 27) to rewind when you press the rewind button (see 4).",
     "5": "Fast-forward button\n\nThis button fast-forwards the timer (see 27) the number of seconds specified in the fast-forward amount field (see 5.1).",
