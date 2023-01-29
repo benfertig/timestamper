@@ -181,27 +181,24 @@ There is a workaround for this problem which involves copying a few libraries fr
 * Navigate to the displayed *anaconda3*/*miniconda3* directory from a *Finder* window, disregarding the part of the file path that comes after "anaconda3"/"miniconda3".
 * Your *anaconda3*/*miniconda3* directory may very well be hidden in *Finder*, but you can make *Finder* display hidden files and folders by pressing command+shift+. (command shift dot). You can hide these files and folders by pressing the same keys again.
 * Once you have navigated to your *anaconda3*/*miniconda3* folder, enter the folder named "lib"
-* This next step will require you to know the architecture of your *Mac*'s CPU. If you do not already know what CPU architecture your *Mac* has, refer to the above section titled [**Determine your *Mac*'s CPU architecture**](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#determine-your-macs-cpu-architecture) before coming back here.
-* **If your *Mac* has an *Apple* silicon-based CPU:**
-    * Copy the following three files to your clipboard:
-        ```
-        libffi.8.dylib
-        libtcl8.6.dylib
-        libtk8.6.dylib
-        ```
-    * Now, navigate to the *Time Stamper* application (.app) you created earlier, right-click on it and select "Show Package Contents".
-    * Then, go to "Contents" -> "Frameworks".
-    * Paste the three .dylib files you just copied into this "Frameworks" folder.<br />
-* **Alternatively, if your *Mac* has an *Intel*-based CPU:**
-    * Copy the following three files to your clipboard:
-        ```
-        libffi.7.dylib
-        libtcl8.6.dylib
-        libtk8.6.dylib
-        ```
-    * Now navigate to the *Time Stamper* application (.app) you created earlier, right-click on it and select "Show Package Contents".
-    * Then, go to "Contents" -> "Resources" -> "lib".
-    * Paste the three .dylib files you just copied into this "lib" folder.<br />
+* Within this "lib" folder, you should be looking for three distinct files whose names end in ".dylib".
+* The names of these .dylib files, however, will vary depending on which version of *Python* you built your *Time Stamper* application (.app) with. As an example, the names of the three .dylib folders that you will want to copy if you have installed the distribution of *Miniconda* that was released on December 22, 2022 (which includes *Conda* 22.11.1 and *Python* 3.10.8) are as follows:
+  ```
+  libffi.8.dylib
+  libtcl8.6.dylib
+  libtk8.6.dylib
+  ```
+* If they differ from the .dylib files that are listed above, then finding the correct .dylib files for **your** particular installation of *Miniconda* should not be too hard, as you should only find **one** .dylib file inside of this "lib" folder with each of the following prefixes:
+    * "libffi"
+    * "libtcl"
+    * "libtk"
+* Simply copy the three .dylib files **you** see within **your** "lib" folder. Remember, each of these three .dylib files should uniquely have one of the three, aforementioned prefixes.
+* Be wary of copying "files" that appear to be .dylib folders but are actually just aliases for other files (i.e., "shortcuts").
+    * You can tell that a "file" is actually an alias if there is black arrow in the bottom-left corner of its icon.
+    * You do **not** want to be copying these aliases to your clipboard, as they are useless, so you should make sure all of the .dylib files you copy to your clipboard are truly .dylib files and not aliases.
+* Once you have copied the necessary three .dylib files to your clipboard, navigate to the *Time Stamper* application (.app) you created earlier, right-click on it and select "Show Package Contents".
+* Then, go to "Contents" -> "Frameworks".
+* Paste the three .dylib files you just copied into this "Frameworks" folder.<br />
 
 If you have built version 0.3.0 or later of the *Time Stamper* program for your *Mac*, there are several more steps you need to perform in order to make the *Time Stamper* program run properly. If this applies to you, continue on with the section below. Otherwise, you can skip to the section titled [**Completed *Time Stamper* application**](https://github.com/benfertig/timestamper/blob/main/extra_files/build_instructions/Run_and_build_from_source_mac.md#completed-time-stamper-application).
 
