@@ -182,7 +182,7 @@ There is a workaround for this problem which involves copying a few libraries fr
 * Your *anaconda3*/*miniconda3* directory may very well be hidden in *Finder*, but you can make *Finder* display hidden files and folders by pressing command+shift+. (command shift dot). You can hide these files and folders by pressing the same keys again.
 * Once you have navigated to your *anaconda3*/*miniconda3* folder, enter the folder named "lib"
 * Within this "lib" folder, you should be looking for three distinct files whose names end in ".dylib".
-* The names of these .dylib files, however, will vary depending on which version of *Python* you built your *Time Stamper* application (.app) with. As an example, the names of the three .dylib folders that you will want to copy if you have installed the distribution of *Miniconda* that was released on December 22, 2022 (which includes *Conda* 22.11.1 and *Python* 3.10.8) are as follows:
+* The names of these .dylib files, however, will vary depending on which version of *Python* you built your *Time Stamper* application (.app) with. As an example, the names of the three .dylib files that you will want to copy if you have installed the distribution of *Miniconda* that was released on December 22, 2022 (which includes *Conda* 22.11.1 and *Python* 3.10.8) are as follows:
   ```
   libffi.8.dylib
   libtcl8.6.dylib
