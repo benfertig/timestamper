@@ -110,7 +110,7 @@ Selecting the "One File" option will package the entire *Time Stamper* program i
 * **If you are building version 0.3.0 or later of the *Time Stamper* program**, then you selected the "One Directory" option here.
 * **If you are building version 0.2.0 *Time Stamper* program**, then you selected the "One File" option here.
 
-If you either are trying to build version 0.3.0 or later of the *Time Stamper* program in "One File" mode or are tyring to build version 0.2.0 of the *Time Stamper* program in "One Directory" mode, then you are on your own, as you will need to tweak some settings within the *Inno Setup* (.iss) file, and this guide will **not** go over the meanings of individual settings in *Inno Setup* (.iss) files.
+If you either are trying to build version 0.3.0 or later of the *Time Stamper* program in "One File" mode or are trying to build version 0.2.0 of the *Time Stamper* program in "One Directory" mode, then you are on your own, as you will need to tweak some settings within the *Inno Setup* (.iss) file, and this guide will **not** go over the meanings of individual settings in *Inno Setup* (.iss) files.
 
 If you are trying to build version 0.1.0 of the *Time Stamper* program and you would like to package your build into an *Inno Setup* installer, then you are also on your own, as version 0.1.0 of the *Time Stamper* program did not include a .iss file, which means you will need to make one yourself.
 
@@ -172,7 +172,7 @@ You should now be ready to build the *Time Stamper* program. Click on the "CONVE
 * **If you selected the "One Directory" option:**
     * There will be an entire folder here titled "Time Stamper".
     * Within this folder, there will be a file titled "Time Stamper.exe", which is the file that you need to run in order to launch the *Time Stamper* program.
-    * **However**, while you can move the "Time Stamper" folder to wherever you like on your computer, this executable (.exe) file **must** remain in this "Time Stamper" folder along with all of the folder's other contents (i.e., the dependencies of the *Time Stamper* program) in order to run properly. If you would like to access the *Time Stamper* program from elsewhere on your computer, you can create a shortcut to "Time Stamper.exe", but the contents of the folder should stay put.
+    * **However**, while you can move the "Time Stamper" folder to wherever you like on your computer, this executable (.exe) file **must** remain in this "Time Stamper" folder along with all of the folder's other contents (i.e., the dependencies of the *Time Stamper* program) in order to run properly. If you would like to access the *Time Stamper* program from elsewhere on your computer, you can create a shortcut to "Time Stamper.exe", but the entire contents of the folder should stay put.
 
 The *Time Stamper* program should now run as a standalone executable (without needing to rely on any outside *Python* interpreters or packages). Congratulations, you have successfully built the *Time Stamper* program from the source code on *Windows*.
 
@@ -196,7 +196,7 @@ As mentioned in [**the "Onefile" subsection within the section titled "Build fro
 * **If you are building version 0.3.0 or later of the *Time Stamper* program**, then you selected the "One Directory" option during the *Auto PY to EXE* configuration.
 * **If you are building version 0.2.0 *Time Stamper* program**, then you selected the "One File" option during the *Auto PY to EXE* configuration.
 
-If you either are trying to build version 0.3.0 or later of the *Time Stamper* program in "One File" mode or are tyring to build version 0.2.0 of the *Time Stamper* program in "One Directory" mode, then you are on your own, as you will need to tweak some settings within the *Inno Setup* (.iss) file, and this guide will **not** go over the meanings of individual settings in *Inno Setup* (.iss) files.
+If you either are trying to build version 0.3.0 or later of the *Time Stamper* program in "One File" mode or are trying to build version 0.2.0 of the *Time Stamper* program in "One Directory" mode, then you are on your own, as you will need to tweak some settings within the *Inno Setup* (.iss) file, and this guide will **not** go over the meanings of individual settings in *Inno Setup* (.iss) files.
 
 If you are trying to build version 0.1.0 of the *Time Stamper* program and you would like to package your build into an *Inno Setup* installer, then you are also on your own, as version 0.1.0 of the *Time Stamper* program did not include a .iss file, which means you will need to make one yourself.
 
