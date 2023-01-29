@@ -20,7 +20,7 @@ If you would like to run and build this program from the source code, check out 
 
 ### 3 - Stop button
 ![extra_files/help_images/button_stop.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_stop.png?raw=true)
-* This button stops the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)). Pressing this button will also allow you to select a different output file ([see 7](https://github.com/benfertig/timestamper/#7---output-select-button)). After you have pressed the stop button, you cannot enter new notes until you have pressed the record button ([see 6](https://github.com/benfertig/timestamper/#6---record-button)) again.
+* This button stops the timer ([see 27](https://github.com/benfertig/timestamper#27---timer)). Pressing this button will also allow you to select a different output file ([see 7](https://github.com/benfertig/timestamper/#7---output-select-button)) and a different audio file ([see 10](https://github.com/benfertig/timestamper/#10---audio-select-button)).
 
 ### 4 - Rewind button
 ![extra_files/help_images/button_rewind.png](https://github.com/benfertig/timestamper/blob/main/extra_files/help_images/button_rewind.png?raw=true)
