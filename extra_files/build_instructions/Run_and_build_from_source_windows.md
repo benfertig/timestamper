@@ -172,7 +172,7 @@ You should now be ready to build the *Time Stamper* program. Click on the "CONVE
 * **If you selected the "One Directory" option:**
     * There will be an entire folder here titled "Time Stamper".
     * Within this folder, there will be a file titled "Time Stamper.exe", which is the file that you need to run in order to launch the *Time Stamper* program.
-    * **However**, while you can move the "Time Stamper" folder to wherever you like on your computer, this executable (.exe) file **must** remain in this "Time Stamper" folder along with all of the folder's other contents (i.e., the dependencies of the *Time Stamper* program) in order to run properly. If you would like to access the *Time Stamper* program from elsewhere on your computer, you can create a shortcut to "Time Stamper.exe", but the contents of the folder should stay put.
+    * **However**, while you can move the "Time Stamper" folder to wherever you like on your computer, this executable (.exe) file **must** remain in this "Time Stamper" folder along with all of the folder's other contents (i.e., the dependencies of the *Time Stamper* program) in order to run properly. If you would like to access the *Time Stamper* program from elsewhere on your computer, you can create a shortcut to "Time Stamper.exe", but the entire contents of the folder should stay put.
 
 The *Time Stamper* program should now run as a standalone executable (without needing to rely on any outside *Python* interpreters or packages). Congratulations, you have successfully built the *Time Stamper* program from the source code on *Windows*.
 
