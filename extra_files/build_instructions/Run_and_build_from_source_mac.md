@@ -188,7 +188,7 @@ There is a workaround for this problem which involves copying a few libraries fr
   libtcl8.6.dylib
   libtk8.6.dylib
   ```
-* If they differ from the .dylib files that are listed above, then finding the correct .dylib files for **your** particular *Python* installation should not be too hard, as you should only find **one** .dylib file inside of this "lib" folder with each of the following prefixes:
+* If they differ from the .dylib files that are listed above, then finding the correct .dylib files for **your** particular *Python* installation should not be too hard, as you should only find **one** .dylib file inside of this "lib" folder with each of the following three prefixes:
     * "libffi"
     * "libtcl"
     * "libtk"
