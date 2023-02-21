@@ -54,8 +54,7 @@ def confirm_audio(audio_source, audio_player, entry_audio_path):
 
     # If the audio source specified in the audio path entry was successfully
     # loaded, return the audio source and a freshly initialized audio player.
-    else:
-        return audio_source, Player()
+    return audio_source, Player()
 
 
 def print_to_entry(to_print, entry_obj, wipe_clean=True):

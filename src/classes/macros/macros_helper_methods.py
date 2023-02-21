@@ -284,8 +284,7 @@ def rewind_or_fast_forward(user_input, is_rewind, adjust_timer_method):
         return 0
 
     # Rewind the timer the requested amount.
-    else:
-        return adjust_timer_method(adjust_amount * -1 if is_rewind else adjust_amount)
+    return adjust_timer_method(adjust_amount * -1 if is_rewind else adjust_amount)
 
 
 def store_timestamper_output(output_file_paths, output_file_encoding="utf-8"):

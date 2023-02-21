@@ -155,16 +155,15 @@ class TimeStamperSettings():
                 return None
 
             # If settings_user.json was successfully loaded into a dictionary...
-            else:
 
-                # If the data hierarchy of the loaded user settings MATCHES
-                # that of the default settings, return the loaded user settings.
-                if self.check_settings_structures_match(user_settings, self.default):
-                    return user_settings
+            # If the data hierarchy of the loaded user settings MATCHES
+            # that of the default settings, return the loaded user settings.
+            if self.check_settings_structures_match(user_settings, self.default):
+                return user_settings
 
-                # If the data hierarchy of the loaded user settings DOES
-                # NOT MATCH that of the default settings, return None.
-                return None
+            # If the data hierarchy of the loaded user settings DOES
+            # NOT MATCH that of the default settings, return None.
+            return None
 
         # If settings_user.json does not exist at the expected location, return None.
         return None

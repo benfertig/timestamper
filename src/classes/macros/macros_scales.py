@@ -78,7 +78,7 @@ class ScaleMacros():
             # Determine what the new mute button image should be.
             updated_image_str_key = self.parent.updated_mute_button_image(volume_scale_value)
 
-            # If the new mute button image does not match the
+            # If the new mute button image does NOT match the
             # current mute button image, update the mute button image.
             button_mute = self.widgets["button_mute"]
             button_mute_image_new = self.widgets[updated_image_str_key]
@@ -86,6 +86,6 @@ class ScaleMacros():
                 button_mute.config(image=button_mute_image_new)
                 button_mute.image = button_mute_image_new
 
-        # If audio player was not successfully retrieved, disable all audio playback settings.
+        # If an audio player was NOT successfully retrieved, disable all audio playback settings.
         else:
             self.parent.disable_audio_widgets()

@@ -315,7 +315,7 @@ class Macros():
             return "volume_low.png"
 
         # If the volume is between 33.3 and 66.6, return "volume_medium.png".
-        if 100 * (1 / 3) <= volume_scale_value < 100 * (2/3):
+        if 100 * (1 / 3) <= volume_scale_value < 100 * (2 / 3):
             return "volume_medium.png"
 
         # If the volume is between 66.6 and 100 return "volume_high.png".
