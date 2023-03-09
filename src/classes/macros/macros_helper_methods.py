@@ -202,8 +202,7 @@ def verify_text_file(file_full_path, file_encoding, test_readability, test_writa
         return False
 
     # IF the file CAN be read and written to like a text file, return True.
-    else:
-        return True
+    return True
 
 
 def verify_audio_file(file_full_path, time_stamper):
