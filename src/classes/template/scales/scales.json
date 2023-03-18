@@ -4,10 +4,7 @@
 
         "str_key": "scale_audio_time",
 
-        "initial_state": {
-            "linked_dict": "audio",
-            "linked_attribute": "path"
-        },
+        "initial_state": false,
 
         "is_ttk_scale": true,
 
@@ -36,10 +33,7 @@
 
         "str_key": "scale_audio_volume",
 
-        "initial_state": {
-            "linked_dict": "audio",
-            "linked_attribute": "path"
-        },
+        "initial_state": false,
 
         "is_horizontal": false,
 

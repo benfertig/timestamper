@@ -4,10 +4,7 @@
 
         "str_key": "button_hotkey_1",
 
-        "initial_state": {
-            "linked_dict": "output",
-            "linked_attribute": "path"
-        },
+        "initial_state": false,
 
         "text": "HK1",
 
@@ -31,10 +28,7 @@
 
         "str_key": "button_hotkey_2",
 
-        "initial_state": {
-            "linked_dict": "output",
-            "linked_attribute": "path"
-        },
+        "initial_state": false,
 
         "text": "HK2",
 
@@ -58,10 +52,7 @@
 
         "str_key": "button_hotkey_3",
 
-        "initial_state": {
-            "linked_dict": "output",
-            "linked_attribute": "path"
-        },
+        "initial_state": false,
 
         "text": "HK3",
 
@@ -111,10 +102,7 @@
 
         "str_key": "button_save_note",
 
-        "initial_state": {
-            "linked_dict": "output",
-            "linked_attribute": "path"
-        },
+        "initial_state": false,
 
         "text": "Save note",
 

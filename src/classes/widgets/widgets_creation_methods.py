@@ -108,10 +108,13 @@ def create_checkbutton(template, settings, \
     # Place the Checkbutton.
     grid_widget(checkbutton, checkbutton_template)
 
-    # Determine whether the checkbutton should initially be checked or unchecked.
+    # If it is determined that the checkbutton should initially be checked, check the checkbutton.
     if determine_widget_attribute(checkbutton_template, "is_checked", template, settings):
         checkbutton.select()
         checkbutton_template["is_checked_loaded_value"] = True
+
+    # If it is determined that the checkbutton should
+    # initially be unchecked, uncheck the checkbutton.
     else:
         checkbutton_template["is_checked_loaded_value"] = False
 

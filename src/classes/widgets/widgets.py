@@ -152,24 +152,6 @@ class Widgets():
             text = create_text(self.template, self.settings, text_template, text_window)
             self.mapping[text_template["str_key"]] = text
 
-    def clear_all_window_widgets(self, window_str):
-        """This method destroys all of the widgets within a window (but not the window itself)."""
-
-        for widget_type in ("buttons", "checkbuttons", "entries", "labels", "texts"):
-            for widget_template in self.template[widget_type][window_str]:
-                widget_str_key = widget_template["str_key"]
-                self.mapping[widget_str_key].destroy()
-
-    def refresh_window(self, window_str, macros=None):
-        """This method reloads all of the widgets in a window without
-        destroying the current window or creating a new one."""
-
-        # Destroy all of the widgets in the current window.
-        self.clear_all_window_widgets(window_str)
-
-        # Recreate all of the current window's widgets.
-        self.create_widgets(window_str, macros)
-
     def create_entire_window(self, window_str, macros=None, close_window_macro=None, macro_args=()):
         """This method creates an entire window with all of its widgets
         based on the string key for a particular window (window_str_key)."""

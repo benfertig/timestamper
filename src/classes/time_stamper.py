@@ -2,7 +2,6 @@
 """This module contains the TimeStamper class. In order to run the Time Stamper program, a user
 should create an instance of this TimeStamper class and then call that instance's "run" function."""
 
-
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
 
@@ -27,6 +26,7 @@ from .settings.settings import TimeStamperSettings
 from .template.template import TimeStamperTemplate
 from .timing.timing import TimeStamperTimer
 from .widgets.widgets import Widgets
+
 
 @dataclass
 class TimeStamper():

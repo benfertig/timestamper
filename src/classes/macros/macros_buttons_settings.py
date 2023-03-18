@@ -3,7 +3,8 @@
 that are executed when a settings button in the Time Stamper program is pressed."""
 
 from tkinter import DISABLED, NORMAL
-from .macros_helper_methods import button_enable_disable_macro
+from .macros_helper_methods import button_enable_disable_macro, \
+    determine_widget_attribute, print_to_entry
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -64,6 +65,52 @@ class SettingsButtonMacros():
 
         return settings_copy
 
+    def refresh_settings_window_values(self):
+        """This method forces the values that appear in the
+        settings window to be updated to match settings.user."""
+
+        # Loop through all of the checkbuttons in the settings window.
+        for checkbutton_template in self.template["checkbuttons"]["window_settings"]:
+
+            # Retrieve the checkbutton widget associated with
+            # the current checkbutton template's string key.
+            checkbutton_obj = self.widgets[checkbutton_template["str_key"]]
+
+            # If it is determined that the checkbutton should
+            # initially be checked, check the checkbutton.
+            if determine_widget_attribute(checkbutton_template, \
+                "is_checked", self.template, self.settings):
+                checkbutton_obj.select()
+                checkbutton_template["is_checked_loaded_value"] = True
+
+            # If it is determined that the checkbutton should
+            # initially be unchecked, uncheck the checkbutton.
+            else:
+                checkbutton_obj.deselect()
+                checkbutton_template["is_checked_loaded_value"] = False
+
+        # Loop through all of the entries in the settings window.
+        for entry_template in self.template["entries"]["window_settings"]:
+
+            # Retrieve the entry widget associated with the current entry template's string key.
+            entry_obj = self.widgets[entry_template["str_key"]]
+
+            # If it is determined that the entry should initially be enabled, enable the entry.
+            if determine_widget_attribute(entry_template, \
+                "initial_state", self.template, self.settings):
+                entry_obj["state"] = NORMAL
+
+            # If it is determined that the entry should initially be disabled, disable the entry.
+            else:
+                entry_obj["state"] = DISABLED
+
+            # Determine what the text of the entry should be set to.
+            entry_text = determine_widget_attribute(entry_template, \
+                "text", self.template, self.settings)
+
+            # Set the text value of the current entry to the previously determined value.
+            print_to_entry(entry_text, entry_obj, wipe_clean=True)
+
     def button_settings_macro(self):
         "This method will be executed when the settings button is pressed."
 
@@ -95,8 +142,8 @@ class SettingsButtonMacros():
         # Temporarily reset the current settings to their defaults.
         self.settings.user = self.settings.default
 
-        # Reset all of the widgets in the settings window.
-        self.widgets.refresh_window("window_settings", self.parent)
+        # Reset the values of all of the widgets in the settings window.
+        self.refresh_settings_window_values()
 
         # If resetting to the default settings DID NOT CHANGE any settings in the
         # settings window, disable the "Cancel changes" and "Save settings" button.
@@ -124,8 +171,11 @@ class SettingsButtonMacros():
         """This method will be executed when the "Cancel
         changes" button in the settings window is pressed."""
 
-        # Refresh all of the widgets in the settings window.
-        self.widgets.refresh_window("window_settings", self.parent)
+        # Reset the values of all of the widgets in the settings window.
+        self.refresh_settings_window_values()
+
+        # Disable the "Save settings" button.
+        self.widgets["button_save_settings"]["state"] = DISABLED
 
         # If the current settings are the same as the default
         # settings, disable the "Reset to default" button.

@@ -160,6 +160,36 @@ def checkbutton_enable_disable_macro(checkbutton_template, widgets):
             to_disable["state"] = DISABLED
 
 
+def determine_widget_attribute(widget_template, attribute_str, template, settings):
+    """This method determines what a particular attribute (indicated by "state") of a widget
+    should be set to. Sometimes, a widget's attribute is stored directly in the value associated
+    with a key ("state") in its template. Other times, the widget's attribute is associated
+    with a value stored in the settings or in another template. In either case, this method
+    will locate the correct setting for an attribute and return the value of that setting."""
+
+    state = widget_template[attribute_str]
+
+    # Trace the linked state back to the source reference.
+    while isinstance(state, dict):
+
+        linked_dict = state["linked_dict"]
+        linked_attribute = state["linked_attribute"]
+        dict_to_reference = settings if linked_dict in settings.user else template
+        state = dict_to_reference[linked_dict][linked_attribute]
+
+    if isinstance(widget_template[attribute_str], dict):
+
+        # If we should return a value that is not the linked
+        # value, determine that value here and return it.
+        if state and "value_if_true" in widget_template[attribute_str]:
+            return widget_template[attribute_str]["value_if_true"]
+        if not state and "value_if_false" in widget_template[attribute_str]:
+            return widget_template[attribute_str]["value_if_false"]
+
+    # Return the exact value of the linked state if a custom value was not set.
+    return state
+
+
 def copy_text_file_to_text_widget(file_full_path, file_encoding, text_obj):
     """This method prints the entire contents of the text file
     indicated by file_full_path to the text widget text_obj."""

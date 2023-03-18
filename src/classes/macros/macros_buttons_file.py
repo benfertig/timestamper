@@ -5,8 +5,10 @@ that are executed when a file button in the Time Stamper program is pressed."""
 from ntpath import sep as ntpath_sep
 from posixpath import sep as posixpath_sep
 from os.path import basename
-from sys import platform
+from sys import platform, getwindowsversion
 from tkinter import filedialog
+from pyglet import options as pyglet_options
+from pyglet.media import have_ffmpeg
 from .macros_helper_methods import merge_success_message, merge_failure_message_file_not_readable, \
     merge_notes, print_to_entry, print_to_text, verify_text_file
 
@@ -96,10 +98,59 @@ class FileButtonMacros():
     def button_audio_select_macro(self):
         """This method will be executed when the "Select synced audio file" button is pressed."""
 
+        # TODO: SOME POTENTIAL FUTURE AUDIO FORMATS TO INCLUDE ARE (but are not limited to):
+        # *.aiff *.aac *.m4a *.ogg *.alac *.dsd *.mqa
+
+        pyglet_options["search_local_libs"] = True
+        audio_file_types = set()
+
+        # If we are on Windows...
+        if platform.startswith("win"):
+
+            # Store the major and minor versions of the current Windows operating system.
+            windows_version_major, windows_version_minor = getwindowsversion()[0:2]
+
+            # If we are on Windows Vista or above...
+            if windows_version_major >= 6:
+
+                audio_file_types.update({"*.mp3", "*.wma"})
+
+                # If we are on Windows 7 or above (not Windows Vista)...
+                if not (windows_version_major == 6 and windows_version_minor == 0):
+                    audio_file_types.update({"*.aac", "*.adts"})
+
+                    # If we are on Windows 10 or above (not Windows Vista or Windows 7)...
+                    if windows_version_major >= 10:
+                        audio_file_types.update({"*.flac"})
+
+        # If Pyglet has determined that it has ffmpeg at its disposal, then the following additional
+        # audio file formats should be made available to the user under the "Audio files" option in
+        # the file dialog window labeled "Select an audio file". However, keep in mind that if
+        # Pyglet has determined that it has ffmpeg at its disposal, then Pyglet can play more audio
+        # file formats other than just those that are listed directly below. The audio file formats
+        # listed directly below are simply some of the most common audio file formats that Pyglet
+        # can play when it is able to make use of ffmpeg. Therefore, it may be wise to include
+        # more audio file formats directly below in the future (see the TODO at the top of this
+        # method). Although, regardless of whether or not more audio file formats are added directly
+        # below in the future, the user should always be able to select ANY file they want by
+        # selecting the "All files" option in the file dialog window labeled "Select an audio file".
+        if have_ffmpeg():
+            audio_file_types.update({"*.au", "*.mp2", "*.mp3", "*.wav", "*.wma"})
+
+        # INCLUDE "Audio files" as an option in the file dialog window if ANY of
+        # the audio file formats mentioned in this method were determined to be
+        # compatible with the user's installation of the Time Stamper program.
+        if audio_file_types:
+            audio_file_types = " ".join(sorted(audio_file_types))
+            file_types = (("Audio files", audio_file_types), ("All files", "*.*"))
+
+        # DO NOT INCLUDE "Audio files" as an option in the file dialog window if NONE
+        # of the audio file formats mentioned in this method were determined to
+        # be compatible with the user's installation of the Time Stamper program.
+        else:
+            file_types = (("All files", "*.*"))
+
         # Get the path to the selected audio file.
-        file_types = \
-            (("Audio files", "*.wav *.mp3 *.flac *.aiff *.aac *.m4a "
-              "*.wma *.ogg *.alac *.dsd *.mqa"), ('All files', '*.*'))
         self.file_select_macro("label_audio_path", \
             "entry_audio_path", "Select an audio file", file_types)
 

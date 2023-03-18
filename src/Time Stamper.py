@@ -1,5 +1,5 @@
 #-*- coding: utf-8 -*-
-"""A person who wants to run the Time Stamper program should execute this script in Python 3.""" 
+"""A person who wants to run the Time Stamper program should execute this script in Python 3."""
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig

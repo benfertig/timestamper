@@ -155,11 +155,7 @@
 
         "str_key": "button_record",
 
-        "initial_state": {
-            "linked_dict": "output",
-            "linked_attribute": "path"
-        },
-
+        "initial_state": false,
         "image_file_name": "record.png",
 
         "print_on_press": {
@@ -190,10 +186,7 @@
 
         "str_key": "button_mute",
 
-        "initial_state": {
-            "linked_dict": "audio",
-            "linked_attribute": "path"
-        },
+        "initial_state": false,
 
         "image_file_name": "volume_high.png",
 

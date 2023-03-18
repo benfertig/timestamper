@@ -92,17 +92,17 @@ def determine_widget_text(widget_template, template, settings):
         message_encoding = widget_template["message_file_encoding"]
         with open(message_file_loc, "r", encoding=message_encoding) as message_file:
 
-            # If the file associated with the widget is a JSON file, set the widget's
-            # initial text to the value (from the JSON) that is paired with the key
-            # (from the JSON) that is asssociated with the widget's initial message.
+            # If the file associated with the widget's initial text IS a JSON file, set the
+            # widget's initial text to the value (from the JSON) that is paired with the
+            # key (from the JSON) that is asssociated with the widget's initial message.
             if splitext(message_file_loc)[1] == ".json":
                 json_text = json_load(message_file)
                 widget_template["loaded_message_text"] = json_text
                 widget_text = json_text[widget_template["json_first_message_key"]]
                 return widget_text
 
-            # If the file associated with this widget is not a JSON file,
-            # set the widget's initial text to the exact reading of the file.
+            # If the file associated with the widget's initial text IS NOT a JSON
+            # file, set the widget's initial text to the exact reading of the file.
             widget_text = message_file.read()
             widget_template["loaded_message_text"] = widget_text
             return widget_text
@@ -123,9 +123,9 @@ def determine_widget_text(widget_template, template, settings):
 
 
 def determine_widget_attribute(widget_template, attribute_str, template, settings):
-    """This method determines what a particular attribute (indicated by state_str) of a widget
+    """This method determines what a particular attribute (indicated by "state") of a widget
     should be set to. Sometimes, a widget's attribute is stored directly in the value associated
-    with a key (state_str) in its template. Other times, the attribute for the widget is associated
+    with a key ("state") in its template. Other times, the widget's attribute is associated
     with a value stored in the settings or in another template. In either case, this method
     will locate the correct setting for an attribute and return the value of that setting."""
 

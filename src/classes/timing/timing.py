@@ -308,7 +308,7 @@ class TimeStamperTimer():
                 # set that to the maximum time. If an audio source is not loaded,
                 # set the maximum time to the maxmimum time displayable by the timer.
                 max_time = min(359999.99, round(self.time_stamper.audio_source.duration, 2)) \
-                        if self.time_stamper.audio_player else 359999.99
+                    if self.time_stamper.audio_player else 359999.99
 
                 # IF the requested adjustment would have previously brought
                 # the timer OVER the maximum time, reduce the adjustment
