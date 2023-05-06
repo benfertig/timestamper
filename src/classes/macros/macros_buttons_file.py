@@ -5,12 +5,17 @@ that are executed when a file button in the Time Stamper program is pressed."""
 from ntpath import sep as ntpath_sep
 from posixpath import sep as posixpath_sep
 from os.path import basename
-from sys import platform, getwindowsversion
 from tkinter import filedialog
 from pyglet import options as pyglet_options
 from pyglet.media import have_ffmpeg
 from .macros_helper_methods import merge_success_message, merge_failure_message_file_not_readable, \
     merge_notes, print_to_entry, print_to_text, verify_text_file
+try:
+    from sys import getwindowsversion
+except ImportError:
+    from sys import platform
+finally:
+    from sys import platform
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig

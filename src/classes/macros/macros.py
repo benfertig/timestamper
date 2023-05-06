@@ -118,12 +118,9 @@ class Macros():
         }
 
     def print_timestamped_message(self, message, timestamp=None):
-        """If the currently selected output file IS valid, then this method takes a
-        message, timestamps it, and then prints that timestamped message to the notes
-        log and the output file (if no timestamp is provided, then a timestamp will be
-        generated using the timer's current time). If the currently selected output file
-        IS NOT valid, then this method will adjust the configuration of the Time Stamper
-        program to the configuration that is expected when no output file has been selected."""
+        """This method takes a message, timestamps it, and then prints that timestamped
+        message to the notes log and the output file (if no timestamp is provided,
+        then a timestamp will be generated using the timer's current time)."""
 
         # Get the current output path from the output path entry widget.
         output_path = self.widgets["entry_output_path"].get()

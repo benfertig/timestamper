@@ -2,6 +2,7 @@
 """This module contains the TimeStamperTimer class which allows
 for keeping track of time in the Time Stamper program."""
 
+from math import ceil
 from time import perf_counter
 from tkinter import DISABLED
 from pyglet.media import Player
@@ -194,30 +195,33 @@ class TimeStamperTimer():
         # Only tick the timer if it is currently running.
         if self.is_running:
 
-            audio_source = self.time_stamper.audio_source
+            # If audio is playing, sync the timer with the the audio player.
+            if self.time_stamper.audio_player and self.time_stamper.audio_player.playing:
+                internal_time = self.time_stamper.audio_player.time
+
+            # If audio is not playing, set the timer using perf_counter().
+            else:
+                internal_time = perf_counter() - self.start_time + self.offset
 
             # Only tick the timer if its current time is less than the maximum time.
-            current_time_seconds = self.get_current_seconds()
-            max_time = min(359999.99, round(audio_source.duration, 2)) \
+            max_time = min(359999.99, round(self.time_stamper.audio_source.duration, 2)) \
                 if self.time_stamper.audio_player else 359999.99
-            if current_time_seconds < max_time:
+            if internal_time < max_time:
 
-                # If audio is playing, sync the timer with the the audio player.
-                if self.time_stamper.audio_player and self.time_stamper.audio_player.playing:
-                    internal_time = self.time_stamper.audio_player.time
-
-                # If audio is not playing, set the timer using perf_counter().
-                else:
-                    internal_time = perf_counter() - self.start_time + self.offset
-
+                # Display the updated time.
                 self.display_time(internal_time, pad=2)
 
+                # Calculate the amount of time until the next hundreth of a second.
+                seconds_to_next_tick = ((int(internal_time * 100) + 1) / 100) - internal_time
+                thousandth_seconds_to_next_tick = ceil(max(seconds_to_next_tick, .001) * 1000)
+
                 # After a very short delay, tick the timer again.
-                self.time_stamper.root.after(2, self.timer_tick)
+                self.time_stamper.root.after(thousandth_seconds_to_next_tick, self.timer_tick)
 
             # If the timer's currently displayed time is not less
             # than the maximum displayable time, stop the timer.
             else:
+                self.display_time(max_time, pad=2)
                 self.time_stamper.macros["button_stop"]()
 
     def pause(self, temporary_pause=False):
