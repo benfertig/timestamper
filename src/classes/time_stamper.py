@@ -64,8 +64,8 @@ class TimeStamper():
         remove_button = Button(root, text="Remove", \
             command=lambda _: self.remove_func(root))
 
-        # "Grid" the "button" that will remove the menu bar submenus
-        # (although this button will neither be visible nor take up any space).
+        # "Grid" the "button" that will remove the menu bar submenus (although
+        # this "button" will neither be visible nor take up any space).
         remove_button.grid_forget()
 
     def run(self):
