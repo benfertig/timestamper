@@ -211,8 +211,11 @@ class TimeStamperTimer():
                 # Display the updated time.
                 self.display_time(internal_time, pad=2)
 
-                # Calculate the amount of time until the next hundreth of a second.
+                # Calculate the number of seconds to the next hundreth of a second.
                 seconds_to_next_tick = ((int(internal_time * 100) + 1) / 100) - internal_time
+
+                # Convert the number of seconds to the next hundreth of a second to
+                # the number of thousandth-seconds to the next hundreth of a second.
                 thousandth_seconds_to_next_tick = ceil(max(seconds_to_next_tick, .001) * 1000)
 
                 # After a very short delay, tick the timer again.

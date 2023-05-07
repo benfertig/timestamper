@@ -13,7 +13,7 @@ from .macros_helper_methods import merge_success_message, merge_failure_message_
 try:
     from sys import getwindowsversion
 except ImportError:
-    from sys import platform
+    pass
 finally:
     from sys import platform
 
