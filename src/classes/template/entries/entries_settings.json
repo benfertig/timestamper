@@ -78,45 +78,6 @@
 
     },
 
-    "entry_stop_settings": {
-
-        "str_key": "entry_stop_settings",
-        "window_str_key": "window_settings",
-
-        "initial_state": {
-            "linked_dict": "checkbutton_stop_settings",
-            "linked_attribute": "is_checked"
-        },
-
-        "text": {
-            "linked_dict": "stop",
-            "linked_attribute": "message"
-        },
-        "text_loaded_value": "",
-
-        "linked_setting": {
-            "linked_dict": "stop",
-            "linked_attribute": "message",
-            "attribute_to_copy": "text_loaded_value"
-        },
-
-        "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
-
-        "width": 50,
-
-        "column": 2,
-        "row": 3,
-
-        "columnspan": 3,
-
-        "padx": [0, 5],
-
-        "is_in_settings": true,
-
-        "sticky": "w"
-
-    },
-
     "entry_rewind_settings": {
 
         "str_key": "entry_rewind_settings",
@@ -144,7 +105,7 @@
         "width": 50,
 
         "column": 2,
-        "row": 4,
+        "row": 3,
 
         "columnspan": 3,
 
@@ -183,46 +144,7 @@
         "width": 50,
 
         "column": 2,
-        "row": 5,
-
-        "columnspan": 3,
-
-        "padx": [0, 5],
-
-        "is_in_settings": true,
-
-        "sticky": "w"
-
-    },
-
-    "entry_record_settings": {
-
-        "str_key": "entry_record_settings",
-        "window_str_key": "window_settings",
-
-        "initial_state": {
-            "linked_dict": "checkbutton_record_settings",
-            "linked_attribute": "is_checked"
-        },
-
-        "text": {
-            "linked_dict": "record",
-            "linked_attribute": "message"
-        },
-        "text_loaded_value": "",
-
-        "linked_setting": {
-            "linked_dict": "record",
-            "linked_attribute": "message",
-            "attribute_to_copy": "text_loaded_value"
-        },
-
-        "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
-
-        "width": 50,
-
-        "column": 2,
-        "row": 6,
+        "row": 4,
 
         "columnspan": 3,
 
@@ -256,7 +178,7 @@
         "width": 50,
 
         "column": 2,
-        "row": 7,
+        "row": 5,
 
         "columnspan": 3,
 
@@ -291,7 +213,7 @@
         "width": 50,
 
         "column": 2,
-        "row": 8,
+        "row": 6,
 
         "columnspan": 3,
 
@@ -326,7 +248,7 @@
         "width": 50,
 
         "column": 2,
-        "row": 9,
+        "row": 7,
 
         "columnspan": 3,
 

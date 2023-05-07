@@ -14,7 +14,7 @@
             "print_message_attribute": "message"
         },
 
-        "to_enable": ["button_play", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
+        "to_enable": ["button_play", "button_output_select", "button_merge_output_files", "button_audio_select", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
         "to_disable": ["button_pause"],
 
         "width": 48,
@@ -48,44 +48,12 @@
         },
 
         "to_enable": ["button_pause"],
-        "to_disable": ["button_play", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
+        "to_disable": ["button_play", "button_output_select", "button_merge_output_files", "button_audio_select", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
 
         "width": 48,
         "height": 48,
 
         "column": 1,
-        "row": 0,
-
-        "columnspan": 1,
-        "rowspan": 2,
-
-        "pady": [5, 0],
-
-        "sticky": "nsew"
-
-    },
-
-    "button_stop": {
-
-        "str_key": "button_stop",
-
-        "initial_state": false,
-
-        "image_file_name": "stop.png",
-
-        "print_on_press": {
-            "linked_dict": "stop",
-            "print_bool_attribute": "message_enabled",
-            "print_message_attribute": "message"
-        },
-
-        "to_enable": ["button_record", "button_output_select", "button_merge_output_files", "button_audio_select", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
-        "to_disable": ["button_pause", "button_play", "button_stop"],
-
-        "width": 48,
-        "height": 48,
-
-        "column": 2,
         "row": 0,
 
         "columnspan": 1,
@@ -143,37 +111,6 @@
         "row": 0,
 
         "columnspan": 2,
-        "rowspan": 2,
-
-        "pady": [5, 0],
-
-        "sticky": "nsew"
-
-    },
-
-    "button_record": {
-
-        "str_key": "button_record",
-
-        "initial_state": false,
-        "image_file_name": "record.png",
-
-        "print_on_press": {
-            "linked_dict": "record",
-            "print_bool_attribute": "message_enabled",
-            "print_message_attribute": "message"
-        },
-
-        "to_enable": ["button_pause", "button_stop"],
-        "to_disable": ["button_record", "button_output_select", "button_merge_output_files", "button_audio_select", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
-
-        "width": 48,
-        "height": 48,
-
-        "column": 7,
-        "row": 0,
-
-        "columnspan": 1,
         "rowspan": 2,
 
         "pady": [5, 0],

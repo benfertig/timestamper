@@ -40,11 +40,6 @@ class CheckbuttonMacros():
 
         checkbutton_enable_disable_macro(self.template["checkbutton_play_settings"], self.widgets)
 
-    def checkbutton_stop_settings_macro(self):
-        """This method will be executed when the stop settings checkbutton is pressed."""
-
-        checkbutton_enable_disable_macro(self.template["checkbutton_stop_settings"], self.widgets)
-
     def checkbutton_rewind_settings_macro(self):
         """This method will be executed when the rewind settings checkbutton is pressed."""
 
@@ -55,8 +50,3 @@ class CheckbuttonMacros():
 
         checkbutton_enable_disable_macro(\
             self.template["checkbutton_fast_forward_settings"], self.widgets)
-
-    def checkbutton_record_settings_macro(self):
-        """This method will be executed when the record settings checkbutton is pressed."""
-
-        checkbutton_enable_disable_macro(self.template["checkbutton_record_settings"], self.widgets)

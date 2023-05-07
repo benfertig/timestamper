@@ -220,14 +220,14 @@ class TimeStamperTimer():
                 self.time_stamper.root.after(thousandth_seconds_to_next_tick, self.timer_tick)
 
             # If the timer's currently displayed time is not less
-            # than the maximum displayable time, stop the timer.
+            # than the maximum displayable time, pause the timer.
             else:
                 self.display_time(max_time, pad=2)
-                self.time_stamper.macros["button_stop"]()
+                self.time_stamper.macros["button_pause"]()
 
     def pause(self, temporary_pause=False):
-        """This method halts the timer and is typically run when the pause or stop button
-        is pressed or when the audio slider is dragged. An optional argument temporary_pause,
+        """This method halts the timer and is typically run when the pause button is
+        pressed or when the audio slider is dragged. An optional argument temporary_pause,
         which is set to False by default, is only ever set to True if this method is called
         from scale_audio_time_left_mouse_press in widgets_helper_methods.py and if the
         timer was previously unpaused. When the audio slider is then released (i.e., when
@@ -250,8 +250,7 @@ class TimeStamperTimer():
                 self.time_stamper.audio_player.pause()
 
     def play(self):
-        """This method starts the timer and is typically
-        run when the play or record button is pressed."""
+        """This method starts the timer and is typically run when the play button is pressed."""
 
         # The timer is no longer paused, so self.temporary_pause should be set to False.
         self.temporary_pause = False
@@ -283,10 +282,10 @@ class TimeStamperTimer():
             self.timer_tick()
 
         # If the timer's currently displayed time is not less
-        # than the maximum displayable time, stop the timer.
+        # than the maximum displayable time, pause the timer.
         else:
             self.display_time(max_time, pad=2)
-            self.time_stamper.macros["button_stop"]()
+            self.time_stamper.macros["button_pause"]()
 
     def adjust_timer(self, seconds_to_adjust_by):
         """This method rewinds/fast_forwards the timer and is typically run when the

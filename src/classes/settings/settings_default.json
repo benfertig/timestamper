@@ -14,10 +14,6 @@
         "message_enabled": false,
         "message": "RESUME"
     },
-    "stop": {
-        "message_enabled": true,
-        "message": "STOP"
-    },
     "rewind": {
         "message_enabled": false,
         "message": "REWIND $amount seconds to $dest"
@@ -25,10 +21,6 @@
     "fast_forward": {
         "message_enabled": false,
         "message": "FAST-FORWARD $amount seconds to $dest"
-    },
-    "record": {
-        "message_enabled": true,
-        "message": "START"
     },
     "hotkey_1": {
         "message": "HOTKEY 1"

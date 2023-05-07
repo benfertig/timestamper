@@ -36,9 +36,9 @@ class MediaButtonMacros():
         self.timer = parent.timer
 
     def media_button_macro(self, button_str_key, entry_str_key=None, is_rewind=True):
-        """This method is called on by the macros for the pause, play, stop, rewind,
-        fast-forward and record buttons. Since similar processes are executed for
-        all of these buttons, their shared procedures have been condensed down to
+        """This method is called on by the macros for the pause, play, rewind,
+        and fast-forward buttons. Since similar processes are executed for all
+        of these buttons, their shared procedures have been condensed down to
         this method, where the arguments specific to each button can be passed."""
 
         button_template = self.template[button_str_key]
@@ -101,7 +101,7 @@ class MediaButtonMacros():
 
         self.media_button_macro("button_pause")
 
-        # Stop the timer.
+        # Pause the timer.
         self.timer.pause()
 
     def button_play_macro(self):
@@ -112,14 +112,6 @@ class MediaButtonMacros():
         # Start the timer.
         self.timer.play()
 
-    def button_stop_macro(self):
-        """This method will be executed when the stop button is pressed."""
-
-        self.media_button_macro("button_stop")
-
-        # Stop the timer.
-        self.timer.pause()
-
     def button_rewind_macro(self):
         """This method will be executed when the rewind button is pressed."""
 
@@ -129,15 +121,6 @@ class MediaButtonMacros():
         """This method will be executed when the fast-forward button is pressed."""
 
         self.media_button_macro("button_fast_forward", "entry_fast_forward", is_rewind=False)
-
-    def button_record_macro(self):
-        """This method will be executed when the record
-        button is pressed, and will begin the timer."""
-
-        self.media_button_macro("button_record")
-
-        # Start the timer.
-        self.timer.play()
 
     def button_mute_macro(self):
         """This method will be executed when the mute button is pressed."""

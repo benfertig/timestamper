@@ -67,10 +67,8 @@ class Macros():
             # Checkbuttons
             "checkbutton_pause_settings": check.checkbutton_pause_settings_macro,
             "checkbutton_play_settings": check.checkbutton_play_settings_macro,
-            "checkbutton_stop_settings": check.checkbutton_stop_settings_macro,
             "checkbutton_rewind_settings": check.checkbutton_rewind_settings_macro,
             "checkbutton_fast_forward_settings": check.checkbutton_fast_forward_settings_macro,
-            "checkbutton_record_settings": check.checkbutton_record_settings_macro,
 
             # Scales
             "scale_audio_time": scales.scale_audio_time_macro,
@@ -92,10 +90,8 @@ class Macros():
             # Media buttons
             "button_pause": media.button_pause_macro,
             "button_play": media.button_play_macro,
-            "button_stop": media.button_stop_macro,
             "button_rewind": media.button_rewind_macro,
             "button_fast_forward": media.button_fast_forward_macro,
-            "button_record": media.button_record_macro,
             "button_mute": media.button_mute_macro,
 
             # Note buttons

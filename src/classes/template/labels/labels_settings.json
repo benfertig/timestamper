@@ -58,20 +58,6 @@
 
     },
 
-    "label_stop_settings": {
-
-        "str_key": "label_stop_settings",
-        "window_str_key": "window_settings",
-
-        "text": "Stop button:",
-
-        "column": 0,
-        "row": 3,
-
-        "sticky": "e"
-
-    },
-
     "label_rewind_settings": {
 
         "str_key": "label_rewind_settings",
@@ -80,7 +66,7 @@
         "text": "Rewind button:",
 
         "column": 0,
-        "row": 4,
+        "row": 3,
 
         "sticky": "e"
 
@@ -94,7 +80,7 @@
         "text": "$amount (rewind amount), $dest (destination time)",
 
         "column": 5,
-        "row": 4,
+        "row": 3,
 
         "columnspan": 1,
 
@@ -110,7 +96,7 @@
         "text": "Fast-forward button:",
 
         "column": 0,
-        "row": 5,
+        "row": 4,
 
         "sticky": "e"
 
@@ -124,25 +110,11 @@
         "text": "$amount (fast-forward amount), $dest (destination time)",
 
         "column": 5,
-        "row": 5,
+        "row": 4,
 
         "columnspan": 1,
 
         "sticky": "w"
-
-    },
-
-    "label_record_settings": {
-
-        "str_key": "label_record_settings",
-        "window_str_key": "window_settings",
-
-        "text": "Record button:",
-
-        "column": 0,
-        "row": 6,
-
-        "sticky": "e"
 
     },
 
@@ -154,7 +126,7 @@
         "text": "Hotkey 1:",
 
         "column": 0,
-        "row": 7,
+        "row": 5,
 
         "columnspan": 2,
 
@@ -172,7 +144,7 @@
         "text": "Hotkey 2:",
 
         "column": 0,
-        "row": 8,
+        "row": 6,
 
         "columnspan": 2,
 
@@ -190,7 +162,7 @@
         "text": "Hotkey 3:",
 
         "column": 0,
-        "row": 9,
+        "row": 7,
 
         "columnspan": 2,
 

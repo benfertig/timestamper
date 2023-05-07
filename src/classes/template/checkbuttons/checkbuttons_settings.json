@@ -60,36 +60,6 @@
 
     },
 
-    "checkbutton_stop_settings": {
-
-        "str_key": "checkbutton_stop_settings",
-        "window_str_key": "window_settings",
-
-        "is_checked": {
-            "linked_dict": "stop",
-            "linked_attribute": "message_enabled"
-        },
-
-        "is_checked_loaded_value": null,
-
-        "linked_setting": {
-            "linked_dict": "stop",
-            "linked_attribute": "message_enabled",
-            "attribute_to_copy": "is_checked_loaded_value"
-        },
-
-        "to_enable_toggle": ["entry_stop_settings"],
-        "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
-
-        "column": 1,
-        "row": 3,
-
-        "is_in_settings": true,
-
-        "sticky": "w"
-
-    },
-
     "checkbutton_rewind_settings": {
 
         "str_key": "checkbutton_rewind_settings",
@@ -112,7 +82,7 @@
         "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
 
         "column": 1,
-        "row": 4,
+        "row": 3,
 
         "is_in_settings": true,
 
@@ -142,37 +112,7 @@
         "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
 
         "column": 1,
-        "row": 5,
-
-        "is_in_settings": true,
-
-        "sticky": "w"
-
-    },
-
-    "checkbutton_record_settings": {
-
-        "str_key": "checkbutton_record_settings",
-        "window_str_key": "window_settings",
-
-        "is_checked": {
-            "linked_dict": "record",
-            "linked_attribute": "message_enabled"
-        },
-
-        "is_checked_loaded_value": null,
-
-        "linked_setting": {
-            "linked_dict": "record",
-            "linked_attribute": "message_enabled",
-            "attribute_to_copy": "is_checked_loaded_value"
-        },
-
-        "to_enable_toggle": ["entry_record_settings"],
-        "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
-
-        "column": 1,
-        "row": 6,
+        "row": 4,
 
         "is_in_settings": true,
 
