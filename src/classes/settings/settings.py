@@ -5,7 +5,7 @@ the attributes that can be edited by the user in the Time Stamper program."""
 from dataclasses import dataclass
 from json import dump, load
 from json.decoder import JSONDecodeError
-from os import getenv, mkdir, sep
+from os import mkdir, sep
 from os.path import dirname, exists, expanduser, join
 from sys import platform
 
@@ -91,7 +91,8 @@ class TimeStamperSettings():
 
         # If we are on Windows, search for the settings_user.json within %APPDATA%.
         if platform.startswith("win"):
-            return join(f"{getenv('APPDATA')}{sep}", f"Time Stamper{sep}", f"{version_number}{sep}")
+            return join(f"{expanduser('~')}{sep}", f"Documents{sep}",
+                f"Time Stamper{sep}", f"{version_number}{sep}")
 
         # If we are on a Mac, search for settings_user.json within Library/Preferences
         if platform.startswith("darwin"):
