@@ -91,10 +91,8 @@ class TimeStamperTimer():
         h_m_s = seconds_to_h_m_s(new_time, pad)
 
         # Print the hours, minutes, seconds and subseconds to their relevant Tkinter entries.
-        print_to_entry(h_m_s[0], self.time_stamper.widgets["entry_hours"])
-        print_to_entry(h_m_s[1], self.time_stamper.widgets["entry_minutes"])
-        print_to_entry(h_m_s[2], self.time_stamper.widgets["entry_seconds"])
-        print_to_entry(h_m_s[3], self.time_stamper.widgets["entry_subseconds"])
+        for i, time_field in enumerate(("hours", "minutes", "seconds", "subseconds")):
+            print_to_entry(h_m_s[i], self.time_stamper.widgets[f"entry_{time_field}"])
 
         # If a timestamp has not been set, make the timestamp label reflect the current time.
         if not self.timestamp_set:
