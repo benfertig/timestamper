@@ -20,7 +20,8 @@ should create an instance of this TimeStamper class and then call that instance'
 
 # Contact: github.cqrde@simplelogin.com
 
-from dataclasses import dataclass
+from sys import platform
+from tkinter import Button, Menu
 from .macros.macros import Macros
 from .settings.settings import TimeStamperSettings
 from .template.template import TimeStamperTemplate
@@ -28,7 +29,6 @@ from .timing.timing import TimeStamperTimer
 from .widgets.widgets import Widgets
 
 
-@dataclass
 class TimeStamper():
     """To run the Time Stamper program, first create an instance
     of this class. Then, call this class' run() method."""
@@ -44,11 +44,39 @@ class TimeStamper():
         self.macros = Macros(self, settings)
         self.audio_source, self.audio_player = None, None
 
+    def remove_func(self, root):
+        """This method is used as the command for the Tkinter "Button"
+        which, when placed, will remove the menu bar submenus from
+        Mac computers while the Time Stamper program is running."""
+
+        root.config(menu=Menu(root))
+
+    def remove_mac_menu_bar_submenus(self, root):
+        """This method removes the menu bar submenus from Mac computers while
+        the Time Stamper program is running. The only argument that needs
+        to be provided is the Time Stamper program's root window."""
+
+        # Initialize the menu bar for the root window.
+        menubar = Menu(root)
+        root.config(menu=menubar)
+
+        # Create the "button" which, once placed, will remove the menu bar submenus.
+        remove_button = Button(root, text="Remove", \
+            command=lambda _: self.remove_func(root))
+
+        # "Grid" the "button" that will remove the menu bar submenus
+        # (although this button will neither be visible nor take up any space).
+        remove_button.grid_forget()
+
     def run(self):
         """This method runs the Time Stamper program."""
 
         # Create the main window and all of its widgets.
         self.root = self.widgets.create_entire_window("window_main", self.macros)
+
+        # If we are on a Mac, remove all of the submenus from the menu bar.
+        if platform.startswith("darwin"):
+            self.remove_mac_menu_bar_submenus(self.root)
 
         # Perform a check to see whether a default OUTPUT file path was provided,
         # and if so, whether that path corresponds to a TEXT file that is suitable
