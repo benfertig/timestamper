@@ -76,7 +76,7 @@
         "width": 3,
         "height": 1,
 
-        "column": 4,
+        "column": 5,
         "row": 2,
 
         "sticky": "nw",
@@ -96,7 +96,7 @@
         "width": 3,
         "height": 1,
 
-        "column": 6,
+        "column": 7,
         "row": 2,
 
         "sticky": "nw",

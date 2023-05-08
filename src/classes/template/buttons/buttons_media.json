@@ -65,6 +65,60 @@
 
     },
 
+    "button_rewind": {
+
+        "str_key": "button_rewind",
+
+        "image_file_name": "rewind.png",
+
+        "print_on_press": {
+            "linked_dict": "rewind",
+            "print_bool_attribute": "message_enabled",
+            "print_message_attribute": "message"
+        },
+
+        "width": 48,
+        "height": 48,
+
+        "column": 2,
+        "row": 0,
+
+        "columnspan": 1,
+        "rowspan": 2,
+
+        "pady": [5, 0],
+
+        "sticky": "nsew"
+
+    },
+
+    "button_fast_forward": {
+
+        "str_key": "button_fast_forward",
+
+        "image_file_name": "fast_forward.png",
+
+        "print_on_press": {
+            "linked_dict": "fast_forward",
+            "print_bool_attribute": "message_enabled",
+            "print_message_attribute": "message"
+        },
+
+        "width": 48,
+        "height": 48,
+
+        "column": 3,
+        "row": 0,
+
+        "columnspan": 1,
+        "rowspan": 2,
+
+        "pady": [5, 0],
+
+        "sticky": "nsew"
+
+    },
+
     "button_skip_backward": {
 
         "str_key": "button_skip_backward",
@@ -80,7 +134,7 @@
         "width": 48,
         "height": 48,
 
-        "column": 3,
+        "column": 4,
         "row": 0,
 
         "columnspan": 2,
@@ -107,7 +161,7 @@
         "width": 48,
         "height": 48,
 
-        "column": 5,
+        "column": 6,
         "row": 0,
 
         "columnspan": 2,
