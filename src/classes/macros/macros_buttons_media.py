@@ -3,7 +3,7 @@
 that are executed when a media button in the Time Stamper program is pressed."""
 
 from sys import platform
-from .macros_helper_methods import button_enable_disable_macro, rewind_or_fast_forward
+from .macros_helper_methods import button_enable_disable_macro, skip_backward_or_forward
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -35,9 +35,9 @@ class MediaButtonMacros():
         self.widgets = parent.widgets
         self.timer = parent.timer
 
-    def media_button_macro(self, button_str_key, entry_str_key=None, is_rewind=True):
-        """This method is called on by the macros for the pause, play, rewind,
-        and fast-forward buttons. Since similar processes are executed for all
+    def media_button_macro(self, button_str_key, entry_str_key=None, is_skip_backward=True):
+        """This method is called on by the macros for the pause, play, skip backward,
+        and skip forward buttons. Since similar processes are executed for all
         of these buttons, their shared procedures have been condensed down to
         this method, where the arguments specific to each button can be passed."""
 
@@ -46,22 +46,22 @@ class MediaButtonMacros():
         # Enable and disable the relevant widgets for when this button is pressed.
         button_enable_disable_macro(button_template, self.widgets)
 
-        # Get the timestamp before rewinding/fast-forwarding.
+        # Get the timestamp before skipping backward/forward.
         first_timestamp = self.timer.current_time_to_timestamp()
 
         seconds_to_adjust_by = None
 
         # If there is an entry associated with this button, then that means
-        # we are either rewinding or fast-forwarding, so we should rewind or
-        # fast-forward the amount of seconds indicated by the relevant entry.
+        # we are either skipping backward or forward, so we should skip backward
+        # or forward the amount of seconds indicated by the relevant entry.
         if entry_str_key:
 
-            # Rewind/fast-forward the timer the specified number of seconds.
+            # Skip the timer backward/forward the specified number of seconds.
             adjustment_input = self.widgets[entry_str_key].get()
-            seconds_to_adjust_by = \
-                rewind_or_fast_forward(adjustment_input, is_rewind, self.timer.adjust_timer)
+            seconds_to_adjust_by = skip_backward_or_forward(adjustment_input, \
+                is_skip_backward, self.timer.adjust_timer)
 
-            # Get the timestamp after rewinding/fast-forwarding.
+            # Get the timestamp after skipping backward/forward.
             second_timestamp = self.timer.current_time_to_timestamp()
 
         # If the user has set a message to be printed
@@ -71,17 +71,18 @@ class MediaButtonMacros():
         # Only print a message for this button if:
         #     1) a message was specified for this button
         #     AND
-        #     2) the rewind/fast-forward amount was not zero seconds (this condition does not apply
-        #        if the user pressed a media button other than the rewind or fast-forward button).
+        #     2) the skip backward/forward amount was not zero seconds (this
+        #        condition does not apply if the user pressed a media button
+        #        that was not the skip backrward or skip forward button).
         if button_message is not None and seconds_to_adjust_by != 0:
 
-            # If there is an entry associated with this button, then that means
-            # we are either rewinding or fast-forwarding and we potentially need
+            # If there is an entry associated with this button, then that means we
+            # are either skipping backward or skipping forward and we potentially need
             # to swap the user's input for the button's message with other values.
             if entry_str_key:
 
                 # We may need to print the exact number of seconds that the
-                # user rewound/fast-forwarded by. Manipulate the displayed
+                # user skipped backward/forward by. Manipulate the displayed
                 # adjustment amount to make it as readable as possible here.
                 seconds_to_adjust_by = abs(round(seconds_to_adjust_by, 2))
                 if seconds_to_adjust_by % 1 == 0:
@@ -112,15 +113,16 @@ class MediaButtonMacros():
         # Start the timer.
         self.timer.play()
 
-    def button_rewind_macro(self):
-        """This method will be executed when the rewind button is pressed."""
+    def button_skip_backward_macro(self):
+        """This method will be executed when the skip backward button is pressed."""
 
-        self.media_button_macro("button_rewind", "entry_rewind", is_rewind=True)
+        self.media_button_macro("button_skip_backward", \
+            "entry_skip_backward", is_skip_backward=True)
 
-    def button_fast_forward_macro(self):
-        """This method will be executed when the fast-forward button is pressed."""
+    def button_skip_forward_macro(self):
+        """This method will be executed when the skip forward button is pressed."""
 
-        self.media_button_macro("button_fast_forward", "entry_fast_forward", is_rewind=False)
+        self.media_button_macro("button_skip_forward", "entry_skip_forward", is_skip_backward=False)
 
     def button_mute_macro(self):
         """This method will be executed when the mute button is pressed."""

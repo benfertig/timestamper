@@ -14,13 +14,13 @@
         "message_enabled": false,
         "message": "RESUME"
     },
-    "rewind": {
+    "skip_backward": {
         "message_enabled": false,
-        "message": "REWIND $amount seconds to $dest"
+        "message": "SKIP BACKWARD $amount seconds to $dest"
     },
-    "fast_forward": {
+    "skip_forward": {
         "message_enabled": false,
-        "message": "FAST-FORWARD $amount seconds to $dest"
+        "message": "SKIP FORWARD $amount seconds to $dest"
     },
     "hotkey_1": {
         "message": "HOTKEY 1"

@@ -58,12 +58,12 @@
 
     },
 
-    "label_rewind_settings": {
+    "label_skip_backward_settings": {
 
-        "str_key": "label_rewind_settings",
+        "str_key": "label_sckip_backward_settings",
         "window_str_key": "window_settings",
 
-        "text": "Rewind button:",
+        "text": "Skip backward button:",
 
         "column": 0,
         "row": 3,
@@ -72,12 +72,12 @@
 
     },
 
-    "label_rewind_optional_variables": {
+    "label_skip_backward_optional_variables": {
 
-        "str_key": "label_rewind_optional_variables",
+        "str_key": "label_skip_backward_optional_variables",
         "window_str_key": "window_settings",
 
-        "text": "$amount (rewind amount), $dest (destination time)",
+        "text": "$amount (skip backward amount), $dest (destination time)",
 
         "column": 5,
         "row": 3,
@@ -88,12 +88,12 @@
 
     },
 
-    "label_fast_forward_settings": {
+    "label_skip_forward_settings": {
 
-        "str_key": "label_fast_forward_settings",
+        "str_key": "label_skip_forward_settings",
         "window_str_key": "window_settings",
 
-        "text": "Fast-forward button:",
+        "text": "Skip forward button:",
 
         "column": 0,
         "row": 4,
@@ -102,12 +102,12 @@
 
     },
 
-    "label_fast_forward_optional_variables": {
+    "label_skip_forward_optional_variables": {
 
-        "str_key": "label_fast_forward_optional_variables",
+        "str_key": "label_skip_forward_optional_variables",
         "window_str_key": "window_settings",
 
-        "text": "$amount (fast-forward amount), $dest (destination time)",
+        "text": "$amount (skip forward amount), $dest (destination time)",
 
         "column": 5,
         "row": 4,

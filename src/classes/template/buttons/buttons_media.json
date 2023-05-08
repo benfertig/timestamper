@@ -65,14 +65,14 @@
 
     },
 
-    "button_rewind": {
+    "button_skip_backward": {
 
-        "str_key": "button_rewind",
+        "str_key": "button_skip_backward",
 
-        "image_file_name": "rewind.png",
+        "image_file_name": "skip_backward.png",
 
         "print_on_press": {
-            "linked_dict": "rewind",
+            "linked_dict": "skip_backward",
             "print_bool_attribute": "message_enabled",
             "print_message_attribute": "message"
         },
@@ -92,14 +92,14 @@
 
     },
 
-    "button_fast_forward": {
+    "button_skip_forward": {
 
-        "str_key": "button_fast_forward",
+        "str_key": "button_skip_forward",
 
-        "image_file_name": "fast_forward.png",
+        "image_file_name": "skip_forward.png",
 
         "print_on_press": {
-            "linked_dict": "fast_forward",
+            "linked_dict": "skip_forward",
             "print_bool_attribute": "message_enabled",
             "print_message_attribute": "message"
         },

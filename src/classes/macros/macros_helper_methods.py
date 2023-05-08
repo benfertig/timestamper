@@ -296,24 +296,24 @@ def print_to_file(to_print, file_path, file_encoding="utf-8", access_mode="a+"):
             out_file.write(to_print)
 
 
-def rewind_or_fast_forward(user_input, is_rewind, adjust_timer_method):
-    """This method is called by button_rewind_macro and button_fast_forward_macro in
-    macros_buttons_media.py. The functions performed by both the rewind and fast-forward
+def skip_backward_or_forward(user_input, is_skip_backward, adjust_timer_method):
+    """This method is called by button_skip_backward_macro and button_skip_forward_macro in
+    macros_buttons_media.py. The functions performed by both the skip backward and skip forward
     buttons are very similar, so their procedures have been condensed down to a single method
     here, and different parameters are passed depending on which button was pressed."""
 
-    # Ensure that the requested rewind/fast-forward amount is a number.
+    # Ensure that the requested skip backward/forward amount is a number.
     try:
         adjust_amount = int(user_input)
 
-    # Do not rewind/fast-forward the timer if the requested rewind/fast-forward
+    # Do not skip the timer backward/forward if the requested skip backward/forward
     # amount is not a number (this should never happen because we have restricted the
-    # rewind/fast-forward entry field to digits, but it never hurts to add a failsafe).
+    # skip backward/forward entry field to digits, but it never hurts to add a failsafe).
     except ValueError:
         return 0
 
-    # Rewind the timer the requested amount.
-    return adjust_timer_method(adjust_amount * -1 if is_rewind else adjust_amount)
+    # Skip the timer backward/forward the requested amount.
+    return adjust_timer_method(adjust_amount * -1 if is_skip_backward else adjust_amount)
 
 
 def store_timestamper_output(output_file_paths, output_file_encoding="utf-8"):

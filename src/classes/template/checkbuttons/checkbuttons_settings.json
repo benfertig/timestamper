@@ -60,25 +60,25 @@
 
     },
 
-    "checkbutton_rewind_settings": {
+    "checkbutton_skip_backward_settings": {
 
-        "str_key": "checkbutton_rewind_settings",
+        "str_key": "checkbutton_skip_backward_settings",
         "window_str_key": "window_settings",
 
         "is_checked": {
-            "linked_dict": "rewind",
+            "linked_dict": "skip_backward",
             "linked_attribute": "message_enabled"
         },
 
         "is_checked_loaded_value": null,
 
         "linked_setting": {
-            "linked_dict": "rewind",
+            "linked_dict": "skip_backward",
             "linked_attribute": "message_enabled",
             "attribute_to_copy": "is_checked_loaded_value"
         },
 
-        "to_enable_toggle": ["entry_rewind_settings"],
+        "to_enable_toggle": ["entry_skip_backward_settings"],
         "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
 
         "column": 1,
@@ -90,25 +90,25 @@
 
     },
 
-    "checkbutton_fast_forward_settings": {
+    "checkbutton_skip_forward_settings": {
 
-        "str_key": "checkbutton_fast_forward_settings",
+        "str_key": "checkbutton_skip_forward_settings",
         "window_str_key": "window_settings",
 
         "is_checked": {
-            "linked_dict": "fast_forward",
+            "linked_dict": "skip_forward",
             "linked_attribute": "message_enabled"
         },
 
         "is_checked_loaded_value": null,
 
         "linked_setting": {
-            "linked_dict": "fast_forward",
+            "linked_dict": "skip_forward",
             "linked_attribute": "message_enabled",
             "attribute_to_copy": "is_checked_loaded_value"
         },
 
-        "to_enable_toggle": ["entry_fast_forward_settings"],
+        "to_enable_toggle": ["entry_skip_forward_settings"],
         "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
 
         "column": 1,

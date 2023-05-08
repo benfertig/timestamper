@@ -65,9 +65,9 @@
 
     },
 
-    "label_rewind_sec": {
+    "label_skip_backward_sec": {
 
-        "str_key": "label_rewind_sec",
+        "str_key": "label_skip_backward_sec",
 
         "text": "sec",
 
@@ -85,9 +85,9 @@
 
     },
 
-    "label_fast_forward_sec": {
+    "label_skip_forward_sec": {
 
-        "str_key": "label_fast_forward_sec",
+        "str_key": "label_skip_forward_sec",
 
         "text": "sec",
 

@@ -29,8 +29,8 @@ from .timing_helper_methods import confirm_audio, print_to_entry, \
 
 
 class TimeStamperTimer():
-    """This class runs a timer with pause, resume, rewind and fast-forward
-    features. Once an instance of the TimeStamper class from the module
+    """This class runs a timer with pause, resume, skip backward and skip
+    forward features. Once an instance of the TimeStamper class from the module
     time_stamper is created, its constructor will create an instance of this
     TimeStamperTimer class, passing itself to the TimeStamperTimer constructor."""
 
@@ -288,9 +288,9 @@ class TimeStamperTimer():
             self.time_stamper.macros["button_pause"]()
 
     def adjust_timer(self, seconds_to_adjust_by):
-        """This method rewinds/fast_forwards the timer and is typically run when the
-        rewind or fast-forward button is pressed. Since the rewind and fast-forward
-        procedures are very similar, they have been condensed into this single method."""
+        """This method skipes the timer backward and forward and is typically run when the
+        skip backward or skip forward button is pressed. Since the skip backward and skip
+        forward procedures are very similar, they have been condensed into this single method."""
 
         if seconds_to_adjust_by != 0:
 

@@ -67,8 +67,8 @@ class Macros():
             # Checkbuttons
             "checkbutton_pause_settings": check.checkbutton_pause_settings_macro,
             "checkbutton_play_settings": check.checkbutton_play_settings_macro,
-            "checkbutton_rewind_settings": check.checkbutton_rewind_settings_macro,
-            "checkbutton_fast_forward_settings": check.checkbutton_fast_forward_settings_macro,
+            "checkbutton_skip_backward_settings": check.checkbutton_skip_backward_settings_macro,
+            "checkbutton_skip_forward_settings": check.checkbutton_skip_forward_settings_macro,
 
             # Scales
             "scale_audio_time": scales.scale_audio_time_macro,
@@ -90,8 +90,8 @@ class Macros():
             # Media buttons
             "button_pause": media.button_pause_macro,
             "button_play": media.button_play_macro,
-            "button_rewind": media.button_rewind_macro,
-            "button_fast_forward": media.button_fast_forward_macro,
+            "button_skip_backward": media.button_skip_backward_macro,
+            "button_skip_forward": media.button_skip_forward_macro,
             "button_mute": media.button_mute_macro,
 
             # Note buttons
@@ -139,7 +139,7 @@ class Macros():
         If this method determines that a message should be printed when the button is pressed,
         then this method will return that message. Otherwise, this method will return None.
         Keep in mind that this method does not substitute potential variables (e.g., $amount
-        and $dest for the rewind and fast-forward messages) in the returned message. Any
+        and $dest for the skip backward and skip forward messages) in the returned message. Any
         variable substitution will need to be performed on the string returned by this method."""
 
         button_template = self.template[button_str_key]
