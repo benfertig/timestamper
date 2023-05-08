@@ -122,8 +122,8 @@ def store_jsons_in_mapping(mapping, json_dir):
 
 
 def map_all_templates(templates_dir):
-    """This method loads the contents of all JSON files from all subdirectories of
-    this file's current directory into the "mapping" attribute of this class."""
+    """This method loads the contents of all JSON files from all subdirectories
+    of this file's current directory into a mapping and returns that mapping."""
 
     mapping = {"settings": []}
 

@@ -3,7 +3,7 @@
 
 from sys import platform
 from tkinter import DISABLED, NORMAL, HORIZONTAL, VERTICAL, END, Button, \
-    Checkbutton, DoubleVar, Entry, IntVar, Label, StringVar, Scale, Text
+    Checkbutton, DoubleVar, Entry, IntVar, Label, StringVar, Scale, Spinbox, Text
 from tkinter.ttk import Scale as ttk_scale
 from .widgets_helper_methods import entry_helper_method, determine_widget_text, \
     determine_widget_attribute, create_font, grid_widget, create_image
@@ -247,13 +247,40 @@ def create_scale(widgets, scale_template, scale_window, scale_command=None, rele
     return scale
 
 
+def create_spinbox(template, settings, spinbox_template, spinbox_window):
+    """This method creates a Spinbox object for the Time Stamper program."""
+
+    # Create the Spinbox's font.
+    spinbox_font = create_font(spinbox_template)
+
+    # Determine what the Spinbox object's initial text should be.
+    spinbox_text_str = determine_widget_text(spinbox_template, template, settings)
+    spinbox_text = StringVar()
+
+    # Determine the Spinbox's initial state.
+    if determine_widget_attribute(spinbox_template, "initial_state", template, settings):
+        initial_state = NORMAL
+    else:
+        initial_state = DISABLED
+
+    # Create the Spinbox object.
+    spinbox = Spinbox(spinbox_window, width=spinbox_template["width"], textvariable=spinbox_text,
+        font=spinbox_font, state=initial_state, values=spinbox_template["values"])
+
+    spinbox_text.set(spinbox_text_str)
+
+    # Place the Spinbox.
+    grid_widget(spinbox, spinbox_template)
+
+    return spinbox
+
 def create_text(template, settings, text_template, text_window):
     """This method creates a Text object for the Time Stamper program."""
 
     # Create the Text's font.
     text_font = create_font(text_template)
 
-    # Determine the Text's initial state
+    # Determine the Text's initial state.
     if determine_widget_attribute(text_template, "initial_state", template, settings):
         initial_state = NORMAL
     else:
@@ -263,7 +290,7 @@ def create_text(template, settings, text_template, text_window):
     text = Text(text_window, height=text_template["height"], \
         width=text_template["width"], font=text_font, state=initial_state)
 
-    # Determine what the text object's initial text should be.
+    # Determine what the Text object's initial text should be.
     text_text = determine_widget_text(text_template, template, settings)
 
     # Display the Text object's text.

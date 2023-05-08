@@ -1,0 +1,37 @@
+{
+
+    "spinbox_rewind": {
+
+        "str_key": "spinbox_rewind",
+
+        "values": ["\u2152x", "\u2151x", "\u215Bx", "\u2150x", "\u2159x", "\u2155x", "\u00BCx", "\u2153x", "\u00BDx", "2x", "3x", "4x", "5x", "6x", "7x", "8x", "9x", "10x"],
+
+        "text": "2x",
+
+        "width": 2,
+
+        "column": 2,
+        "row": 2,
+
+        "ipadx": 10
+
+    },
+
+    "spinbox_fast_forward": {
+
+        "str_key": "spinbox_fast_forward",
+
+        "values": ["\u2152x", "\u2151x", "\u215Bx", "\u2150x", "\u2159x", "\u2155x", "\u00BCx", "\u2153x", "\u00BDx", "2x", "3x", "4x", "5x", "6x", "7x", "8x", "9x", "10x"],
+
+        "text": "2x",
+
+        "width": 2,
+
+        "column": 3,
+        "row": 2,
+
+        "ipadx": 10
+
+    }
+
+}

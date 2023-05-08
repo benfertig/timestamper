@@ -6,7 +6,7 @@ allows for easy reference of widgets. Also see the "widgets_creation_methods.py"
 
 from traceback import format_exception
 from .widgets_creation_methods import create_button, create_checkbutton, \
-    create_entry, create_label, create_scale, create_text
+    create_entry, create_label, create_scale, create_spinbox, create_text
 from .widgets_helper_methods import create_image, create_window, determine_widget_text
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
@@ -67,6 +67,7 @@ class Widgets():
         self.create_entries(window_str)
         self.create_labels(window_str)
         self.create_scales(window_str, macros)
+        self.create_spinboxes(window_str)
         self.create_texts(window_str)
 
     def create_extra_images(self):
@@ -142,6 +143,17 @@ class Widgets():
                 macros[f"{str_key}_ONRELEASE"] if f"{str_key}_ONRELEASE" in macros.mapping else None
             scale = create_scale(self, scale_template, scale_window, scale_macro, release_macro)
             self.mapping[scale_template["str_key"]] = scale
+
+
+    def create_spinboxes(self, window_str):
+        """This method creates all of the spinboxes that are
+        meant to appear in the window indicated by window_str."""
+
+        spinbox_window = self[window_str]
+        for spinbox_template in self.template["spinboxes"][window_str]:
+            spinbox = create_spinbox(self.template, self.settings, spinbox_template, spinbox_window)
+            self.mapping[spinbox_template["str_key"]] = spinbox
+
 
     def create_texts(self, window_str):
         """This method creates all of the texts that are meant
