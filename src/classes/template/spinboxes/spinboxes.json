@@ -4,6 +4,8 @@
 
         "str_key": "spinbox_rewind",
 
+        "initial_state": "readonly",
+
         "values": ["\u2152x", "\u2151x", "\u215Bx", "\u2150x", "\u2159x", "\u2155x", "\u00BCx", "\u2153x", "\u00BDx", "2x", "3x", "4x", "5x", "6x", "7x", "8x", "9x", "10x"],
 
         "text": "2x",
@@ -20,6 +22,8 @@
     "spinbox_fast_forward": {
 
         "str_key": "spinbox_fast_forward",
+
+        "initial_state": "readonly",
 
         "values": ["\u2152x", "\u2151x", "\u215Bx", "\u2150x", "\u2159x", "\u2155x", "\u00BCx", "\u2153x", "\u00BDx", "2x", "3x", "4x", "5x", "6x", "7x", "8x", "9x", "10x"],
 

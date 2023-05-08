@@ -258,7 +258,11 @@ def create_spinbox(template, settings, spinbox_template, spinbox_window):
     spinbox_text = StringVar()
 
     # Determine the Spinbox's initial state.
-    if determine_widget_attribute(spinbox_template, "initial_state", template, settings):
+    spinbox_template_initial_state = \
+        determine_widget_attribute(spinbox_template, "initial_state", template, settings)
+    if spinbox_template_initial_state == "readonly":
+        initial_state = "readonly"
+    elif spinbox_template_initial_state:
         initial_state = NORMAL
     else:
         initial_state = DISABLED
