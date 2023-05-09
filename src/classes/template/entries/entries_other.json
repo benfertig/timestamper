@@ -71,6 +71,8 @@
 
         "digits_only": true,
 
+        "text": "10",
+
         "max_val": 99,
 
         "background": "white",
@@ -104,6 +106,8 @@
         "window_str_key": "window_main",
 
         "digits_only": true,
+
+        "text": "10",
 
         "max_val": 99,
 
