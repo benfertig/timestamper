@@ -164,7 +164,7 @@ class MediaButtonMacros():
             else:
                 button_mute_image_name = self.widgets["button_mute"]["image"]
 
-            # If the volume was previoulsy muted...
+            # If the volume WAS previoulsy muted...
             if button_mute_image_name == self.widgets["volume_mute.png"].name:
 
                 # Get the value of the volume slider.
@@ -176,7 +176,7 @@ class MediaButtonMacros():
                 # The mute button image should reflect the current value of the volume slider.
                 updated_image_str_key = self.parent.updated_mute_button_image(volume_scale_value)
 
-            # If the volume was previously unmuted...
+            # If the volume WAS NOT previously unmuted...
             else:
 
                 # Mute the volume.

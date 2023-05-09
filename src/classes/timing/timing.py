@@ -4,9 +4,9 @@ for keeping track of time in the Time Stamper program."""
 
 from math import ceil
 from time import perf_counter
-from tkinter import DISABLED
+from tkinter import DISABLED, NORMAL
 from pyglet.media import Player
-from .timing_helper_methods import confirm_audio, print_to_entry, \
+from .timing_helper_methods import confirm_audio, pulse_button_image, print_to_entry, \
     pad_number, h_m_s_to_timestamp, h_m_s_to_seconds, seconds_to_h_m_s
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
@@ -207,13 +207,17 @@ class TimeStamperTimer():
                 if self.time_stamper.audio_player else 359999.99
 
             # Only tick the timer if its current time is less than the maximum time.
-            if internal_time < max_time or self.multiplier < 1:
+            if internal_time < max_time or self.multiplier < 0.0:
 
                 # Only tick the timer if its current time is greater than 0.
                 if internal_time > 0.0:
 
                     # Display the updated time.
                     self.display_time(internal_time, pad=2)
+
+                    # Potentially, make the image of either the play, rewind
+                    # or fast-forward button either visible or invisible.
+                    pulse_button_image(internal_time, self.multiplier, self.time_stamper.widgets)
 
                     # Calculate the number of seconds to the next hundreth of a second.
                     seconds_to_next_tick = ((int(internal_time * 100) + 1) / 100) - internal_time
@@ -255,6 +259,17 @@ class TimeStamperTimer():
 
             # Declare the timer as not running.
             self.is_running = False
+
+            # We are no longer rewinding or fast-forwarding, so the multiplier should be reset.
+            self.multiplier = 1.0
+
+            # The images for the play, rewind and fast-forward buttons
+            # should no longer be invisible if any of them currently are.
+            widgets = self.time_stamper.widgets
+            for button_name, image_name in (("button_play", "play.png"), \
+                ("button_rewind", "rewind.png"), ("button_fast_forward", "fast_forward.png")):
+                widgets[button_name].config(image=widgets[image_name])
+                widgets[button_name].image = widgets[image_name]
 
             # If this method is being called from scale_audio_time_left_mouse_press, then
             # indicate that the timer should be resumed when the audio slider is released.

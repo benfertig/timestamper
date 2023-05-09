@@ -74,7 +74,7 @@ class Widgets():
         """Some Tkinter image objects need to be created even if they are not immediately
         displayed. Create those images here so that they can be referenced later (if needed)."""
 
-        extra_image_file_names = ("volume_medium.png", \
+        extra_image_file_names = ("blank.png", "volume_medium.png", \
             "volume_low.png", "volume_zero.png", "volume_mute.png")
 
         for image_file_name in extra_image_file_names:

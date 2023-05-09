@@ -57,6 +57,53 @@ def confirm_audio(audio_source, audio_player, entry_audio_path):
     return audio_source, Player()
 
 
+def pulse_button_image(internal_time, multiplier, widgets):
+    """This method, which is called by the timer_tick method from the TimeStamperTimer
+    class in timing.py, will potentially make the image of one of the media buttons
+    visible/invisible depending on the reading of the timer. This provides visual feedback
+    to the user about which timer function is currently executing (play, rewind or
+    fast-forward) as well as the relative speed at which the timer is progressing."""
+
+    # If the timer is moving at 1X SPEECD (i.e., the play button was pressed),
+    # we will potentially be manipulating the image of the play button.
+    if multiplier == 1.0:
+        button_to_edit = widgets["button_play"]
+        button_default_image = widgets["play.png"]
+
+    # If we are REWINDING, we will potentially be
+    # manipulating the image of the rewind button.
+    elif multiplier < 0.0:
+        button_to_edit = widgets["button_rewind"]
+        button_default_image = widgets["rewind.png"]
+
+    # If we are FAST-FORWARDING, we will potentially be
+    # manipulating the image of the fast-forward button.
+    else:
+        button_to_edit = widgets["button_fast_forward"]
+        button_default_image = widgets["fast_forward.png"]
+
+    closest_second_lower = internal_time - int(internal_time) < 0.5
+    button_blank_image = widgets["blank.png"]
+    new_button_image = None
+
+    # If the nearest second to the current time is LOWER than the current
+    # time, make the image of the rewind/fast-forward button VISIBLE.
+    if closest_second_lower and button_to_edit.image == button_blank_image:
+        new_button_image = button_default_image
+
+    # If the nearest second to the current time is HIGHER than the current
+    # time, make the image of the rewind/fast-forward button INVISIBLE.
+    elif not closest_second_lower \
+        and button_to_edit.image == button_default_image:
+        new_button_image = button_blank_image
+
+    # Update the image of the rewind/fast-forward button only if
+    # its current image does not match the image it should have.
+    if new_button_image is not None:
+        button_to_edit.config(image=new_button_image)
+        button_to_edit.image = new_button_image
+
+
 def print_to_entry(to_print, entry_obj, wipe_clean=True):
     """This method prints the value stored in to_print to the entry widget entry_obj. An optional
     argument wipe_clean, which is set to True by default, determines whether any text currently
