@@ -247,7 +247,7 @@ def create_scale(widgets, scale_template, scale_window, scale_command=None, rele
     return scale
 
 
-def create_spinbox(template, settings, spinbox_template, spinbox_window):
+def create_spinbox(template, settings, spinbox_template, spinbox_window, spinbox_command=None):
     """This method creates a Spinbox object for the Time Stamper program."""
 
     # Create the Spinbox's font.
@@ -268,8 +268,9 @@ def create_spinbox(template, settings, spinbox_template, spinbox_window):
         initial_state = DISABLED
 
     # Create the Spinbox object.
-    spinbox = Spinbox(spinbox_window, width=spinbox_template["width"], textvariable=spinbox_text,
-        font=spinbox_font, state=initial_state, values=[k for k in spinbox_template["values"]])
+    spinbox = Spinbox(spinbox_window, width=spinbox_template["width"], \
+        textvariable=spinbox_text, font=spinbox_font, state=initial_state, \
+        values=list(spinbox_template["values"]), command=spinbox_command)
 
     spinbox_text.set(spinbox_text_str)
 

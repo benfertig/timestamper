@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from tkinter import DISABLED, NORMAL, END
 from .macros_checkbuttons import CheckbuttonMacros
 from .macros_scales import ScaleMacros
+from .macros_spinboxes import SpinboxMacros
 from .macros_buttons_file import FileButtonMacros
 from .macros_buttons_info import InfoButtonMacros
 from .macros_buttons_media import MediaButtonMacros
@@ -54,6 +55,8 @@ class Macros():
 
         check = CheckbuttonMacros(self)
         scales = ScaleMacros(self)
+        spinboxes = SpinboxMacros(self)
+
         file = FileButtonMacros(self)
         info = InfoButtonMacros(self)
         media = MediaButtonMacros(self)
@@ -61,7 +64,7 @@ class Macros():
         settings = SettingsButtonMacros(self)
         timestamping = TimestampingButtonMacros(self)
 
-        # Map buttons to their macros.
+        # Map the widgets to their macros.
         self.mapping = {
 
             # Checkbuttons
@@ -74,6 +77,10 @@ class Macros():
             "scale_audio_time": scales.scale_audio_time_macro,
             "scale_audio_time_ONRELEASE": scales.scale_audio_time_release_macro,
             "scale_audio_volume": scales.scale_audio_volume_macro,
+
+            # Spinboxes
+            "spinbox_rewind": spinboxes.spinbox_rewind_macro,
+            "spinbox_fast_forward": spinboxes.spinbox_fast_forward_macro,
 
             # File buttons
             "button_output_select": file.button_output_select_macro,

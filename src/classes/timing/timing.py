@@ -4,9 +4,10 @@ for keeping track of time in the Time Stamper program."""
 
 from math import ceil
 from time import perf_counter
-from tkinter import DISABLED, NORMAL
+from tkinter import DISABLED
 from pyglet.media import Player
-from .timing_helper_methods import confirm_audio, pulse_button_image, print_to_entry, \
+from .timing_helper_methods import confirm_audio, \
+    make_playback_button_images_visible, pulse_button_image, print_to_entry, \
     pad_number, h_m_s_to_timestamp, h_m_s_to_seconds, seconds_to_h_m_s
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
@@ -188,7 +189,7 @@ class TimeStamperTimer():
         # Try to play the specified audio file if one has been specified.
         self.attempt_audio_playback(new_time)
 
-    def timer_tick(self):
+    def timer_tick(self, prev_multiplier):
         """This method runs continuously while the timer is running to update the current time."""
 
         # Only tick the timer if it is currently running.
@@ -231,7 +232,9 @@ class TimeStamperTimer():
                     thousandth_seconds_to_next_tick *= ceil(abs(1 / self.multiplier))
 
                     # After a very short delay, tick the timer again.
-                    self.time_stamper.root.after(thousandth_seconds_to_next_tick, self.timer_tick)
+                    if self.multiplier == prev_multiplier:
+                        self.time_stamper.root.after(thousandth_seconds_to_next_tick, \
+                            self.timer_tick, self.multiplier)
 
                 # If the timer's currently displayed time is greater than 0, pause the timer.
                 else:
@@ -265,11 +268,7 @@ class TimeStamperTimer():
 
             # The images for the play, rewind and fast-forward buttons
             # should no longer be invisible if any of them currently are.
-            widgets = self.time_stamper.widgets
-            for button_name, image_name in (("button_play", "play.png"), \
-                ("button_rewind", "rewind.png"), ("button_fast_forward", "fast_forward.png")):
-                widgets[button_name].config(image=widgets[image_name])
-                widgets[button_name].image = widgets[image_name]
+            make_playback_button_images_visible(self.time_stamper.widgets)
 
             # If this method is being called from scale_audio_time_left_mouse_press, then
             # indicate that the timer should be resumed when the audio slider is released.
@@ -281,7 +280,12 @@ class TimeStamperTimer():
                 self.time_stamper.audio_player.pause()
 
     def play(self, reset_multiplier=True):
-        """This method starts the timer and is typically run when the play button is pressed."""
+        """This method starts the timer and is typically run when the play, rewind or
+        fast-forward buttons are pressed. An optional argument, reset_multiplier (which
+        is set to True by default), determines whether the timer should be reset to 1x
+        speed. This argument should only ever be set to False when this method is called
+        from the rewind_or_fast_forward method in macros_helper_methods.py (i.e., whenever
+        the user presses the rewind or fast-forward buttons, but not the play button)."""
 
         # The timer is no longer paused, so self.temporary_pause should be set to False.
         self.temporary_pause = False
@@ -289,6 +293,10 @@ class TimeStamperTimer():
         # If we arenot rewinding or fast-forwarding, then the multiplier should be set to 1.0.
         if reset_multiplier:
             self.multiplier = 1.0
+
+        # The images for the play, rewind and fast-forward buttons
+        # should no longer be invisible if any of them currently are.
+        make_playback_button_images_visible(self.time_stamper.widgets)
 
         # Get the timer's current time in seconds.
         current_time_seconds = self.get_current_seconds()
@@ -307,7 +315,7 @@ class TimeStamperTimer():
         self.attempt_audio_playback(current_time_seconds)
 
         # Begin ticking the timer.
-        self.timer_tick()
+        self.timer_tick(self.multiplier)
 
     def adjust_timer(self, seconds_to_adjust_by):
         """This method skipes the timer backward and forward and is typically run when the

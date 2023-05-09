@@ -27,8 +27,8 @@ class ScaleMacros():
         self.parent = parent
         self.time_stamper = parent.time_stamper
         self.template = parent.template
-        self.widgets = parent.widgets
         self.timer = parent.timer
+        self.widgets = parent.widgets
 
     def scale_audio_time_macro(self, scale_value):
         """This method will be executed when the user presses the left, middle

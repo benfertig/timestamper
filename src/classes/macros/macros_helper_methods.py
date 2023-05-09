@@ -304,13 +304,14 @@ def rewind_or_fast_forward(multiplier_str, is_rewind, timer):
     method here, and different parameters are passed depending on which button was pressed."""
 
     # Convert the provided speed multiplier from a string to a float.
-    multiplier = \
+    new_multiplier = \
         float(Fraction(multiplier_str)) * -1 if is_rewind else float(Fraction(multiplier_str))
 
-    # Play the timer at the new speed.
-    timer.pause()
-    timer.multiplier = multiplier
-    timer.play(reset_multiplier=False)
+    # Only instruct the timer to play at the new speed if it is NOT already playing at that speed.
+    if new_multiplier != timer.multiplier:
+        timer.pause()
+        timer.multiplier = new_multiplier
+        timer.play(reset_multiplier=False)
 
 def skip_backward_or_forward(user_input, is_skip_backward, adjust_timer_method):
     """This method is called by button_skip_backward_macro and button_skip_forward_macro in

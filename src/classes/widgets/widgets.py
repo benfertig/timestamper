@@ -67,7 +67,7 @@ class Widgets():
         self.create_entries(window_str)
         self.create_labels(window_str)
         self.create_scales(window_str, macros)
-        self.create_spinboxes(window_str)
+        self.create_spinboxes(window_str, macros)
         self.create_texts(window_str)
 
     def create_extra_images(self):
@@ -145,13 +145,16 @@ class Widgets():
             self.mapping[scale_template["str_key"]] = scale
 
 
-    def create_spinboxes(self, window_str):
+    def create_spinboxes(self, window_str, macros):
         """This method creates all of the spinboxes that are
         meant to appear in the window indicated by window_str."""
 
         spinbox_window = self[window_str]
         for spinbox_template in self.template["spinboxes"][window_str]:
-            spinbox = create_spinbox(self.template, self.settings, spinbox_template, spinbox_window)
+            str_key = spinbox_template["str_key"]
+            spinbox_macro = macros[str_key] if str_key in macros.mapping else None
+            spinbox = create_spinbox(self.template, self.settings, \
+                spinbox_template, spinbox_window, spinbox_macro)
             self.mapping[spinbox_template["str_key"]] = spinbox
 
 

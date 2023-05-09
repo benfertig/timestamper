@@ -57,6 +57,15 @@ def confirm_audio(audio_source, audio_player, entry_audio_path):
     return audio_source, Player()
 
 
+def make_playback_button_images_visible(widgets):
+    """This method makes the images for the play, rewind and fast-forward buttons visible."""
+
+    for button_name, image_name in (("button_play", "play.png"), \
+        ("button_rewind", "rewind.png"), ("button_fast_forward", "fast_forward.png")):
+        widgets[button_name].config(image=widgets[image_name])
+        widgets[button_name].image = widgets[image_name]
+
+
 def pulse_button_image(internal_time, multiplier, widgets):
     """This method, which is called by the timer_tick method from the TimeStamperTimer
     class in timing.py, will potentially make the image of one of the media buttons
