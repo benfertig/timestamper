@@ -15,7 +15,13 @@
         "column": 2,
         "row": 2,
 
-        "ipadx": 10
+        "ipadx": 5,
+
+        "os_specific_settings": {
+            "darwin": {
+                "ipadx": 10
+            }
+        }
 
     },
 
@@ -34,7 +40,13 @@
         "column": 3,
         "row": 2,
 
-        "ipadx": 10
+        "ipadx": 5,
+
+        "os_specific_settings": {
+            "darwin": {
+                "ipadx": 10
+            }
+        }
 
     }
 
