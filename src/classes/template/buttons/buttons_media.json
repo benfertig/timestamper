@@ -14,7 +14,7 @@
             "print_message_attribute": "message"
         },
 
-        "to_enable": ["button_play", "button_output_select", "button_merge_output_files", "button_audio_select", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
+        "to_enable": ["button_play", "button_rewind", "button_fast_forward", "button_output_select", "button_merge_output_files", "button_audio_select", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
         "to_disable": ["button_pause"],
 
         "width": 48,
@@ -48,7 +48,7 @@
         },
 
         "to_enable": ["button_pause"],
-        "to_disable": ["button_play", "button_output_select", "button_merge_output_files", "button_audio_select", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
+        "to_disable": ["button_play", "button_rewind", "button_fast_forward", "button_output_select", "button_merge_output_files", "button_audio_select", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
 
         "width": 48,
         "height": 48,
@@ -69,6 +69,8 @@
 
         "str_key": "button_rewind",
 
+        "initial_state": false,
+
         "image_file_name": "rewind.png",
 
         "print_on_press": {
@@ -76,6 +78,9 @@
             "print_bool_attribute": "message_enabled",
             "print_message_attribute": "message"
         },
+
+        "to_enable": ["button_pause"],
+        "to_disable": ["button_play", "button_rewind", "button_fast_forward"],
 
         "width": 48,
         "height": 48,
@@ -96,6 +101,8 @@
 
         "str_key": "button_fast_forward",
 
+        "initial_state": false,
+
         "image_file_name": "fast_forward.png",
 
         "print_on_press": {
@@ -103,6 +110,9 @@
             "print_bool_attribute": "message_enabled",
             "print_message_attribute": "message"
         },
+
+        "to_enable": ["button_pause"],
+        "to_disable": ["button_play", "button_rewind", "button_fast_forward"],
 
         "width": 48,
         "height": 48,

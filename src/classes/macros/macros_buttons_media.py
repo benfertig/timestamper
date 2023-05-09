@@ -3,7 +3,8 @@
 that are executed when a media button in the Time Stamper program is pressed."""
 
 from sys import platform
-from .macros_helper_methods import button_enable_disable_macro, skip_backward_or_forward
+from .macros_helper_methods import button_enable_disable_macro, \
+    rewind_or_fast_forward, skip_backward_or_forward
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -112,6 +113,32 @@ class MediaButtonMacros():
 
         # Start the timer.
         self.timer.play()
+
+    def button_rewind_macro(self):
+        """This method will be executed when the rewind button is pressed."""
+
+        # Enable and disable the relevant buttons for when the rewind button is pressed.
+        button_enable_disable_macro(self.template["button_rewind"], self.widgets)
+
+        # Retrieve the speed at which we should rewind from the rewind spinbox.
+        spinbox_val = self.widgets["spinbox_rewind"].get()
+        multiplier_str = self.template["spinbox_rewind"]["values"][spinbox_val]
+
+        # Rewind the timer at the specified speed.
+        rewind_or_fast_forward(multiplier_str, True, self.timer)
+
+    def button_fast_forward_macro(self):
+        """This method will be executed when the fast-forward button is pressed."""
+
+        # Enable and disable the relevant buttons for when the fast-forward button is pressed.
+        button_enable_disable_macro(self.template["button_fast_forward"], self.widgets)
+
+        # Retrieve the speed at which we should fast-forward from the fast-forward spinbox.
+        spinbox_val = self.widgets["spinbox_fast_forward"].get()
+        multiplier_str = self.template["spinbox_fast_forward"]["values"][spinbox_val]
+
+        # Fast-forward the timer at the specified speed.
+        rewind_or_fast_forward(multiplier_str, False, self.timer)
 
     def button_skip_backward_macro(self):
         """This method will be executed when the skip backward button is pressed."""

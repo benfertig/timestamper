@@ -2,6 +2,7 @@
 """This module contains helper methods for button
 macros. These methods do not rely on class variables."""
 
+from fractions import Fraction
 from os.path import exists, isdir
 from re import match
 from sys import platform
@@ -295,6 +296,21 @@ def print_to_file(to_print, file_path, file_encoding="utf-8", access_mode="a+"):
         with open(file_path, access_mode, encoding=file_encoding) as out_file:
             out_file.write(to_print)
 
+
+def rewind_or_fast_forward(multiplier_str, is_rewind, timer):
+    """This method is called by button_rewind_macro and button_fast_forward_macro in
+    macros_buttons_media.py. The functions performed by both the rewind and fast-forward
+    buttons are very similar, so their procedures have been condensed down to a single
+    method here, and different parameters are passed depending on which button was pressed."""
+
+    # Convert the provided speed multiplier from a string to a float.
+    multiplier = \
+        float(Fraction(multiplier_str)) * -1 if is_rewind else float(Fraction(multiplier_str))
+
+    # Play the timer at the new speed.
+    timer.pause()
+    timer.multiplier = multiplier
+    timer.play(reset_multiplier=False)
 
 def skip_backward_or_forward(user_input, is_skip_backward, adjust_timer_method):
     """This method is called by button_skip_backward_macro and button_skip_forward_macro in

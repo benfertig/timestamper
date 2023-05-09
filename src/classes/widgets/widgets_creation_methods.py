@@ -269,7 +269,7 @@ def create_spinbox(template, settings, spinbox_template, spinbox_window):
 
     # Create the Spinbox object.
     spinbox = Spinbox(spinbox_window, width=spinbox_template["width"], textvariable=spinbox_text,
-        font=spinbox_font, state=initial_state, values=spinbox_template["values"])
+        font=spinbox_font, state=initial_state, values=[k for k in spinbox_template["values"]])
 
     spinbox_text.set(spinbox_text_str)
 

@@ -43,6 +43,7 @@ class TimeStamperTimer():
         self.temporary_pause = False
         self.start_time = 0.0
         self.offset = 0.0
+        self.multiplier = 1.0
 
     def read_timer(self, raw=False):
         """This method reads in and returns the current time from the time fields. This method
@@ -199,25 +200,40 @@ class TimeStamperTimer():
 
             # If audio is not playing, set the timer using perf_counter().
             else:
-                internal_time = perf_counter() - self.start_time + self.offset
+                internal_time = self.offset + ((perf_counter() - self.start_time) * self.multiplier)
 
-            # Only tick the timer if its current time is less than the maximum time.
+            # Determine the maximum time displayable by the timer.
             max_time = min(359999.99, round(self.time_stamper.audio_source.duration, 2)) \
                 if self.time_stamper.audio_player else 359999.99
-            if internal_time < max_time:
 
-                # Display the updated time.
-                self.display_time(internal_time, pad=2)
+            # Only tick the timer if its current time is less than the maximum time.
+            if internal_time < max_time or self.multiplier < 1:
 
-                # Calculate the number of seconds to the next hundreth of a second.
-                seconds_to_next_tick = ((int(internal_time * 100) + 1) / 100) - internal_time
+                # Only tick the timer if its current time is greater than 0.
+                if internal_time > 0.0:
 
-                # Convert the number of seconds to the next hundreth of a second to
-                # the number of thousandth-seconds to the next hundreth of a second.
-                thousandth_seconds_to_next_tick = ceil(max(seconds_to_next_tick, .001) * 1000)
+                    # Display the updated time.
+                    self.display_time(internal_time, pad=2)
 
-                # After a very short delay, tick the timer again.
-                self.time_stamper.root.after(thousandth_seconds_to_next_tick, self.timer_tick)
+                    # Calculate the number of seconds to the next hundreth of a second.
+                    seconds_to_next_tick = ((int(internal_time * 100) + 1) / 100) - internal_time
+
+                    # Convert the number of seconds to the next hundreth of a second to
+                    # the number of thousandth-seconds to the next hundreth of a second.
+                    thousandth_seconds_to_next_tick = ceil(max(seconds_to_next_tick, .001) * 1000)
+
+                    # Consider the time dilation from rewinding/fast-forwarding when calculating
+                    # the number of thousandth-seconds to the next hundreth of a second.
+                    thousandth_seconds_to_next_tick *= ceil(abs(1 / self.multiplier))
+
+                    # After a very short delay, tick the timer again.
+                    self.time_stamper.root.after(thousandth_seconds_to_next_tick, self.timer_tick)
+
+                # If the timer's currently displayed time is greater than 0, pause the timer.
+                else:
+
+                    self.display_time(0.0, pad=2)
+                    self.time_stamper.macros["button_pause"]()
 
             # If the timer's currently displayed time is not less
             # than the maximum displayable time, pause the timer.
@@ -249,43 +265,34 @@ class TimeStamperTimer():
             if self.time_stamper.audio_player:
                 self.time_stamper.audio_player.pause()
 
-    def play(self):
+    def play(self, reset_multiplier=True):
         """This method starts the timer and is typically run when the play button is pressed."""
 
         # The timer is no longer paused, so self.temporary_pause should be set to False.
         self.temporary_pause = False
 
+        # If we arenot rewinding or fast-forwarding, then the multiplier should be set to 1.0.
+        if reset_multiplier:
+            self.multiplier = 1.0
+
         # Get the timer's current time in seconds.
         current_time_seconds = self.get_current_seconds()
 
-        # Only start the timer if the currently displayed time is less than the maximum time,
-        # which is either 99h 59m 59.99s (if an audio source is not loaded) or the minumum
-        # of 99h 59m 59.99s and the duration of the audio source (if an audio source is loaded).
-        max_time = min(359999.99, round(self.time_stamper.audio_source.duration, 2)) \
-            if self.time_stamper.audio_player else 359999.99
-        if current_time_seconds < max_time:
+        # Save the current raw time.
+        self.start_time = perf_counter()
 
-            # Save the current raw time.
-            self.start_time = perf_counter()
+        # Declare the timer as running.
+        self.is_running = True
 
-            # Declare the timer as running.
-            self.is_running = True
+        # Factor the current reading on the timer into the
+        # offset for the calculation of the running time.
+        self.offset = current_time_seconds
 
-            # Factor the current reading on the timer into the
-            # offset for the calculation of the running time.
-            self.offset = current_time_seconds
+        # Try to play the specified audio file if one has been specified.
+        self.attempt_audio_playback(current_time_seconds)
 
-            # Try to play the specified audio file if one has been specified.
-            self.attempt_audio_playback(current_time_seconds)
-
-            # Begin ticking the timer.
-            self.timer_tick()
-
-        # If the timer's currently displayed time is not less
-        # than the maximum displayable time, pause the timer.
-        else:
-            self.display_time(max_time, pad=2)
-            self.time_stamper.macros["button_pause"]()
+        # Begin ticking the timer.
+        self.timer_tick()
 
     def adjust_timer(self, seconds_to_adjust_by):
         """This method skipes the timer backward and forward and is typically run when the
