@@ -134,8 +134,7 @@ def determine_new_fast_forward_button_image(multiplier, subseconds, widgets):
     button_default_image = widgets["fast_forward.png"]
     button_blank_image = widgets["blank.png"]
 
-    # Pulse between three potential fast-forward button visuals
-    # if we are fast-forwarding at a speed of 4x or slower.
+    # IF WE ARE FAST-FORWARDING AT A SPEED OF 4X OR SLOWER...
     if abs(multiplier) <= 4.0:
 
         # If we are on the 1st third of the current second, the image of
@@ -221,11 +220,12 @@ def pad_number(number, target_length, pad_before):
     return str_number + zeros_to_add
 
 
-def h_m_s_to_timestamp(hours, minutes, seconds, subseconds):
+def h_m_s_to_timestamp(hours, minutes, seconds, subseconds, include_brackets=True):
     """This method converts a time in hours, minutes, seconds and subseconds to a
     timestamp with the following format: [hours:minutes:seconds:subseconds]."""
 
-    return f"[{hours}:{minutes}:{seconds}.{subseconds}]"
+    beginning, end = ("[", "]") if include_brackets else ("", "")
+    return f"{beginning}{hours}:{minutes}:{seconds}.{subseconds}{end}"
 
 
 def h_m_s_to_seconds(hours, minutes, seconds, subseconds):

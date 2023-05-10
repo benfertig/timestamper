@@ -3,8 +3,8 @@
 that are executed when a media button in the Time Stamper program is pressed."""
 
 from sys import platform
-from .macros_helper_methods import button_enable_disable_macro, \
-    rewind_or_fast_forward, skip_backward_or_forward
+from .macros_helper_methods import disable_button, \
+    button_enable_disable_macro, rewind_or_fast_forward, skip_backward_or_forward
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -63,7 +63,7 @@ class MediaButtonMacros():
                 is_skip_backward, self.timer.adjust_timer)
 
             # Get the timestamp after skipping backward/forward.
-            second_timestamp = self.timer.current_time_to_timestamp()
+            second_timestamp = self.timer.current_time_to_timestamp(include_brackets=False)
 
         # If the user has set a message to be printed
         # when this button is pressed, retrieve that message.
@@ -103,6 +103,14 @@ class MediaButtonMacros():
 
         self.media_button_macro("button_pause")
 
+        # If an audio source is loaded, the rewind and fast-forward buttons, which would
+        # otherwise be activated when the pause button is pressed, should remain deactivated.
+        if self.time_stamper.audio_source:
+            disable_button(self.widgets["button_rewind"], \
+                self.template["button_rewind"]["mac_disabled_color"])
+            disable_button(self.widgets["button_fast_forward"], \
+                self.template["button_fast_forward"]["mac_disabled_color"])
+
         # Pause the timer.
         self.timer.pause()
 
@@ -110,6 +118,14 @@ class MediaButtonMacros():
         """This method will be executed when the play button is pressed."""
 
         self.media_button_macro("button_play")
+
+        # If an audio source is loaded, the rewind and fast-forward buttons, which would
+        # otherwise be activated when the play button is pressed, should remain deactivated.
+        if self.time_stamper.audio_source:
+            disable_button(self.widgets["button_rewind"], \
+                self.template["button_rewind"]["mac_disabled_color"])
+            disable_button(self.widgets["button_fast_forward"], \
+                self.template["button_fast_forward"]["mac_disabled_color"])
 
         # Start the timer.
         self.timer.play()

@@ -79,7 +79,7 @@ class FileButtonMacros():
         """This method will be executed when the "Choose output location" button is pressed."""
 
         # Get the path to the selected output file.
-        file_types = (("text files", "*.txt"), ('All files', '*.*'))
+        file_types = (("Text files", "*.txt"), ('All files', '*.*'))
         self.file_select_macro("label_output_path", \
             "entry_output_path", "Select a text file", file_types)
 
@@ -170,7 +170,7 @@ class FileButtonMacros():
         window_merge_1.destroy()
 
         # The user will be prompted to select the files whose notes they wish to merge.
-        file_types = (("text files", "*.txt"), ('All files', '*.*'))
+        file_types = (("Text files", "*.txt"), ('All files', '*.*'))
         files_full_paths = filedialog.askopenfilenames(title="Select output files to merge", \
             initialdir=self.template.starting_dir, filetypes=file_types)
 
@@ -223,7 +223,7 @@ class FileButtonMacros():
         window_merge_2.destroy()
 
         # The user will be prompted to select the file to save the merged notes to.
-        file_types = (("text files", "*.txt"), ('All files', '*.*'))
+        file_types = (("Text files", "*.txt"), ('All files', '*.*'))
         merged_notes_path = \
             filedialog.askopenfilename(title="Select destination for merged outputs", \
             initialdir=self.template.starting_dir, filetypes=file_types)

@@ -80,10 +80,10 @@ class TimeStamperTimer():
 
         return h_m_s_to_seconds(*self.read_timer())
 
-    def current_time_to_timestamp(self):
+    def current_time_to_timestamp(self, include_brackets=True):
         """This method converts the currently diplayed time to a timestamp."""
 
-        return h_m_s_to_timestamp(*self.read_timer(raw=True))
+        return h_m_s_to_timestamp(*self.read_timer(raw=True), include_brackets)
 
     def display_time(self, new_time, pad=0):
         """This method, after converting the provided time in seconds to hours, minutes,
@@ -196,7 +196,9 @@ class TimeStamperTimer():
         if self.is_running:
 
             # If audio is playing, sync the timer with the the audio player.
-            if self.time_stamper.audio_player and self.time_stamper.audio_player.playing:
+            audio_playing = \
+                self.time_stamper.audio_player and self.time_stamper.audio_player.playing
+            if audio_playing:
                 internal_time = self.time_stamper.audio_player.time
 
             # If audio is not playing, set the timer using perf_counter().
@@ -210,8 +212,9 @@ class TimeStamperTimer():
             # Only tick the timer if its current time is less than the maximum time.
             if internal_time < max_time or self.multiplier < 0.0:
 
-                # Only tick the timer if its current time is greater than 0.
-                if internal_time > 0.0:
+                # Only tick the timer if the precise internal time
+                # is greater than 0 or if an audio file is loaded.
+                if internal_time > 0.0 or audio_playing:
 
                     # Display the updated time.
                     self.display_time(internal_time, pad=2)

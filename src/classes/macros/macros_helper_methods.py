@@ -103,25 +103,46 @@ def button_enable_disable_macro(button_template, widgets):
             button_template["mac_disabled_color"])
 
 
-def toggle_widgets(widget_template, to_enable, template, widgets):
+def toggle_widgets(widget_template, toggle_bool, template, widgets):
     """This method enables/disables the widgets in a template's to_enable_toggle attribute."""
 
     # Iterate through the widget string keys in this template's "to_enable_toggle" attribute.
-    for str_widget in widget_template["to_enable_toggle"]:
+    if "to_enable_toggle" in widget_template:
 
-        widget_toggle = widgets[str_widget]
+        for str_widget in widget_template["to_enable_toggle"]:
 
-        # Call the custom enable_button or disable_button method if the widget is a button.
-        if isinstance(widget_toggle, Button) or \
-            (platform.startswith("darwin") and isinstance(widget_toggle, MacButton)):
-            if to_enable:
-                enable_button(widget_toggle, widgets.original_colors[str_widget])
+            widget_toggle = widgets[str_widget]
+
+            # Call the custom enable_button or disable_button method if the widget is a button.
+            if isinstance(widget_toggle, Button) or \
+                (platform.startswith("darwin") and isinstance(widget_toggle, MacButton)):
+                if toggle_bool:
+                    enable_button(widget_toggle, widgets.original_colors[str_widget])
+                else:
+                    disable_button(widget_toggle, template[str_widget]["mac_disabled_color"])
+
+            # Simply enable/disable the widget if it is not a button.
             else:
-                disable_button(widget_toggle, template[str_widget]["mac_disabled_color"])
+                widget_toggle["state"] = NORMAL if toggle_bool else DISABLED
 
-        # Simply enable/disable the widget if it is not a button.
-        else:
-            widget_toggle["state"] = NORMAL if to_enable else DISABLED
+    # Iterate through the widget string keys in this template's "to_disable_toggle" attribute.
+    if "to_disable_toggle" in widget_template:
+
+        for str_widget in widget_template["to_disable_toggle"]:
+
+            widget_toggle = widgets[str_widget]
+
+            # Call the custom enable_button or disable_button method if the widget is a button.
+            if isinstance(widget_toggle, Button) or \
+                (platform.startswith("darwin") and isinstance(widget_toggle, MacButton)):
+                if toggle_bool:
+                    disable_button(widget_toggle, template[str_widget]["mac_disabled_color"])
+                else:
+                    enable_button(widget_toggle, widgets.original_colors[str_widget])
+
+            # Simply enable/disable the widget if it is not a button.
+            else:
+                widget_toggle["state"] = NORMAL if toggle_bool else DISABLED
 
 
 def checkbutton_enable_disable_macro(checkbutton_template, widgets):

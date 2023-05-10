@@ -37,7 +37,7 @@
 
         "str_key": "button_play",
 
-        "initial_state": false,
+        "initial_state": true,
 
         "image_file_name": "play.png",
 
@@ -69,7 +69,7 @@
 
         "str_key": "button_rewind",
 
-        "initial_state": false,
+        "initial_state": true,
 
         "image_file_name": "rewind.png",
 
@@ -101,7 +101,7 @@
 
         "str_key": "button_fast_forward",
 
-        "initial_state": false,
+        "initial_state": true,
 
         "image_file_name": "fast_forward.png",
 

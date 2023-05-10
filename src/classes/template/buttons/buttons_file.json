@@ -18,7 +18,7 @@
 
         "sticky": "nsew",
 
-        "to_enable_toggle": ["button_play", "button_rewind", "button_fast_forward", "button_save_note", "button_hotkey_1", "button_hotkey_2", "button_hotkey_3"]
+        "to_enable_toggle": ["button_save_note", "button_hotkey_1", "button_hotkey_2", "button_hotkey_3"]
 
     },
 
@@ -54,6 +54,7 @@
         "sticky": "nsew",
 
         "to_enable_toggle": ["button_mute", "scale_audio_time", "scale_audio_volume"],
+        "to_disable_toggle": ["button_rewind", "button_fast_forward"],
 
         "os_specific_settings": {
             "darwin": {

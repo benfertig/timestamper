@@ -12,15 +12,15 @@
     },
     "play": {
         "message_enabled": false,
-        "message": "RESUME"
+        "message": "PLAY"
     },
     "skip_backward": {
         "message_enabled": false,
-        "message": "SKIP BACKWARD $amount seconds to $dest"
+        "message": "SKIP BACKWARD $amount seconds to [$dest]"
     },
     "skip_forward": {
         "message_enabled": false,
-        "message": "SKIP FORWARD $amount seconds to $dest"
+        "message": "SKIP FORWARD $amount seconds to [$dest]"
     },
     "hotkey_1": {
         "message": "HOTKEY 1"

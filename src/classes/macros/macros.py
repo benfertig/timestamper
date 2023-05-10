@@ -188,16 +188,6 @@ class Macros():
 
         return None
 
-    def configure_program_for_notetaking(self, file_path):
-        """This method configures the program to reflect that an output file is active."""
-
-        # Any text already in the output file should be printed to the notes log.
-        file_encoding = self.settings["output"]["file_encoding"]
-        copy_text_file_to_text_widget(file_path, file_encoding, self.widgets["text_log"])
-
-        # Enable the relevant widgets.
-        toggle_widgets(self.template["button_output_select"], True, self.template, self.widgets)
-
     def validate_output_file(self):
         """This method will check the validity of the path that is
         currently displayed in the output path entry widget to make sure
@@ -213,12 +203,28 @@ class Macros():
         file_encoding = self.settings["output"]["file_encoding"]
         if file_path and verify_text_file(file_path, file_encoding, True, True):
 
-            self.configure_program_for_notetaking(file_path)
+            # Any text already in the output file should be printed to the notes log.
+            file_encoding = self.settings["output"]["file_encoding"]
+            copy_text_file_to_text_widget(file_path, file_encoding, self.widgets["text_log"])
 
-        # If the current path in the output path entry widget DOES NOT
-        # correspond to a valid text file, disable the relevant widgets.
+            # Enable the relevant widgets.
+            toggle_widgets(self.template["button_output_select"], True, self.template, self.widgets)
+
+            # The rewind/fast-forward buttons should NOT be enabled when an
+            # audio file is loaded, even when a valid output file IS loaded.
+            if self.time_stamper.audio_player:
+                disable_button(self.widgets["button_rewind"], \
+                    self.template["button_rewind"]["mac_disabled_color"])
+                disable_button(self.widgets["button_fast_forward"], \
+                    self.template["button_fast_forward"]["mac_disabled_color"])
+
+        # If the current path in the output path entry widget DOES NOT correspond
+        # to a valid text file, reset and disable the relevant widgets.
         else:
-            self.disable_output_widgets()
+            self.reset_output_widgets()
+            toggle_widgets(self.template["button_output_select"], \
+                False, self.template, self.widgets)
+
 
     def validate_audio_player(self):
         """This method will check whether a valid audio player currently exists, and if
@@ -242,9 +248,10 @@ class Macros():
         # If a valid audio player WAS NOT created/retrieved,
         # reset and disable the widgets associated with audio.
         else:
-            self.disable_audio_widgets()
+            self.reset_audio_widgets()
+            toggle_widgets(self.template["button_audio_select"], False, self.template, self.widgets)
 
-    def disable_output_widgets(self):
+    def reset_output_widgets(self):
         """This method alters all of the relevant widgets in the Time Stamper
         program to indicate that no valid output file is currently active."""
 
@@ -259,11 +266,7 @@ class Macros():
         # Clear the text displaying the notes log.
         print_to_text("", self.widgets["text_log"], wipe_clean=True)
 
-        # Disable the relevant widgets for when no output file is active.
-        toggle_widgets(self.template["button_output_select"], \
-            False, self.template, self.widgets)
-
-    def disable_audio_widgets(self):
+    def reset_audio_widgets(self):
         """This method alters all of the widgets in the Time Stamper program that are
         associated with audio playback to indicate that no audio source is available."""
 
@@ -274,15 +277,13 @@ class Macros():
         entry_audio_path.delete(0, END)
         entry_audio_path["state"] = DISABLED
 
-        # Reset and disable the audio slider.
+        # Reset the audio slider.
         scale_audio_time = self.widgets["scale_audio_time"]
         scale_audio_time.variable.set(self.template["scale_audio_time"]["initial_value"])
-        scale_audio_time["state"] = DISABLED
 
-        # Reset and disable the volume slider.
+        # Reset the volume slider.
         scale_audio_volume = self.widgets["scale_audio_volume"]
         scale_audio_volume.variable.set(100 - float(self.template["label_audio_volume"]["text"]))
-        scale_audio_volume["state"] = DISABLED
 
         # Reset the volume label.
         self.widgets["label_audio_volume"]["text"] = self.template["label_audio_volume"]["text"]
@@ -298,10 +299,6 @@ class Macros():
         button_mute_image_new = self.widgets["volume_high.png"]
         button_mute.config(image=button_mute_image_new)
         button_mute.image = button_mute_image_new
-
-        # Disable the mute button.
-        disable_button(self.widgets["button_mute"], \
-            self.template["button_mute"]["mac_disabled_color"])
 
     def updated_mute_button_image(self, volume_scale_value):
         """Assuming that the volume is not muted, this method returns the
