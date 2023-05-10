@@ -100,12 +100,12 @@ def determine_new_rewind_button_image(multiplier, subseconds, widgets):
 
         # If we are on the 3rd third of the current second, the image
         # of the rewind button should be set to its default image.
-        if 66 <= subseconds < 100:
+        if 67 <= subseconds < 100:
             return None if rewind_button.image == button_default_image else button_default_image
 
         # If we are on the 2nd third of the current second,
         # the image of rewind button should be blank.
-        if 33 <= subseconds < 66:
+        if 33 <= subseconds < 67:
             return None if rewind_button.image == button_blank_image else button_blank_image
 
         # If we are on the 1st third of the current second, the image of
@@ -146,7 +146,7 @@ def determine_new_fast_forward_button_image(multiplier, subseconds, widgets):
 
         # If we are on the 2nd third of the current second,
         # the image of fast-forward button should be blank.
-        if 33 <= subseconds < 66:
+        if 33 <= subseconds < 67:
             return None if button_fast_forward.image == button_blank_image else button_blank_image
 
         # If we are on the 3rd third of the current second, the image of the
