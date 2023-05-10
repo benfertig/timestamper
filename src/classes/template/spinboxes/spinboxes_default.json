@@ -10,6 +10,14 @@
 
     "text": null,
 
+    "background": null,
+    "foreground": null,
+
+    "disabledbackground": null,
+    "disabledforeground": null,
+
+    "readonlybackground": null,
+
     "width": null,
 
     "row": 0,
