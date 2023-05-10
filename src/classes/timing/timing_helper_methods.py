@@ -66,48 +66,132 @@ def make_playback_button_images_visible(widgets):
         widgets[button_name].image = widgets[image_name]
 
 
-def pulse_button_image(internal_time, multiplier, widgets):
+def determine_new_play_button_image(subseconds, widgets):
+    """This method determines whether the current image of the play button should
+    be changed, and if so, what it should be changed to. If it is determined that the
+    image of the play button should not be changed, this method will return None."""
+
+    button_play = widgets["button_play"]
+    button_default_image = widgets["play.png"]
+    button_blank_image = widgets["blank.png"]
+
+    # If we are on the 1st half of the current second, the image
+    # of the play button should be set to its default image.
+    if 0 <= subseconds < 50:
+        return None if button_play.image == button_default_image else button_default_image
+
+    # If we are on the 2nd half of the current second,
+    # the image of play button should be blank.
+    return None if button_play.image == button_blank_image else button_blank_image
+
+
+def determine_new_rewind_button_image(multiplier, subseconds, widgets):
+    """This method determines whether the current image of the rewind button should
+    be changed, and if so, what it should be changed to. If it is determined that the
+    image of the rewind button should not be changed, this method will return None."""
+
+    rewind_button = widgets["button_rewind"]
+    button_half_image = widgets["rewind_half.png"]
+    button_default_image = widgets["rewind.png"]
+    button_blank_image = widgets["blank.png"]
+
+    # IF WE ARE REWINDING AT A SPEED OF 4X OR SLOWER...
+    if abs(multiplier) <= 4.0:
+
+        # If we are on the 3rd third of the current second, the image
+        # of the rewind button should be set to its default image.
+        if 66 <= subseconds < 100:
+            return None if rewind_button.image == button_default_image else button_default_image
+
+        # If we are on the 2nd third of the current second,
+        # the image of rewind button should be blank.
+        if 33 <= subseconds < 66:
+            return None if rewind_button.image == button_blank_image else button_blank_image
+
+        # If we are on the 1st third of the current second, the image of
+        # the rewind button should depict half of what it normally depicts.
+        return None if rewind_button.image == button_half_image else button_half_image
+
+    # IF WE ARE REWINDING AT A SPEED FASTER THAN 4X...
+
+    # If we are on the 2nd half of the current second, the image
+    # of rewind button should be set to its default image.
+    if 50 <= subseconds < 100:
+        return None if rewind_button.image == button_default_image else button_default_image
+
+    # If we are on the 1st half of the current second,
+    # the image of rewind button should be blank.
+    return None if rewind_button.image == button_blank_image else button_blank_image
+
+
+def determine_new_fast_forward_button_image(multiplier, subseconds, widgets):
+    """This method determines whether the current image of the fast-forward button should
+    be changed, and if so, what it should be changed to. If it is determined that the
+    image of the fast-forward button should not be changed, this method will return None."""
+
+    button_fast_forward = widgets["button_fast_forward"]
+    button_half_image = widgets["fast_forward_half.png"]
+    button_default_image = widgets["fast_forward.png"]
+    button_blank_image = widgets["blank.png"]
+
+    # Pulse between three potential fast-forward button visuals
+    # if we are fast-forwarding at a speed of 4x or slower.
+    if abs(multiplier) <= 4.0:
+
+        # If we are on the 1st third of the current second, the image of
+        # the fast-forward button should be set to its default image.
+        if 0 <= subseconds < 33:
+            return None if button_fast_forward.image == button_default_image \
+                else button_default_image
+
+        # If we are on the 2nd third of the current second,
+        # the image of fast-forward button should be blank.
+        if 33 <= subseconds < 66:
+            return None if button_fast_forward.image == button_blank_image else button_blank_image
+
+        # If we are on the 3rd third of the current second, the image of the
+        # fast-forward button should depict half of what it normally depicts.
+        return None if button_fast_forward.image == button_half_image else button_half_image
+
+    # IF WE ARE FAST-FORWARDING AT A SPEED FASTER THAN 4X...
+
+    # If we are on the 1st half of the current second, the image
+    # of fast-forward button should be set to its default image.
+    if 0 <= subseconds < 50:
+        return None if button_fast_forward.image == button_default_image else button_default_image
+
+    # If we are on the 2nd half of the current second,
+    # the image of fast-forward button should be blank.
+    return None if button_fast_forward.image == button_blank_image else button_blank_image
+
+
+def pulse_button_image(subseconds, multiplier, widgets):
     """This method, which is called by the timer_tick method from the TimeStamperTimer
     class in timing.py, will potentially make the image of one of the media buttons
     visible/invisible depending on the reading of the timer. This provides visual feedback
     to the user about which timer function is currently executing (play, rewind or
     fast-forward) as well as the relative speed at which the timer is progressing."""
 
-    # If the timer is moving at 1X SPEECD (i.e., the play button was pressed),
+    # If the timer is moving at 1X SPEED (i.e., the play button was pressed),
     # we will potentially be manipulating the image of the play button.
     if multiplier == 1.0:
         button_to_edit = widgets["button_play"]
-        button_default_image = widgets["play.png"]
+        new_button_image = determine_new_play_button_image(subseconds, widgets)
 
     # If we are REWINDING, we will potentially be
     # manipulating the image of the rewind button.
     elif multiplier < 0.0:
         button_to_edit = widgets["button_rewind"]
-        button_default_image = widgets["rewind.png"]
+        new_button_image = determine_new_rewind_button_image(multiplier, subseconds, widgets)
 
     # If we are FAST-FORWARDING, we will potentially be
     # manipulating the image of the fast-forward button.
     else:
         button_to_edit = widgets["button_fast_forward"]
-        button_default_image = widgets["fast_forward.png"]
+        new_button_image = determine_new_fast_forward_button_image(multiplier, subseconds, widgets)
 
-    closest_second_lower = internal_time - int(internal_time) < 0.5
-    button_blank_image = widgets["blank.png"]
-    new_button_image = None
-
-    # If the nearest second to the current time is LOWER than the current
-    # time, make the image of the rewind/fast-forward button VISIBLE.
-    if closest_second_lower and button_to_edit.image == button_blank_image:
-        new_button_image = button_default_image
-
-    # If the nearest second to the current time is HIGHER than the current
-    # time, make the image of the rewind/fast-forward button INVISIBLE.
-    elif not closest_second_lower \
-        and button_to_edit.image == button_default_image:
-        new_button_image = button_blank_image
-
-    # Update the image of the rewind/fast-forward button only if
-    # its current image does not match the image it should have.
+    # Update the image of the play/rewind/fast-forward button only
+    # if its current image does not match the image it should have.
     if new_button_image is not None:
         button_to_edit.config(image=new_button_image)
         button_to_edit.image = new_button_image

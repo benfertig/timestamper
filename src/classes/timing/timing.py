@@ -218,7 +218,8 @@ class TimeStamperTimer():
 
                     # Potentially, make the image of either the play, rewind
                     # or fast-forward button either visible or invisible.
-                    pulse_button_image(internal_time, self.multiplier, self.time_stamper.widgets)
+                    subseconds = int(self.time_stamper.widgets["entry_subseconds"].get())
+                    pulse_button_image(subseconds, self.multiplier, self.time_stamper.widgets)
 
                     # Calculate the number of seconds to the next hundreth of a second.
                     seconds_to_next_tick = ((int(internal_time * 100) + 1) / 100) - internal_time
