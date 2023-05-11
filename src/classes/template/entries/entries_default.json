@@ -15,6 +15,9 @@
 
     "max_val": null,
 
+    "scroll_to_adjust_timer": false,
+    "scroll_timer_adjustment": 0,
+
     "to_enable": [],
     "to_disable": [],
 

@@ -4,7 +4,7 @@ that are executed when a media button in the Time Stamper program is pressed."""
 
 from sys import platform
 from .macros_helper_methods import disable_button, \
-    button_enable_disable_macro, rewind_or_fast_forward, skip_backward_or_forward
+    button_enable_disable_macro, rewind_or_fast_forward
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -58,9 +58,9 @@ class MediaButtonMacros():
         if entry_str_key:
 
             # Skip the timer backward/forward the specified number of seconds.
-            adjustment_input = self.widgets[entry_str_key].get()
-            seconds_to_adjust_by = skip_backward_or_forward(adjustment_input, \
-                is_skip_backward, self.timer.adjust_timer)
+            adjust_amount = float(self.widgets[entry_str_key].get())
+            seconds_to_adjust_by = \
+                self.timer.adjust_timer(adjust_amount * -1 if is_skip_backward else adjust_amount)
 
             # Get the timestamp after skipping backward/forward.
             second_timestamp = self.timer.current_time_to_timestamp(include_brackets=False)

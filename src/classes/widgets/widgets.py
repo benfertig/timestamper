@@ -116,7 +116,8 @@ class Widgets():
 
         entry_window = self[window_str]
         for entry_template in self.template["entries"][window_str]:
-            entry = create_entry(self.template, self.settings, entry_template, entry_window, self)
+            entry = create_entry(self.time_stamper, \
+                self.settings, entry_template, entry_window, self)
             self.mapping[entry_template["str_key"]] = entry
 
     def create_labels(self, window_str):
@@ -145,7 +146,6 @@ class Widgets():
                 scale_window, scale_macro, release_macro)
             self.mapping[scale_template["str_key"]] = scale
 
-
     def create_spinboxes(self, window_str, macros):
         """This method creates all of the spinboxes that are
         meant to appear in the window indicated by window_str."""
@@ -157,7 +157,6 @@ class Widgets():
             spinbox = create_spinbox(self.template, self.settings, \
                 spinbox_template, spinbox_window, spinbox_macro)
             self.mapping[spinbox_template["str_key"]] = spinbox
-
 
     def create_texts(self, window_str):
         """This method creates all of the texts that are meant

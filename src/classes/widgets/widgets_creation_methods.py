@@ -5,8 +5,9 @@ from sys import platform
 from tkinter import DISABLED, NORMAL, HORIZONTAL, VERTICAL, END, Button, \
     Checkbutton, DoubleVar, Entry, IntVar, Label, StringVar, Scale, Spinbox, Text
 from tkinter.ttk import Scale as ttk_scale
-from .widgets_helper_methods import set_value, custom_on_mousewheel, entry_helper_method, \
-    determine_widget_text, determine_widget_attribute, create_font, grid_widget, create_image
+from .widgets_helper_methods import set_value, adjust_timer_on_entry_mousewheel, \
+    custom_scale_on_mousewheel, entry_helper_method, determine_widget_text, \
+    determine_widget_attribute, create_font, grid_widget, create_image
 
 if platform.startswith("darwin"):
     from tkmacosx import Button as MacButton
@@ -63,9 +64,6 @@ def create_button(template, settings, button_template, button_window, button_mac
     # Save the button's default, non-disabled color.
     original_color = button.cget("background")
 
-    # Place the Button.
-    grid_widget(button, button_template)
-
     # Disable the button if it should initially be disabled.
     if not is_enabled:
         button["state"] = DISABLED
@@ -76,6 +74,9 @@ def create_button(template, settings, button_template, button_window, button_mac
     if platform.startswith("darwin") and isinstance(button, MacButton) \
         and not button.cget("text") and not is_enabled:
         button["background"] = button_template["mac_disabled_color"]
+
+    # Place the Button.
+    grid_widget(button, button_template)
 
     return button, button_image, original_color
 
@@ -98,9 +99,6 @@ def create_checkbutton(template, settings, \
 
     checkbutton.variable = int_var
 
-    # Place the Checkbutton.
-    grid_widget(checkbutton, checkbutton_template)
-
     # If it is determined that the checkbutton should initially be checked, check the checkbutton.
     if determine_widget_attribute(checkbutton_template, "is_checked", template, settings):
         checkbutton.select()
@@ -111,22 +109,25 @@ def create_checkbutton(template, settings, \
     else:
         checkbutton_template["is_checked_loaded_value"] = False
 
+    # Place the Checkbutton.
+    grid_widget(checkbutton, checkbutton_template)
+
     return checkbutton
 
 
-def create_entry(template, settings, entry_template, entry_window, widgets):
+def create_entry(time_stamper, settings, entry_template, entry_window, widgets):
     """This method creates an Entry object for the Time Stamper program."""
 
     # Create the Entry's font.
     entry_font = create_font(entry_template)
 
     # Determine what the Entry's initial text should be.
-    entry_text_str = determine_widget_text(entry_template, template, settings)
+    entry_text_str = determine_widget_text(entry_template, time_stamper.template, settings)
     entry_text = StringVar()
     entry_text.set(entry_text_str)
 
     # Determine the Entry's initial state
-    if determine_widget_attribute(entry_template, "initial_state", template, settings):
+    if determine_widget_attribute(entry_template, "initial_state", time_stamper.template, settings):
         initial_state = NORMAL
     else:
         initial_state = DISABLED
@@ -139,14 +140,25 @@ def create_entry(template, settings, entry_template, entry_window, widgets):
         disabledforeground=entry_template["disabledforeground"],
         state=initial_state)
 
-    # Place the Entry.
-    grid_widget(entry, entry_template)
+    # Allow for the timer to be manipulated when the mousewheel is moved over this
+    # entry if it was indicated that this should be the case in the entry's template.
+    if entry_template["scroll_to_adjust_timer"]:
+
+        mousewheel_strs = \
+            ("<Button-4>", "<Button-5>") if platform.startswith("linux") else ("<MouseWheel>",)
+
+        for mw_str in mousewheel_strs:
+            entry.bind(mw_str, lambda event: \
+                adjust_timer_on_entry_mousewheel(entry, event, time_stamper, entry_template))
 
     # Set the Entry input restrictions.
     entry_text.trace("w", lambda *_: entry_helper_method(entry_text, entry_template, widgets))
 
     # Load the entry's initial text into its template.
     entry_template["text_loaded_value"] = entry_text_str
+
+    # Place the Entry.
+    grid_widget(entry, entry_template)
 
     return entry
 
@@ -220,7 +232,7 @@ def create_scale(time_stamper, scale_template, \
     if scale_template["bind_left_click_to_right_click"]:
         scale.bind("<Button-1>", lambda event: set_value(scale, event))
 
-    # Allow for the scale to be manipulated with the scrollbar if it was
+    # Allow for the scale to be manipulated with the mousewheel if it was
     # indicated that this should be the case in the scale's template.
     if scale_template["scroll_to_move"]:
 
@@ -229,7 +241,7 @@ def create_scale(time_stamper, scale_template, \
 
         for mw_str in mousewheel_strs:
             scale.bind(mw_str, lambda event: \
-                custom_on_mousewheel(scale, event, scale_template, time_stamper.audio_player))
+                custom_scale_on_mousewheel(scale, event, scale_template, time_stamper.audio_player))
 
     # If a macro for the mouse release was specified in macros.py...
     if release_command:

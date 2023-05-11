@@ -11,6 +11,9 @@
 
         "max_val": 99,
 
+        "scroll_to_adjust_timer": true,
+        "scroll_timer_adjustment": 3600,
+
         "background": "white",
         "foreground": "black",
 
@@ -44,6 +47,9 @@
 
         "max_val": 59,
 
+        "scroll_to_adjust_timer": true,
+        "scroll_timer_adjustment": 60,
+
         "background": "white",
         "foreground": "black",
 
@@ -76,6 +82,9 @@
 
         "max_val": 59,
 
+        "scroll_to_adjust_timer": true,
+        "scroll_timer_adjustment": 1,
+
         "background": "white",
         "foreground": "black",
 
@@ -107,6 +116,9 @@
         "text": "00",
 
         "max_val": 99,
+
+        "scroll_to_adjust_timer": true,
+        "scroll_timer_adjustment": "0.01",
 
         "background": "white",
         "foreground": "black",

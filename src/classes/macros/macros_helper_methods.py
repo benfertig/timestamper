@@ -283,7 +283,6 @@ def verify_audio_file(file_full_path, time_stamper):
         # a new, empty audio player for the Time Stamper program.
         else:
             time_stamper.audio_player = Player()
-            time_stamper.widgets["scale_audio_time"]["to"] = time_stamper.audio_source.duration
 
 
 def print_to_entry(to_print, entry_obj, wipe_clean=False):
@@ -336,25 +335,6 @@ def rewind_or_fast_forward(multiplier_str, is_rewind, timer):
         timer.pause()
         timer.multiplier = new_multiplier
         timer.play(reset_multiplier=False)
-
-def skip_backward_or_forward(user_input, is_skip_backward, adjust_timer_method):
-    """This method is called by button_skip_backward_macro and button_skip_forward_macro in
-    macros_buttons_media.py. The functions performed by both the skip backward and skip forward
-    buttons are very similar, so their procedures have been condensed down to a single method
-    here, and different parameters are passed depending on which button was pressed."""
-
-    # Ensure that the requested skip backward/forward amount is a number.
-    try:
-        adjust_amount = int(user_input)
-
-    # Do not skip the timer backward/forward if the requested skip backward/forward
-    # amount is not a number (this should never happen because we have restricted the
-    # skip backward/forward entry field to digits, but it never hurts to add a failsafe).
-    except ValueError:
-        return 0
-
-    # Skip the timer backward/forward the requested amount.
-    return adjust_timer_method(adjust_amount * -1 if is_skip_backward else adjust_amount)
 
 
 def store_timestamper_output(output_file_paths, output_file_encoding="utf-8"):

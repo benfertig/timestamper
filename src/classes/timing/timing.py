@@ -40,11 +40,11 @@ class TimeStamperTimer():
         self.time_stamper = time_stamper
 
         self.timestamp_set = False
-        self.is_running = False
         self.temporary_pause = False
         self.start_time = 0.0
         self.offset = 0.0
-        self.multiplier = 1.0
+        self.multiplier = 0.0
+        self.max_time = 359999.99
 
     def read_timer(self, raw=False):
         """This method reads in and returns the current time from the time fields. This method
@@ -61,7 +61,7 @@ class TimeStamperTimer():
         subseconds = self.time_stamper.widgets["entry_subseconds"].get()
 
         # The timer's values may need to be padded if they contain user-entered numbers.
-        if not self.is_running:
+        if not self.multiplier:
             hours = pad_number(hours, 2, True)
             minutes = pad_number(minutes, 2, True)
             seconds = pad_number(seconds, 2, True)
@@ -94,7 +94,13 @@ class TimeStamperTimer():
 
         # Print the hours, minutes, seconds and subseconds to their relevant Tkinter entries.
         for i, time_field in enumerate(("hours", "minutes", "seconds", "subseconds")):
-            print_to_entry(h_m_s[i], self.time_stamper.widgets[f"entry_{time_field}"])
+
+            current_timer_entry = self.time_stamper.widgets[f"entry_{time_field}"]
+
+            # Only update the value in the timer entry if the
+            # updated value is not equal to the current value.
+            if h_m_s[i] != current_timer_entry.get():
+                print_to_entry(h_m_s[i], current_timer_entry)
 
         # If a timestamp has not been set, make the timestamp label reflect the current time.
         if not self.timestamp_set:
@@ -124,7 +130,7 @@ class TimeStamperTimer():
         """This method adjusts the start time of the current audio
         source to new_time and then plays that audio source."""
 
-        if self.is_running:
+        if self.multiplier:
 
             # Pause the audio player.
             self.time_stamper.audio_player.pause()
@@ -192,7 +198,7 @@ class TimeStamperTimer():
         """This method runs continuously while the timer is running to update the current time."""
 
         # Only tick the timer if it is currently running.
-        if self.is_running:
+        if self.multiplier:
 
             # If audio is playing, sync the timer with the the audio player.
             audio_playing = \
@@ -204,12 +210,8 @@ class TimeStamperTimer():
             else:
                 internal_time = self.offset + ((perf_counter() - self.start_time) * self.multiplier)
 
-            # Determine the maximum time displayable by the timer.
-            max_time = min(359999.99, round(self.time_stamper.audio_source.duration, 2)) \
-                if self.time_stamper.audio_player else 359999.99
-
             # Only tick the timer if its current time is less than the maximum time.
-            if internal_time < max_time or self.multiplier < 0.0:
+            if internal_time < self.max_time or self.multiplier < 0.0:
 
                 # Only tick the timer if the precise internal time
                 # is greater than 0 or if an audio file is loaded.
@@ -248,7 +250,7 @@ class TimeStamperTimer():
             # If the timer's currently displayed time is not less
             # than the maximum displayable time, pause the timer.
             else:
-                self.display_time(max_time, pad=2)
+                self.display_time(self.max_time, pad=2)
                 self.time_stamper.macros["button_pause"]()
 
     def pause(self, temporary_pause=False):
@@ -261,13 +263,10 @@ class TimeStamperTimer():
         then the timer will immediately resume if temporary_pause was set to True."""
 
         # Only pause the timer if it is currently running.
-        if self.is_running:
+        if self.multiplier:
 
             # Declare the timer as not running.
-            self.is_running = False
-
-            # We are no longer rewinding or fast-forwarding, so the multiplier should be reset.
-            self.multiplier = 1.0
+            self.multiplier = 0.0
 
             # The images for the play, rewind and fast-forward buttons
             # should no longer be invisible if any of them currently are.
@@ -293,7 +292,7 @@ class TimeStamperTimer():
         # The timer is no longer paused, so self.temporary_pause should be set to False.
         self.temporary_pause = False
 
-        # If we arenot rewinding or fast-forwarding, then the multiplier should be set to 1.0.
+        # If we are not rewinding or fast-forwarding, then the multiplier should be set to 1.0.
         if reset_multiplier:
             self.multiplier = 1.0
 
@@ -307,9 +306,6 @@ class TimeStamperTimer():
         # Save the current raw time.
         self.start_time = perf_counter()
 
-        # Declare the timer as running.
-        self.is_running = True
-
         # Factor the current reading on the timer into the
         # offset for the calculation of the running time.
         self.offset = current_time_seconds
@@ -320,38 +316,49 @@ class TimeStamperTimer():
         # Begin ticking the timer.
         self.timer_tick(self.multiplier)
 
-    def adjust_timer(self, seconds_to_adjust_by):
-        """This method skipes the timer backward and forward and is typically run when the
-        skip backward or skip forward button is pressed. Since the skip backward and skip
-        forward procedures are very similar, they have been condensed into this single method."""
+    def adjust_timer(self, seconds_to_adjust_by, abort_if_out_of_bounds=False):
+        """This method skips the timer backward and forward and is typically run when
+        the skip backward or skip forward button is pressed or when the user scrolls
+        the mousewheel while the cursor is hovering over one of the timer entries. This
+        method takes one optional argument, abort_if_out_of_bounds, which is set to False
+        by default. When abort_if_out_of_bounds is set to True, this method will not adjust
+        the timer if the passed adjustment amount would put the timer below 0 or above
+        the maximum time (as is the case when the user scrolls the timer entries with the
+        mousewheel). When abort_if_out_of_bounds is set to False, this method will reduce
+        the passed adjustment amount to put the timer at either 0 or its maximum time if the
+        passed adjustment amount would have otherwise put the timer under 0 or over its maximum
+        time (as is the case when the user presses the skip backward or skip forward buttons)."""
 
         if seconds_to_adjust_by != 0:
 
             current_time_seconds = self.get_current_seconds()
 
-            # If the requested adjustment WOULD BRING the timer below
-            # the minimum time (00h 00m 00.00s), reduce the adjustment
-            # so that it brings the timer to the minimum time.
+            # If the requested adjustment WOULD BRING the
+            # timer below the minimum time (00h 00m 00.00s)...
             if current_time_seconds + seconds_to_adjust_by < 0:
+
+                # If abort_if_out_of_bounds is True, we should not adjust the timer.
+                if abort_if_out_of_bounds:
+                    return 0
+
+                # If abort_if_out_of_bounds is False, reduce the
+                # adjustment so that it brings the timer to 0.
                 seconds_to_adjust_by = -current_time_seconds
 
             # If the requested adjustment WOULD NOT BRING the
             # timer below the minimum time (00h 00m 00.00s)...
             else:
 
-                # The maximum time is either the maximum time displayable by the
-                # timer (99h 59m 59.99s) or the duration of the audio source. If an
-                # audio source is loaded, figure out which of these is shorter and
-                # set that to the maximum time. If an audio source is not loaded,
-                # set the maximum time to the maxmimum time displayable by the timer.
-                max_time = min(359999.99, round(self.time_stamper.audio_source.duration, 2)) \
-                    if self.time_stamper.audio_player else 359999.99
+                # IF the requested adjustment WOULD BRING the timer OVER the maximum time...
+                if current_time_seconds + seconds_to_adjust_by > self.max_time:
 
-                # IF the requested adjustment would have previously brought
-                # the timer OVER the maximum time, reduce the adjustment
-                # amount so that it brings the timer TO the maximum time.
-                if current_time_seconds + seconds_to_adjust_by > max_time:
-                    seconds_to_adjust_by = max_time - current_time_seconds
+                    # If abort_if_out_of_bounds is True, we should not adjust the timer.
+                    if abort_if_out_of_bounds:
+                        return 0
+
+                    # If abort_if_out_of_bounds is False, reduce the adjustment
+                    # amount so that it brings the timer TO the maximum time
+                    seconds_to_adjust_by = self.max_time - current_time_seconds
 
             # Update the timer's time.
             current_time_seconds += seconds_to_adjust_by

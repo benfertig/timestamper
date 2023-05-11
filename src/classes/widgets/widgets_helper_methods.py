@@ -4,7 +4,7 @@
 from json import load as json_load
 from os.path import join, splitext
 from sys import platform
-from tkinter import DISABLED, NORMAL, font, Grid, PhotoImage, Tk, Toplevel
+from tkinter import DISABLED, NORMAL, END, font, Grid, PhotoImage, Tk, Toplevel
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -25,6 +25,17 @@ from tkinter import DISABLED, NORMAL, font, Grid, PhotoImage, Tk, Toplevel
 # Contact: github.cqrde@simplelogin.com
 
 
+def pad_number(number, target_length, pad_before):
+    """This method pads a number to target_length with leading zeros (if
+    pad_before is set to True) or trailing zeros (if pad_before is set to False)."""
+
+    str_number = str(number) if number else "0"
+    zeros_to_add = "0" * (target_length - len(str_number))
+    if pad_before:
+        return zeros_to_add + str_number
+    return str_number + zeros_to_add
+
+
 def set_value(scale, event):
     """This method can be bound to a button press on a Scale widget, making it so that the
     result of pressing that button while the cursor is hovering over that scale will mimic the
@@ -34,10 +45,53 @@ def set_value(scale, event):
     return "break"
 
 
-def custom_on_mousewheel(scale, event, scale_template, audio_player):
+def adjust_timer_on_entry_mousewheel(entry, event, time_stamper, entry_template):
+    """This is a custom event method that gets executed when the mousewheel is
+    moved over one of the timer entries (hours, minutes, seconds or subseconds)."""
+
+    # Only run this method if the timer is not running.
+    if not time_stamper.timer.multiplier:
+
+        # On Mac platforms, the registered scroll amount does not need to be divided by 120.
+        event_delta = event.delta if platform.startswith("darwin") else int(event.delta / 120)
+
+        # Get the maximum value and the maximum length of the current entry.
+        max_val = entry_template["max_val"]
+        max_len = len(str(max_val))
+
+        # If the current entry in question is the subseconds entry and the user entered a
+        # custom value in the subseconds entry, then the reading of the subseconds entry
+        # may be deceiving. For example, a reading of "5" in the subseconds entry should
+        # actually be read as 50 hundreth-seconds (i.e., half of a second) and not 5
+        # hundreth-seconds, since 5 hundreth-seconds would more accurately be represented
+        # with "05" in the subseconds entry. We correct for any such potential misreadings here.
+        current_entry_value_literal = entry.get()
+        if entry_template["str_key"] == "entry_subseconds":
+            current_entry_value = int(pad_number(current_entry_value_literal, max_len, False))
+
+        # If the entry in question is not the subseconds entry, simply
+        # convert the current reading of the entry to an integer.
+        else:
+            try:
+                current_entry_value = int(current_entry_value_literal)
+            except ValueError:
+                current_entry_value = 0
+
+        # Determine what the new value for the timer entry should be.
+        updated_entry_value = current_entry_value + event_delta
+
+        # Only adjust the timer if adding the calculated adjustment
+        # would keep the timer within its displayable range.
+        if 0 <= updated_entry_value <= float(max_val):
+            scroll_timer_adjustment = event_delta * float(entry_template["scroll_timer_adjustment"])
+            time_stamper.timer.adjust_timer(scroll_timer_adjustment, abort_if_out_of_bounds=True)
+
+def custom_scale_on_mousewheel(scale, event, scale_template, audio_player):
     """This is a custom event method that gets executed when
     the mousewheel is moved while the cursor is on a Scale."""
 
+    # Only run this method if the current scale is not the
+    # audio time scale or if there is no audio currently playing.
     if not scale_template["str_key"] == "scale_audio_time" \
         or not audio_player or not audio_player.playing:
 
