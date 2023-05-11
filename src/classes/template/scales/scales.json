@@ -11,6 +11,8 @@
         "from_": 0,
         "to": 1,
 
+        "scroll_sensitivity": "0.01",
+
         "bind_left_click_to_right_click": true,
 
         "run_release_macro_on_left_release": true,
@@ -38,6 +40,8 @@
         "is_horizontal": false,
 
         "is_ttk_scale": true,
+
+        "scroll_sensitivity": 1,
 
         "bind_left_click_to_right_click": true,
 

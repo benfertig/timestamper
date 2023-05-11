@@ -42,8 +42,7 @@ class ScaleMacros():
             self.timer.pause(temporary_pause=True)
 
             # Update the timer to match the new position of the slider.
-            new_time = float(scale_value) * self.time_stamper.audio_source.duration
-            self.timer.update_timer(new_time)
+            self.timer.update_timer(float(scale_value))
 
         # If audio player was not successfully retrieved, disable all audio playback settings.
         else:

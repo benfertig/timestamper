@@ -25,6 +25,31 @@ from tkinter import DISABLED, NORMAL, font, Grid, PhotoImage, Tk, Toplevel
 # Contact: github.cqrde@simplelogin.com
 
 
+def set_value(scale, event):
+    """This method can be bound to a button press on a Scale widget, making it so that the
+    result of pressing that button while the cursor is hovering over that scale will mimic the
+    result of clicking the right mouse button while the cursor is hovering over that scale."""
+
+    scale.event_generate("<Button-3>", x=event.x, y=event.y)
+    return "break"
+
+
+def custom_on_mousewheel(scale, event, scale_template, audio_player):
+    """This is a custom event method that gets executed when
+    the mousewheel is moved while the cursor is on a Scale."""
+
+    if not scale_template["str_key"] == "scale_audio_time" \
+        or not audio_player or not audio_player.playing:
+
+        # On Mac platforms, the registered scroll amount does not need to be divided be 120.
+        event_delta = event.delta if platform.startswith("darwin") else event.delta / 120
+
+        # Adjust the scale's position to reflect the mousewheel scrolling.
+        scroll_amount = event_delta * float(scale_template["scroll_sensitivity"]) * -1
+        scale_current_value = scale.get()
+        scale.set(scale_current_value + scroll_amount)
+
+
 def entry_helper_method(entry_text, entry_template, widgets):
     """This method will be executed every time an entry's text is manipulated."""
 

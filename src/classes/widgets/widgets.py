@@ -141,7 +141,8 @@ class Widgets():
             scale_macro = macros[str_key] if str_key in macros.mapping else None
             release_macro = \
                 macros[f"{str_key}_ONRELEASE"] if f"{str_key}_ONRELEASE" in macros.mapping else None
-            scale = create_scale(self, scale_template, scale_window, scale_macro, release_macro)
+            scale = create_scale(self.time_stamper, scale_template, \
+                scale_window, scale_macro, release_macro)
             self.mapping[scale_template["str_key"]] = scale
 
 

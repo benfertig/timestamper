@@ -5,8 +5,8 @@ from sys import platform
 from tkinter import DISABLED, NORMAL, HORIZONTAL, VERTICAL, END, Button, \
     Checkbutton, DoubleVar, Entry, IntVar, Label, StringVar, Scale, Spinbox, Text
 from tkinter.ttk import Scale as ttk_scale
-from .widgets_helper_methods import entry_helper_method, determine_widget_text, \
-    determine_widget_attribute, create_font, grid_widget, create_image
+from .widgets_helper_methods import set_value, custom_on_mousewheel, entry_helper_method, \
+    determine_widget_text, determine_widget_attribute, create_font, grid_widget, create_image
 
 if platform.startswith("darwin"):
     from tkmacosx import Button as MacButton
@@ -28,13 +28,6 @@ if platform.startswith("darwin"):
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 # Contact: github.cqrde@simplelogin.com
-
-
-def set_value(scale, event):
-    """This method binds a scale's left-mouse-click event to its right-mouse-click event."""
-
-    scale.event_generate("<Button-3>", x=event.x, y=event.y)
-    return "break"
 
 
 def create_button(template, settings, button_template, button_window, button_macro):
@@ -183,12 +176,13 @@ def create_label(template, settings, label_template, label_window):
     return label, label_image
 
 
-def create_scale(widgets, scale_template, scale_window, scale_command=None, release_command=None):
+def create_scale(time_stamper, scale_template, \
+    scale_window, scale_command=None, release_command=None):
     """This method creates a Scale object for the Time Stamper program."""
 
     # Determine the Scale's initial state.
-    if determine_widget_attribute(scale_template, \
-        "initial_state", widgets.template, widgets.settings):
+    if determine_widget_attribute(scale_template, "initial_state", \
+        time_stamper.widgets.template, time_stamper.widgets.settings):
         initial_state = NORMAL
     else:
         initial_state = DISABLED
@@ -225,6 +219,17 @@ def create_scale(widgets, scale_template, scale_window, scale_command=None, rele
     # map the left-mouse-click function to the right-mouse-click function.
     if scale_template["bind_left_click_to_right_click"]:
         scale.bind("<Button-1>", lambda event: set_value(scale, event))
+
+    # Allow for the scale to be manipulated with the scrollbar if it was
+    # indicated that this should be the case in the scale's template.
+    if scale_template["scroll_to_move"]:
+
+        mousewheel_strs = \
+            ("<Button-4>", "<Button-5>") if platform.startswith("linux") else ("<MouseWheel>",)
+
+        for mw_str in mousewheel_strs:
+            scale.bind(mw_str, lambda event: \
+                custom_on_mousewheel(scale, event, scale_template, time_stamper.audio_player))
 
     # If a macro for the mouse release was specified in macros.py...
     if release_command:

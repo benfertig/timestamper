@@ -17,6 +17,10 @@
 
     "initial_value": 0,
 
+    "scroll_sensitivity": 1,
+
+    "scroll_to_move": true,
+
     "bind_left_click_to_right_click": false,
 
     "run_release_macro_on_left_release": false,

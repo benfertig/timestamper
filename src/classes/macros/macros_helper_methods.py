@@ -267,20 +267,23 @@ def verify_audio_file(file_full_path, time_stamper):
     if isdir(file_full_path) or not exists(file_full_path):
         time_stamper.audio_source, time_stamper.audio_player = None, None
 
-    # Try loading the file specified by file_full_path into
-    # a Pyglet media source and storing that media source.
-    try:
-        time_stamper.audio_source = load(file_full_path)
-
-    # If the file CANNOT be loaded into a Pyglet media
-    # source, erase the current audio source/audio player.
-    except (EOFError, FileNotFoundError, WAVEDecodeException):
-        time_stamper.audio_source, time_stamper.audio_player = None, None
-
-    # If the file CAN be loaded into a Pyglet media player, declare
-    # a new, empty audio player for the Time Stamper program.
     else:
-        time_stamper.audio_player = Player()
+
+        # Try loading the file specified by file_full_path into
+        # a Pyglet media source and storing that media source.
+        try:
+            time_stamper.audio_source = load(file_full_path)
+
+        # If the file CANNOT be loaded into a Pyglet media
+        # source, erase the current audio source/audio player.
+        except (EOFError, FileNotFoundError, WAVEDecodeException):
+            time_stamper.audio_source, time_stamper.audio_player = None, None
+
+        # If the file CAN be loaded into a Pyglet media player, declare
+        # a new, empty audio player for the Time Stamper program.
+        else:
+            time_stamper.audio_player = Player()
+            time_stamper.widgets["scale_audio_time"]["to"] = time_stamper.audio_source.duration
 
 
 def print_to_entry(to_print, entry_obj, wipe_clean=False):

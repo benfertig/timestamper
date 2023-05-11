@@ -108,8 +108,7 @@ class TimeStamperTimer():
             audio_duration = self.time_stamper.audio_source.duration
 
             # Update the audio slider.
-            audio_scale_position = round(new_time / audio_duration, 2)
-            self.time_stamper.widgets["scale_audio_time"].variable.set(audio_scale_position)
+            self.time_stamper.widgets["scale_audio_time"].variable.set(new_time)
 
             # Update the elapsed time.
             label_audio_elapsed = self.time_stamper.widgets["label_audio_elapsed"]
