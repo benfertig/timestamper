@@ -30,7 +30,7 @@ class TimestampingButtonMacros():
         self.widgets = parent.widgets
         self.timer = parent.timer
 
-    def button_timestamp_macro(self):
+    def button_timestamp_macro(self, *_):
         """This method will be executed when the timestamp button is pressed."""
 
         # Make note of the fact that a timestamp has been set.
@@ -43,7 +43,7 @@ class TimestampingButtonMacros():
         # Enable and disable the relevant buttons for when the timestamp button is pressed.
         button_enable_disable_macro(self.template["button_timestamp"], self.widgets)
 
-    def button_clear_timestamp_macro(self):
+    def button_clear_timestamp_macro(self, *_):
         """This method will be executed when the "Clear timestamp" button is pressed."""
 
         # Make note of the fact that a timestamp has been cleared.

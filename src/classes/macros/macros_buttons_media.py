@@ -98,7 +98,7 @@ class MediaButtonMacros():
             # timestamp, to the notes log and the output file.
             self.parent.print_timestamped_message(f"{button_message}\n", first_timestamp)
 
-    def button_pause_macro(self):
+    def button_pause_macro(self, *_):
         """This method will be executed when the pause button is pressed."""
 
         self.media_button_macro("button_pause")
@@ -114,7 +114,7 @@ class MediaButtonMacros():
         # Pause the timer.
         self.timer.pause()
 
-    def button_play_macro(self):
+    def button_play_macro(self, *_):
         """This method will be executed when the play button is pressed."""
 
         self.media_button_macro("button_play")
@@ -130,7 +130,12 @@ class MediaButtonMacros():
         # Start the timer.
         self.timer.play()
 
-    def button_rewind_macro(self):
+    def button_play_release_macro(self, *_):
+        """This method will be executed when the play button is released."""
+
+        pass
+
+    def button_rewind_macro(self, *_):
         """This method will be executed when the rewind button is pressed."""
 
         # Enable and disable the relevant buttons for when the rewind button is pressed.
@@ -143,7 +148,7 @@ class MediaButtonMacros():
         # Rewind the timer at the specified speed.
         rewind_or_fast_forward(multiplier_str, True, self.timer)
 
-    def button_fast_forward_macro(self):
+    def button_fast_forward_macro(self, *_):
         """This method will be executed when the fast-forward button is pressed."""
 
         # Enable and disable the relevant buttons for when the fast-forward button is pressed.
@@ -156,18 +161,18 @@ class MediaButtonMacros():
         # Fast-forward the timer at the specified speed.
         rewind_or_fast_forward(multiplier_str, False, self.timer)
 
-    def button_skip_backward_macro(self):
+    def button_skip_backward_macro(self, *_):
         """This method will be executed when the skip backward button is pressed."""
 
         self.media_button_macro("button_skip_backward", \
             "entry_skip_backward", is_skip_backward=True)
 
-    def button_skip_forward_macro(self):
+    def button_skip_forward_macro(self, *_):
         """This method will be executed when the skip forward button is pressed."""
 
         self.media_button_macro("button_skip_forward", "entry_skip_forward", is_skip_backward=False)
 
-    def button_mute_macro(self):
+    def button_mute_macro(self, *_):
         """This method will be executed when the mute button is pressed."""
 
         # If an audio player was successfully retrieved...

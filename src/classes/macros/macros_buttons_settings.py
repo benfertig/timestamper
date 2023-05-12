@@ -111,7 +111,7 @@ class SettingsButtonMacros():
             # Set the text value of the current entry to the previously determined value.
             print_to_entry(entry_text, entry_obj, wipe_clean=True)
 
-    def button_settings_macro(self):
+    def button_settings_macro(self, *_):
         "This method will be executed when the settings button is pressed."
 
         # Display the settings window.
@@ -132,7 +132,7 @@ class SettingsButtonMacros():
 
             window_settings.mainloop()
 
-    def button_reset_to_default_macro(self):
+    def button_reset_to_default_macro(self, *_):
         """This method will be executed when the "Reset to
         default" button in the settings window is pressed."""
 
@@ -167,7 +167,7 @@ class SettingsButtonMacros():
         # Enable and disable the relevant widgets for when the "Reset to default" button is pressed.
         button_enable_disable_macro(self.template["button_reset_to_default"], self.widgets)
 
-    def button_cancel_changes_macro(self):
+    def button_cancel_changes_macro(self, *_):
         """This method will be executed when the "Cancel
         changes" button in the settings window is pressed."""
 
@@ -185,7 +185,7 @@ class SettingsButtonMacros():
         # Enable and disable the relevant widgets for when the "Cancel changes" button is pressed.
         button_enable_disable_macro(self.template["button_cancel_changes"], self.widgets)
 
-    def button_save_settings_macro(self):
+    def button_save_settings_macro(self, *_):
         """This method will be executed when the "Save
         settings" button in the settings window is pressed."""
 

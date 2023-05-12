@@ -34,34 +34,34 @@ class NoteButtonMacros():
         self.widgets = parent.widgets
         self.timer = parent.timer
 
-    def button_hotkey_1_macro(self):
+    def button_hotkey_1_macro(self, *_):
         """This method will be executed when hotkey 1 is pressed."""
 
         # Timestamp and print the message associated with hotkey 1.
         button_hotkey_1_message = self.parent.get_button_message_input("button_hotkey_1")
         self.parent.print_timestamped_message(f"{button_hotkey_1_message}\n")
 
-    def button_hotkey_2_macro(self):
+    def button_hotkey_2_macro(self, *_):
         """This method will be executed when hotkey 2 is pressed."""
 
         # Timestamp and print the message associated with hotkey 2.
         button_hotkey_2_message = self.parent.get_button_message_input("button_hotkey_2")
         self.parent.print_timestamped_message(f"{button_hotkey_2_message}\n")
 
-    def button_hotkey_3_macro(self):
+    def button_hotkey_3_macro(self, *_):
         """This method will be executed when hotkey 3 is pressed."""
 
         # Timestamp and print the message associated with hotkey 3.
         button_hotkey_3_message = self.parent.get_button_message_input("button_hotkey_3")
         self.parent.print_timestamped_message(f"{button_hotkey_3_message}\n")
 
-    def button_cancel_note_macro(self):
+    def button_cancel_note_macro(self, *_):
         """This method will be executed when the "Cancel note" button is pressed."""
 
         # Clear the current note from the input text box.
         print_to_text("", self.widgets["text_current_note"], wipe_clean=True)
 
-    def button_save_note_macro(self):
+    def button_save_note_macro(self, *_):
         """This method will be executed when the "Save note" button is pressed."""
 
         # Get the current text in the input text box.

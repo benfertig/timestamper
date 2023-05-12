@@ -31,7 +31,7 @@ if platform.startswith("darwin"):
 # Contact: github.cqrde@simplelogin.com
 
 
-def create_button(time_stamper, button_template, button_window, button_macro):
+def create_button(time_stamper, button_template, button_window, button_macro, release_macro=None):
     """This method creates a Button object for the Time Stamper program."""
 
     # Create the Button's font.
@@ -61,7 +61,15 @@ def create_button(time_stamper, button_template, button_window, button_macro):
     button = button_class(button_window, height=button_template["height"], \
         width=button_template["width"], text=button_text, image=button_image, \
         state=NORMAL, font=button_font, background=button_background, \
-        foreground=button_foreground, command=button_macro)
+        foreground=button_foreground)
+
+    # If a macro for the mouse release was specified in macros.py,
+    # map the release macro to the left-mouse-click release.
+    if release_macro:
+        button.bind("<Button-1>", button_macro)
+        button.bind("<ButtonRelease-1>", release_macro)
+    else:
+        button.configure(command=button_macro)
 
     # Save the button's default, non-disabled color.
     original_color = button.cget("background")
@@ -193,7 +201,7 @@ def create_label(template, settings, label_template, label_window):
 
 
 def create_scale(time_stamper, scale_template, \
-    scale_window, scale_command=None, release_command=None):
+    scale_window, scale_macro=None, release_macro=None):
     """This method creates a Scale object for the Time Stamper program."""
 
     # Determine the Scale's initial state.
@@ -214,7 +222,7 @@ def create_scale(time_stamper, scale_template, \
         # Create the Scale.
         scale = ttk_scale(scale_window, variable=double_var, \
             from_=scale_template["from_"], to=scale_template["to"], \
-            orient=orient, state=initial_state, command=scale_command)
+            orient=orient, state=initial_state, command=scale_macro)
 
     # If the scale should be made using tkinter.Scale...
     else:
@@ -226,7 +234,7 @@ def create_scale(time_stamper, scale_template, \
         scale = Scale(scale_window, variable=double_var, \
             from_=scale_template["from_"], to=scale_template["to"], orient=orient, \
             tickinterval=scale_template["tickinterval"], font=scale_font, \
-            state=initial_state, showvalue=scale_template["showvalue"], command=scale_command)
+            state=initial_state, showvalue=scale_template["showvalue"], command=scale_macro)
 
     double_var.set(scale_template["initial_value"])
     scale.variable = double_var
@@ -248,19 +256,21 @@ def create_scale(time_stamper, scale_template, \
                 custom_scale_on_mousewheel(scale, event, scale_template, time_stamper))
 
     # If a macro for the mouse release was specified in macros.py...
-    if release_command:
+    if release_macro:
 
-        # Map the release macro to the left-mouse-click if it was specified in the template.
+        # Map the release macro to the left-mouse-click release if it was specified in the template.
         if scale_template["run_release_macro_on_left_release"]:
-            scale.bind("<ButtonRelease-1>", release_command)
+            scale.bind("<ButtonRelease-1>", release_macro)
 
-        # Map the release macro to the middle-mouse-click if it was specified in the template.
+        # Map the release macro to the middle-mouse-click
+        # release if it was specified in the template.
         if scale_template["run_release_macro_on_middle_release"]:
-            scale.bind("<ButtonRelease-2>", release_command)
+            scale.bind("<ButtonRelease-2>", release_macro)
 
-        # Map the release macro to the right-mouse-click if it was specified in the template.
+        # Map the release macro to the right-mouse-click
+        # release if it was specified in the template.
         if scale_template["run_release_macro_on_right_release"]:
-            scale.bind("<ButtonRelease-3>", release_command)
+            scale.bind("<ButtonRelease-3>", release_macro)
 
     # Place the Scale.
     grid_widget(scale, scale_template)
@@ -268,7 +278,7 @@ def create_scale(time_stamper, scale_template, \
     return scale
 
 
-def create_spinbox(template, settings, spinbox_template, spinbox_window, spinbox_command=None):
+def create_spinbox(template, settings, spinbox_template, spinbox_window, spinbox_macro=None):
     """This method creates a Spinbox object for the Time Stamper program."""
 
     # Create the Spinbox's font.
@@ -295,7 +305,7 @@ def create_spinbox(template, settings, spinbox_template, spinbox_window, spinbox
         disabledbackground=spinbox_template["disabledbackground"], \
         disabledforeground=spinbox_template["disabledforeground"], \
         readonlybackground=spinbox_template["readonlybackground"], state=initial_state, \
-        values=list(spinbox_template["values"]), command=spinbox_command)
+        values=list(spinbox_template["values"]), command=spinbox_macro)
 
     spinbox_text.set(spinbox_text_str)
 

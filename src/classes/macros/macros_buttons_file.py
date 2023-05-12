@@ -75,7 +75,7 @@ class FileButtonMacros():
         # Print the file path to the entry widget.
         print_to_entry(file_full_path, entry_object, wipe_clean=True)
 
-    def button_output_select_macro(self):
+    def button_output_select_macro(self, *_):
         """This method will be executed when the "Choose output location" button is pressed."""
 
         # Get the path to the selected output file.
@@ -89,7 +89,7 @@ class FileButtonMacros():
         # Check whether or not the selected output file is valid and respond accordingly.
         self.parent.validate_output_file()
 
-    def button_merge_output_files_macro(self):
+    def button_merge_output_files_macro(self, *_):
         """This method will be executed when the "Merge output files" button is pressed."""
 
         # Call the function that will display the first window with instructions
@@ -100,7 +100,7 @@ class FileButtonMacros():
             "window_merge_first_message", close_window_macro=self.on_close_window_merge_1_macro)
         window_merge_first_message.mainloop()
 
-    def button_audio_select_macro(self):
+    def button_audio_select_macro(self, *_):
         """This method will be executed when the "Select synced audio file" button is pressed."""
 
         # TODO: SOME POTENTIAL FUTURE AUDIO FORMATS TO INCLUDE ARE (but are not limited to):

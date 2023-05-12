@@ -87,15 +87,17 @@ class Widgets():
 
         button_window = self[window_str]
         for button_template in self.template["buttons"][window_str]:
-            button_macro = macros[button_template["str_key"]] \
-                if button_template["str_key"] in macros.mapping else None
-            button, button_image, button_orig_color = \
-                create_button(self.time_stamper, button_template, button_window, button_macro)
+            str_key = button_template["str_key"]
+            button_macro = macros[str_key] if str_key in macros.mapping else None
+            release_macro = \
+                macros[f"{str_key}_ONRELEASE"] if f"{str_key}_ONRELEASE" in macros.mapping else None
+            button, button_image, button_orig_color = create_button(self.time_stamper, \
+                button_template, button_window, button_macro, release_macro)
             button.image = button_image
-            self.original_colors[button_template["str_key"]] = button_orig_color
+            self.original_colors[str_key] = button_orig_color
             if button_image:
                 self.mapping[button_template["image_file_name"]] = button_image
-            self.mapping[button_template["str_key"]] = button
+            self.mapping[str_key] = button
 
     def create_checkbuttons(self, window_str, macros):
         """This method creates all of the checkbuttons that are

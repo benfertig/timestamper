@@ -29,7 +29,7 @@ class InfoButtonMacros():
         self.template = parent.template
         self.widgets = parent.widgets
 
-    def button_help_macro(self):
+    def button_help_macro(self, *_):
         """This method will be executed when the "Help" button is pressed."""
 
         # Display the window containing the help message along with its relevant label.
@@ -67,12 +67,12 @@ class InfoButtonMacros():
         new_message = label_help_message_template["loaded_message_text"][str(new_page)]
         obj_label_help["text"] = new_message
 
-    def button_help_left_arrow_macro(self):
+    def button_help_left_arrow_macro(self, *_):
         """This method will be executed when the left arrow button in the help window is pressed."""
 
         self.change_help_page(False)
 
-    def button_help_right_arrow_macro(self):
+    def button_help_right_arrow_macro(self, *_):
         """This method will be executed when the right
         arrow button in the help window is pressed."""
 
@@ -89,7 +89,7 @@ class InfoButtonMacros():
         first_page_num = label_help_page_number_template["first_page"]
         label_help_page_number_template["current_page"] = first_page_num
 
-    def button_license_macro(self):
+    def button_license_macro(self, *_):
         """This method will be executed when the License button is pressed."""
 
         # Display the window containing the license.
@@ -104,7 +104,7 @@ class InfoButtonMacros():
             window_license = self.widgets.create_entire_window("window_license")
             window_license.mainloop()
 
-    def button_attribution_macro(self):
+    def button_attribution_macro(self, *_):
         """This method will be executed when the Attribution button is pressed."""
 
         # Display the window containing the attribution.
