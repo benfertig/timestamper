@@ -36,7 +36,7 @@ class ScaleMacros():
         the left, middle or right mouse button from the audio slider)."""
 
         # If an audio player was successfully retrieved...
-        if self.time_stamper.audio_player:
+        if self.time_stamper.audio.player:
 
             # Pause the timer.
             self.timer.pause(temporary_pause=True)
@@ -66,10 +66,10 @@ class ScaleMacros():
         volume_scale_value = 100 - float(volume_scale_value)
 
         # If an audio player was successfully retrieved...
-        if self.time_stamper.audio_player:
+        if self.time_stamper.audio.player:
 
             # Adjust the volume of the audio.
-            self.time_stamper.audio_player.volume = volume_scale_value / 100
+            self.time_stamper.audio.player.volume = volume_scale_value / 100
 
             # Update the label that displays the current volume level.
             self.widgets["label_audio_volume"]["text"] = str(int(volume_scale_value))

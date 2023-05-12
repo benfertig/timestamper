@@ -35,11 +35,11 @@ class Widgets():
     reference Widgets["button_pause"]. Also see the "widgets_creation_methods.py" and
     "widgets_helper_methods.py" modules for additional methods associated with widgets."""
 
-    def __init__(self, time_stamper, settings, main_window_str):
+    def __init__(self, time_stamper, main_window_str):
 
         self.time_stamper = time_stamper
         self.template = time_stamper.template
-        self.settings = settings
+        self.settings = time_stamper.settings
         self.main_window_str = main_window_str
         self.original_colors = {}
         self.determine_widget_text = determine_widget_text
@@ -90,8 +90,7 @@ class Widgets():
             button_macro = macros[button_template["str_key"]] \
                 if button_template["str_key"] in macros.mapping else None
             button, button_image, button_orig_color = \
-                create_button(self.template, self.settings, \
-                    button_template, button_window, button_macro)
+                create_button(self.time_stamper, button_template, button_window, button_macro)
             button.image = button_image
             self.original_colors[button_template["str_key"]] = button_orig_color
             if button_image:
@@ -116,8 +115,7 @@ class Widgets():
 
         entry_window = self[window_str]
         for entry_template in self.template["entries"][window_str]:
-            entry = create_entry(self.time_stamper, \
-                self.settings, entry_template, entry_window, self)
+            entry = create_entry(self.time_stamper, entry_template, entry_window, self)
             self.mapping[entry_template["str_key"]] = entry
 
     def create_labels(self, window_str):

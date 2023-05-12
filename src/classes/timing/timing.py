@@ -52,8 +52,8 @@ class TimeStamperTimer():
         maximum time will be 359999.99 seconds unless an audio file is loaded, in which case
         the maximum time will be the minimum of 359999.99 and the duration of the audio source."""
 
-        if self.time_stamper.audio_source:
-            return min(359999.99, round(self.time_stamper.audio_source.duration, 2))
+        if self.time_stamper.audio.source:
+            return min(359999.99, round(self.time_stamper.audio.source.duration, 2))
 
         return 359999.99
 
@@ -96,12 +96,12 @@ class TimeStamperTimer():
 
         return h_m_s_to_timestamp(*self.read_timer(raw=True), include_brackets)
 
-    def display_time(self, new_time, pad=0):
+    def display_time(self, new_time, pad=2):
         """This method, after converting the provided time in seconds to hours, minutes,
         seconds and subseconds, will display this time to timer fields of self.time_stamper."""
 
         # Convert the provided time in seconds to hours, minutes, seconds and subseconds.
-        h_m_s = seconds_to_h_m_s(new_time, pad)
+        h_m_s = seconds_to_h_m_s(new_time, pad=pad)
 
         # Print the hours, minutes, seconds and subseconds to their relevant Tkinter entries.
         for i, time_field in enumerate(("hours", "minutes", "seconds", "subseconds")):
@@ -120,9 +120,9 @@ class TimeStamperTimer():
 
         # If an audio player exists, update the position of the audio
         # slider as well as the displays of elapsed and remaining time.
-        if self.time_stamper.audio_player:
+        if self.time_stamper.audio.player:
 
-            audio_duration = min(359999.99, self.time_stamper.audio_source.duration)
+            audio_duration = min(359999.99, self.time_stamper.audio.source.duration)
 
             # Update the audio slider.
             self.time_stamper.widgets["scale_audio_time"].variable.set(new_time)
@@ -146,29 +146,29 @@ class TimeStamperTimer():
         if self.multiplier:
 
             # Pause the audio player.
-            self.time_stamper.audio_player.pause()
+            self.time_stamper.audio.player.pause()
 
             # Refresh the audio player.
-            self.time_stamper.audio_player.delete()
-            self.time_stamper.audio_player = Player()
-            self.time_stamper.audio_player.queue(self.time_stamper.audio_source)
+            self.time_stamper.audio.player.delete()
+            self.time_stamper.audio.player = Player()
+            self.time_stamper.audio.player.queue(self.time_stamper.audio.source)
 
             # Adjust the start time of the audio.
-            self.time_stamper.audio_player.seek(new_time)
+            self.time_stamper.audio.player.seek(new_time)
 
             # If the volume is currently muted, set the audio player's volume to zero.
             if self.time_stamper.widgets["button_mute"].image == \
                 self.time_stamper.widgets["volume_mute.png"]:
-                self.time_stamper.audio_player.volume = 0.0
+                self.time_stamper.audio.player.volume = 0.0
 
             # If the volume is not currently muted, set the audio
             # player's volume to the value of the volume slider.
             else:
-                self.time_stamper.audio_player.volume = \
+                self.time_stamper.audio.player.volume = \
                     (100 - self.time_stamper.widgets["scale_audio_volume"].variable.get()) / 100
 
             # Play the audio.
-            self.time_stamper.audio_player.play()
+            self.time_stamper.audio.player.play()
 
     def attempt_audio_playback(self, start_time):
         """If an audio player can be initialized with the current information provided in
@@ -178,11 +178,11 @@ class TimeStamperTimer():
 
         # Retrieve the audio source and the audio player if they can be retrieved.
         entry_audio_path = self.time_stamper.widgets["entry_audio_path"]
-        self.time_stamper.audio_source, self.time_stamper.audio_player = confirm_audio(\
-            self.time_stamper.audio_source, self.time_stamper.audio_player, entry_audio_path)
+        self.time_stamper.audio.source, self.time_stamper.audio.player = confirm_audio(\
+            self.time_stamper.audio.source, self.time_stamper.audio.player, entry_audio_path)
 
         # Play the selected audio player if it WAS successfully retrieved.
-        if self.time_stamper.audio_player:
+        if self.time_stamper.audio.player:
             self.update_audio(start_time)
 
         # Clear the audio path and disable the audio slider
@@ -215,9 +215,9 @@ class TimeStamperTimer():
 
             # If audio is playing, sync the timer with the the audio player.
             audio_playing = \
-                self.time_stamper.audio_player and self.time_stamper.audio_player.playing
+                self.time_stamper.audio.player and self.time_stamper.audio.player.playing
             if audio_playing:
-                internal_time = self.time_stamper.audio_player.time
+                internal_time = self.time_stamper.audio.player.time
 
             # If audio is not playing, set the timer using perf_counter().
             else:
@@ -267,14 +267,14 @@ class TimeStamperTimer():
                 self.time_stamper.macros["button_pause"]()
 
     def pause(self, temporary_pause=False, play_delay=None):
-        """This method halts the timer and is typically run when the pause button is pressed
-        or when the audio slider is dragged. An optional argument temporary_pause, which
-        is set to False by default, is only ever set to True if this method is called
-        from scale_audio_time_left_mouse_press in widgets_helper_methods.py and if the
-        timer was previously unpaused. When the audio slider is then released (i.e., when
-        scale_audio_time_left_mouse_release from widgets_helper_methods.py is called), then
-        the timer will immediately resume if temporary_pause was set to True. A second
-        optional argument play_delay, which is set to None by default, determines the amount
+        """This method halts the timer and is typically run when the pause button is pressed, when
+        the audio slider is dragged/scrolled and audio is playing or when the timer entries are
+        scrolled. An optional argument temporary_pause, which is set to False by default, is only
+        ever set to True if this method is called from scale_audio_time_left_mouse_press in
+        widgets_helper_methods.py and if the timer was previously unpaused. When the audio slider is
+        then released (i.e., when scale_audio_time_left_mouse_release from widgets_helper_methods.py
+        is called), then the timer will immediately resume if temporary_pause was set to True. A
+        second optional argument play_delay, which is set to None by default, determines the amount
         of time after which the timer should resume. A value for play_delay should only ever
         be passed when this method is called from adjust_timer_on_entry_mousewheel or
         custom_scale_on_mousewheel in widgets_helper_methods.py and the timer is already playing."""
@@ -295,13 +295,13 @@ class TimeStamperTimer():
                 self.temporary_pause = True
 
             # Pause the audio if it exists.
-            if self.time_stamper.audio_player:
-                self.time_stamper.audio_player.pause()
+            if self.time_stamper.audio.player:
+                self.time_stamper.audio.player.pause()
 
         # If the timer should resume playing after a delay...
         if play_delay:
 
-            # If there is an existing, upcoming play function, then it should be
+            # If there is an existing scheduled play function, then it should be
             # cancelled, as this effectively means that the user was already scrolling
             # the audio slider or timer entries but has not yet finished scrolling.
             if self.scheduled_id:

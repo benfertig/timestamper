@@ -105,7 +105,7 @@ class MediaButtonMacros():
 
         # If an audio source is loaded, the rewind and fast-forward buttons, which would
         # otherwise be activated when the pause button is pressed, should remain deactivated.
-        if self.time_stamper.audio_source:
+        if self.time_stamper.audio.source:
             disable_button(self.widgets["button_rewind"], \
                 self.template["button_rewind"]["mac_disabled_color"])
             disable_button(self.widgets["button_fast_forward"], \
@@ -121,7 +121,7 @@ class MediaButtonMacros():
 
         # If an audio source is loaded, the rewind and fast-forward buttons, which would
         # otherwise be activated when the play button is pressed, should remain deactivated.
-        if self.time_stamper.audio_source:
+        if self.time_stamper.audio.source:
             disable_button(self.widgets["button_rewind"], \
                 self.template["button_rewind"]["mac_disabled_color"])
             disable_button(self.widgets["button_fast_forward"], \
@@ -171,7 +171,7 @@ class MediaButtonMacros():
         """This method will be executed when the mute button is pressed."""
 
         # If an audio player was successfully retrieved...
-        if self.time_stamper.audio_player:
+        if self.time_stamper.audio.player:
 
             # The way that the name of the current mute button image is
             # referenced changes depending on whether we are currently using a Mac.
@@ -187,7 +187,7 @@ class MediaButtonMacros():
                 volume_scale_value = 100 - self.widgets["scale_audio_volume"].variable.get()
 
                 # Set the volume to the current value of the volume slider.
-                self.time_stamper.audio_player.volume = volume_scale_value / 100
+                self.time_stamper.audio.player.volume = volume_scale_value / 100
 
                 # The mute button image should reflect the current value of the volume slider.
                 updated_image_str_key = self.parent.updated_mute_button_image(volume_scale_value)
@@ -196,7 +196,7 @@ class MediaButtonMacros():
             else:
 
                 # Mute the volume.
-                self.time_stamper.audio_player.volume = 0.0
+                self.time_stamper.audio.player.volume = 0.0
 
                 # The mute button image should show that the audio is now muted.
                 updated_image_str_key = "volume_mute.png"

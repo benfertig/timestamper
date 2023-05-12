@@ -31,7 +31,7 @@ if platform.startswith("darwin"):
 # Contact: github.cqrde@simplelogin.com
 
 
-def create_button(template, settings, button_template, button_window, button_macro):
+def create_button(time_stamper, button_template, button_window, button_macro):
     """This method creates a Button object for the Time Stamper program."""
 
     # Create the Button's font.
@@ -47,13 +47,15 @@ def create_button(template, settings, button_template, button_window, button_mac
         button_class = Button
 
     # Determine the Button's initial state.
-    is_enabled = determine_widget_attribute(button_template, "initial_state", template, settings)
+    is_enabled = determine_widget_attribute(button_template, \
+        "initial_state", time_stamper.template, time_stamper.settings)
 
     # Determine what the Button's initial text should be.
-    button_text = determine_widget_text(button_template, template, settings)
+    button_text = determine_widget_text(button_template, \
+        time_stamper.template, time_stamper.settings)
 
     # Determine what the Button's image should be.
-    button_image = create_image(template.images_dir, obj_template=button_template)
+    button_image = create_image(time_stamper.template.images_dir, obj_template=button_template)
 
     # Create the Button object.
     button = button_class(button_window, height=button_template["height"], \
@@ -115,19 +117,21 @@ def create_checkbutton(template, settings, \
     return checkbutton
 
 
-def create_entry(time_stamper, settings, entry_template, entry_window, widgets):
+def create_entry(time_stamper, entry_template, entry_window, widgets):
     """This method creates an Entry object for the Time Stamper program."""
 
     # Create the Entry's font.
     entry_font = create_font(entry_template)
 
     # Determine what the Entry's initial text should be.
-    entry_text_str = determine_widget_text(entry_template, time_stamper.template, settings)
+    entry_text_str = \
+        determine_widget_text(entry_template, time_stamper.template, time_stamper.settings)
     entry_text = StringVar()
     entry_text.set(entry_text_str)
 
     # Determine the Entry's initial state
-    if determine_widget_attribute(entry_template, "initial_state", time_stamper.template, settings):
+    if determine_widget_attribute(entry_template, \
+        "initial_state", time_stamper.template, time_stamper.settings):
         initial_state = NORMAL
     else:
         initial_state = DISABLED

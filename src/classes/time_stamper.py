@@ -20,6 +20,7 @@ should create an instance of this TimeStamper class and then call that instance'
 
 # Contact: github.cqrde@simplelogin.com
 
+from dataclasses import dataclass
 from sys import platform
 from tkinter import Button, Menu
 from .macros.macros import Macros
@@ -33,16 +34,22 @@ class TimeStamper():
     """To run the Time Stamper program, first create an instance
     of this class. Then, call this class' run() method."""
 
+    @dataclass
+    class TimeStamperAudio():
+        """This class stores information pertaining specifically
+        to audio playback in the Time Stamper program."""
+
+        source, player = None, None
+
     def __init__(self):
 
-        settings = TimeStamperSettings()
-
+        self.settings = TimeStamperSettings()
         self.timer = TimeStamperTimer(self)
         self.root = None
         self.template = TimeStamperTemplate()
-        self.widgets = Widgets(self, settings, "window_main")
-        self.macros = Macros(self, settings)
-        self.audio_source, self.audio_player = None, None
+        self.widgets = Widgets(self, "window_main")
+        self.macros = Macros(self)
+        self.audio = self.TimeStamperAudio()
 
     def remove_func(self, root):
         """This method is used as the command for the Tkinter "Button"

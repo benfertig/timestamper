@@ -45,11 +45,11 @@ class Macros():
     def __getitem__(self, item):
         return self.mapping[item]
 
-    def __init__(self, time_stamper, settings):
+    def __init__(self, time_stamper):
 
         self.time_stamper = time_stamper
         self.template = time_stamper.template
-        self.settings = settings
+        self.settings = time_stamper.settings
         self.widgets = time_stamper.widgets
         self.timer = time_stamper.timer
 
@@ -212,7 +212,7 @@ class Macros():
 
             # The rewind/fast-forward buttons should NOT be enabled when an
             # audio file is loaded, even when a valid output file IS loaded.
-            if self.time_stamper.audio_player:
+            if self.time_stamper.audio.player:
                 disable_button(self.widgets["button_rewind"], \
                     self.template["button_rewind"]["mac_disabled_color"])
                 disable_button(self.widgets["button_fast_forward"], \
@@ -236,7 +236,7 @@ class Macros():
         verify_audio_file(self.widgets["entry_audio_path"].get(), self.time_stamper)
 
         # If a valid audio player WAS created/retrieved...
-        if self.time_stamper.audio_player:
+        if self.time_stamper.audio.player:
 
             # Reset the timer/audio slider.
             self.timer.display_time(0.0, pad=2)
