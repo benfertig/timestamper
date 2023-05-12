@@ -3,6 +3,7 @@
 that are executed when a media button in the Time Stamper program is pressed."""
 
 from sys import platform
+from tkinter import RAISED, SUNKEN
 from .macros_helper_methods import disable_button, \
     button_enable_disable_macro, rewind_or_fast_forward
 
@@ -114,26 +115,37 @@ class MediaButtonMacros():
         # Pause the timer.
         self.timer.pause()
 
-    def button_play_macro(self, *_):
-        """This method will be executed when the play button is pressed."""
+    def button_play_press_macro(self, *_):
+        """This method will be executed AS SOON AS THE PLAY BUTTON IS PRESSED
+        (as opposed to waiting for the left-mouse-button to be released
+        on the play button, as is the case with all other buttons)."""
 
-        self.media_button_macro("button_play")
-
-        # If an audio source is loaded, the rewind and fast-forward buttons, which would
-        # otherwise be activated when the play button is pressed, should remain deactivated.
-        if self.time_stamper.audio.source:
-            disable_button(self.widgets["button_rewind"], \
-                self.template["button_rewind"]["mac_disabled_color"])
-            disable_button(self.widgets["button_fast_forward"], \
-                self.template["button_fast_forward"]["mac_disabled_color"])
-
-        # Start the timer.
-        self.timer.play()
+        self.timer.scheduled_id = self.time_stamper.root.after(250, self.timer.play)
 
     def button_play_release_macro(self, *_):
-        """This method will be executed when the play button is released."""
+        """This method will be executed when the user releases
+        the mouse after having clicked on the play button."""
 
-        pass
+        if self.timer.scheduled_id:
+
+            self.timer.scheduled_id = None
+
+            self.media_button_macro("button_play")
+
+            # If an audio source is loaded, the rewind and fast-forward buttons, which would
+            # otherwise be activated when the play button is pressed, should remain deactivated.
+            if self.time_stamper.audio.source:
+                disable_button(self.widgets["button_rewind"], \
+                    self.template["button_rewind"]["mac_disabled_color"])
+                disable_button(self.widgets["button_fast_forward"], \
+                    self.template["button_fast_forward"]["mac_disabled_color"])
+
+            # Start the timer.
+            self.timer.play()
+
+        else:
+            self.timer.pause()
+            self.timer.display_time(self.timer.offset)
 
     def button_rewind_macro(self, *_):
         """This method will be executed when the rewind button is pressed."""

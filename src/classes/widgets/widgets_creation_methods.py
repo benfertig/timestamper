@@ -63,8 +63,8 @@ def create_button(time_stamper, button_template, button_window, button_macro, re
         state=NORMAL, font=button_font, background=button_background, \
         foreground=button_foreground)
 
-    # If a macro for the mouse release was specified in macros.py,
-    # map the release macro to the left-mouse-click release.
+    # If a macro for the mouse release was specified in macros.py, map the press macro
+    # to the left-mouse-click and the release macro to the left-mouse-click release.
     if release_macro:
         button.bind("<Button-1>", button_macro)
         button.bind("<ButtonRelease-1>", release_macro)

@@ -96,7 +96,7 @@ class Macros():
 
             # Media buttons
             "button_pause": media.button_pause_macro,
-            "button_play": media.button_play_macro,
+            "button_play": media.button_play_press_macro,
             "button_play_ONRELEASE": media.button_play_release_macro,
             "button_rewind": media.button_rewind_macro,
             "button_fast_forward": media.button_fast_forward_macro,
