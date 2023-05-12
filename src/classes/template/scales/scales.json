@@ -11,7 +11,8 @@
         "from_": 0,
         "to": 1,
 
-        "scroll_sensitivity": "0.01",
+        "scroll_to_move": true,
+        "scroll_sensitivity": 1,
 
         "bind_left_click_to_right_click": true,
 
@@ -41,6 +42,8 @@
 
         "is_ttk_scale": true,
 
+        "scroll_to_move": true,
+        "reverse_scroll_direction": true,
         "scroll_sensitivity": 1,
 
         "bind_left_click_to_right_click": true,

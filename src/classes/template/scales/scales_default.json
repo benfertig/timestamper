@@ -17,9 +17,9 @@
 
     "initial_value": 0,
 
+    "scroll_to_move": false,
+    "reverse_scroll_direction": false,
     "scroll_sensitivity": 1,
-
-    "scroll_to_move": true,
 
     "bind_left_click_to_right_click": false,
 

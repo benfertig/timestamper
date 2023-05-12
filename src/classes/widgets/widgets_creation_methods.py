@@ -148,8 +148,8 @@ def create_entry(time_stamper, settings, entry_template, entry_window, widgets):
             ("<Button-4>", "<Button-5>") if platform.startswith("linux") else ("<MouseWheel>",)
 
         for mw_str in mousewheel_strs:
-            entry.bind(mw_str, lambda event: \
-                adjust_timer_on_entry_mousewheel(entry, event, time_stamper, entry_template))
+            entry.bind(mw_str, \
+                lambda event: adjust_timer_on_entry_mousewheel(event, time_stamper, entry_template))
 
     # Set the Entry input restrictions.
     entry_text.trace("w", lambda *_: entry_helper_method(entry_text, entry_template, widgets))
@@ -241,7 +241,7 @@ def create_scale(time_stamper, scale_template, \
 
         for mw_str in mousewheel_strs:
             scale.bind(mw_str, lambda event: \
-                custom_scale_on_mousewheel(scale, event, scale_template, time_stamper.audio_player))
+                custom_scale_on_mousewheel(scale, event, scale_template, time_stamper))
 
     # If a macro for the mouse release was specified in macros.py...
     if release_command:

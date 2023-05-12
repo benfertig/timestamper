@@ -45,36 +45,42 @@ def set_value(scale, event):
     return "break"
 
 
-def adjust_timer_on_entry_mousewheel(entry, event, time_stamper, entry_template):
+def adjust_timer_on_entry_mousewheel(event, time_stamper, entry_template):
     """This is a custom event method that gets executed when the mousewheel is
     moved over one of the timer entries (hours, minutes, seconds or subseconds)."""
 
-    # Only run this method if the timer is not running.
-    if not time_stamper.timer.multiplier:
+    # On Mac platforms, the registered scroll amount does not need to be divided by 120.
+    event_delta = event.delta if platform.startswith("darwin") else int(event.delta / 120)
 
-        # On Mac platforms, the registered scroll amount does not need to be divided by 120.
-        event_delta = event.delta if platform.startswith("darwin") else int(event.delta / 120)
+    # If there is audio currently playing, schedule
+    # the audio to resume playing after a short delay.
+    if time_stamper.timer.multiplier or time_stamper.timer.scheduled_id:
+        time_stamper.timer.pause(play_delay=0.25)
 
-        scroll_timer_adjustment = event_delta * float(entry_template["scroll_timer_adjustment"])
-        time_stamper.timer.adjust_timer(scroll_timer_adjustment, abort_if_out_of_bounds=True)
+    # Adjust the timer according to the direction the user scrolled.
+    scroll_timer_adjustment = event_delta * float(entry_template["scroll_timer_adjustment"])
+    time_stamper.timer.adjust_timer(scroll_timer_adjustment, abort_if_out_of_bounds=True)
 
-def custom_scale_on_mousewheel(scale, event, scale_template, audio_player):
+def custom_scale_on_mousewheel(scale, event, scale_template, time_stamper):
     """This is a custom event method that gets executed when
     the mousewheel is moved while the cursor is on a Scale."""
 
-    # Only run this method if the current scale is not the
-    # audio time scale or if there is no audio currently playing.
-    if not scale_template["str_key"] == "scale_audio_time" \
-        or not audio_player or not audio_player.playing:
+    # On Mac platforms, the registered scroll amount does not need to be divided be 120.
+    event_delta = event.delta if platform.startswith("darwin") else event.delta / 120
 
-        # On Mac platforms, the registered scroll amount does not need to be divided be 120.
-        event_delta = event.delta if platform.startswith("darwin") else event.delta / 120
+    # Adjust the scale's position to reflect the mousewheel scrolling.
+    scroll_amount = event_delta * float(scale_template["scroll_sensitivity"]) * \
+        (-1 if scale_template["reverse_scroll_direction"] else 1)
+    scale_current_value = scale.get()
 
-        # Adjust the scale's position to reflect the mousewheel scrolling.
-        scroll_amount = event_delta * float(scale_template["scroll_sensitivity"]) * -1
-        scale_current_value = scale.get()
-        scale.set(scale_current_value + scroll_amount)
+    # If we are manipulating the audio time slider and there is audio currently
+    # playing, schedule the audio to resume playing after a short delay.
+    if scale_template["str_key"] == "scale_audio_time" and time_stamper.audio_player \
+        and (time_stamper.audio_player.playing or time_stamper.timer.scheduled_id):
+        time_stamper.timer.pause(play_delay=0.25)
 
+    # Set the audio time slider to its adjusted position.
+    scale.set(scale_current_value + scroll_amount)
 
 def entry_helper_method(entry_text, entry_template, widgets):
     """This method will be executed every time an entry's text is manipulated."""

@@ -220,14 +220,6 @@ def pad_number(number, target_length, pad_before):
     return str_number + zeros_to_add
 
 
-def h_m_s_to_timestamp(hours, minutes, seconds, subseconds, include_brackets=True):
-    """This method converts a time in hours, minutes, seconds and subseconds to a
-    timestamp with the following format: [hours:minutes:seconds:subseconds]."""
-
-    beginning, end = ("[", "]") if include_brackets else ("", "")
-    return f"{beginning}{hours}:{minutes}:{seconds}.{subseconds}{end}"
-
-
 def h_m_s_to_seconds(hours, minutes, seconds, subseconds):
     """This method converts a time in hours, minutes,
     seconds and subseconds to a time in seconds."""
@@ -235,7 +227,17 @@ def h_m_s_to_seconds(hours, minutes, seconds, subseconds):
     return (hours * 3600) + (minutes * 60) + seconds + (subseconds / 100)
 
 
-def seconds_to_h_m_s(seconds_exact, pad=0):
+def h_m_s_to_timestamp(hours, minutes, seconds, subseconds=None, include_brackets=True):
+    """This method converts a time in hours, minutes, seconds and subseconds to
+    a timestamp with the following format: [hours:minutes:seconds:subseconds].
+    The optional argument, include_brackets, which is set to True by default,
+    determines whether the returned string will be enclosed in square brackets."""
+
+    return f"{'[' if include_brackets else ''}{hours}:{minutes}:{seconds}" \
+        f"{f':{subseconds}' if subseconds is not None else ''}{']' if include_brackets else ''}"
+
+
+def seconds_to_h_m_s(seconds_exact, pad=0, include_subseconds=True):
     """This method converts a time in seconds to a time in hours, minutes, seconds and
     subseconds. The optional integer argument pad, which is set to zero by default, provides
     the length to which the returned hours, minutes, seconds and subseconds should be padded."""
@@ -246,14 +248,27 @@ def seconds_to_h_m_s(seconds_exact, pad=0):
     minutes = int(seconds_exact // 60)
     seconds_exact = round(seconds_exact - (minutes * 60), 2)
     seconds = int(seconds_exact)
-    seconds_exact = round((seconds_exact % 1) * 100, 0)
-    subseconds = int(seconds_exact)
+    if include_subseconds:
+        seconds_exact = round((seconds_exact % 1) * 100, 0)
+        subseconds = int(seconds_exact)
 
     # Pad the timer's values with zeros if a pad value is passed as an argument.
     if pad > 0:
         hours = pad_number(hours, pad, True)
         minutes = pad_number(minutes, pad, True)
         seconds = pad_number(seconds, pad, True)
-        subseconds = pad_number(subseconds, pad, True)
+        if include_subseconds:
+            subseconds = pad_number(subseconds, pad, True)
 
-    return str(hours), str(minutes), str(seconds), str(subseconds)
+    if include_subseconds:
+        return str(hours), str(minutes), str(seconds), str(subseconds)
+
+    return str(hours), str(minutes), str(seconds)
+
+
+def seconds_to_timestamp(seconds, pad=0, include_subseconds=True, include_brackets=True):
+    """This method converts a time in seconds to a timestamp with
+    the following format: [hours:minutes:seconds:subseconds]"""
+
+    h_m_s = seconds_to_h_m_s(seconds, pad=pad, include_subseconds=include_subseconds)
+    return h_m_s_to_timestamp(*h_m_s, include_brackets=include_brackets)

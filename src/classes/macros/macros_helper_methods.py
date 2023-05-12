@@ -333,8 +333,7 @@ def rewind_or_fast_forward(multiplier_str, is_rewind, timer):
     # Only instruct the timer to play at the new speed if it is NOT already playing at that speed.
     if new_multiplier != timer.multiplier:
         timer.pause()
-        timer.multiplier = new_multiplier
-        timer.play(reset_multiplier=False)
+        timer.play(set_multiplier_to=new_multiplier)
 
 
 def store_timestamper_output(output_file_paths, output_file_encoding="utf-8"):

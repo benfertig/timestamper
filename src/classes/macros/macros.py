@@ -241,11 +241,9 @@ class Macros():
             # Reset the timer/audio slider.
             self.timer.display_time(0.0, pad=2)
 
-            # Set the max time of the timer to the length of the audio source.
-            self.timer.max_time = min(359999.99, round(self.time_stamper.audio_source.duration, 2))
-
-            # Make the range of the audio slider equal to the duration of the audio source.
-            self.widgets["scale_audio_time"]["to"] = self.time_stamper.audio_source.duration
+            # Make the range of the audio slider equal to the minimum
+            # of 359999.99 and the duration of the audio source.
+            self.widgets["scale_audio_time"]["to"] = self.timer.get_max_time()
 
             # Enable the relevant widgets for when a valid audio player is active.
             toggle_widgets(self.template["button_audio_select"], True, self.template, self.widgets)
@@ -281,9 +279,6 @@ class Macros():
         entry_audio_path["state"] = NORMAL
         entry_audio_path.delete(0, END)
         entry_audio_path["state"] = DISABLED
-
-        # Reset the timer's max time.
-        self.timer.max_time = 359999.99
 
         # Reset the audio slider.
         scale_audio_time = self.widgets["scale_audio_time"]
