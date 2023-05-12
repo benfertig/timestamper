@@ -267,13 +267,17 @@ class TimeStamperTimer():
                 self.time_stamper.macros["button_pause"]()
 
     def pause(self, temporary_pause=False, play_delay=None):
-        """This method halts the timer and is typically run when the pause button is
-        pressed or when the audio slider is dragged. An optional argument temporary_pause,
-        which is set to False by default, is only ever set to True if this method is called
+        """This method halts the timer and is typically run when the pause button is pressed
+        or when the audio slider is dragged. An optional argument temporary_pause, which
+        is set to False by default, is only ever set to True if this method is called
         from scale_audio_time_left_mouse_press in widgets_helper_methods.py and if the
         timer was previously unpaused. When the audio slider is then released (i.e., when
-        scale_audio_time_left_mouse_release from widgets_helper_methods.py is called),
-        then the timer will immediately resume if temporary_pause was set to True."""
+        scale_audio_time_left_mouse_release from widgets_helper_methods.py is called), then
+        the timer will immediately resume if temporary_pause was set to True. A second
+        optional argument play_delay, which is set to None by default, determines the amount
+        of time after which the timer should resume. A value for play_delay should only ever
+        be passed when this method is called from adjust_timer_on_entry_mousewheel or
+        custom_scale_on_mousewheel in widgets_helper_methods.py and the timer is already playing."""
 
         # Only pause the timer if it is currently running.
         if self.multiplier:
@@ -294,10 +298,16 @@ class TimeStamperTimer():
             if self.time_stamper.audio_player:
                 self.time_stamper.audio_player.pause()
 
-        # If the timer should resume playing after a delay, schedule it here.
+        # If the timer should resume playing after a delay...
         if play_delay:
+
+            # If there is an existing, upcoming play function, then it should be
+            # cancelled, as this effectively means that the user was already scrolling
+            # the audio slider or timer entries but has not yet finished scrolling.
             if self.scheduled_id:
                 self.time_stamper.root.after_cancel(self.scheduled_id)
+
+            # Schedule the timer to play after the specified delay.
             self.scheduled_id = self.time_stamper.root.after(int(play_delay * 1000), self.play)
 
     def play(self, set_multiplier_to=1.0):
