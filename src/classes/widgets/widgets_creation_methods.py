@@ -6,8 +6,8 @@ from tkinter import DISABLED, NORMAL, HORIZONTAL, VERTICAL, END, Button, \
     Checkbutton, DoubleVar, Entry, IntVar, Label, StringVar, Scale, Spinbox, Text
 from tkinter.ttk import Scale as ttk_scale
 from .widgets_helper_methods import set_value, adjust_timer_on_entry_mousewheel, \
-    custom_scale_on_mousewheel, custom_spinbox_on_mousewheel, entry_helper_method, \
-    determine_widget_text, determine_widget_attribute, create_font, grid_widget, create_image
+    custom_scale_on_mousewheel, entry_helper_method, determine_widget_text, \
+    determine_widget_attribute, create_font, grid_widget, create_image
 
 if platform.startswith("darwin"):
     from tkmacosx import Button as MacButton

@@ -54,9 +54,9 @@ def adjust_timer_on_entry_mousewheel(event, time_stamper, entry_template):
 
     # If there is audio currently playing, schedule
     # the audio to resume playing after a short delay.
-    timer_is_playing = time_stamper.timer.multiplier or time_stamper.timer.scheduled_id
+    timer_is_playing = time_stamper.timer.is_running or time_stamper.timer.scheduled_id
     if timer_is_playing:
-        time_stamper.timer.pause(play_delay=0.25)
+        time_stamper.timer.pause(play_delay=0.25, reset_multiplier=False)
 
     # Adjust the timer according to the direction the user scrolled.
     scroll_timer_adjustment = event_delta * float(entry_template["scroll_timer_adjustment"])
@@ -88,7 +88,7 @@ def custom_scale_on_mousewheel(scale, event, scale_template, time_stamper):
     # If we are manipulating the audio time slider and there is audio currently
     # playing/scheduled to play, schedule the audio to resume playing after a short delay.
     if scale_template["str_key"] == "scale_audio_time" and audio_playing:
-        time_stamper.timer.pause(play_delay=0.25)
+        time_stamper.timer.pause(play_delay=0.25, reset_multiplier=False)
 
     # Set the audio time slider to its adjusted position.
     scale.set(scale_current_value + scroll_amount)
@@ -96,7 +96,7 @@ def custom_scale_on_mousewheel(scale, event, scale_template, time_stamper):
     # If audio is currently playing/scheduled to play and the
     # timer was adjusted to the max time, pause the timer.
     max_time = time_stamper.timer.get_max_time()
-    if audio_playing and time_stamper.timer.get_current_seconds() == max_time:
+    if audio_playing and time_stamper.timer.get_current_seconds() >= max_time:
         time_stamper.timer.display_time(max_time, pad=2)
         time_stamper.macros["button_pause"]()
 

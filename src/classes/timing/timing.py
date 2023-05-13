@@ -40,7 +40,7 @@ class TimeStamperTimer():
         self.time_stamper = time_stamper
 
         self.timestamp_set = False
-        self.temporary_pause = False
+        self.is_running = False
         self.start_time = 0.0
         self.offset = 0.0
         self.multiplier = 0.0
@@ -72,7 +72,7 @@ class TimeStamperTimer():
         subseconds = self.time_stamper.widgets["entry_subseconds"].get()
 
         # The timer's values may need to be padded if they contain user-entered numbers.
-        if not self.multiplier:
+        if not self.is_running:
             hours = pad_number(hours, 2, True)
             minutes = pad_number(minutes, 2, True)
             seconds = pad_number(seconds, 2, True)
@@ -143,7 +143,7 @@ class TimeStamperTimer():
         """This method adjusts the start time of the current audio
         source to new_time and then plays that audio source."""
 
-        if self.multiplier:
+        if self.is_running:
 
             # Pause the audio player.
             self.time_stamper.audio.player.pause()
@@ -211,7 +211,7 @@ class TimeStamperTimer():
         """This method runs continuously while the timer is running to update the current time."""
 
         # Only tick the timer if it is currently running.
-        if self.multiplier:
+        if self.is_running:
 
             # If audio is playing, sync the timer with the the audio player.
             audio_playing = \
@@ -239,17 +239,20 @@ class TimeStamperTimer():
                     pulse_button_image(subseconds, self.multiplier, self.time_stamper.widgets)
 
                     # Calculate the number of seconds to the next hundreth of a second.
-                    seconds_to_next_tick = ((int(internal_time * 100) + 1) / 100) - internal_time
+                    next_hundreth_second = \
+                        (int(internal_time * 100) + int(self.multiplier > 0.0)) / 100
+                    seconds_to_next_tick = abs(next_hundreth_second - internal_time)
 
                     # Convert the number of seconds to the next hundreth of a second to
                     # the number of thousandth-seconds to the next hundreth of a second.
-                    thousandth_seconds_to_next_tick = ceil(max(seconds_to_next_tick, .001) * 1000)
+                    thousandth_seconds_to_next_tick = max(seconds_to_next_tick, .001) * 1000
 
                     # Consider the time dilation from rewinding/fast-forwarding when calculating
                     # the number of thousandth-seconds to the next hundreth of a second.
-                    thousandth_seconds_to_next_tick *= ceil(abs(1 / self.multiplier))
+                    thousandth_seconds_to_next_tick = \
+                        ceil(thousandth_seconds_to_next_tick * abs(1 / self.multiplier))
 
-                    # After a very short delay, tick the timer again.
+                    # After the next hundreth second has elapsed, tick the timer again.
                     if self.multiplier == prev_multiplier:
                         self.time_stamper.root.after(thousandth_seconds_to_next_tick, \
                             self.timer_tick, self.multiplier)
@@ -266,33 +269,33 @@ class TimeStamperTimer():
                 self.display_time(self.get_max_time(), pad=2)
                 self.time_stamper.macros["button_pause"]()
 
-    def pause(self, temporary_pause=False, play_delay=None):
-        """This method halts the timer and is typically run when the pause button is pressed, when
-        the audio slider is dragged/scrolled and audio is playing or when the timer entries are
-        scrolled. An optional argument temporary_pause, which is set to False by default, is only
-        ever set to True if this method is called from scale_audio_time_left_mouse_press in
-        widgets_helper_methods.py and if the timer was previously unpaused. When the audio slider is
-        then released (i.e., when scale_audio_time_left_mouse_release from widgets_helper_methods.py
-        is called), then the timer will immediately resume if temporary_pause was set to True. A
-        second optional argument play_delay, which is set to None by default, determines the amount
-        of time after which the timer should resume. A value for play_delay should only ever
-        be passed when this method is called from adjust_timer_on_entry_mousewheel or
-        custom_scale_on_mousewheel in widgets_helper_methods.py and the timer is already playing."""
+    def pause(self, play_delay=None, reset_multiplier=True):
+        """This method halts the timer and is typically run when the pause button is pressed,
+        when the audio slider is dragged/scrolled and audio is playing or when the timer entries
+        are scrolled. An optional argument play_delay, which is set to None by default,
+        determines the amount of time after which the timer should resume. A value for play_delay
+        should only ever be passed when this method is called from adjust_timer_on_entry_mousewheel
+        or custom_scale_on_mousewheel in widgets_helper_methods.py and the timer is already
+        playing. An optional argument, reset_multiplier (which is set to True by default),
+        determines whether the timer's multiplier should be reset to 0.0 (the typical value
+        of the multiplier when the timer is paused). This argument should only ever be set
+        to False from the adjust_timer_on_entry_mousewheel method and, in certain
+        cases, from the custom_scale_on_mousewheel methods in widgets_helper_methods.py
+        (i.e., whenever the user scrolls on the audio time slider or timer entries)."""
+
+        # Reset the multiplier if it was indicated that this should be done.
+        if reset_multiplier:
+            self.multiplier = 0.0
 
         # Only pause the timer if it is currently running.
-        if self.multiplier:
+        if self.is_running:
 
             # Declare the timer as not running.
-            self.multiplier = 0.0
+            self.is_running = False
 
             # The images for the play, rewind and fast-forward buttons
             # should no longer be invisible if any of them currently are.
             make_playback_button_images_visible(self.time_stamper.widgets)
-
-            # If this method is being called from scale_audio_time_left_mouse_press, then
-            # indicate that the timer should be resumed when the audio slider is released.
-            if temporary_pause:
-                self.temporary_pause = True
 
             # Pause the audio if it exists.
             if self.time_stamper.audio.player:
@@ -308,7 +311,9 @@ class TimeStamperTimer():
                 self.time_stamper.root.after_cancel(self.scheduled_id)
 
             # Schedule the timer to play after the specified delay.
-            self.scheduled_id = self.time_stamper.root.after(int(play_delay * 1000), self.play)
+            new_multiplier = 1.0 if reset_multiplier else self.multiplier
+            self.scheduled_id = \
+                self.time_stamper.root.after(int(play_delay * 1000), self.play, new_multiplier)
 
     def play(self, set_multiplier_to=1.0):
         """This method starts the timer and is typically run when the play, rewind or fast-forward
@@ -319,10 +324,10 @@ class TimeStamperTimer():
 
         self.scheduled_id = None
 
-        if not self.multiplier:
+        if not self.is_running:
 
-            # The timer is no longer paused, so self.temporary_pause should be set to False.
-            self.temporary_pause = False
+            # Declare the timer as running.
+            self.is_running = True
 
             # Set the multiplier to the value of the argument set_multiplier_to.
             self.multiplier = set_multiplier_to
@@ -353,8 +358,8 @@ class TimeStamperTimer():
         the mousewheel while the cursor is hovering over one of the timer entries. This
         method takes one optional argument, abort_if_out_of_bounds, which is set to False
         by default. When abort_if_out_of_bounds is set to True, this method will not adjust
-        the timer if the passed adjustment amount would put the timer below 0 or above
-        the maximum time (as is the case when the user scrolls the timer entries with the
+        the timer if the passed adjustment amount would put the timer below 0 or above the
+        maximum time (as can be the case when the user scrolls the timer entries with the
         mousewheel). When abort_if_out_of_bounds is set to False, this method will reduce
         the passed adjustment amount to put the timer at either 0 or its maximum time if the
         passed adjustment amount would have otherwise put the timer under 0 or over its maximum

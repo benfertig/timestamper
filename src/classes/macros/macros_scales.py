@@ -29,6 +29,7 @@ class ScaleMacros():
         self.template = parent.template
         self.timer = parent.timer
         self.widgets = parent.widgets
+        self.temporary_pause = False
 
     def scale_audio_time_macro(self, scale_value):
         """This method will be executed when the user presses the left, middle
@@ -39,7 +40,8 @@ class ScaleMacros():
         if self.time_stamper.audio.player:
 
             # Pause the timer.
-            self.timer.pause(temporary_pause=True)
+            self.timer.pause(reset_multiplier=False)
+            self.temporary_pause = True
 
             # Update the timer to match the new position of the slider.
             self.timer.update_timer(float(scale_value))
@@ -55,7 +57,7 @@ class ScaleMacros():
 
         # If the timer was previously paused when the user
         # dragged the audio slider, resume the timer.
-        if self.timer.temporary_pause:
+        if self.temporary_pause:
             self.timer.play()
 
     def scale_audio_volume_macro(self, volume_scale_value):
