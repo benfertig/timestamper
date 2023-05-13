@@ -14,6 +14,14 @@
         "message_enabled": false,
         "message": "PLAY"
     },
+    "rewind": {
+        "message_enabled": false,
+        "message": "REWIND"
+    },
+    "fast_forward": {
+        "message_enabled": false,
+        "message": "FAST-FORWARD"
+    },
     "skip_backward": {
         "message_enabled": false,
         "message": "SKIP BACKWARD $amount seconds to [$dest]"

@@ -2,8 +2,6 @@
 """This module contains the SpinboxMacros class which stores the functions
 that are executed when spinboxes in the Time Stamper program are manipulated."""
 
-from .macros_helper_methods import rewind_or_fast_forward
-
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
 
@@ -38,12 +36,8 @@ class SpinboxMacros():
         # Only rewind the timer at the newly selected speed if we are ALREADY rewinding.
         if self.timer.multiplier < 0.0:
 
-            # Retrieve the speed at which we should rewind from the rewind spinbox.
-            spinbox_val = self.widgets["spinbox_rewind"].get()
-            multiplier_str = self.template["spinbox_rewind"]["values"][spinbox_val]
-
-            # Rewind the timer at the specified speed.
-            rewind_or_fast_forward(multiplier_str, True, self.timer)
+            # Rewind the timer at the speed specified in the rewind spinbox.
+            self.timer.play(playback_type="rewind")
 
     def spinbox_fast_forward_macro(self):
         """This method will be executed when the user clicks
@@ -52,9 +46,5 @@ class SpinboxMacros():
         # Only fast-forward the timer at the newly selected speed if we are ALREADY fast-forwarding.
         if self.timer.multiplier != 1.0 and self.timer.multiplier > 0.0:
 
-            # Retrieve the speed at which we should fast-forward from the fast-forward spinbox.
-            spinbox_val = self.widgets["spinbox_fast_forward"].get()
-            multiplier_str = self.template["spinbox_fast_forward"]["values"][spinbox_val]
-
-            # Fast-forward the timer at the specified speed.
-            rewind_or_fast_forward(multiplier_str, False, self.timer)
+            # Rewind the timer at the speed specified in the fast-forward spinbox.
+            self.timer.play(playback_type="fast_forward")

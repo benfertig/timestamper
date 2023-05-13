@@ -2,12 +2,13 @@
 """This module contains the TimeStamperTimer class which allows
 for keeping track of time in the Time Stamper program."""
 
+from fractions import Fraction
 from math import ceil
 from time import perf_counter
 from tkinter import DISABLED
 from pyglet.media import Player
-from .timing_helper_methods import confirm_audio, \
-    make_playback_button_images_visible, pulse_button_image, print_to_entry, pad_number, \
+from .timing_helper_methods import confirm_audio, make_playback_button_images_visible, \
+    get_new_multiplier, pulse_button_image, print_to_entry, pad_number, \
     h_m_s_to_timestamp, h_m_s_to_seconds, seconds_to_h_m_s, seconds_to_timestamp
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
@@ -269,14 +270,10 @@ class TimeStamperTimer():
                 self.display_time(self.get_max_time(), pad=2)
                 self.time_stamper.macros["button_pause"]()
 
-    def pause(self, play_delay=None, reset_multiplier=True):
+    def pause(self, reset_multiplier=True):
         """This method halts the timer and is typically run when the pause button is pressed,
         when the audio slider is dragged/scrolled and audio is playing or when the timer entries
-        are scrolled. An optional argument play_delay, which is set to None by default,
-        determines the amount of time after which the timer should resume. A value for play_delay
-        should only ever be passed when this method is called from adjust_timer_on_entry_mousewheel
-        or custom_scale_on_mousewheel in widgets_helper_methods.py and the timer is already
-        playing. An optional argument, reset_multiplier (which is set to True by default),
+        are scrolled. An optional argument, reset_multiplier (which is set to True by default),
         determines whether the timer's multiplier should be reset to 0.0 (the typical value
         of the multiplier when the timer is paused). This argument should only ever be set
         to False from the adjust_timer_on_entry_mousewheel method and, in certain
@@ -301,36 +298,37 @@ class TimeStamperTimer():
             if self.time_stamper.audio.player:
                 self.time_stamper.audio.player.pause()
 
-        # If the timer should resume playing after a delay...
-        if play_delay:
-
-            # If there is an existing scheduled play function, then it should be
-            # cancelled, as this effectively means that the user was already scrolling
-            # the audio slider or timer entries but has not yet finished scrolling.
-            if self.scheduled_id:
-                self.time_stamper.root.after_cancel(self.scheduled_id)
-
-            # Schedule the timer to play after the specified delay.
-            new_multiplier = 1.0 if reset_multiplier else self.multiplier
-            self.scheduled_id = \
-                self.time_stamper.root.after(int(play_delay * 1000), self.play, new_multiplier)
-
-    def play(self, set_multiplier_to=1.0):
-        """This method starts the timer and is typically run when the play, rewind or fast-forward
-        buttons are pressed. An optional argument, set_multiplier_to (which is set to 1.0 by
-        default), determines the speed of the timer. This argument should only ever be altered
-        from the rewind_or_fast_forward method in macros_helper_methods.py (i.e., whenever
-        the user presses the rewind or fast-forward buttons, but not the play button)."""
+    def play(self, playback_type="play"):
+        """This method starts the timer and is typically run when the play, rewind or
+        fast-forward buttons are pressed. An optional argument, playback_type (which is
+        set to "play" by default), determines the speed of the timer. If playback_type is
+        set to "play", the timer's multiplier will be set to 1.0. If playback_type is set
+        to "rewind" or "fast_forward", the timer's multiplier will be determined by the
+        current value in the rewind or fast-forward spinboxes, respectively. If playback_type
+        is set to "prev", the timer's multiplier will not be altered from its current value."""
 
         self.scheduled_id = None
 
-        if not self.is_running:
+        # Determine the new multiplier.
+        if playback_type == "prev":
+            new_multiplier = self.multiplier
+        else:
+            new_multiplier = get_new_multiplier(playback_type, \
+                self.time_stamper.template, self.time_stamper.widgets)
+
+        # Only play the timer if it is not already running
+        # at the speed we would like to set it to.
+        if not self.is_running or new_multiplier != self.multiplier:
+
+            # Pause the timer if it is currently running
+            if self.is_running:
+                self.pause()
 
             # Declare the timer as running.
             self.is_running = True
 
-            # Set the multiplier to the value of the argument set_multiplier_to.
-            self.multiplier = set_multiplier_to
+            # Set the new multiplier.
+            self.multiplier = new_multiplier
 
             # The images for the play, rewind and fast-forward buttons
             # should no longer be invisible if any of them currently are.

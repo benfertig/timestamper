@@ -4,8 +4,7 @@ that are executed when a media button in the Time Stamper program is pressed."""
 
 from sys import platform
 from tkinter import RAISED, SUNKEN
-from .macros_helper_methods import disable_button, \
-    button_enable_disable_macro, rewind_or_fast_forward
+from .macros_helper_methods import disable_button, button_enable_disable_macro
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -118,28 +117,45 @@ class MediaButtonMacros():
         # Pause the timer.
         self.timer.pause()
 
-    def button_play_press_macro(self, *_):
-        """This method will be executed AS SOON AS THE PLAY BUTTON IS PRESSED
-        (as opposed to waiting for the left-mouse-button to be released
-        on the play button, as is the case with all other buttons)."""
+    def playback_press_macro(self, playback_type):
+        """This method is called by button_play_press_macro, button_rewind_press_macro and
+        button_fast_forward_press_macro. The functions performed by these three methods are
+        very similar, so their procedures have been condensed down to a single method here, and
+        different parameters are passed depending on where this method is being called from."""
 
-        self.widgets["button_play"].config(relief=SUNKEN)
+        self.widgets[f"button_{playback_type}"].config(relief=SUNKEN)
         self.play_press_time = self.timer.get_current_seconds()
-        self.timer.scheduled_id = self.time_stamper.root.after(250, self.timer.play)
+        self.timer.scheduled_id = self.time_stamper.root.after(250, self.timer.play, playback_type)
 
         return "break"
 
-    def button_play_release_macro(self, *_):
-        """This method will be executed when the user releases
-        the mouse after having clicked on the play button."""
+    def playback_release_macro(self, playback_type):
+        """This method is called by button_play_release_macro, button_rewind_release_macro and
+        button_fast_forward_release_macro. The functions performed by these three methods are
+        very similar, so their procedures have been condensed down to a single method here, and
+        different parameters are passed depending on where this method is being called from."""
 
-        self.widgets["button_play"].config(relief=RAISED)
+        self.widgets[f"button_{playback_type}"].config(relief=RAISED)
 
+        # If the playback button HAS NOT been held long enough
+        # to initiate the timer, start the timer immediately.
         if self.timer.scheduled_id:
 
             self.timer.scheduled_id = None
 
-            self.media_button_macro("button_play")
+            self.media_button_macro(f"button_{playback_type}")
+
+            # Start the timer.
+            self.timer.play(playback_type=playback_type)
+
+        # If the play button HAS been held long enough
+        # to initiate the timer, stop the timer.
+        else:
+            button_enable_disable_macro(self.template["button_pause"], self.widgets)
+            self.timer.pause()
+            self.timer.display_time(self.play_press_time)
+
+        if playback_type == "play":
 
             # If an audio source is loaded, the rewind and fast-forward buttons, which would
             # otherwise be activated when the play button is pressed, should remain deactivated.
@@ -149,38 +165,44 @@ class MediaButtonMacros():
                 disable_button(self.widgets["button_fast_forward"], \
                     self.template["button_fast_forward"]["mac_disabled_color"])
 
-            # Start the timer.
-            self.timer.play()
+    def button_play_press_macro(self, *_):
+        """This method will be executed AS SOON AS THE PLAY BUTTON IS PRESSED
+        (as opposed to waiting for the left-mouse-button to be released
+        on the play button, as is the default case with other buttons)."""
 
-        else:
-            self.timer.pause()
-            self.timer.display_time(self.play_press_time)
+        self.playback_press_macro("play")
 
-    def button_rewind_macro(self, *_):
-        """This method will be executed when the rewind button is pressed."""
+    def button_play_release_macro(self, *_):
+        """This method will be executed when the user releases
+        the mouse after having clicked on the play button."""
 
-        # Enable and disable the relevant buttons for when the rewind button is pressed.
-        button_enable_disable_macro(self.template["button_rewind"], self.widgets)
+        self.playback_release_macro("play")
 
-        # Retrieve the speed at which we should rewind from the rewind spinbox.
-        spinbox_val = self.widgets["spinbox_rewind"].get()
-        multiplier_str = self.template["spinbox_rewind"]["values"][spinbox_val]
+    def button_rewind_press_macro(self, *_):
+        """This method will be executed AS SOON AS THE REWIND BUTTON IS PRESSED
+        (as opposed to waiting for the left-mouse-button to be released
+        on the rewind button, as is the default case with other buttons)."""
 
-        # Rewind the timer at the specified speed.
-        rewind_or_fast_forward(multiplier_str, True, self.timer)
+        self.playback_press_macro("rewind")
 
-    def button_fast_forward_macro(self, *_):
-        """This method will be executed when the fast-forward button is pressed."""
+    def button_rewind_release_macro(self, *_):
+        """This method will be executed when the user releases
+        the mouse after having clicked on the rewind button."""
 
-        # Enable and disable the relevant buttons for when the fast-forward button is pressed.
-        button_enable_disable_macro(self.template["button_fast_forward"], self.widgets)
+        self.playback_release_macro("rewind")
 
-        # Retrieve the speed at which we should fast-forward from the fast-forward spinbox.
-        spinbox_val = self.widgets["spinbox_fast_forward"].get()
-        multiplier_str = self.template["spinbox_fast_forward"]["values"][spinbox_val]
+    def button_fast_forward_press_macro(self, *_):
+        """This method will be executed AS SOON AS THE FAST-FORWARD BUTTON IS
+        PRESSED (as opposed to waiting for the left-mouse-button to be released
+        on the fast-forward button, as is the default case with other buttons)."""
 
-        # Fast-forward the timer at the specified speed.
-        rewind_or_fast_forward(multiplier_str, False, self.timer)
+        self.playback_press_macro("fast_forward")
+
+    def button_fast_forward_release_macro(self, *_):
+        """This method will be executed when the user releases the
+        mouse after having clicked on the fast-forward button."""
+
+        self.playback_release_macro("fast_forward")
 
     def button_skip_backward_macro(self, *_):
         """This method will be executed when the skip backward button is pressed."""

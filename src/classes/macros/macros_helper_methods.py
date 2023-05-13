@@ -320,22 +320,6 @@ def print_to_file(to_print, file_path, file_encoding="utf-8", access_mode="a+"):
             out_file.write(to_print)
 
 
-def rewind_or_fast_forward(multiplier_str, is_rewind, timer):
-    """This method is called by button_rewind_macro and button_fast_forward_macro in
-    macros_buttons_media.py. The functions performed by both the rewind and fast-forward
-    buttons are very similar, so their procedures have been condensed down to a single
-    method here, and different parameters are passed depending on which button was pressed."""
-
-    # Convert the provided speed multiplier from a string to a float.
-    new_multiplier = \
-        float(Fraction(multiplier_str)) * -1 if is_rewind else float(Fraction(multiplier_str))
-
-    # Only instruct the timer to play at the new speed if it is NOT already playing at that speed.
-    if new_multiplier != timer.multiplier:
-        timer.pause()
-        timer.play(set_multiplier_to=new_multiplier)
-
-
 def store_timestamper_output(output_file_paths, output_file_encoding="utf-8"):
     """This method reads through timestamper output files saved in "all_files" (which should
     be a list of file paths) and saves the notes stored in these files to a list."""

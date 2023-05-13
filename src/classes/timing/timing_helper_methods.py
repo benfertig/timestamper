@@ -2,6 +2,7 @@
 """This module contains helper methods for the TimeStamperTimer class
 that do not directly rely on class variables of TimeStamperTimer."""
 
+from fractions import Fraction
 from tkinter import NORMAL, END
 from pyglet.media import load, Player
 from pyglet.media.codecs.wave import WAVEDecodeException
@@ -65,6 +66,28 @@ def make_playback_button_images_visible(widgets):
         widgets[button_name].config(image=widgets[image_name])
         widgets[button_name].image = widgets[image_name]
 
+
+def get_new_multiplier(playback_type, template, widgets):
+    """This method returns a value based on the argument playback_type. If playback_type is "play",
+    this method will return 1.0. If playback_type is "rewind" or "fast_forward", this method will
+    return a float based on the current value in the rewind or fast-forward spinboxes, respectively.
+    If playback_type is not "play", "rewind" or "fast_forward", this method will raise an error."""
+
+    # Set the multiplier based on the value of playback_type.
+    if playback_type == "play":
+        return 1.0
+
+    if playback_type == "rewind":
+        is_rewind, spinbox_str_key = True, "spinbox_rewind"
+    elif playback_type == "fast_forward":
+        is_rewind, spinbox_str_key = False, "spinbox_fast_forward"
+    else:
+        raise ValueError("Argument playback_type must be either",
+                        "\"play\", \"rewind\" or \"fast_forward\".")
+
+    spinbox_val = widgets[spinbox_str_key].get()
+    multiplier_str = template[spinbox_str_key]["values"][spinbox_val]
+    return float(Fraction(multiplier_str)) * (-1 if is_rewind else 1)
 
 def determine_new_play_button_image(subseconds, widgets):
     """This method determines whether the current image of the play button should
