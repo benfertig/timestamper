@@ -234,7 +234,7 @@ def h_m_s_to_timestamp(hours, minutes, seconds, subseconds=None, include_bracket
     determines whether the returned string will be enclosed in square brackets."""
 
     return f"{'[' if include_brackets else ''}{hours}:{minutes}:{seconds}" \
-        f"{f':{subseconds}' if subseconds is not None else ''}{']' if include_brackets else ''}"
+        f"{f'.{subseconds}' if subseconds is not None else ''}{']' if include_brackets else ''}"
 
 
 def seconds_to_h_m_s(seconds_exact, pad=0, include_subseconds=True):

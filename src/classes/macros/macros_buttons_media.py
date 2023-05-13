@@ -30,12 +30,15 @@ class MediaButtonMacros():
     """This class stores all of the macros that execute when media buttons are pressed."""
 
     def __init__(self, parent):
+
         self.parent = parent
         self.time_stamper = parent.time_stamper
         self.template = parent.template
         self.settings = parent.settings
         self.widgets = parent.widgets
         self.timer = parent.timer
+
+        self.play_press_time = 0.0
 
     def media_button_macro(self, button_str_key, entry_str_key=None, is_skip_backward=True):
         """This method is called on by the macros for the pause, play, skip backward,
@@ -120,11 +123,17 @@ class MediaButtonMacros():
         (as opposed to waiting for the left-mouse-button to be released
         on the play button, as is the case with all other buttons)."""
 
+        self.widgets["button_play"].config(relief=SUNKEN)
+        self.play_press_time = self.timer.get_current_seconds()
         self.timer.scheduled_id = self.time_stamper.root.after(250, self.timer.play)
+
+        return "break"
 
     def button_play_release_macro(self, *_):
         """This method will be executed when the user releases
         the mouse after having clicked on the play button."""
+
+        self.widgets["button_play"].config(relief=RAISED)
 
         if self.timer.scheduled_id:
 
@@ -145,7 +154,7 @@ class MediaButtonMacros():
 
         else:
             self.timer.pause()
-            self.timer.display_time(self.timer.offset)
+            self.timer.display_time(self.play_press_time)
 
     def button_rewind_macro(self, *_):
         """This method will be executed when the rewind button is pressed."""
