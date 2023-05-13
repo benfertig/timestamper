@@ -6,8 +6,8 @@ from tkinter import DISABLED, NORMAL, HORIZONTAL, VERTICAL, END, Button, \
     Checkbutton, DoubleVar, Entry, IntVar, Label, StringVar, Scale, Spinbox, Text
 from tkinter.ttk import Scale as ttk_scale
 from .widgets_helper_methods import set_value, adjust_timer_on_entry_mousewheel, \
-    custom_scale_on_mousewheel, entry_helper_method, determine_widget_text, \
-    determine_widget_attribute, create_font, grid_widget, create_image
+    custom_scale_on_mousewheel, custom_spinbox_on_mousewheel, entry_helper_method, \
+    determine_widget_text, determine_widget_attribute, create_font, grid_widget, create_image
 
 if platform.startswith("darwin"):
     from tkmacosx import Button as MacButton
@@ -308,6 +308,17 @@ def create_spinbox(template, settings, spinbox_template, spinbox_window, spinbox
         values=list(spinbox_template["values"]), command=spinbox_macro)
 
     spinbox_text.set(spinbox_text_str)
+
+    # Allow for the spinbox to be manipulated with the mousewheel if it was
+    # indicated that this should be the case in the spinbox's template.
+    if spinbox_template["scroll_to_move"]:
+
+        mousewheel_strs = \
+            ("<Button-4>", "<Button-5>") if platform.startswith("linux") else ("<MouseWheel>",)
+
+        for mw_str in mousewheel_strs:
+            spinbox.bind(mw_str, \
+                lambda event: spinbox.invoke("buttonup" if event.delta > 0 else "buttondown"))
 
     # Place the Spinbox.
     grid_widget(spinbox, spinbox_template)
