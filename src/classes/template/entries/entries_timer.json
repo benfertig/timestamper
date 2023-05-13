@@ -11,7 +11,6 @@
 
         "max_val": 99,
 
-        "scroll_to_adjust_timer": true,
         "scroll_timer_adjustment": 3600,
 
         "background": "white",
@@ -47,7 +46,6 @@
 
         "max_val": 59,
 
-        "scroll_to_adjust_timer": true,
         "scroll_timer_adjustment": 60,
 
         "background": "white",
@@ -82,7 +80,6 @@
 
         "max_val": 59,
 
-        "scroll_to_adjust_timer": true,
         "scroll_timer_adjustment": 1,
 
         "background": "white",
@@ -117,7 +114,6 @@
 
         "max_val": 99,
 
-        "scroll_to_adjust_timer": true,
         "scroll_timer_adjustment": "0.01",
 
         "background": "white",

@@ -4,7 +4,7 @@
 from json import load as json_load
 from os.path import join, splitext
 from sys import platform
-from tkinter import DISABLED, NORMAL, END, font, Grid, PhotoImage, Tk, Toplevel
+from tkinter import DISABLED, NORMAL, font, Grid, PhotoImage, Tk, Toplevel
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -43,86 +43,6 @@ def set_value(scale, event):
 
     scale.event_generate("<Button-3>", x=event.x, y=event.y)
     return "break"
-
-
-def adjust_timer_on_entry_mousewheel(event, time_stamper, entry_template):
-    """This is a custom event method that gets executed when the mousewheel is
-    moved over one of the timer entries (hours, minutes, seconds or subseconds)."""
-
-    # On Mac platforms, the registered scroll amount does not need to be divided by 120.
-    event_delta = event.delta if platform.startswith("darwin") else int(event.delta / 120)
-
-    # If the timer is currently playing or is scheduled to play,
-    # schedule/reschedule the timer to resume playing after a short delay.
-    timer_is_playing = time_stamper.timer.is_running or time_stamper.timer.scheduled_id
-    if timer_is_playing:
-
-        # Pause the timer without resetting the multiplier.
-        time_stamper.timer.pause(reset_multiplier=False)
-
-        # If there is an existing scheduled play function, then it should be
-        # cancelled, as this effectively means that the user was already scrolling
-        # the audio slider or timer entries but has not yet finished scrolling.
-        if time_stamper.timer.scheduled_id:
-            time_stamper.root.after_cancel(time_stamper.timer.scheduled_id)
-
-        # Schedule the timer to play after the specified delay.
-        time_stamper.timer.scheduled_id = \
-            time_stamper.root.after(250, time_stamper.timer.play, "prev")
-
-    # Adjust the timer according to the direction the user scrolled.
-    scroll_timer_adjustment = event_delta * float(entry_template["scroll_timer_adjustment"])
-    time_stamper.timer.adjust_timer(scroll_timer_adjustment, abort_if_out_of_bounds=True)
-
-    # Pause the timer if it is playing and was adjusted to the max time.
-    max_time = time_stamper.timer.get_max_time()
-    if timer_is_playing and time_stamper.timer.get_current_seconds() >= max_time:
-        time_stamper.timer.display_time(max_time, pad=2)
-        time_stamper.macros["button_pause"]()
-
-
-def custom_scale_on_mousewheel(scale, event, scale_template, time_stamper):
-    """This is a custom event method that gets executed when
-    the mousewheel is moved while the cursor is on a Scale."""
-
-    # On Mac platforms, the registered scroll amount does not need to be divided be 120.
-    event_delta = event.delta if platform.startswith("darwin") else event.delta / 120
-
-    # Adjust the scale's position to reflect the mousewheel scrolling.
-    scroll_amount = event_delta * float(scale_template["scroll_sensitivity"]) * \
-        (-1 if scale_template["reverse_scroll_direction"] else 1)
-    scale_current_value = scale.get()
-
-    # Determine whether audio is playing/scheduled to play.
-    audio_playing = time_stamper.audio.player \
-        and (time_stamper.audio.player.playing or time_stamper.timer.scheduled_id)
-
-    # If we are manipulating the audio time slider and there is audio currently
-    # playing/scheduled to play, schedule the audio to resume playing after a short delay.
-    if scale_template["str_key"] == "scale_audio_time" and audio_playing:
-
-        # Pause the timer without resetting the multiplier.
-        time_stamper.timer.pause(reset_multiplier=False)
-
-        # If there is an existing scheduled play function, then it should be
-        # cancelled, as this effectively means that the user was already scrolling
-        # the audio slider or timer entries but has not yet finished scrolling.
-        if time_stamper.timer.scheduled_id:
-            time_stamper.root.after_cancel(time_stamper.timer.scheduled_id)
-
-        # Schedule the timer to play after the specified delay.
-        time_stamper.timer.scheduled_id = \
-            time_stamper.root.after(250, time_stamper.timer.play, "prev")
-
-    # Set the audio time slider to its adjusted position.
-    scale.set(scale_current_value + scroll_amount)
-
-    # If audio is currently playing/scheduled to play and the
-    # timer was adjusted to the max time, pause the timer.
-    max_time = time_stamper.timer.get_max_time()
-    if audio_playing and time_stamper.timer.get_current_seconds() >= max_time:
-        time_stamper.timer.display_time(max_time, pad=2)
-        time_stamper.macros["button_pause"]()
 
 
 def entry_helper_method(entry_text, entry_template, widgets):

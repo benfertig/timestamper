@@ -64,7 +64,7 @@ class Widgets():
         self.create_extra_images()
         self.create_buttons(window_str, macros)
         self.create_checkbuttons(window_str, macros)
-        self.create_entries(window_str)
+        self.create_entries(window_str, macros)
         self.create_labels(window_str)
         self.create_scales(window_str, macros)
         self.create_spinboxes(window_str, macros)
@@ -88,11 +88,8 @@ class Widgets():
         button_window = self[window_str]
         for button_template in self.template["buttons"][window_str]:
             str_key = button_template["str_key"]
-            button_macro = macros[str_key] if str_key in macros.mapping else None
-            release_macro = \
-                macros[f"{str_key}_ONRELEASE"] if f"{str_key}_ONRELEASE" in macros.mapping else None
-            button, button_image, button_orig_color = create_button(self.time_stamper, \
-                button_template, button_window, button_macro, release_macro)
+            button, button_image, button_orig_color = create_button(\
+                self.time_stamper, button_template, button_window, macros)
             button.image = button_image
             self.original_colors[str_key] = button_orig_color
             if button_image:
@@ -105,19 +102,17 @@ class Widgets():
 
         checkbutton_window = self[window_str]
         for checkbutton_template in self.template["checkbuttons"][window_str]:
-            checkbutton_macro = macros[checkbutton_template["str_key"]] \
-                if checkbutton_template["str_key"] in macros.mapping else None
             checkbutton = create_checkbutton(self.template, self.settings, \
-                checkbutton_template, checkbutton_window, checkbutton_macro)
+                checkbutton_template, checkbutton_window, macros)
             self.mapping[checkbutton_template["str_key"]] = checkbutton
 
-    def create_entries(self, window_str):
+    def create_entries(self, window_str, macros):
         """This method creates all of the entries that are meant
         to appear in the window indicated by window_str."""
 
         entry_window = self[window_str]
         for entry_template in self.template["entries"][window_str]:
-            entry = create_entry(self.time_stamper, entry_template, entry_window, self)
+            entry = create_entry(self.time_stamper, entry_template, entry_window, self, macros)
             self.mapping[entry_template["str_key"]] = entry
 
     def create_labels(self, window_str):
@@ -138,12 +133,7 @@ class Widgets():
 
         scale_window = self[window_str]
         for scale_template in self.template["scales"][window_str]:
-            str_key = scale_template["str_key"]
-            scale_macro = macros[str_key] if str_key in macros.mapping else None
-            release_macro = \
-                macros[f"{str_key}_ONRELEASE"] if f"{str_key}_ONRELEASE" in macros.mapping else None
-            scale = create_scale(self.time_stamper, scale_template, \
-                scale_window, scale_macro, release_macro)
+            scale = create_scale(self.time_stamper, scale_template, scale_window, macros)
             self.mapping[scale_template["str_key"]] = scale
 
     def create_spinboxes(self, window_str, macros):
@@ -152,10 +142,8 @@ class Widgets():
 
         spinbox_window = self[window_str]
         for spinbox_template in self.template["spinboxes"][window_str]:
-            str_key = spinbox_template["str_key"]
-            spinbox_macro = macros[str_key] if str_key in macros.mapping else None
             spinbox = create_spinbox(self.template, self.settings, \
-                spinbox_template, spinbox_window, spinbox_macro)
+                spinbox_template, spinbox_window, macros)
             self.mapping[spinbox_template["str_key"]] = spinbox
 
     def create_texts(self, window_str):

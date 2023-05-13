@@ -2,7 +2,6 @@
 """This module contains the TimeStamperTimer class which allows
 for keeping track of time in the Time Stamper program."""
 
-from fractions import Fraction
 from math import ceil
 from time import perf_counter
 from tkinter import DISABLED
@@ -320,7 +319,7 @@ class TimeStamperTimer():
         # at the speed we would like to set it to.
         if not self.is_running or new_multiplier != self.multiplier:
 
-            # Pause the timer if it is currently running
+            # Pause the timer if it is currently running.
             if self.is_running:
                 self.pause()
 

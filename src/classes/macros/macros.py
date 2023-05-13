@@ -6,6 +6,7 @@ manipulated. The actual macros are stored in submodules (all of which are import
 from dataclasses import dataclass
 from tkinter import DISABLED, NORMAL, END
 from .macros_checkbuttons import CheckbuttonMacros
+from .macros_entries import EntryMacros
 from .macros_scales import ScaleMacros
 from .macros_spinboxes import SpinboxMacros
 from .macros_buttons_file import FileButtonMacros
@@ -54,6 +55,7 @@ class Macros():
         self.timer = time_stamper.timer
 
         check = CheckbuttonMacros(self)
+        entries = EntryMacros(self)
         scales = ScaleMacros(self)
         spinboxes = SpinboxMacros(self)
 
@@ -73,10 +75,18 @@ class Macros():
             "checkbutton_skip_backward_settings": check.checkbutton_skip_backward_settings_macro,
             "checkbutton_skip_forward_settings": check.checkbutton_skip_forward_settings_macro,
 
+            # Entries
+            "entry_hours_ONMOUSEWHEEL": entries.entry_hours_mousewheel_macro,
+            "entry_minutes_ONMOUSEWHEEL": entries.entry_minutes_mousewheel_macro,
+            "entry_seconds_ONMOUSEWHEEL": entries.entry_seconds_mousewheel_macro,
+            "entry_subseconds_ONMOUSEWHEEL": entries.entry_subseconds_mousewheel_macro,
+
             # Scales
             "scale_audio_time": scales.scale_audio_time_macro,
             "scale_audio_time_ONRELEASE": scales.scale_audio_time_release_macro,
+            "scale_audio_time_ONMOUSEWHEEL": scales.scale_audio_time_mousewheel_macro,
             "scale_audio_volume": scales.scale_audio_volume_macro,
+            "scale_audio_volume_ONMOUSEWHEEL": scales.scale_audio_volume_mousewheel_macro,
 
             # Spinboxes
             "spinbox_rewind": spinboxes.spinbox_rewind_macro,
