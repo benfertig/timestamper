@@ -320,6 +320,18 @@ def print_to_file(to_print, file_path, file_encoding="utf-8", access_mode="a+"):
             out_file.write(to_print)
 
 
+def replace_button_message_variables(button_message, \
+    button_str_key, skip_amount=None, new_time=None):
+    """This method takes a user-entered button message and replaces
+    any user-entered variables with their appropriate values."""
+
+    if button_str_key in ("button_skip_backward", "button_skip_forward"):
+        button_message = button_message.replace("$amount", skip_amount)
+        button_message = button_message.replace("$dest", new_time)
+
+    return button_message
+
+
 def store_timestamper_output(output_file_paths, output_file_encoding="utf-8"):
     """This method reads through timestamper output files saved in "all_files" (which should
     be a list of file paths) and saves the notes stored in these files to a list."""

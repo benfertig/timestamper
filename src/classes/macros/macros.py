@@ -189,6 +189,8 @@ class Macros():
             if should_print:
                 return print_on_press_val
 
+        # If it was determined that nothing should be
+        # printed when this button is pressed, return None.
         return None
 
     def validate_output_file(self):

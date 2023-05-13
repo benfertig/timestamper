@@ -4,7 +4,8 @@ that are executed when a media button in the Time Stamper program is pressed."""
 
 from sys import platform
 from tkinter import RAISED, SUNKEN
-from .macros_helper_methods import disable_button, button_enable_disable_macro
+from .macros_helper_methods import disable_button, \
+    button_enable_disable_macro, replace_button_message_variables
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -39,72 +40,35 @@ class MediaButtonMacros():
 
         self.play_press_time = 0.0
 
-    def media_button_macro(self, button_str_key, entry_str_key=None, is_skip_backward=True):
-        """This method is called on by the macros for the pause, play, skip backward,
-        and skip forward buttons. Since similar processes are executed for all
-        of these buttons, their shared procedures have been condensed down to
-        this method, where the arguments specific to each button can be passed."""
+    def non_skip_button_message(self, button_str_key):
+        """This method determines whether a message should be printed when a media button
+        is pressed, and, if it is determined that a message should be printed, prints that
+        message to the notes log and the output file. This method gets called for any media
+        button presses other than the skip backward/forward buttons, since those buttons
+        potentially require some extra computation to generate their button messages."""
 
-        button_template = self.template[button_str_key]
+        # Get the button's message before replacements.
+        button_message_pre_replace = self.parent.get_button_message_input(button_str_key)
 
-        # Enable and disable the relevant widgets for when this button is pressed.
-        button_enable_disable_macro(button_template, self.widgets)
+        # Only print a message if there is a message associated with the button.
+        if button_message_pre_replace is not None:
 
-        # Get the timestamp before skipping backward/forward.
-        first_timestamp = self.timer.current_time_to_timestamp()
+            # Replace any variables in the button's message.
+            button_message = \
+                replace_button_message_variables(button_message_pre_replace, button_str_key)
 
-        seconds_to_adjust_by = None
-
-        # If there is an entry associated with this button, then that means
-        # we are either skipping backward or forward, so we should skip backward
-        # or forward the amount of seconds indicated by the relevant entry.
-        if entry_str_key:
-
-            # Skip the timer backward/forward the specified number of seconds.
-            adjust_amount = float(self.widgets[entry_str_key].get())
-            seconds_to_adjust_by = \
-                self.timer.adjust_timer(adjust_amount * -1 if is_skip_backward else adjust_amount)
-
-            # Get the timestamp after skipping backward/forward.
-            second_timestamp = self.timer.current_time_to_timestamp(include_brackets=False)
-
-        # If the user has set a message to be printed
-        # when this button is pressed, retrieve that message.
-        button_message = self.parent.get_button_message_input(button_str_key)
-
-        # Only print a message for this button if:
-        #     1) a message was specified for this button
-        #     AND
-        #     2) the skip backward/forward amount was not zero seconds (this
-        #        condition does not apply if the user pressed a media button
-        #        that was not the skip backrward or skip forward button).
-        if button_message is not None and seconds_to_adjust_by != 0:
-
-            # If there is an entry associated with this button, then that means we
-            # are either skipping backward or skipping forward and we potentially need
-            # to swap the user's input for the button's message with other values.
-            if entry_str_key:
-
-                # We may need to print the exact number of seconds that the
-                # user skipped backward/forward by. Manipulate the displayed
-                # adjustment amount to make it as readable as possible here.
-                seconds_to_adjust_by = abs(round(seconds_to_adjust_by, 2))
-                if seconds_to_adjust_by % 1 == 0:
-                    seconds_to_adjust_by = int(seconds_to_adjust_by)
-                seconds_to_adjust_by = str(seconds_to_adjust_by)
-
-                # Replace any variables in the button message with their corresponding values.
-                button_message = button_message.replace("$amount", seconds_to_adjust_by)
-                button_message = button_message.replace("$dest", second_timestamp)
-
-            # Print the button's message, along with the current
-            # timestamp, to the notes log and the output file.
-            self.parent.print_timestamped_message(f"{button_message}\n", first_timestamp)
+            # Print the button's message if an output file exists.
+            if self.widgets["entry_output_path"].get():
+                self.parent.print_timestamped_message(f"{button_message}\n")
 
     def button_pause_macro(self, *_):
         """This method will be executed when the pause button is pressed."""
 
-        self.media_button_macro("button_pause")
+        # Enable and disable the relevant widgets for when the pause button is pressed.
+        button_enable_disable_macro(self.template["button_pause"], self.widgets)
+
+        # Print the pause button's message if one was set in the settings.
+        self.non_skip_button_message("button_pause")
 
         # If an audio source is loaded, the rewind and fast-forward buttons, which would
         # otherwise be activated when the pause button is pressed, should remain deactivated.
@@ -135,7 +99,8 @@ class MediaButtonMacros():
         very similar, so their procedures have been condensed down to a single method here, and
         different parameters are passed depending on where this method is being called from."""
 
-        self.widgets[f"button_{playback_type}"].config(relief=RAISED)
+        button_str_key = f"button_{playback_type}"
+        self.widgets[button_str_key].config(relief=RAISED)
 
         # If the playback button HAS NOT been held long enough
         # to initiate the timer, start the timer immediately.
@@ -143,7 +108,11 @@ class MediaButtonMacros():
 
             self.timer.scheduled_id = None
 
-            self.media_button_macro(f"button_{playback_type}")
+            # Enable and disable the relevant widgets for when this button is pressed.
+            button_enable_disable_macro(self.template[button_str_key], self.widgets)
+
+            # Print the button's message if one was set in the settings.
+            self.non_skip_button_message(button_str_key)
 
             # Start the timer.
             self.timer.play(playback_type=playback_type)
@@ -154,16 +123,6 @@ class MediaButtonMacros():
             button_enable_disable_macro(self.template["button_pause"], self.widgets)
             self.timer.pause()
             self.timer.display_time(self.play_press_time)
-
-        if playback_type == "play":
-
-            # If an audio source is loaded, the rewind and fast-forward buttons, which would
-            # otherwise be activated when the play button is pressed, should remain deactivated.
-            if self.time_stamper.audio.source:
-                disable_button(self.widgets["button_rewind"], \
-                    self.template["button_rewind"]["mac_disabled_color"])
-                disable_button(self.widgets["button_fast_forward"], \
-                    self.template["button_fast_forward"]["mac_disabled_color"])
 
     def button_play_press_macro(self, *_):
         """This method will be executed AS SOON AS THE PLAY BUTTON IS PRESSED
@@ -177,6 +136,14 @@ class MediaButtonMacros():
         the mouse after having clicked on the play button."""
 
         self.playback_release_macro("play")
+
+        # If an audio source is loaded, the rewind and fast-forward buttons, which would
+        # otherwise be activated when the play button is pressed, should remain deactivated.
+        if self.time_stamper.audio.source:
+            disable_button(self.widgets["button_rewind"], \
+                self.template["button_rewind"]["mac_disabled_color"])
+            disable_button(self.widgets["button_fast_forward"], \
+                self.template["button_fast_forward"]["mac_disabled_color"])
 
     def button_rewind_press_macro(self, *_):
         """This method will be executed AS SOON AS THE REWIND BUTTON IS PRESSED
@@ -204,16 +171,61 @@ class MediaButtonMacros():
 
         self.playback_release_macro("fast_forward")
 
+    def skip_backward_or_forward_macro(self, is_skip_backward):
+        """This method contains the entire functionality for the skip backward and skip forward
+        buttons. The functions performed by these two buttons are very similar, so their
+        procedures have been condensed down to a single method here, and different parameters
+        are passed depending on whether the skip backward or skip forward button was pressed."""
+
+        direction = "backward" if is_skip_backward else "forward"
+        button_str_key = f"button_skip_{direction}"
+
+        # Enable and disable the relevant widgets for when
+        # the skip backward/forward button is pressed.
+        button_enable_disable_macro(self.template[button_str_key], self.widgets)
+
+        # Get the timestamp before skipping backward/forward.
+        first_timestamp = self.timer.current_time_to_timestamp()
+
+        # Skip the timer backward/forward the specified number of seconds.
+        adjust_amount = float(self.widgets[f"entry_skip_{direction}"].get())
+        skip_amount = \
+            self.timer.adjust_timer(adjust_amount * -1 if is_skip_backward else adjust_amount)
+
+        # Get the timestamp after skipping backward/forward.
+        new_time = self.timer.current_time_to_timestamp(include_brackets=False)
+
+        # Get the button's message before replacements.
+        button_message_pre_replace = \
+            self.parent.get_button_message_input(button_str_key)
+
+        # Only print a message if the timer skipped and
+        # there is a message associated with the button.
+        if skip_amount != 0 and button_message_pre_replace is not None:
+
+            # Round the skip amount to the nearest hundreth.
+            skip_amount = abs(round(skip_amount, 2))
+            if skip_amount % 1 == 0:
+                skip_amount = int(skip_amount)
+            skip_amount = str(skip_amount)
+
+            # Replace any variables in the button's message.
+            button_message = replace_button_message_variables(button_message_pre_replace, \
+                button_str_key, skip_amount=skip_amount, new_time=new_time)
+
+            # Print the button's message if an output file exists.
+            if self.widgets["entry_output_path"].get():
+                self.parent.print_timestamped_message(f"{button_message}\n", first_timestamp)
+
     def button_skip_backward_macro(self, *_):
         """This method will be executed when the skip backward button is pressed."""
 
-        self.media_button_macro("button_skip_backward", \
-            "entry_skip_backward", is_skip_backward=True)
+        self.skip_backward_or_forward_macro(True)
 
     def button_skip_forward_macro(self, *_):
         """This method will be executed when the skip forward button is pressed."""
 
-        self.media_button_macro("button_skip_forward", "entry_skip_forward", is_skip_backward=False)
+        self.skip_backward_or_forward_macro(False)
 
     def button_mute_macro(self, *_):
         """This method will be executed when the mute button is pressed."""
