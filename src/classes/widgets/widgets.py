@@ -112,7 +112,7 @@ class Widgets():
 
         entry_window = self[window_str]
         for entry_template in self.template["entries"][window_str]:
-            entry = create_entry(self.time_stamper, entry_template, entry_window, self, macros)
+            entry = create_entry(self.time_stamper, entry_template, entry_window, macros)
             self.mapping[entry_template["str_key"]] = entry
 
     def create_labels(self, window_str):

@@ -89,6 +89,7 @@ def get_new_multiplier(playback_type, template, widgets):
     multiplier_str = template[spinbox_str_key]["values"][spinbox_val]
     return float(Fraction(multiplier_str)) * (-1 if is_rewind else 1)
 
+
 def determine_new_play_button_image(subseconds, widgets):
     """This method determines whether the current image of the play button should
     be changed, and if so, what it should be changed to. If it is determined that the

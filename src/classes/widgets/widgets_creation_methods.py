@@ -5,7 +5,7 @@ from sys import platform
 from tkinter import DISABLED, NORMAL, HORIZONTAL, VERTICAL, END, Button, \
     Checkbutton, DoubleVar, Entry, IntVar, Label, StringVar, Scale, Spinbox, Text
 from tkinter.ttk import Scale as ttk_scale
-from .widgets_helper_methods import set_value, entry_helper_method, determine_widget_text, \
+from .widgets_helper_methods import set_value, determine_widget_text, \
     determine_widget_attribute, create_font, grid_widget, create_image
 
 if platform.startswith("darwin"):
@@ -133,7 +133,7 @@ def create_checkbutton(template, settings, checkbutton_template, checkbutton_win
     return checkbutton
 
 
-def create_entry(time_stamper, entry_template, entry_window, widgets, macros=None):
+def create_entry(time_stamper, entry_template, entry_window, macros=None):
     """This method creates an Entry object for the Time Stamper program."""
 
     str_key = entry_template["str_key"]
@@ -162,9 +162,16 @@ def create_entry(time_stamper, entry_template, entry_window, widgets, macros=Non
         disabledforeground=entry_template["disabledforeground"],
         state=initial_state)
 
-    # Determine any scroll macros for the entry.
+    # Determine any macros for the entry.
+    trace_macro = macros[f"{str_key}_TRACE"] \
+        if macros and f"{str_key}_TRACE" in macros.mapping else None
     scroll_macro = macros[f"{str_key}_ONMOUSEWHEEL"] \
         if macros and f"{str_key}_ONMOUSEWHEEL" in macros.mapping else None
+
+    # Set for a method to be executed each time the entry's text is changed
+    # if it was indicated that this should be the case in macros.py.
+    if trace_macro:
+        entry_text.trace("w", lambda *_: trace_macro(entry_text))
 
     # Allow for the timer to be manipulated when the mousewheel is moved over
     # this entry if it was indicated that this should be the case in macros.py.
@@ -175,9 +182,6 @@ def create_entry(time_stamper, entry_template, entry_window, widgets, macros=Non
 
         for mw_str in mousewheel_strs:
             entry.bind(mw_str, scroll_macro)
-
-    # Set the Entry input restrictions.
-    entry_text.trace("w", lambda *_: entry_helper_method(entry_text, entry_template, widgets))
 
     # Load the entry's initial text into its template.
     entry_template["text_loaded_value"] = entry_text_str

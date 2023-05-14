@@ -3,6 +3,7 @@
 that are executed when an entry in the Time Stamper program is manipulated."""
 
 from sys import platform
+from tkinter import DISABLED, NORMAL
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -31,10 +32,43 @@ class EntryMacros():
         self.time_stamper = parent.time_stamper
         self.template = parent.template
         self.timer = parent.timer
+        self.widgets = parent.widgets
+
+    def entry_trace_method(self, entry_text, entry_template):
+        """This is a custom method that gets executed when the
+        text is edited in one of several entries (hours, minutes,
+        seconds, subseconds, skip backward entry, skip forward entry)."""
+
+        max_val = entry_template["max_val"]
+
+        if len(entry_text.get()) > 0:
+
+            # If this entry should contain only digits...
+            if entry_template["digits_only"]:
+
+                # Remove any non-digits from the entry.
+                try:
+                    int(entry_text.get()[-1])
+                except ValueError:
+                    entry_text.set(entry_text.get()[:-1])
+
+                # Remove any digits from the entry that put the entry over max_val.
+                if len(entry_text.get()) > 0:
+                    if int(entry_text.get()) > max_val:
+                        entry_text.set(entry_text.get()[:-1])
+
+        # Enable and disable the relevant buttons for when the entry's text is edited.
+        for str_to_enable in entry_template["to_enable"]:
+            self.widgets[str_to_enable]["state"] = NORMAL
+        for str_to_disable in entry_template["to_disable"]:
+            self.widgets[str_to_disable]["state"] = DISABLED
+
+        # Save the entry's updated text in the entry's template.
+        entry_template["text_loaded_value"] = entry_text.get()
 
     def adjust_timer_on_entry_mousewheel(self, event, entry_template):
-        """This is a custom event method that gets executed when the mousewheel is
-        moved over one of the timer entries (hours, minutes, seconds or subseconds)."""
+        """This is a custom method that gets executed when the mousewheel is moved
+        over one of the timer entries (hours, minutes, seconds or subseconds)."""
 
         # On Mac platforms, the registered scroll amount does not need to be divided by 120.
         event_delta = event.delta if platform.startswith("darwin") else int(event.delta / 120)
@@ -66,6 +100,71 @@ class EntryMacros():
         if timer_is_playing and self.timer.get_current_seconds() >= max_time:
             self.timer.display_time(max_time, pad=2)
             self.parent["button_pause"]()
+
+    def entry_hours_trace(self, entry_text):
+        """This method gets executed when the text is edited in the hours entry."""
+
+        self.entry_trace_method(entry_text, self.template["entry_hours"])
+
+    def entry_minutes_trace(self, entry_text):
+        """This method gets executed when the text is edited in the minutes entry."""
+
+        self.entry_trace_method(entry_text, self.template["entry_minutes"])
+
+    def entry_seconds_trace(self, entry_text):
+        """This method gets executed when the text is edited in the seconds entry."""
+
+        self.entry_trace_method(entry_text, self.template["entry_seconds"])
+
+    def entry_subseconds_trace(self, entry_text):
+        """This method gets executed when the text is edited in the subseconds entry."""
+
+        self.entry_trace_method(entry_text, self.template["entry_subseconds"])
+
+    def entry_skip_backward_trace(self, entry_text):
+        """This method gets executed when the text is edited in the skip backward entry."""
+
+        self.entry_trace_method(entry_text, self.template["entry_skip_backward"])
+
+    def entry_skip_forward_trace(self, entry_text):
+        """This method gets executed when the text is edited in the skip forward entry."""
+
+        self.entry_trace_method(entry_text, self.template["entry_skip_forward"])
+
+    def entry_pause_settings_trace(self, entry_text):
+        """This method gets executed when the text is edited in the pause settings entry."""
+
+        self.entry_trace_method(entry_text, self.template["entry_pause_settings"])
+
+    def entry_play_settings_trace(self, entry_text):
+        """This method gets executed when the text is edited in the play settings entry."""
+
+        self.entry_trace_method(entry_text, self.template["entry_play_settings"])
+
+    def entry_skip_backward_settings_trace(self, entry_text):
+        """This method gets executed when the text is edited in the skip backward settings entry."""
+
+        self.entry_trace_method(entry_text, self.template["entry_skip_backward_settings"])
+
+    def entry_skip_forward_settings_trace(self, entry_text):
+        """This method gets executed when the text is edited in the skip forward settings entry."""
+
+        self.entry_trace_method(entry_text, self.template["entry_skip_forward_settings"])
+
+    def entry_hotkey_1_settings_trace(self, entry_text):
+        """This method gets executed when the text is edited in the hotkey 1 settings entry."""
+
+        self.entry_trace_method(entry_text, self.template["entry_hotkey_1_settings"])
+
+    def entry_hotkey_2_settings_trace(self, entry_text):
+        """This method gets executed when the text is edited in the hotkey 2 settings entry."""
+
+        self.entry_trace_method(entry_text, self.template["entry_hotkey_2_settings"])
+
+    def entry_hotkey_3_settings_trace(self, entry_text):
+        """This method gets executed when the text is edited in the hotkey 3 settings entry."""
+
+        self.entry_trace_method(entry_text, self.template["entry_hotkey_3_settings"])
 
     def entry_hours_mousewheel_macro(self, event):
         """This method that gets executed when the mousewheel is moved over the hours entry."""

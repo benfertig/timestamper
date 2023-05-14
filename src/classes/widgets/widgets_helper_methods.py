@@ -45,37 +45,6 @@ def set_value(scale, event):
     return "break"
 
 
-def entry_helper_method(entry_text, entry_template, widgets):
-    """This method will be executed every time an entry's text is manipulated."""
-
-    max_val = entry_template["max_val"]
-
-    if len(entry_text.get()) > 0:
-
-        # If this entry should contain only digits...
-        if entry_template["digits_only"]:
-
-            # Remove any non-digits from the entry.
-            try:
-                int(entry_text.get()[-1])
-            except ValueError:
-                entry_text.set(entry_text.get()[:-1])
-
-            # Remove any digits from the entry that put the entry over max_val.
-            if len(entry_text.get()) > 0:
-                if int(entry_text.get()) > max_val:
-                    entry_text.set(entry_text.get()[:-1])
-
-    # Enable and disable the relevant buttons for when the entry's text is edited.
-    for str_to_enable in entry_template["to_enable"]:
-        widgets[str_to_enable]["state"] = NORMAL
-    for str_to_disable in entry_template["to_disable"]:
-        widgets[str_to_disable]["state"] = DISABLED
-
-    # Save the entry's updated text in the entry's template.
-    entry_template["text_loaded_value"] = entry_text.get()
-
-
 def determine_widget_text(widget_template, template, settings):
     """There are different ways that a widget's text can be set. The widget's text can be
     stored in a file, in its template's "text" key, or be referenced from a setting or another

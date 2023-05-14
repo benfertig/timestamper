@@ -72,14 +72,14 @@ class TimeStamperTimer():
         subseconds = self.time_stamper.widgets["entry_subseconds"].get()
 
         # The timer's values may need to be padded if they contain user-entered numbers.
-        if not self.is_running:
-            hours = pad_number(hours, 2, True)
-            minutes = pad_number(minutes, 2, True)
-            seconds = pad_number(seconds, 2, True)
-            subseconds = pad_number(subseconds, 2, False)
+        hours = pad_number(hours, 2, True)
+        minutes = pad_number(minutes, 2, True)
+        seconds = pad_number(seconds, 2, True)
+        subseconds = pad_number(subseconds, 2, False)
 
         # If raw is True, return the time from the time fields as it should appear on the timer.
         if raw:
+            #print("returning raw\n")
             return hours, minutes, seconds, subseconds
 
         # If raw is False, convert the numbers from the
