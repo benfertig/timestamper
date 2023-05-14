@@ -101,6 +101,8 @@ class EntryMacros():
             self.timer.display_time(max_time, pad=2)
             self.parent["button_pause"]()
 
+    #################### TIMER ENTRIES TRACE MACROS ####################
+
     def entry_hours_trace(self, entry_text):
         """This method gets executed when the text is edited in the hours entry."""
 
@@ -121,6 +123,8 @@ class EntryMacros():
 
         self.entry_trace_method(entry_text, self.template["entry_subseconds"])
 
+    #################### SKIP BACKWARD/FORWARD ENTRIES TRACE MACROS ####################
+
     def entry_skip_backward_trace(self, entry_text):
         """This method gets executed when the text is edited in the skip backward entry."""
 
@@ -130,6 +134,8 @@ class EntryMacros():
         """This method gets executed when the text is edited in the skip forward entry."""
 
         self.entry_trace_method(entry_text, self.template["entry_skip_forward"])
+
+    #################### SETTINGS ENTRIES TRACE MACROS ####################
 
     def entry_pause_settings_trace(self, entry_text):
         """This method gets executed when the text is edited in the pause settings entry."""
@@ -165,6 +171,8 @@ class EntryMacros():
         """This method gets executed when the text is edited in the hotkey 3 settings entry."""
 
         self.entry_trace_method(entry_text, self.template["entry_hotkey_3_settings"])
+
+    #################### MOUSEWHEEL MACROS ####################
 
     def entry_hours_mousewheel_macro(self, event):
         """This method that gets executed when the mousewheel is moved over the hours entry."""
