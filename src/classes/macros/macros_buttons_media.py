@@ -40,35 +40,41 @@ class MediaButtonMacros():
 
         self.play_press_time = 0.0
 
-    def non_skip_button_message(self, button_str_key):
-        """This method determines whether a message should be printed when a media button
-        is pressed, and, if it is determined that a message should be printed, prints that
-        message to the notes log and the output file. This method gets called for any media
-        button presses other than the skip backward/forward buttons, since those buttons
-        potentially require some extra computation to generate their button messages."""
+    def attempt_button_message(self, button_str_key, timestamp=None, **user_variables):
+        """This method determines whether a message should be printed when a media
+        button is pressed, and, if it is determined that a message should be
+        printed, prints that message to the notes log and the output file."""
 
-        # Get the button's message before replacements.
-        button_message_pre_replace = self.parent.get_button_message_input(button_str_key)
+        # Only attempt to print the button's message if there is an output path.
+        if self.widgets["entry_output_path"].get():
 
-        # Only print a message if there is a message associated with the button.
-        if button_message_pre_replace is not None:
+            # Get the button's message before replacements.
+            button_message_pre_replace = self.parent.get_button_message_input(button_str_key)
 
-            # Replace any variables in the button's message.
-            button_message = \
-                replace_button_message_variables(button_message_pre_replace, button_str_key)
+            # Only attempt to print a message if there is a message associated with the button.
+            if button_message_pre_replace is not None:
 
-            # Print the button's message if an output file exists.
-            if self.widgets["entry_output_path"].get():
-                self.parent.print_timestamped_message(f"{button_message}\n")
+                # Generate a timestamp if one was not provided.
+                if timestamp is None:
+                    timestamp = self.timer.current_time_to_timestamp()
 
-    def button_pause_macro(self, *_):
+                # Replace any variables in the button's message.
+                button_message = replace_button_message_variables(\
+                    button_message_pre_replace, **user_variables)
+
+                # Print the button's message.
+                self.parent.print_timestamped_message(f"{button_message}\n", timestamp)
+
+    def button_pause_macro(self, *_, force_suppress_message=False):
         """This method will be executed when the pause button is pressed."""
 
         # Enable and disable the relevant widgets for when the pause button is pressed.
         button_enable_disable_macro(self.template["button_pause"], self.widgets)
 
-        # Print the pause button's message if one was set in the settings.
-        self.non_skip_button_message("button_pause")
+        # Only attempt to print a button message if the
+        # button message should not be force overridden.
+        if not force_suppress_message:
+            self.attempt_button_message("button_pause")
 
         # If an audio source is loaded, the rewind and fast-forward buttons, which would
         # otherwise be activated when the pause button is pressed, should remain deactivated.
@@ -87,55 +93,29 @@ class MediaButtonMacros():
         very similar, so their procedures have been condensed down to a single method here, and
         different parameters are passed depending on where this method is being called from."""
 
-        self.widgets[f"button_{playback_type}"].config(relief=SUNKEN)
+        button_str_key = f"button_{playback_type}"
+
+        # Enable and disable the relevant widgets for when this button is pressed.
+        button_enable_disable_macro(self.template[button_str_key], self.widgets)
+
+        # Make the button appear pressed.
+        self.widgets[button_str_key].config(relief=SUNKEN)
+
+        # Record the time that the button was pressed.
         self.play_press_time = self.timer.get_current_seconds()
+
+        # Schedule the timer to start after a short delay (this scheduled start will be
+        # cancelled if the current button is released before the delay period has ended).
         self.timer.scheduled_id = self.time_stamper.root.after(250, self.timer.play, playback_type)
 
         return "break"
 
-    def playback_release_macro(self, playback_type):
-        """This method is called by button_play_release_macro, button_rewind_release_macro and
-        button_fast_forward_release_macro. The functions performed by these three methods are
-        very similar, so their procedures have been condensed down to a single method here, and
-        different parameters are passed depending on where this method is being called from."""
-
-        button_str_key = f"button_{playback_type}"
-        self.widgets[button_str_key].config(relief=RAISED)
-
-        # If the playback button HAS NOT been held long enough
-        # to initiate the timer, start the timer immediately.
-        if self.timer.scheduled_id:
-
-            self.timer.scheduled_id = None
-
-            # Enable and disable the relevant widgets for when this button is pressed.
-            button_enable_disable_macro(self.template[button_str_key], self.widgets)
-
-            # Print the button's message if one was set in the settings.
-            self.non_skip_button_message(button_str_key)
-
-            # Start the timer.
-            self.timer.play(playback_type=playback_type)
-
-        # If the play button HAS been held long enough
-        # to initiate the timer, stop the timer.
-        else:
-            button_enable_disable_macro(self.template["button_pause"], self.widgets)
-            self.timer.pause()
-            self.timer.display_time(self.play_press_time)
-
     def button_play_press_macro(self, *_):
-        """This method will be executed AS SOON AS THE PLAY BUTTON IS PRESSED
-        (as opposed to waiting for the left-mouse-button to be released
-        on the play button, as is the default case with other buttons)."""
+        """This method will be executed AS SOON AS THE LEFT-MOUSE-BUTTON IS PRESSED
+        ON THE PLAY BUTTON (as opposed to waiting for the left-mouse-button to be
+        released on the play button, as is the default case with other buttons)."""
 
         self.playback_press_macro("play")
-
-    def button_play_release_macro(self, *_):
-        """This method will be executed when the user releases
-        the mouse after having clicked on the play button."""
-
-        self.playback_release_macro("play")
 
         # If an audio source is loaded, the rewind and fast-forward buttons, which would
         # otherwise be activated when the play button is pressed, should remain deactivated.
@@ -146,30 +126,83 @@ class MediaButtonMacros():
                 self.template["button_fast_forward"]["mac_disabled_color"])
 
     def button_rewind_press_macro(self, *_):
-        """This method will be executed AS SOON AS THE REWIND BUTTON IS PRESSED
-        (as opposed to waiting for the left-mouse-button to be released
-        on the rewind button, as is the default case with other buttons)."""
+        """This method will be executed AS SOON AS THE LEFT-MOUSE-BUTTON IS PRESSED
+        ON THE REWIND BUTTON (as opposed to waiting for the left-mouse-button to be
+        released on the rewind button, as is the default case with other buttons)."""
 
         self.playback_press_macro("rewind")
 
-    def button_rewind_release_macro(self, *_):
-        """This method will be executed when the user releases
-        the mouse after having clicked on the rewind button."""
-
-        self.playback_release_macro("rewind")
-
     def button_fast_forward_press_macro(self, *_):
-        """This method will be executed AS SOON AS THE FAST-FORWARD BUTTON IS
-        PRESSED (as opposed to waiting for the left-mouse-button to be released
-        on the fast-forward button, as is the default case with other buttons)."""
+        """This method will be executed AS SOON AS THE LEFT-MOUSE-BUTTON IS PRESSED ON
+        THE FAST-FORWARD BUTTON (as opposed to waiting for the left-mouse-button to be
+        released on the fast-forward button, as is the default case with other buttons)."""
 
         self.playback_press_macro("fast_forward")
 
-    def button_fast_forward_release_macro(self, *_):
+    def playback_release_macro(self, playback_type):
+        """This method is called by button_play_release_macro, button_rewind_release_macro and
+        button_fast_forward_release_macro. The functions performed by these three methods are
+        very similar, so their procedures have been condensed down to a single method here, and
+        different parameters are passed depending on where this method is being called from."""
+
+        button_str_key = f"button_{playback_type}"
+        self.widgets[button_str_key].config(relief=RAISED)
+
+        # If the playback button HAS NOT been held long enough to initiate the timer...
+        if self.timer.scheduled_id:
+
+            # Get the current timestamp.
+            timestamp = self.timer.current_time_to_timestamp()
+
+            # Start the timer.
+            self.timer.play(playback_type=playback_type)
+
+            # Return the timestamp, indicating that playback has started.
+            return timestamp
+
+        # If the playback button HAS been held long enough to initiate the timer...
+
+        # The program should behave as if the pause button was pressed (omitting button messages).
+        self.button_pause_macro(force_suppress_message=True)
+
+        # Reset the timer to where it was at when the current playback button was pressed.
+        self.timer.display_time(self.play_press_time)
+
+        # Return None, indicating that playback has stopped.
+        return None
+
+    def button_play_release_macro(self, *_, force_suppress_message=False):
+        """This method will be executed when the user releases
+        the mouse after having clicked on the play button."""
+
+        timestamp = self.playback_release_macro("play")
+
+        # Only attempt to print a button message if the timer started as a result
+        # of this method and the button message should not be force overridden.
+        if timestamp and not force_suppress_message:
+            self.attempt_button_message("button_play", timestamp=timestamp)
+
+    def button_rewind_release_macro(self, *_, force_suppress_message=False):
+        """This method will be executed when the user releases
+        the mouse after having clicked on the rewind button."""
+
+        timestamp = self.playback_release_macro("rewind")
+
+        # Only attempt to print a button message if the timer started as a result
+        # of this method and the button message should not be force overridden.
+        if timestamp and not force_suppress_message:
+            self.attempt_button_message("button_rewind", timestamp=timestamp)
+
+    def button_fast_forward_release_macro(self, *_, force_suppress_message=False):
         """This method will be executed when the user releases the
         mouse after having clicked on the fast-forward button."""
 
-        self.playback_release_macro("fast_forward")
+        timestamp = self.playback_release_macro("fast_forward")
+
+        # Only attempt to print a button message if the timer started as a result
+        # of this method and the button message should not be force overridden.
+        if timestamp and not force_suppress_message:
+            self.attempt_button_message("button_fast_forward", timestamp=timestamp)
 
     def skip_backward_or_forward_macro(self, is_skip_backward):
         """This method contains the entire functionality for the skip backward and skip forward
@@ -185,47 +218,44 @@ class MediaButtonMacros():
         button_enable_disable_macro(self.template[button_str_key], self.widgets)
 
         # Get the timestamp before skipping backward/forward.
-        first_timestamp = self.timer.current_time_to_timestamp()
+        timestamp = self.timer.current_time_to_timestamp()
 
         # Skip the timer backward/forward the specified number of seconds.
         adjust_amount = float(self.widgets[f"entry_skip_{direction}"].get())
         skip_amount = \
             self.timer.adjust_timer(adjust_amount * -1 if is_skip_backward else adjust_amount)
 
-        # Get the timestamp after skipping backward/forward.
+        # Get the time after skipping backward/forward.
         new_time = self.timer.current_time_to_timestamp(include_brackets=False)
 
-        # Get the button's message before replacements.
-        button_message_pre_replace = \
-            self.parent.get_button_message_input(button_str_key)
+        # Round the skip amount to the nearest hundreth.
+        skip_amount = abs(round(skip_amount, 2))
+        if skip_amount % 1 == 0:
+            skip_amount = int(skip_amount)
 
-        # Only print a message if the timer skipped and
-        # there is a message associated with the button.
-        if skip_amount != 0 and button_message_pre_replace is not None:
-
-            # Round the skip amount to the nearest hundreth.
-            skip_amount = abs(round(skip_amount, 2))
-            if skip_amount % 1 == 0:
-                skip_amount = int(skip_amount)
-            skip_amount = str(skip_amount)
-
-            # Replace any variables in the button's message.
-            button_message = replace_button_message_variables(button_message_pre_replace, \
-                button_str_key, skip_amount=skip_amount, new_time=new_time)
-
-            # Print the button's message if an output file exists.
-            if self.widgets["entry_output_path"].get():
-                self.parent.print_timestamped_message(f"{button_message}\n", first_timestamp)
+        return timestamp, skip_amount, new_time
 
     def button_skip_backward_macro(self, *_):
         """This method will be executed when the skip backward button is pressed."""
 
-        self.skip_backward_or_forward_macro(True)
+        # Attempt to skip the timer backward.
+        timestamp, skip_amount, new_time = self.skip_backward_or_forward_macro(True)
+
+        # Only attempt to print a button message if the timer skipped as a result of this method.
+        if skip_amount != 0:
+            self.attempt_button_message("button_skip_backward", \
+                timestamp=timestamp, amount=str(skip_amount), dest=new_time)
 
     def button_skip_forward_macro(self, *_):
         """This method will be executed when the skip forward button is pressed."""
 
-        self.skip_backward_or_forward_macro(False)
+        # Attempt to skip the timer forward.
+        timestamp, skip_amount, new_time = self.skip_backward_or_forward_macro(False)
+
+        # Only attempt to print a button message if the timer skipped as a result of this method.
+        if skip_amount != 0:
+            self.attempt_button_message("button_skip_forward", \
+                timestamp=timestamp, amount=str(skip_amount), dest=new_time)
 
     def button_mute_macro(self, *_):
         """This method will be executed when the mute button is pressed."""

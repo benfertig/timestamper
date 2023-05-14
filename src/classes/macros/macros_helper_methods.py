@@ -320,14 +320,12 @@ def print_to_file(to_print, file_path, file_encoding="utf-8", access_mode="a+"):
             out_file.write(to_print)
 
 
-def replace_button_message_variables(button_message, \
-    button_str_key, skip_amount=None, new_time=None):
+def replace_button_message_variables(button_message, **user_variables):
     """This method takes a user-entered button message and replaces
     any user-entered variables with their appropriate values."""
 
-    if button_str_key in ("button_skip_backward", "button_skip_forward"):
-        button_message = button_message.replace("$amount", skip_amount)
-        button_message = button_message.replace("$dest", new_time)
+    for var_key, var_value in user_variables.items():
+        button_message = button_message.replace(f"${var_key}", var_value)
 
     return button_message
 
