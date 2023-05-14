@@ -2,7 +2,6 @@
 """This module contains helper methods for button
 macros. These methods do not rely on class variables."""
 
-from fractions import Fraction
 from os.path import exists, isdir
 from re import match
 from sys import platform
