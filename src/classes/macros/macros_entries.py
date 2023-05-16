@@ -76,20 +76,10 @@ class EntryMacros():
         # If the timer is currently playing or is scheduled to play,
         # schedule/reschedule the timer to resume playing after a short delay.
         timer_is_playing = self.timer.is_running or self.timer.scheduled_id
-        if timer_is_playing:
 
-            # Pause the timer without resetting the multiplier.
-            self.timer.pause(reset_multiplier=False)
-
-            # If there is an existing scheduled play function, then it should be
-            # cancelled, as this effectively means that the user was already scrolling
-            # the media slider or timer entries but has not yet finished scrolling.
-            if self.timer.scheduled_id:
-                self.time_stamper.root.after_cancel(self.timer.scheduled_id)
-
-            # Schedule the timer to play after the specified delay.
-            self.timer.scheduled_id = \
-                self.time_stamper.root.after(250, self.timer.play, "prev")
+        # Pause the timer, scheduling it to play again
+        # after a short delay if it is currently running.
+        self.timer.pause(play_delay=0.25)
 
         # Adjust the timer according to the direction the user scrolled.
         scroll_timer_adjustment = event_delta * float(entry_template["scroll_timer_adjustment"])

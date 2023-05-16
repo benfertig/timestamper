@@ -38,8 +38,8 @@ class TimeStamperTimer():
 
         self.time_stamper = time_stamper
 
-        self.timestamp_set = False
         self.is_running = False
+        self.temporary_pause = False
         self.start_time = 0.0
         self.offset = 0.0
         self.multiplier = 0.0
@@ -113,7 +113,7 @@ class TimeStamperTimer():
                 print_to_entry(h_m_s[i], current_timer_entry)
 
         # If a timestamp has not been set, make the timestamp label reflect the current time.
-        if not self.timestamp_set:
+        if not self.time_stamper.template["label_timestamp"]["timestamp_set"]:
             obj_timestamp = self.time_stamper.widgets["label_timestamp"]
             obj_timestamp["text"] = h_m_s_to_timestamp(*h_m_s)
 
@@ -145,17 +145,19 @@ class TimeStamperTimer():
             # Pause the media player.
             self.time_stamper.media_player.set_pause(True)
 
-            # If the current player has not played before, adjust the media start time.
+            # If the current media player has not played before, adjust the media start time.
             if self.time_stamper.media_player.get_time() == -1:
                 media = self.time_stamper.media_player.get_media()
                 media.add_option(f"start-time={new_time}")
 
-            # If the current player has ended, we need to initialize a new player.
+            # If the current media player has ended, we need to
+            # initialize a new media player with the current media.
             elif self.time_stamper.media_player.get_state() == State.Ended:
+                media = self.time_stamper.media_player.get_media()
                 self.time_stamper.media_player = MediaPlayer()
                 self.time_stamper.media_player.set_media(media)
 
-            # If the current player has played before and has
+            # If the current media player has played before and has
             # not ended, adjust the media player using set_time.
             else:
                 self.time_stamper.media_player.set_time(int(new_time * 1000))
@@ -247,22 +249,50 @@ class TimeStamperTimer():
                 self.display_time(self.get_max_time(), pad=2)
                 self.time_stamper.macros["button_pause"]()
 
-    def pause(self, reset_multiplier=True):
-        """This method halts the timer and is typically run when the pause button is pressed,
-        when the media time slider is dragged/scrolled and media is playing or when the timer
-        entries are scrolled. An optional argument, reset_multiplier (which is set to True by
-        default), determines whether the timer's multiplier should be reset to 0.0 (the typical
-        value of the multiplier when the timer is paused). This argument should only ever be
-        set to False from the adjust_timer_on_entry_mousewheel method and, in certain cases,
-        from the custom_scale_on_mousewheel methods in widgets_helper_methods.py (i.e.,
-        whenever the user scrolls on either the media time slider or the timer entries)."""
+    def pause(self, play_delay=None):
+        """This method halts the timer and is typically run when the pause button is
+        pressed, when the media time slider is dragged/scrolled and media is playing
+        or when the timer entries are scrolled. An optional argument, play_delay (which
+        is set to None by default), determines the amount of time after which the timer
+        should resume once it is paused. This argument should only ever be set to a value
+        other than None from the scale_media_time_macro and adjust_timer_on_entry_mousewheel
+        methods in widgets_helper_methods.py (i.e., whenever the user manipulates the
+        media time scale or timer entries). Note that play_delay only has an effect if
+        this method is called when the timer is already running or is scheduled to run."""
 
-        # Reset the multiplier if it was indicated that this should be done.
-        if reset_multiplier:
-            self.multiplier = 0.0
+        # Only pause the timer if it is currently running/scheduled to run.
+        if self.is_running or self.scheduled_id:
 
-        # Only pause the timer if it is currently running.
-        if self.is_running:
+            # If a play delay was provided, initiate a temporary pause.
+            if play_delay:
+
+                # Record that the timer is only being paused temporarily.
+                self.temporary_pause = True
+
+                # If there is an existing scheduled play function, then it should be
+                # cancelled, as this effectively means that the user was previously scrolling
+                # the media slider or timer entries but has not yet finished editing the time.
+                if self.scheduled_id:
+                    self.time_stamper.root.after_cancel(self.scheduled_id)
+
+                # If a positive play delay was provided, schedule
+                # the timer to play after the play delay.
+                if play_delay > 0:
+                    self.scheduled_id = \
+                        self.time_stamper.root.after(int(play_delay * 1000), self.play, "prev")
+
+                # If a positive play delay was not provided, this effectively means
+                # that the user edited the media time scale by clicking on it instead of
+                # scrolling it, so instead of scheduling the timer to play, keep the timer
+                # paused until the user releases the mouse button from the media time scale.
+                else:
+                    self.scheduled_id = None
+
+            # If no play delay was provided, the timer should stay paused
+            # until the user performs an action that resumes the timer
+            # (i.e., pressing the play, rewind or fast-forward button).
+            else:
+                self.multiplier = 0.0
 
             # Declare the timer as not running.
             self.is_running = False
@@ -285,6 +315,7 @@ class TimeStamperTimer():
         is set to "prev", the timer's multiplier will not be altered from its current value."""
 
         self.scheduled_id = None
+        self.temporary_pause = False
 
         # Determine the new multiplier.
         if playback_type == "prev":

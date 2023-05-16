@@ -31,7 +31,6 @@ class ScaleMacros():
         self.template = parent.template
         self.timer = parent.timer
         self.widgets = parent.widgets
-        self.temporary_pause = False
 
     def scale_media_time_macro(self, scale_value, called_from_scroll_function=False):
         """This method will be executed when the user presses the left, middle
@@ -41,22 +40,18 @@ class ScaleMacros():
         # If a media player was successfully retrieved...
         if self.time_stamper.media_player:
 
-            # If there is an existing scheduled play function and this method is not being called
-            # as a result of the user scrolling the media time slider with the mousewheel, this
-            # effectively means that the user was scrolling the media time slider prior to clicking
-            # on it. Neglecting to cancel the scheduled play function would then potentially play
-            # the media before the user releases the mouse button from the media time slider, so the
-            # existing scheduled play function should be cancelled and the timer should be paused.
-            if self.timer.scheduled_id and not called_from_scroll_function:
-                self.time_stamper.root.after_cancel(self.timer.scheduled_id)
-                self.timer.scheduled_id = None
-                self.timer.pause(reset_multiplier=False)
-                self.temporary_pause = True
+            # If this method IS being called from scale_media_time_mousewheel_macro, then the
+            # user is currently scrolling the media time scale, which means that the timer
+            # should resume after a short delay IF media currently playing/scheduled to play.
+            if called_from_scroll_function:
+                self.timer.pause(play_delay=0.25)
 
-            # Pause the timer.
-            if self.timer.is_running:
-                self.timer.pause(reset_multiplier=False)
-                self.temporary_pause = True
+            # If this method IS NOT being called from scale_media_time_mousewheel_macro,
+            # then the user is currently moving the media time scale with mouse-clicks,
+            # which means the timer should remain paused until the user releases the
+            # mouse button from the scale IF media is currently playing/scheduled to play.
+            else:
+                self.timer.pause(play_delay=-1)
 
             # Update the timer to match the new position of the slider.
             self.timer.update_timer(float(scale_value))
@@ -72,8 +67,7 @@ class ScaleMacros():
 
         # If the timer was previously paused when the user
         # dragged the media slider, resume the timer.
-        if self.temporary_pause:
-            self.temporary_pause = False
+        if self.timer.temporary_pause:
             self.timer.play(playback_type="prev")
 
     def scale_media_time_mousewheel_macro(self, event):
@@ -92,31 +86,14 @@ class ScaleMacros():
             (-1 if scale_template["reverse_scroll_direction"] else 1)
         scale_current_value = scale.get()
 
-        # Determine whether media is playing/scheduled to play.
-        media_playing = self.time_stamper.media_player \
-            and (self.time_stamper.media_player.is_playing() or self.timer.scheduled_id)
-
-        # If there is media currently playing/scheduled to play,
-        # schedule the media to resume playing after a short delay.
-        if media_playing:
-
-            # Pause the timer without resetting the multiplier.
-            self.timer.pause(reset_multiplier=False)
-
-            # If there is an existing scheduled play function, then it should be
-            # cancelled, as this effectively means that the user was already scrolling
-            # the media slider or timer entries but has not yet finished scrolling.
-            if self.timer.scheduled_id:
-                self.time_stamper.root.after_cancel(self.timer.scheduled_id)
-
-            # Schedule the timer to play after the specified delay.
-            self.timer.scheduled_id = \
-                self.time_stamper.root.after(250, self.timer.play, "prev")
-
         # Set the media time slider to its adjusted position.
         new_scale_value = scale_current_value + scroll_amount
         new_scale_value = min(self.timer.get_max_time(), max(0.0, new_scale_value))
         self.scale_media_time_macro(new_scale_value, called_from_scroll_function=True)
+
+        # Determine whether media is playing/scheduled to play.
+        media_playing = self.time_stamper.media_player \
+            and (self.time_stamper.media_player.is_playing() or self.timer.scheduled_id)
 
         # If media is currently playing/scheduled to play and the
         # timer was adjusted to the max time, pause the timer.

@@ -34,7 +34,7 @@ class TimestampingButtonMacros():
         """This method will be executed when the timestamp button is pressed."""
 
         # Make note of the fact that a timestamp has been set.
-        self.timer.timestamp_set = True
+        self.template["label_timestamp"]["timestamp_set"] = True
 
         # Set the timestamp to the timer's current reading.
         obj_timestamp = self.widgets["label_timestamp"]
@@ -47,7 +47,7 @@ class TimestampingButtonMacros():
         """This method will be executed when the "Clear timestamp" button is pressed."""
 
         # Make note of the fact that a timestamp has been cleared.
-        self.timer.timestamp_set = False
+        self.template["label_timestamp"]["timestamp_set"] = False
 
         # Set the timestamp to the timer's current reading.
         obj_timestamp = self.widgets["label_timestamp"]
