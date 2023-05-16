@@ -33,14 +33,14 @@
 
     },
 
-    "entry_audio_path": {
+    "entry_media_path": {
 
-        "str_key": "entry_audio_path",
+        "str_key": "entry_media_path",
 
         "initial_state": false,
         
         "text": {
-            "linked_dict": "audio",
+            "linked_dict": "media",
             "linked_attribute": "path"
         },
 

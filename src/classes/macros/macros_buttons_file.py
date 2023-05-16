@@ -2,14 +2,11 @@
 """This module contains the FileButtonMacros class which stores the functions
 that are executed when a file button in the Time Stamper program is pressed."""
 
-from ntpath import sep as ntpath_sep
-from posixpath import sep as posixpath_sep
 from os.path import basename
 from tkinter import filedialog
-from pyglet import options as pyglet_options
-from pyglet.media import have_ffmpeg
+from vlc import EventType, MediaParsedStatus, MediaPlayer
 from .macros_helper_methods import merge_success_message, merge_failure_message_file_not_readable, \
-    merge_notes, print_to_entry, print_to_text, verify_text_file
+    disable_button, toggle_widgets, merge_notes, verify_text_file
 try:
     from sys import getwindowsversion
 except ImportError:
@@ -47,47 +44,59 @@ class FileButtonMacros():
         self.widgets = parent.widgets
         self.timer = parent.timer
 
-    def file_select_macro(self, label_str_key, entry_str_key, window_title, file_types):
-        """This method is called on by button_output_select_macro and
-        button_audio_select_macro. Since both "button_output_select" and
-        "button_audio_select" prompt the user to select a file, the procedures for
-        their macros can, to a large extent, be condensed down into this method."""
+    def validate_output_file(self, file_full_path):
+        """This method will check the validity of the path that is
+        currently displayed in the output path entry widget to make sure
+        it corresponds to a valid text file that can be read and written to.
+        This method will then edit the configuration of the program depending
+        on whether or not that path corresponds to a valid text file."""
 
-        # Store the template for the label, the widget for the label,
-        # and the widget for the entry into abbreviated file names.
-        label_template = self.template[label_str_key]
-        label_object = self.widgets[label_str_key]
-        entry_object = self.widgets[entry_str_key]
+        # If the current path in the output path entry widget DOES correspond to a valid text
+        # file, edit the configuration of the program to reflect that an output file is active.
+        file_encoding = self.settings["output"]["file_encoding"]
+        if file_full_path and verify_text_file(file_full_path, file_encoding, True, True):
 
-        # Get the path to the selected file.
-        file_full_path = filedialog.askopenfilename(title=window_title, \
-            initialdir=self.template.starting_dir, filetypes=file_types)
+            # Configure the relevant widgets to reflect that a valid output
+            # file IS active (distinct from enabling/disabling widgets).
+            self.parent.set_output_widgets(file_full_path)
 
-        # Change the text of the label that appears above the file
-        # path entry widget to indicate that a file has been selected.
-        if isinstance(label_template["text"], dict):
-            label_object["text"] = label_template["text"]["value_if_true"]
+            # Enable/disable the relevant widgets to reflect that a valid output file IS active.
+            toggle_widgets(self.template["button_output_select"], True, self.template, self.widgets)
 
-        # Change the file path to the Windows format if we are on a Windows computer.
-        if platform.startswith("win"):
-            file_full_path = file_full_path.replace(posixpath_sep, ntpath_sep)
+            # The rewind/fast-forward buttons should NOT be enabled when a
+            # media file is loaded, even when a valid output file IS loaded.
+            if self.time_stamper.media_player:
+                disable_button(self.widgets["button_rewind"], \
+                    self.template["button_rewind"]["mac_disabled_color"])
+                disable_button(self.widgets["button_fast_forward"], \
+                    self.template["button_fast_forward"]["mac_disabled_color"])
 
-        # Print the file path to the entry widget.
-        print_to_entry(file_full_path, entry_object, wipe_clean=True)
+        # If the current path in the output path entry widget DOES NOT correspond
+        # to a valid text file, reset and disable the relevant widgets.
+        else:
 
-    def button_output_select_macro(self, *_):
+            # Configure the relevant widgets to reflect that a valid output
+            # file IS NOT active (distinct from enabling/disabling widgets).
+            self.parent.reset_output_widgets()
+
+            # Enable/disable the relevant widgets to reflect that a valid output file IS NOT active.
+            toggle_widgets(self.template["button_output_select"], \
+                False, self.template, self.widgets)
+
+    def button_output_select_macro(self, *_, file_full_path=None):
         """This method will be executed when the "Choose output location" button is pressed."""
 
-        # Get the path to the selected output file.
-        file_types = (("Text files", "*.txt"), ('All files', '*.*'))
-        self.file_select_macro("label_output_path", \
-            "entry_output_path", "Select a text file", file_types)
+        if file_full_path is None:
 
-        # Clear the text displaying the notes log.
-        print_to_text("", self.widgets["text_log"], wipe_clean=True)
+            # Get the path to the selected output file.
+            file_types = (("Text files", "*.txt"), ('All files', '*.*'))
+
+            # Get the path to the selected file.
+            file_full_path = filedialog.askopenfilename(title="Select a text file", \
+                initialdir=self.template.starting_dir, filetypes=file_types)
 
         # Check whether or not the selected output file is valid and respond accordingly.
-        self.parent.validate_output_file()
+        self.validate_output_file(file_full_path)
 
     def button_merge_output_files_macro(self, *_):
         """This method will be executed when the "Merge output files" button is pressed."""
@@ -100,67 +109,98 @@ class FileButtonMacros():
             "window_merge_first_message", close_window_macro=self.on_close_window_merge_1_macro)
         window_merge_first_message.mainloop()
 
-    def button_audio_select_macro(self, *_):
-        """This method will be executed when the "Select synced audio file" button is pressed."""
+    def post_parsing_handler(self, _, file_full_path, media):
+        """This method gets executed when VLC's parsing of the selected media
+        file has terminated. If the parsing was successful, the program will
+        change its configuration to reflect that a valid media file is active."""
 
-        # TODO: SOME POTENTIAL FUTURE AUDIO FORMATS TO INCLUDE ARE (but are not limited to):
-        # *.aiff *.aac *.m4a *.ogg *.alac *.dsd *.mqa
+        # Only mark that a parsed media file was generated if file_full_path IS NOT
+        # blank (this is necessary because the parse will register as a success if
+        # an empty string is provided as a filename) and the parsing was successful.
+        if file_full_path and media.get_parsed_status() == MediaParsedStatus.done:
 
-        pyglet_options["search_local_libs"] = True
-        audio_file_types = set()
+            # Configure the relevant widgets to reflect that a valid output
+            # file IS active (distinct from enabling/disabling widgets).
+            self.parent.set_media_widgets(file_full_path, media)
 
-        # If we are on Windows...
-        if platform.startswith("win"):
+            # Enable/disable the relevant widgets to reflect that a valid output file IS active.
+            toggle_widgets(self.template["button_media_select"], True, self.template, self.widgets)
 
-            # Store the major and minor versions of the current Windows operating system.
-            windows_version_major, windows_version_minor = getwindowsversion()[0:2]
-
-            # If we are on Windows Vista or above...
-            if windows_version_major >= 6:
-
-                audio_file_types.update({"*.mp3", "*.wma"})
-
-                # If we are on Windows 7 or above (not Windows Vista)...
-                if not (windows_version_major == 6 and windows_version_minor == 0):
-                    audio_file_types.update({"*.aac", "*.adts"})
-
-                    # If we are on Windows 10 or above (not Windows Vista or Windows 7)...
-                    if windows_version_major >= 10:
-                        audio_file_types.update({"*.flac"})
-
-        # If Pyglet has determined that it has ffmpeg at its disposal, then the following additional
-        # audio file formats should be made available to the user under the "Audio files" option in
-        # the file dialog window labeled "Select an audio file". However, keep in mind that if
-        # Pyglet has determined that it has ffmpeg at its disposal, then Pyglet can play more audio
-        # file formats other than just those that are listed directly below. The audio file formats
-        # listed directly below are simply some of the most common audio file formats that Pyglet
-        # can play when it is able to make use of ffmpeg. Therefore, it may be wise to include
-        # more audio file formats directly below in the future (see the TODO at the top of this
-        # method). Although, regardless of whether or not more audio file formats are added directly
-        # below in the future, the user should always be able to select ANY file they want by
-        # selecting the "All files" option in the file dialog window labeled "Select an audio file".
-        if have_ffmpeg():
-            audio_file_types.update({"*.au", "*.mp2", "*.mp3", "*.wav", "*.wma"})
-
-        # INCLUDE "Audio files" as an option in the file dialog window if ANY of
-        # the audio file formats mentioned in this method were determined to be
-        # compatible with the user's installation of the Time Stamper program.
-        if audio_file_types:
-            audio_file_types = " ".join(sorted(audio_file_types))
-            file_types = (("Audio files", audio_file_types), ("All files", "*.*"))
-
-        # DO NOT INCLUDE "Audio files" as an option in the file dialog window if NONE
-        # of the audio file formats mentioned in this method were determined to
-        # be compatible with the user's installation of the Time Stamper program.
+        # If a parsed media file was NOT generated...
         else:
-            file_types = (("All files", "*.*"))
 
-        # Get the path to the selected audio file.
-        self.file_select_macro("label_audio_path", \
-            "entry_audio_path", "Select an audio file", file_types)
+            # Configure the relevant widgets to reflect that a valid output
+            # file IS NOT active (distinct from enabling/disabling widgets).
+            self.parent.reset_media_widgets()
 
-        # Check whether or not the selected audio file is valid and respond accordingly.
-        self.parent.validate_audio_player()
+            # Enable/disable the relevant widgets to reflect that a valid output file IS NOT active.
+            toggle_widgets(self.template["button_media_select"], False, self.template, self.widgets)
+
+    def validate_media_player(self, file_full_path):
+        """This method will try to create a media player based on the information provided
+        by the user. If a media player was successfully created, then this method will
+        configure the program to reflect that a media player IS active. Otherwise, this
+        method will configure the program to reflect that a media player IS NOT active."""
+
+        media_player = MediaPlayer(file_full_path)
+        media = media_player.get_media()
+        events = media.event_manager()
+        events.event_attach(EventType.MediaParsedChanged, \
+            self.post_parsing_handler, file_full_path, media)
+        media.parse_with_options(1, -1)
+
+    def button_media_select_macro(self, *_, file_full_path=None):
+        """This method will be executed when the "Select synced media file" button is pressed."""
+
+        if file_full_path is None:
+
+            # TODO: SOME POTENTIAL FUTURE AUDIO FORMATS TO INCLUDE ARE (but are not limited to):
+            # *.aiff *.aac *.m4a *.ogg *.alac *.dsd *.mqa
+
+            # TODO: RESEARCH POTENTIAL VIDEO FORMATS AS WELL:
+
+            media_file_types = set()
+
+            # If we are on Windows...
+            if platform.startswith("win"):
+
+                # Store the major and minor versions of the current Windows operating system.
+                windows_version_major, windows_version_minor = getwindowsversion()[0:2]
+
+                # If we are on Windows Vista or above...
+                if windows_version_major >= 6:
+
+                    media_file_types.update({"*.mp3", "*.wma"})
+
+                    # If we are on Windows 7 or above (not Windows Vista)...
+                    if not (windows_version_major == 6 and windows_version_minor == 0):
+                        media_file_types.update({"*.aac", "*.adts"})
+
+                        # If we are on Windows 10 or above (not Windows Vista or Windows 7)...
+                        if windows_version_major >= 10:
+                            media_file_types.update({"*.flac"})
+
+            media_file_types.update({"*.au", "*.mp2", "*.mp3", "*.wav", "*.wma"})
+
+            # INCLUDE "Media files" as an option in the file dialog window if ANY of
+            # the media file formats mentioned in this method were determined to be
+            # compatible with the user's installation of the Time Stamper program.
+            if media_file_types:
+                media_file_types = " ".join(sorted(media_file_types))
+                file_types = (("Media files", media_file_types), ("All files", "*.*"))
+
+            # DO NOT INCLUDE "Media files" as an option in the file dialog window if NONE
+            # of the media file formats mentioned in this method were determined to
+            # be compatible with the user's installation of the Time Stamper program.
+            else:
+                file_types = (("All files", "*.*"),)
+
+            # Get the path to the selected file.
+            file_full_path = filedialog.askopenfilename(title="Select a media file", \
+                initialdir=self.template.starting_dir, filetypes=file_types)
+
+        # Check whether or not the selected media file is valid and respond accordingly.
+        self.validate_media_player(file_full_path)
 
     def on_close_window_merge_1_macro(self, window_merge_1):
         """This method will be executed when the FIRST window displaying

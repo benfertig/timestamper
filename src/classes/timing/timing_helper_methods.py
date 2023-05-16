@@ -4,8 +4,6 @@ that do not directly rely on class variables of TimeStamperTimer."""
 
 from fractions import Fraction
 from tkinter import NORMAL, END
-from pyglet.media import load, Player
-from pyglet.media.codecs.wave import WAVEDecodeException
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -24,38 +22,6 @@ from pyglet.media.codecs.wave import WAVEDecodeException
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 # Contact: github.cqrde@simplelogin.com
-
-
-def confirm_audio(audio_source, audio_player, entry_audio_path):
-    """This method checks whether an audio player can be initialized with the
-    current information provided in the Time Stamper program. If an audio player
-    can be loaded, then a tuple containing the appropriate audio source and
-    audio player is returned. Otherwise, the tuple (None, None) is returned."""
-
-    # Return the audio player if it exists.
-    if audio_player:
-        return audio_source, audio_player
-
-    # Retrieve the current text from the audio path Entry widget.
-    audio_path = entry_audio_path.get()
-
-    # If there is no audio player and also no audio path, return
-    # None in place of both the audio source and the audio player.
-    if not audio_path:
-        return None, None
-
-    # Try to load the audio source specified in the audio path entry.
-    try:
-        audio_source = load(audio_path)
-
-    # If the audio source specified in the audio path entry was not successfully
-    # loaded, return None in place of both the audio source and the audio player.
-    except (FileNotFoundError, WAVEDecodeException):
-        return None, None
-
-    # If the audio source specified in the audio path entry was successfully
-    # loaded, return the audio source and a freshly initialized audio player.
-    return audio_source, Player()
 
 
 def make_playback_button_images_visible(widgets):
@@ -119,8 +85,8 @@ def determine_new_rewind_button_image(multiplier, subseconds, widgets):
     button_default_image = widgets["rewind.png"]
     button_blank_image = widgets["blank.png"]
 
-    # IF WE ARE REWINDING AT A SPEED OF 4X OR SLOWER...
-    if abs(multiplier) <= 4.0:
+    # IF WE ARE REWINDING AT A SPEED SLOWER THAN 1X...
+    if abs(multiplier) < 1.0:
 
         # If we are on the 3rd third of the current second, the image
         # of the rewind button should be set to its default image.
@@ -136,7 +102,7 @@ def determine_new_rewind_button_image(multiplier, subseconds, widgets):
         # the rewind button should depict half of what it normally depicts.
         return None if rewind_button.image == button_half_image else button_half_image
 
-    # IF WE ARE REWINDING AT A SPEED FASTER THAN 4X...
+    # IF WE ARE REWINDING AT A SPEED FASTER THAN 1X...
 
     # If we are on the 2nd half of the current second, the image
     # of rewind button should be set to its default image.
@@ -158,8 +124,8 @@ def determine_new_fast_forward_button_image(multiplier, subseconds, widgets):
     button_default_image = widgets["fast_forward.png"]
     button_blank_image = widgets["blank.png"]
 
-    # IF WE ARE FAST-FORWARDING AT A SPEED OF 4X OR SLOWER...
-    if abs(multiplier) <= 4.0:
+    # IF WE ARE "FAST"-FORWARDING AT A SPEED SLOWER THAN 1X...
+    if abs(multiplier) < 1.0:
 
         # If we are on the 1st third of the current second, the image of
         # the fast-forward button should be set to its default image.
@@ -176,7 +142,7 @@ def determine_new_fast_forward_button_image(multiplier, subseconds, widgets):
         # fast-forward button should depict half of what it normally depicts.
         return None if button_fast_forward.image == button_half_image else button_half_image
 
-    # IF WE ARE FAST-FORWARDING AT A SPEED FASTER THAN 4X...
+    # IF WE ARE FAST-FORWARDING AT A SPEED FASTER THAN 1X...
 
     # If we are on the 1st half of the current second, the image
     # of fast-forward button should be set to its default image.

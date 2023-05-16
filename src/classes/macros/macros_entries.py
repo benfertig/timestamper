@@ -83,7 +83,7 @@ class EntryMacros():
 
             # If there is an existing scheduled play function, then it should be
             # cancelled, as this effectively means that the user was already scrolling
-            # the audio slider or timer entries but has not yet finished scrolling.
+            # the media slider or timer entries but has not yet finished scrolling.
             if self.timer.scheduled_id:
                 self.time_stamper.root.after_cancel(self.timer.scheduled_id)
 

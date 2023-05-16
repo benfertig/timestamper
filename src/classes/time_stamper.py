@@ -20,7 +20,6 @@ should create an instance of this TimeStamper class and then call that instance'
 
 # Contact: github.cqrde@simplelogin.com
 
-from dataclasses import dataclass
 from sys import platform
 from tkinter import Button, Menu
 from .macros.macros import Macros
@@ -34,13 +33,6 @@ class TimeStamper():
     """To run the Time Stamper program, first create an instance
     of this class. Then, call this class' run() method."""
 
-    @dataclass
-    class TimeStamperAudio():
-        """This class stores information pertaining specifically
-        to audio playback in the Time Stamper program."""
-
-        source, player = None, None
-
     def __init__(self):
 
         self.settings = TimeStamperSettings()
@@ -49,7 +41,7 @@ class TimeStamper():
         self.template = TimeStamperTemplate()
         self.widgets = Widgets(self, "window_main")
         self.macros = Macros(self)
-        self.audio = self.TimeStamperAudio()
+        self.media_player = None
 
     def remove_func(self, root):
         """This method is used as the command for the Tkinter "Button"
@@ -89,12 +81,12 @@ class TimeStamper():
         # and if so, whether that path corresponds to a TEXT file that is suitable
         # for the Time Stamper program. If this is the case, then the program
         # will change its configuration to reflect that an OUTPUT file is active.
-        self.macros.validate_output_file()
+        self.macros["button_output_select"](file_full_path=self.settings["output"]["path"])
 
-        # Perform a check to see whether a default AUDIO file path was provided,
-        # and if so, whether that path corresponds to an AUDIO file that is suitable
+        # Perform a check to see whether a default MEDIA file path was provided,
+        # and if so, whether that path corresponds to a MEDIA file that is suitable
         # for the Time Stamper program. If this is the case, then the program
-        # will change its configuration to reflect that an AUDIO file is active.
-        self.macros.validate_audio_player()
+        # will change its configuration to reflect that a MEDIA file is active.
+        self.macros["button_media_select"](file_full_path=self.settings["media"]["path"])
 
         self.root.mainloop()

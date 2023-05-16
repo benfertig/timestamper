@@ -31,11 +31,11 @@
 
     },
 
-    "label_audio_path": {
+    "label_media_path": {
 
-        "str_key": "label_audio_path",
+        "str_key": "label_media_path",
 
-        "text": "Synced audio (optional):",
+        "text": "Synced media (optional):",
 
         "justify": "left",
 
@@ -105,9 +105,9 @@
 
     },
 
-    "label_audio_elapsed": {
+    "label_media_elapsed": {
 
-        "str_key": "label_audio_elapsed",
+        "str_key": "label_media_elapsed",
 
         "text": "—:—:—",
 
@@ -122,9 +122,9 @@
 
     },
 
-    "label_audio_remaining": {
+    "label_media_remaining": {
 
-        "str_key": "label_audio_remaining",
+        "str_key": "label_media_remaining",
 
         "text": "—:—:—",
 
@@ -162,9 +162,9 @@
 
     },
 
-    "label_audio_volume": {
+    "label_media_volume": {
 
-        "str_key": "label_audio_volume",
+        "str_key": "label_media_volume",
 
         "text": "100",
 

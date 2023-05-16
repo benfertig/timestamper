@@ -4,7 +4,11 @@ that are executed when any button, checkbutton, or scale in the Time Stamper pro
 manipulated. The actual macros are stored in submodules (all of which are imported below)."""
 
 from dataclasses import dataclass
+from ntpath import sep as ntpath_sep
+from posixpath import sep as posixpath_sep
+from sys import platform
 from tkinter import DISABLED, NORMAL, END
+from vlc import  MediaPlayer
 from .macros_checkbuttons import CheckbuttonMacros
 from .macros_entries import EntryMacros
 from .macros_scales import ScaleMacros
@@ -15,8 +19,8 @@ from .macros_buttons_media import MediaButtonMacros
 from .macros_buttons_note import NoteButtonMacros
 from .macros_buttons_settings import SettingsButtonMacros
 from .macros_buttons_timestamping import TimestampingButtonMacros
-from .macros_helper_methods import disable_button, toggle_widgets, print_to_entry, \
-    print_to_text, print_to_file, copy_text_file_to_text_widget, verify_text_file, verify_audio_file
+from .macros_helper_methods import toggle_widgets, print_to_entry, \
+    print_to_text, print_to_file, copy_text_file_to_text_widget
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -95,11 +99,11 @@ class Macros():
             "entry_subseconds_ONMOUSEWHEEL": entries.entry_subseconds_mousewheel_macro,
 
             # Scales
-            "scale_audio_time": scales.scale_audio_time_macro,
-            "scale_audio_time_ONRELEASE": scales.scale_audio_time_release_macro,
-            "scale_audio_time_ONMOUSEWHEEL": scales.scale_audio_time_mousewheel_macro,
-            "scale_audio_volume": scales.scale_audio_volume_macro,
-            "scale_audio_volume_ONMOUSEWHEEL": scales.scale_audio_volume_mousewheel_macro,
+            "scale_media_time": scales.scale_media_time_macro,
+            "scale_media_time_ONRELEASE": scales.scale_media_time_release_macro,
+            "scale_media_time_ONMOUSEWHEEL": scales.scale_media_time_mousewheel_macro,
+            "scale_media_volume": scales.scale_media_volume_macro,
+            "scale_media_volume_ONMOUSEWHEEL": scales.scale_media_volume_mousewheel_macro,
 
             # Spinboxes
             "spinbox_rewind": spinboxes.spinbox_rewind_macro,
@@ -108,7 +112,7 @@ class Macros():
             # File buttons
             "button_output_select": file.button_output_select_macro,
             "button_merge_output_files": file.button_merge_output_files_macro,
-            "button_audio_select": file.button_audio_select_macro,
+            "button_media_select": file.button_media_select_macro,
 
             # Info buttons
             "button_help": info.button_help_macro,
@@ -216,75 +220,32 @@ class Macros():
         # printed when this button is pressed, return None.
         return None
 
-    def validate_output_file(self):
-        """This method will check the validity of the path that is
-        currently displayed in the output path entry widget to make sure
-        it corresponds to a valid text file that can be read and written to.
-        This method will then edit the configuration of the program depending
-        on whether or not that path corresponds to a valid text file."""
+    def set_output_widgets(self, file_full_path):
+        """This method alters all of the relevant widgets in the Time Stamper program to
+        indicate that a valid output file IS currently active. Note that this method does
+        not handle the actual enabling/disabling of widgets associated with an output file."""
 
-        # Store the path to the output file into an abbreviated variable name.
-        file_path = self.widgets["entry_output_path"].get()
+        # Change the text of the label that appears above the file
+        # path entry widget to indicate that a file has been selected.
+        if isinstance(self.template["label_output_path"]["text"], dict):
+            self.widgets["label_output_path"]["text"] = \
+                self.template["label_output_path"]["text"]["value_if_true"]
 
-        # If the current path in the output path entry widget DOES correspond to a valid text file,
-        # then edit the configuration of the program to reflect that an output file is active.
+        # Change the file path to the Windows format if we are on a Windows computer.
+        if platform.startswith("win"):
+            file_full_path = file_full_path.replace(posixpath_sep, ntpath_sep)
+
+        # Print the file path to the entry widget.
+        print_to_entry(file_full_path, self.widgets["entry_output_path"], wipe_clean=True)
+
+        # Any text already in the output file should be printed to the notes log.
         file_encoding = self.settings["output"]["file_encoding"]
-        if file_path and verify_text_file(file_path, file_encoding, True, True):
-
-            # Any text already in the output file should be printed to the notes log.
-            file_encoding = self.settings["output"]["file_encoding"]
-            copy_text_file_to_text_widget(file_path, file_encoding, self.widgets["text_log"])
-
-            # Enable the relevant widgets.
-            toggle_widgets(self.template["button_output_select"], True, self.template, self.widgets)
-
-            # The rewind/fast-forward buttons should NOT be enabled when an
-            # audio file is loaded, even when a valid output file IS loaded.
-            if self.time_stamper.audio.player:
-                disable_button(self.widgets["button_rewind"], \
-                    self.template["button_rewind"]["mac_disabled_color"])
-                disable_button(self.widgets["button_fast_forward"], \
-                    self.template["button_fast_forward"]["mac_disabled_color"])
-
-        # If the current path in the output path entry widget DOES NOT correspond
-        # to a valid text file, reset and disable the relevant widgets.
-        else:
-            self.reset_output_widgets()
-            toggle_widgets(self.template["button_output_select"], \
-                False, self.template, self.widgets)
-
-    def validate_audio_player(self):
-        """This method will check whether a valid audio player currently exists, and if
-        not, will try to create one based on the information provided by the user. If
-        an audio player was successfully created or retrieved, then this method will
-        configure the program to reflect that an audio player IS active. Otherwise, this
-        method will configure the program to reflect that an audio player IS NOT active."""
-
-        # Attempt to create an audio player with the user-provided information.
-        verify_audio_file(self.widgets["entry_audio_path"].get(), self.time_stamper)
-
-        # If a valid audio player WAS created/retrieved...
-        if self.time_stamper.audio.player:
-
-            # Reset the timer/audio slider.
-            self.timer.display_time(0.0, pad=2)
-
-            # Make the range of the audio slider equal to the minimum
-            # of 359999.99 and the duration of the audio source.
-            self.widgets["scale_audio_time"]["to"] = self.timer.get_max_time()
-
-            # Enable the relevant widgets for when a valid audio player is active.
-            toggle_widgets(self.template["button_audio_select"], True, self.template, self.widgets)
-
-        # If a valid audio player WAS NOT created/retrieved,
-        # reset and disable the widgets associated with audio.
-        else:
-            self.reset_audio_widgets()
-            toggle_widgets(self.template["button_audio_select"], False, self.template, self.widgets)
+        copy_text_file_to_text_widget(file_full_path, file_encoding, self.widgets["text_log"])
 
     def reset_output_widgets(self):
-        """This method alters all of the relevant widgets in the Time Stamper
-        program to indicate that no valid output file is currently active."""
+        """This method alters all of the relevant widgets in the Time Stamper program to
+        indicate that a valid output file IS NOT currently active. Note that this method does
+        not handle the actual enabling/disabling of widgets associated with an output file."""
 
         # Set the text of the label that displays above the output path entry widget
         # to the value that should be displayed when no output file is active.
@@ -297,33 +258,67 @@ class Macros():
         # Clear the text displaying the notes log.
         print_to_text("", self.widgets["text_log"], wipe_clean=True)
 
-    def reset_audio_widgets(self):
-        """This method alters all of the widgets in the Time Stamper program that are
-        associated with audio playback to indicate that no audio source is available."""
+    def set_media_widgets(self, file_full_path, media):
+        """This method alters all of the relevant widgets in the Time Stamper program to
+        indicate that a valid media file IS currently active. Note that this method does
+        not handle the actual enabling/disabling of widgets associated with a media file."""
 
-        entry_audio_path = self.widgets["entry_audio_path"]
+        # Change the text of the label that appears above the file
+        # path entry widget to indicate that a file has been selected.
+        if isinstance(self.template["label_media_path"]["text"], dict):
+            self.widgets["label_media_path"]["text"] = \
+                self.template["label_media_path"]["text"]["value_if_true"]
 
-        # Clear the entry displaying the audio path.
-        entry_audio_path["state"] = NORMAL
-        entry_audio_path.delete(0, END)
-        entry_audio_path["state"] = DISABLED
+        # Change the file path to the Windows format if we are on a Windows computer.
+        if platform.startswith("win"):
+            file_full_path = file_full_path.replace(posixpath_sep, ntpath_sep)
 
-        # Reset the audio slider.
-        scale_audio_time = self.widgets["scale_audio_time"]
-        scale_audio_time.variable.set(self.template["scale_audio_time"]["initial_value"])
+        # Print the file path to the entry widget.
+        print_to_entry(file_full_path, self.widgets["entry_media_path"], wipe_clean=True)
+
+        # Load the media into a VLC MediaPlayer and save the
+        # MediaPlayer as an attribute of the TimeStamper class.
+        self.time_stamper.media_player = MediaPlayer()
+        self.time_stamper.media_player.set_media(media)
+
+        # Make the range of the media slider equal to the minimum
+        # of 359999.99 and the duration of the media player.
+        self.widgets["scale_media_time"]["to"] = self.timer.get_max_time()
+
+        # Reset the timer and the media slider.
+        self.timer.display_time(0.0, pad=2)
+
+    def reset_media_widgets(self):
+        """This method alters all of the relevant widgets in the Time Stamper program to
+        indicate that a valid media file IS NOT currently active. Note that this method does
+        not handle the actual enabling/disabling of widgets associated with a media file."""
+
+        entry_media_path = self.widgets["entry_media_path"]
+
+        # Erase the Time Stamper program's media player.
+        self.time_stamper.media_player = None
+
+        # Clear the entry displaying the media path.
+        entry_media_path["state"] = NORMAL
+        entry_media_path.delete(0, END)
+        entry_media_path["state"] = DISABLED
+
+        # Reset the media slider.
+        scale_media_time = self.widgets["scale_media_time"]
+        scale_media_time.variable.set(self.template["scale_media_time"]["initial_value"])
 
         # Reset the volume slider.
-        scale_audio_volume = self.widgets["scale_audio_volume"]
-        scale_audio_volume.variable.set(100 - float(self.template["label_audio_volume"]["text"]))
+        scale_media_volume = self.widgets["scale_media_volume"]
+        scale_media_volume.variable.set(100 - float(self.template["label_media_volume"]["text"]))
 
         # Reset the volume label.
-        self.widgets["label_audio_volume"]["text"] = self.template["label_audio_volume"]["text"]
+        self.widgets["label_media_volume"]["text"] = self.template["label_media_volume"]["text"]
 
         # Reset the elapsed/remaining time labels.
-        self.widgets["label_audio_elapsed"]["text"] = \
-            self.template["label_audio_elapsed"]["text"]
-        self.widgets["label_audio_remaining"]["text"] = \
-            self.template["label_audio_remaining"]["text"]
+        self.widgets["label_media_elapsed"]["text"] = \
+            self.template["label_media_elapsed"]["text"]
+        self.widgets["label_media_remaining"]["text"] = \
+            self.template["label_media_remaining"]["text"]
 
         # Reset the mute button image.
         button_mute = self.widgets["button_mute"]

@@ -37,11 +37,11 @@
 
     },
 
-    "button_audio_select": {
+    "button_media_select": {
 
-        "str_key": "button_audio_select",
+        "str_key": "button_media_select",
 
-        "text": "Select synced audio file",
+        "text": "Select synced media file",
 
         "column": 10,
         "row": 0,
@@ -53,8 +53,8 @@
 
         "sticky": "nsew",
 
-        "to_enable_toggle": ["button_mute", "scale_audio_time", "scale_audio_volume"],
-        "to_disable_toggle": ["button_rewind", "button_fast_forward"],
+        "to_enable_toggle": ["button_mute", "scale_media_time", "scale_media_volume"],
+        "to_disable_toggle": [],
 
         "os_specific_settings": {
             "darwin": {

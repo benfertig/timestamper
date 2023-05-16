@@ -4,8 +4,7 @@ that are executed when a media button in the Time Stamper program is pressed."""
 
 from sys import platform
 from tkinter import RAISED, SUNKEN
-from .macros_helper_methods import disable_button, \
-    button_enable_disable_macro, replace_button_message_variables
+from .macros_helper_methods import button_enable_disable_macro, replace_button_message_variables
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -76,14 +75,6 @@ class MediaButtonMacros():
         if not force_suppress_message:
             self.attempt_button_message("button_pause")
 
-        # If an audio source is loaded, the rewind and fast-forward buttons, which would
-        # otherwise be activated when the pause button is pressed, should remain deactivated.
-        if self.time_stamper.audio.source:
-            disable_button(self.widgets["button_rewind"], \
-                self.template["button_rewind"]["mac_disabled_color"])
-            disable_button(self.widgets["button_fast_forward"], \
-                self.template["button_fast_forward"]["mac_disabled_color"])
-
         # Pause the timer.
         self.timer.pause()
 
@@ -116,14 +107,6 @@ class MediaButtonMacros():
         released on the play button, as is the default case with other buttons)."""
 
         self.playback_press_macro("play")
-
-        # If an audio source is loaded, the rewind and fast-forward buttons, which would
-        # otherwise be activated when the play button is pressed, should remain deactivated.
-        if self.time_stamper.audio.source:
-            disable_button(self.widgets["button_rewind"], \
-                self.template["button_rewind"]["mac_disabled_color"])
-            disable_button(self.widgets["button_fast_forward"], \
-                self.template["button_fast_forward"]["mac_disabled_color"])
 
     def button_rewind_press_macro(self, *_):
         """This method will be executed AS SOON AS THE LEFT-MOUSE-BUTTON IS PRESSED
@@ -260,8 +243,8 @@ class MediaButtonMacros():
     def button_mute_macro(self, *_):
         """This method will be executed when the mute button is pressed."""
 
-        # If an audio player was successfully retrieved...
-        if self.time_stamper.audio.player:
+        # If a media player was successfully retrieved...
+        if self.time_stamper.media_player:
 
             # The way that the name of the current mute button image is
             # referenced changes depending on whether we are currently using a Mac.
@@ -274,10 +257,10 @@ class MediaButtonMacros():
             if button_mute_image_name == self.widgets["volume_mute.png"].name:
 
                 # Get the value of the volume slider.
-                volume_scale_value = 100 - self.widgets["scale_audio_volume"].variable.get()
+                volume_scale_value = int(100 - self.widgets["scale_media_volume"].variable.get())
 
                 # Set the volume to the current value of the volume slider.
-                self.time_stamper.audio.player.volume = volume_scale_value / 100
+                self.time_stamper.media_player.audio_set_volume(volume_scale_value)
 
                 # The mute button image should reflect the current value of the volume slider.
                 updated_image_str_key = self.parent.updated_mute_button_image(volume_scale_value)
@@ -286,9 +269,9 @@ class MediaButtonMacros():
             else:
 
                 # Mute the volume.
-                self.time_stamper.audio.player.volume = 0.0
+                self.time_stamper.media_player.audio_set_volume(0)
 
-                # The mute button image should show that the audio is now muted.
+                # The mute button image should show that the media is now muted.
                 updated_image_str_key = "volume_mute.png"
 
             # Update the mute button image.
@@ -297,6 +280,6 @@ class MediaButtonMacros():
             button_mute.config(image=button_mute_image_new)
             button_mute.image = button_mute_image_new
 
-        # If an audio player was not successfully retrieved, disable all audio playback settings.
+        # If a media player was not successfully retrieved, disable all media playback settings.
         else:
-            self.parent.disable_audio_widgets()
+            self.parent.disable_media_widgets()

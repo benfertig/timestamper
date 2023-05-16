@@ -4,7 +4,7 @@
 from json import load as json_load
 from os.path import join, splitext
 from sys import platform
-from tkinter import DISABLED, NORMAL, font, Grid, PhotoImage, Tk, Toplevel
+from tkinter import font, Grid, PhotoImage, Tk, Toplevel
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig

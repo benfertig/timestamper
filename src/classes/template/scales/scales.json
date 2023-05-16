@@ -1,8 +1,8 @@
 {
 
-    "scale_audio_time": {
+    "scale_media_time": {
 
-        "str_key": "scale_audio_time",
+        "str_key": "scale_media_time",
 
         "initial_state": false,
 
@@ -12,7 +12,6 @@
         "to": 1,
 
         "reverse_scroll_direction": false,
-        "scroll_sensitivity": 1,
 
         "bind_left_click_to_right_click": true,
 
@@ -32,9 +31,9 @@
 
     },
 
-    "scale_audio_volume": {
+    "scale_media_volume": {
 
-        "str_key": "scale_audio_volume",
+        "str_key": "scale_media_volume",
 
         "initial_state": false,
 

@@ -6,8 +6,6 @@ from os.path import exists, isdir
 from re import match
 from sys import platform
 from tkinter import DISABLED, NORMAL, END, Button
-from pyglet.media import load, Player
-from pyglet.media.codecs.wave import WAVEDecodeException
 
 if platform.startswith("darwin"):
     from tkmacosx.widget import Button as MacButton
@@ -141,7 +139,7 @@ def toggle_widgets(widget_template, toggle_bool, template, widgets):
 
             # Simply enable/disable the widget if it is not a button.
             else:
-                widget_toggle["state"] = NORMAL if toggle_bool else DISABLED
+                widget_toggle["state"] = DISABLED if toggle_bool else NORMAL
 
 
 def checkbutton_enable_disable_macro(checkbutton_template, widgets):
@@ -211,13 +209,17 @@ def determine_widget_attribute(widget_template, attribute_str, template, setting
     return state
 
 
-def copy_text_file_to_text_widget(file_full_path, file_encoding, text_obj):
-    """This method prints the entire contents of the text file
-    indicated by file_full_path to the text widget text_obj."""
+def copy_text_file_to_text_widget(file_full_path, file_encoding, text_obj, wipe_clean=True):
+    """This method prints the entire contents of the text file indicated by
+    file_full_path to the text widget text_obj. An optional argument wipe_clean,
+    which is set to True by default, determines whether any text currently displayed
+    in the text widget should be removed before the new text is displayed."""
 
     text_obj_initial_state = text_obj["state"]
     text_obj["state"] = NORMAL
     with open(file_full_path, "r", encoding=file_encoding) as out_file:
+        if wipe_clean:
+            text_obj.delete(1.0, END)
         for line in out_file.readlines():
             text_obj.insert(END, line)
             text_obj.see(END)
@@ -254,34 +256,6 @@ def verify_text_file(file_full_path, file_encoding, test_readability, test_writa
 
     # IF the file CAN be read and written to like a text file, return True.
     return True
-
-
-def verify_audio_file(file_full_path, time_stamper):
-    """This method verifies that an audio file can be loaded by Pyglet,
-    and if so, stores the relevant audio source and audio player into
-    class attributes of the passed instance of the time_stamper class."""
-
-    # If the provided file path is actually a path to a
-    # directory, erase the current audio source/audio player.
-    if isdir(file_full_path) or not exists(file_full_path):
-        time_stamper.audio.source, time_stamper.audio.player = None, None
-
-    else:
-
-        # Try loading the file specified by file_full_path into
-        # a Pyglet media source and storing that media source.
-        try:
-            time_stamper.audio.source = load(file_full_path)
-
-        # If the file CANNOT be loaded into a Pyglet media
-        # source, erase the current audio source/audio player.
-        except (EOFError, FileNotFoundError, WAVEDecodeException):
-            time_stamper.audio.source, time_stamper.audio.player = None, None
-
-        # If the file CAN be loaded into a Pyglet media player, declare
-        # a new, empty audio player for the Time Stamper program.
-        else:
-            time_stamper.audio.player = Player()
 
 
 def print_to_entry(to_print, entry_obj, wipe_clean=False):
