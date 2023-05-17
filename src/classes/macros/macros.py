@@ -258,7 +258,7 @@ class Macros():
         # Clear the text displaying the notes log.
         print_to_text("", self.widgets["text_log"], wipe_clean=True)
 
-    def set_media_widgets(self, file_full_path, media):
+    def set_media_widgets(self, file_full_path, media_player):
         """This method alters all of the relevant widgets in the Time Stamper program to
         indicate that a valid media file IS currently active. Note that this method does
         not handle the actual enabling/disabling of widgets associated with a media file."""
@@ -276,10 +276,8 @@ class Macros():
         # Print the file path to the entry widget.
         print_to_entry(file_full_path, self.widgets["entry_media_path"], wipe_clean=True)
 
-        # Load the media into a VLC MediaPlayer and save the
-        # MediaPlayer as an attribute of the TimeStamper class.
-        self.time_stamper.media_player = MediaPlayer()
-        self.time_stamper.media_player.set_media(media)
+        # Save the MediaPlayer as an attribute of the TimeStamper class.
+        self.time_stamper.media_player = media_player
 
         # Make the range of the media slider equal to the minimum
         # of 359999.99 and the duration of the media player.

@@ -121,6 +121,10 @@ class TimeStamperTimer():
         # slider as well as the displays of elapsed and remaining time.
         if self.time_stamper.media_player:
 
+            # Update the start time of the media if it is not playing.
+            if not self.time_stamper.media_player.is_playing():
+                self.time_stamper.media_player.set_time(int(new_time * 1000))
+
             # Update the media time slider.
             self.time_stamper.widgets["scale_media_time"].variable.set(new_time)
 
@@ -197,7 +201,7 @@ class TimeStamperTimer():
         """This method runs continuously while the timer is running to update the current time."""
 
         # Only tick the timer if it is currently running.
-        if self.is_running:
+        if self.is_running and self.multiplier != 0.0:
 
             internal_time = self.offset + ((perf_counter() - self.start_time) * self.multiplier)
 
@@ -329,8 +333,7 @@ class TimeStamperTimer():
         if not self.is_running or new_multiplier != self.multiplier:
 
             # Pause the timer if it is currently running.
-            if self.is_running:
-                self.pause()
+            self.pause()
 
             # Declare the timer as running.
             self.is_running = True

@@ -2,11 +2,13 @@
 """This module contains the FileButtonMacros class which stores the functions
 that are executed when a file button in the Time Stamper program is pressed."""
 
-from os.path import basename
+from ctypes import cdll, c_char_p
+from os.path import basename, dirname, join
 from tkinter import filedialog
-from vlc import EventType, MediaParsedStatus, MediaPlayer
-from .macros_helper_methods import merge_success_message, merge_failure_message_file_not_readable, \
-    disable_button, toggle_widgets, merge_notes, verify_text_file
+from vlc import FILE_ptr, EventType, MediaParsedStatus, MediaPlayer
+from .macros_helper_methods import merge_success_message, \
+    merge_failure_message_file_not_readable, enable_button, disable_button, \
+    toggle_widgets, toggle_media_buttons, merge_notes, verify_text_file
 try:
     from sys import getwindowsversion
 except ImportError:
@@ -109,48 +111,151 @@ class FileButtonMacros():
             "window_merge_first_message", close_window_macro=self.on_close_window_merge_1_macro)
         window_merge_first_message.mainloop()
 
-    def post_parsing_handler(self, _, file_full_path, media):
-        """This method gets executed when VLC's parsing of the selected media
-        file has terminated. If the parsing was successful, the program will
-        change its configuration to reflect that a valid media file is active."""
+    def final_post_parsing_handler(self, _, file_full_path, media_player):
+        """This method gets executed once VLC has both verified that the selected
+        media file is valid for playback and finished parsing the media source."""
+
+        # Re-enable all media widgets which were temporarily disabled during media file validation.
+        toggle_media_buttons(True, self.widgets, self.template)
+        self.parent.set_media_widgets(file_full_path, media_player)
+        toggle_widgets(self.template["button_media_select"], True, self.template, self.widgets)
+
+    def post_playing_handler(self, _, file_full_path, media_player, iteration):
+        """This method gets executed once VLC's test-play of the selected media file has started."""
+
+        # Pause the media player.
+        media_player.set_pause(True)
+
+        # If this method is being called for the first time on the selected media file, we should
+        # run through the validation procedure again to give the program more time to fill out the
+        # logfile, as the text we are looking for in the logfile has likely not yet been printed.
+        if iteration == 1:
+
+            self.validate_media_player(file_full_path, iteration=2)
+
+        # If this method is being called for the second time on the selected
+        # media file, we should scan the logfile to ensure that no error messages
+        # were recorded that indicate this file is not suitable for VLC playback.
+        else:
+
+            # Scan the log file for a message about VLC not
+            # being able to identify the audio/video codec.
+            bad_codec = False
+            with open(join(dirname(self.settings.user_json_path), \
+                "out.log"), "r", encoding="utf-8") as log_file:
+
+                lines = log_file.readlines()
+                for line in lines:
+                    if line == "VLC could not identify the audio or video codec\n":
+                        bad_codec = True
+                        break
+
+            # If a message about VLC not being able to identify the audio/video codec
+            # WAS found in the log file, then this file IS NOT valid for playback by
+            # VLC, so we should NOT enable the widgets associated with media playback.
+            if bad_codec:
+
+                # Only re-enable the media buttons, which had been
+                # disabled for the duration of media file validation.
+                toggle_media_buttons(True, self.widgets, self.template)
+
+            # If a message about VLC not being able to identify the audio/video codec
+            # WAS NOT found in the log file, then this file IS valid for playback by
+            # VLC, so we should change the configuration of the program to reflect this.
+            else:
+
+                # Reinitialize a MediaPlayer now that we know our media file is valid.
+                media_player = MediaPlayer(file_full_path)
+                media = media_player.get_media()
+                events = media.event_manager()
+
+                # Set the program to configure and enable/disable the relevant widgets to reflect
+                # that a valid output file IS active once the media has finished parsing.
+                events.event_attach(EventType.MediaParsedChanged, \
+                    self.final_post_parsing_handler, file_full_path, media_player)
+
+                # Parse the media.
+                media.parse_with_options(1, -1)
+
+    def post_parsing_handler(self, _, file_full_path, media_player, iteration):
+        """This method gets executed when VLC's parsing of the selected media file has
+        terminated. If the parsing was successful, the program will then try to briefly
+        play the file to see if it is playable. If the parsing was unsuccessful, the program
+        will change its configuration to reflect that a valid media file IS NOT active."""
 
         # Only mark that a parsed media file was generated if file_full_path IS NOT
         # blank (this is necessary because the parse will register as a success if
         # an empty string is provided as a filename) and the parsing was successful.
-        if file_full_path and media.get_parsed_status() == MediaParsedStatus.done:
+        if file_full_path \
+            and media_player.get_media().get_parsed_status() == MediaParsedStatus.done:
 
-            # Configure the relevant widgets to reflect that a valid output
-            # file IS active (distinct from enabling/disabling widgets).
-            self.parent.set_media_widgets(file_full_path, media)
+            events = media_player.event_manager()
+            events.event_attach(EventType.MediaPlayerPlaying, \
+                self.post_playing_handler, file_full_path, media_player, iteration)
 
-            # Enable/disable the relevant widgets to reflect that a valid output file IS active.
-            toggle_widgets(self.template["button_media_select"], True, self.template, self.widgets)
+            media_player.play()
 
         # If a parsed media file was NOT generated...
         else:
 
-            # Configure the relevant widgets to reflect that a valid output
-            # file IS NOT active (distinct from enabling/disabling widgets).
-            self.parent.reset_media_widgets()
+            # Only re-enable the media buttons, which had been
+            # disabled for the duration of media file validation.
+            toggle_media_buttons(True, self.widgets, self.template)
 
-            # Enable/disable the relevant widgets to reflect that a valid output file IS NOT active.
-            toggle_widgets(self.template["button_media_select"], False, self.template, self.widgets)
-
-    def validate_media_player(self, file_full_path):
-        """This method will try to create a media player based on the information provided
-        by the user. If a media player was successfully created, then this method will
-        configure the program to reflect that a media player IS active. Otherwise, this
-        method will configure the program to reflect that a media player IS NOT active."""
+    def validate_media_player(self, file_full_path, iteration=1):
+        """This method will try to create a media player based on the file path provided in
+        file_full_path. If a media player was successfully created, then this method will configure
+        the program to reflect that a media player IS active. Otherwise, this method will configure
+        the program to reflect that a media player IS NOT active. This method will still create
+        an object of type vlc.MediaPlayer temporarily, even if file_full_path is an empty string,
+        since the first time a MediaPlayer is initialized, VLC may raise many error messages on the
+        command line. The typical end-user will not see these error messages because the command
+        line will not be visible to them, but the error messages take time to generate, and this can
+        introduce lag into the Time Stamper program. For this reason, we run this method as soon as
+        the TimeStamper program starts (i.e., from the TimeStamper.run() method), as this will give
+        the impression that the program is "booting up" (besides, the error messages themselves are
+        not anything to be concerned about, as they do not appear to be program-breaking errors)."""
 
         media_player = MediaPlayer(file_full_path)
         media = media_player.get_media()
         events = media.event_manager()
+
+        if iteration == 1:
+
+            # Temporarily reset and disable all media widgets while the program attempts
+            # to validate the current media file (if the current media file cannot be
+            # validated, only the media buttons will be re-enabled and the remaining
+            # widgets that were disabled in this block will NOT be re-enabled).
+            toggle_media_buttons(False, self.widgets, self.template)
+            self.parent.reset_media_widgets()
+            toggle_widgets(\
+                self.template["button_media_select"], False, self.template, self.widgets)
+
+            # Set libvlc to publish its log to a location which we can reference later.
+            instance = media_player.get_instance()
+            fopen = cdll.msvcrt.fopen
+            fopen.restype = FILE_ptr
+            fopen.argtypes = (c_char_p, c_char_p)
+            log_file_path = join(dirname(self.settings.user_json_path), "out.log")
+            log_file = fopen(bytes(log_file_path, "utf-8"), b"w")
+            instance.log_set_file(log_file)
+
+        # Set the program to execute post_parsing_handler
+        # once VLC has finished parsing the selected media.
         events.event_attach(EventType.MediaParsedChanged, \
-            self.post_parsing_handler, file_full_path, media)
+            self.post_parsing_handler, file_full_path, media_player, iteration)
+
+        # Attempt to parse the selected media.
         media.parse_with_options(1, -1)
 
     def button_media_select_macro(self, *_, file_full_path=None):
-        """This method will be executed when the "Select synced media file" button is pressed."""
+        """This method will be executed when the "Select synced media file" button is pressed.
+        This method can also be called independently of pressing of the "Select synced media
+        file" button (as is done in the run() method of TimeStamper in time_stamper.py). When
+        calling this method from TimeStamper.run() in time_stamper.py, file_full_path is set
+        to the value of TimeStamper.settings["media"]["path"]. Even if the initial media file
+        validation fails on this value, it is imporant to at least attempt this initial media
+        file validation (see the docstring for validate_media_player for more information)."""
 
         if file_full_path is None:
 

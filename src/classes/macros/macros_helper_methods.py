@@ -88,10 +88,8 @@ def button_enable_disable_macro(button_template, widgets):
 
     # Enable the buttons stored in the button template's "to_enable" variable.
     for str_to_enable in button_template["to_enable"]:
-        if str_to_enable in widgets.original_colors:
-            original_color = widgets.original_colors[str_to_enable]
-        else:
-            original_color = None
+        original_color = widgets.original_colors[str_to_enable] \
+            if str_to_enable in widgets.original_colors else None
         enable_button(widgets[str_to_enable], original_color)
 
     # Disable the buttons stored in the button template's "to_disable" variable.
@@ -140,6 +138,22 @@ def toggle_widgets(widget_template, toggle_bool, template, widgets):
             # Simply enable/disable the widget if it is not a button.
             else:
                 widget_toggle["state"] = DISABLED if toggle_bool else NORMAL
+
+
+def toggle_media_buttons(to_enable, widgets, template):
+    """This method toggles the media buttons (enables
+    if to_enable is True, disables otherwise)."""
+
+    button_strs = ("button_pause", "button_play", "button_rewind", \
+        "button_fast_forward", "button_skip_backward", "button_skip_forward")
+    if to_enable:
+        for button_str_key in button_strs:
+            original_color = widgets.original_colors[button_str_key] \
+                if button_str_key in widgets.original_colors else None
+            enable_button(widgets[button_str_key], original_color)
+    else:
+        for button_str_key in button_strs:
+            disable_button(widgets[button_str_key], template[button_str_key]["mac_disabled_color"])
 
 
 def checkbutton_enable_disable_macro(checkbutton_template, widgets):
