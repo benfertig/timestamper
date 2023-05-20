@@ -5,8 +5,9 @@ from sys import platform
 from tkinter import DISABLED, NORMAL, HORIZONTAL, VERTICAL, END, Button, \
     Checkbutton, DoubleVar, Entry, IntVar, Label, StringVar, Scale, Spinbox, Text
 from tkinter.ttk import Scale as ttk_scale
-from .widgets_helper_methods import set_value, determine_widget_text, \
-    determine_widget_attribute, create_font, grid_widget, create_image
+
+import classes
+import methods.widgets.methods_widgets_helper as methods_helper
 
 if platform.startswith("darwin"):
     from tkmacosx import Button as MacButton
@@ -30,13 +31,13 @@ if platform.startswith("darwin"):
 # Contact: github.cqrde@simplelogin.com
 
 
-def create_button(time_stamper, button_template, button_window, macros=None):
+def create_button(button_template, button_window):
     """This method creates a Button object for the Time Stamper program."""
 
     str_key = button_template["str_key"]
 
     # Create the Button's font.
-    button_font = create_font(button_template)
+    button_font = methods_helper.create_font(button_template)
 
     # Determine whether we should use the Button class from tkmacosx instead of tkinter.
     button_has_color = \
@@ -47,20 +48,18 @@ def create_button(time_stamper, button_template, button_window, macros=None):
         button_class = Button
 
     # Determine the Button's initial state.
-    is_enabled = determine_widget_attribute(button_template, \
-        "initial_state", time_stamper.template, time_stamper.settings)
+    is_enabled = methods_helper.determine_widget_attribute(button_template, "initial_state")
 
     # Determine what the Button's initial text should be.
-    button_text = determine_widget_text(button_template, \
-        time_stamper.template, time_stamper.settings)
+    button_text = methods_helper.determine_widget_text(button_template)
 
     # Determine what the Button's image should be.
-    button_image = create_image(time_stamper.template.images_dir, obj_template=button_template)
+    button_image = methods_helper.create_image(obj_template=button_template)
 
     # Determine any macros for the button.
-    button_macro = macros[str_key] if str_key in macros.mapping else None
-    release_macro = \
-        macros[f"{str_key}_ONRELEASE"] if f"{str_key}_ONRELEASE" in macros.mapping else None
+    button_macro = classes.macros[str_key] if str_key in classes.macros.mapping else None
+    release_macro = classes.macros[f"{str_key}_ONRELEASE"] \
+        if f"{str_key}_ONRELEASE" in classes.macros.mapping else None
 
     # Create the Button object.
     button = button_class(button_window, height=button_template["height"], \
@@ -88,20 +87,20 @@ def create_button(time_stamper, button_template, button_window, macros=None):
         button["background"] = button_template["mac_disabled_color"]
 
     # Place the Button.
-    grid_widget(button, button_template)
+    methods_helper.grid_widget(button, button_template)
 
     # Return the button, the button's image and the button's
     # default, non-disabled (i.e., original) color.
     return button, button_image, button.cget("background")
 
 
-def create_checkbutton(template, settings, checkbutton_template, checkbutton_window, macros=None):
+def create_checkbutton(checkbutton_template, checkbutton_window):
     """This method creates a Checkbutton object for the Time Stamper program."""
 
     str_key = checkbutton_template["str_key"]
 
     # Determine the Checkbutton's initial state.
-    if determine_widget_attribute(checkbutton_template, "initial_state", template, settings):
+    if methods_helper.determine_widget_attribute(checkbutton_template, "initial_state"):
         initial_state = NORMAL
     else:
         initial_state = DISABLED
@@ -109,7 +108,8 @@ def create_checkbutton(template, settings, checkbutton_template, checkbutton_win
     int_var = IntVar()
 
     # Determine any macros for the checkbutton.
-    checkbutton_macro = macros[str_key] if macros and str_key in macros.mapping else None
+    checkbutton_macro = \
+        classes.macros[str_key] if classes.macros and str_key in classes.macros.mapping else None
 
     # Create the Checkbutton object.
     checkbutton = Checkbutton(checkbutton_window, command=checkbutton_macro, \
@@ -118,7 +118,7 @@ def create_checkbutton(template, settings, checkbutton_template, checkbutton_win
     checkbutton.variable = int_var
 
     # If it is determined that the checkbutton should initially be checked, check the checkbutton.
-    if determine_widget_attribute(checkbutton_template, "is_checked", template, settings):
+    if methods_helper.determine_widget_attribute(checkbutton_template, "is_checked"):
         checkbutton.select()
         checkbutton_template["is_checked_loaded_value"] = True
 
@@ -128,28 +128,26 @@ def create_checkbutton(template, settings, checkbutton_template, checkbutton_win
         checkbutton_template["is_checked_loaded_value"] = False
 
     # Place the Checkbutton.
-    grid_widget(checkbutton, checkbutton_template)
+    methods_helper.grid_widget(checkbutton, checkbutton_template)
 
     return checkbutton
 
 
-def create_entry(time_stamper, entry_template, entry_window, macros=None):
+def create_entry(entry_template, entry_window):
     """This method creates an Entry object for the Time Stamper program."""
 
     str_key = entry_template["str_key"]
 
     # Create the Entry's font.
-    entry_font = create_font(entry_template)
+    entry_font = methods_helper.create_font(entry_template)
 
     # Determine what the Entry's initial text should be.
-    entry_text_str = \
-        determine_widget_text(entry_template, time_stamper.template, time_stamper.settings)
+    entry_text_str = methods_helper.determine_widget_text(entry_template)
     entry_text = StringVar()
     entry_text.set(entry_text_str)
 
     # Determine the Entry's initial state
-    if determine_widget_attribute(entry_template, \
-        "initial_state", time_stamper.template, time_stamper.settings):
+    if methods_helper.determine_widget_attribute(entry_template, "initial_state"):
         initial_state = NORMAL
     else:
         initial_state = DISABLED
@@ -163,10 +161,10 @@ def create_entry(time_stamper, entry_template, entry_window, macros=None):
         state=initial_state)
 
     # Determine any macros for the entry.
-    trace_macro = macros[f"{str_key}_TRACE"] \
-        if macros and f"{str_key}_TRACE" in macros.mapping else None
-    scroll_macro = macros[f"{str_key}_ONMOUSEWHEEL"] \
-        if macros and f"{str_key}_ONMOUSEWHEEL" in macros.mapping else None
+    trace_macro = classes.macros[f"{str_key}_TRACE"] \
+        if classes.macros and f"{str_key}_TRACE" in classes.macros.mapping else None
+    scroll_macro = classes.macros[f"{str_key}_ONMOUSEWHEEL"] \
+        if classes.macros and f"{str_key}_ONMOUSEWHEEL" in classes.macros.mapping else None
 
     # Set for a method to be executed each time the entry's text is changed
     # if it was indicated that this should be the case in macros.py.
@@ -187,22 +185,22 @@ def create_entry(time_stamper, entry_template, entry_window, macros=None):
     entry_template["text_loaded_value"] = entry_text_str
 
     # Place the Entry.
-    grid_widget(entry, entry_template)
+    methods_helper.grid_widget(entry, entry_template)
 
     return entry
 
 
-def create_label(template, settings, label_template, label_window):
+def create_label(label_template, label_window):
     """This method creates a Label object for the Time Stamper program."""
 
     # Create the Label's font.
-    label_font = create_font(label_template)
+    label_font = methods_helper.create_font(label_template)
 
     # Determine what the Label's initial text should be.
-    label_text = determine_widget_text(label_template, template, settings)
+    label_text = methods_helper.determine_widget_text(label_template)
 
     # Determine what the label's image should be.
-    label_image = create_image(template.images_dir, obj_template=label_template)
+    label_image = methods_helper.create_image(obj_template=label_template)
 
     # Create the Label object.
     label = Label(label_window, height=label_template["height"], \
@@ -212,19 +210,18 @@ def create_label(template, settings, label_template, label_window):
         wraplength=label_template["wraplength"], justify=label_template["justify"])
 
     # Place the Label.
-    grid_widget(label, label_template)
+    methods_helper.grid_widget(label, label_template)
 
     return label, label_image
 
 
-def create_scale(time_stamper, scale_template, scale_window, macros=None):
+def create_scale(scale_template, scale_window):
     """This method creates a Scale object for the Time Stamper program."""
 
     str_key = scale_template["str_key"]
 
     # Determine the Scale's initial state.
-    if determine_widget_attribute(scale_template, "initial_state", \
-        time_stamper.widgets.template, time_stamper.widgets.settings):
+    if methods_helper.determine_widget_attribute(scale_template, "initial_state"):
         initial_state = NORMAL
     else:
         initial_state = DISABLED
@@ -235,11 +232,12 @@ def create_scale(time_stamper, scale_template, scale_window, macros=None):
     double_var = DoubleVar()
 
     # Determine any macros for the scale.
-    scale_macro = macros[str_key] if macros and str_key in macros.mapping else None
-    release_macro = macros[f"{str_key}_ONRELEASE"] \
-        if macros and f"{str_key}_ONRELEASE" in macros.mapping else None
-    scroll_macro = macros[f"{str_key}_ONMOUSEWHEEL"] \
-        if macros and f"{str_key}_ONMOUSEWHEEL" in macros.mapping else None
+    scale_macro = \
+        classes.macros[str_key] if classes.macros and str_key in classes.macros.mapping else None
+    release_macro = classes.macros[f"{str_key}_ONRELEASE"] \
+        if classes.macros and f"{str_key}_ONRELEASE" in classes.macros.mapping else None
+    scroll_macro = classes.macros[f"{str_key}_ONMOUSEWHEEL"] \
+        if classes.macros and f"{str_key}_ONMOUSEWHEEL" in classes.macros.mapping else None
 
     # If the scale should be made using tkinter.ttk.Scale...
     if scale_template["is_ttk_scale"]:
@@ -253,7 +251,7 @@ def create_scale(time_stamper, scale_template, scale_window, macros=None):
     else:
 
         # Create the Scale's font.
-        scale_font = create_font(scale_template)
+        scale_font = methods_helper.create_font(scale_template)
 
         # Create the Scale object.
         scale = Scale(scale_window, variable=double_var, \
@@ -264,10 +262,8 @@ def create_scale(time_stamper, scale_template, scale_window, macros=None):
     double_var.set(scale_template["initial_value"])
     scale.variable = double_var
 
-    # If the left-mouse-click should function like the right-mouse-click,
-    # map the left-mouse-click function to the right-mouse-click function.
-    if scale_template["bind_left_click_to_right_click"]:
-        scale.bind("<Button-1>", lambda event: set_value(scale, event))
+    # Map the left-mouse-click to the right-mouse-click.
+    scale.bind("<Button-1>", methods_helper.set_value)
 
     # Allow for the scale to be manipulated with the mousewheel if it was
     # indicated that this should be the case in the scale's template.
@@ -282,41 +278,36 @@ def create_scale(time_stamper, scale_template, scale_window, macros=None):
     # If a macro for the mouse release was specified in macros.py...
     if release_macro:
 
-        # Map the release macro to the left-mouse-click release if it was specified in the template.
-        if scale_template["run_release_macro_on_left_release"]:
-            scale.bind("<ButtonRelease-1>", release_macro)
+        # Map the release macro to the left-mouse-click release.
+        scale.bind("<ButtonRelease-1>", release_macro)
 
-        # Map the release macro to the middle-mouse-click
-        # release if it was specified in the template.
-        if scale_template["run_release_macro_on_middle_release"]:
-            scale.bind("<ButtonRelease-2>", release_macro)
+        # Map the release macro to the middle-mouse-click release.
+        scale.bind("<ButtonRelease-2>", release_macro)
 
-        # Map the release macro to the right-mouse-click
-        # release if it was specified in the template.
-        if scale_template["run_release_macro_on_right_release"]:
-            scale.bind("<ButtonRelease-3>", release_macro)
+        # Map the release macro to the right-mouse-click release.
+        scale.bind("<ButtonRelease-3>", release_macro)
 
     # Place the Scale.
-    grid_widget(scale, scale_template)
+    methods_helper.grid_widget(scale, scale_template)
 
     return scale
 
 
-def create_spinbox(template, settings, spinbox_template, spinbox_window, macros=None):
+def create_spinbox(spinbox_template, spinbox_window):
     """This method creates a Spinbox object for the Time Stamper program."""
 
     str_key = spinbox_template["str_key"]
 
     # Create the Spinbox's font.
-    spinbox_font = create_font(spinbox_template)
+    spinbox_font = methods_helper.create_font(spinbox_template)
 
     # Determine what the Spinbox object's initial text should be.
-    spinbox_text_str = determine_widget_text(spinbox_template, template, settings)
+    spinbox_text_str = methods_helper.determine_widget_text(spinbox_template)
     spinbox_text = StringVar()
 
     # Determine the Spinbox's initial state.
     spinbox_template_initial_state = \
-        determine_widget_attribute(spinbox_template, "initial_state", template, settings)
+        methods_helper.determine_widget_attribute(spinbox_template, "initial_state")
     if spinbox_template_initial_state == "readonly":
         initial_state = "readonly"
     elif spinbox_template_initial_state:
@@ -325,7 +316,8 @@ def create_spinbox(template, settings, spinbox_template, spinbox_window, macros=
         initial_state = DISABLED
 
     # Determine any macros for the spinbox.
-    spinbox_macro = macros[str_key] if macros and str_key in macros.mapping else None
+    spinbox_macro = \
+        classes.macros[str_key] if classes.macros and str_key in classes.macros.mapping else None
 
     # Create the Spinbox object.
     spinbox = Spinbox(spinbox_window, width=spinbox_template["width"], textvariable=spinbox_text, \
@@ -350,18 +342,18 @@ def create_spinbox(template, settings, spinbox_template, spinbox_window, macros=
                 lambda event: spinbox.invoke("buttonup" if event.delta > 0 else "buttondown"))
 
     # Place the Spinbox.
-    grid_widget(spinbox, spinbox_template)
+    methods_helper.grid_widget(spinbox, spinbox_template)
 
     return spinbox
 
-def create_text(template, settings, text_template, text_window):
+def create_text(text_template, text_window):
     """This method creates a Text object for the Time Stamper program."""
 
     # Create the Text's font.
-    text_font = create_font(text_template)
+    text_font = methods_helper.create_font(text_template)
 
     # Determine the Text's initial state.
-    if determine_widget_attribute(text_template, "initial_state", template, settings):
+    if methods_helper.determine_widget_attribute(text_template, "initial_state"):
         initial_state = NORMAL
     else:
         initial_state = DISABLED
@@ -371,7 +363,7 @@ def create_text(template, settings, text_template, text_window):
         width=text_template["width"], font=text_font, state=initial_state)
 
     # Determine what the Text object's initial text should be.
-    text_text = determine_widget_text(text_template, template, settings)
+    text_text = methods_helper.determine_widget_text(text_template)
 
     # Display the Text object's text.
     text["state"] = NORMAL
@@ -379,6 +371,6 @@ def create_text(template, settings, text_template, text_window):
     text["state"] = initial_state
 
     # Place the Text.
-    grid_widget(text, text_template)
+    methods_helper.grid_widget(text, text_template)
 
     return text

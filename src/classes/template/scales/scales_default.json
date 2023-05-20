@@ -20,12 +20,6 @@
     "reverse_scroll_direction": false,
     "scroll_sensitivity": 1,
 
-    "bind_left_click_to_right_click": false,
-
-    "run_release_macro_on_left_release": false,
-    "run_release_macro_on_middle_release": false,
-    "run_release_macro_on_right_release": false,
-
     "row": 0,
     "column": 0,
 

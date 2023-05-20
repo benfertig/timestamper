@@ -1,7 +1,4 @@
 #-*- coding: utf-8 -*-
-"""A person who wants to run the Time Stamper program should execute this script in Python 3."""
-
-from classes.time_stamper import TimeStamper
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -20,6 +17,3 @@ from classes.time_stamper import TimeStamper
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 # Contact: github.cqrde@simplelogin.com
-
-time_stamper = TimeStamper()
-time_stamper.run()

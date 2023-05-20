@@ -2,6 +2,12 @@
 """This module contains the TimeStamper class. In order to run the Time Stamper program, a user
 should create an instance of this TimeStamper class and then call that instance's "run" function."""
 
+from sys import platform
+from tkinter import Button, Menu
+from vlc import MediaPlayer
+
+import classes
+
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
 
@@ -20,48 +26,29 @@ should create an instance of this TimeStamper class and then call that instance'
 
 # Contact: github.cqrde@simplelogin.com
 
-from sys import platform
-from tkinter import Button, Menu
-from .macros.macros import Macros
-from .settings.settings import TimeStamperSettings
-from .template.template import TimeStamperTemplate
-from .timing.timing import TimeStamperTimer
-from .widgets.widgets import Widgets
-
 
 class TimeStamper():
     """To run the Time Stamper program, first create an instance
     of this class. Then, call this class' run() method."""
 
-    def __init__(self):
-
-        self.settings = TimeStamperSettings()
-        self.timer = TimeStamperTimer(self)
-        self.root = None
-        self.template = TimeStamperTemplate()
-        self.widgets = Widgets(self, "window_main")
-        self.macros = Macros(self)
-        self.media_player = None
-
-    def remove_func(self, root):
+    def remove_func(self):
         """This method is used as the command for the Tkinter "Button"
         which, when placed, will remove the menu bar submenus from
         Mac computers while the Time Stamper program is running."""
 
-        root.config(menu=Menu(root))
+        classes.root.config(menu=Menu(classes.root))
 
-    def remove_mac_menu_bar_submenus(self, root):
+    def remove_mac_menu_bar_submenus(self):
         """This method removes the menu bar submenus from Mac computers while
         the Time Stamper program is running. The only argument that needs
         to be provided is the Time Stamper program's root window."""
 
         # Initialize the menu bar for the root window.
-        menubar = Menu(root)
-        root.config(menu=menubar)
+        menubar = Menu(classes.root)
+        classes.root.config(menu=menubar)
 
         # Create the "button" which, once placed, will remove the menu bar submenus.
-        remove_button = Button(root, text="Remove", \
-            command=lambda _: self.remove_func(root))
+        remove_button = Button(classes.root, text="Remove", command = self.remove_func)
 
         # "Grid" the "button" that will remove the menu bar submenus (although
         # this "button" will neither be visible nor take up any space).
@@ -71,22 +58,32 @@ class TimeStamper():
         """This method runs the Time Stamper program."""
 
         # Create the main window and all of its widgets.
-        self.root = self.widgets.create_entire_window("window_main", self.macros)
+        classes.root = classes.widgets.create_entire_window("window_main", is_main_window=True)
 
         # If we are on a Mac, remove all of the submenus from the menu bar.
         if platform.startswith("darwin"):
-            self.remove_mac_menu_bar_submenus(self.root)
+            self.remove_mac_menu_bar_submenus()
 
         # Perform a check to see whether a default OUTPUT file path was provided,
         # and if so, whether that path corresponds to a TEXT file that is suitable
         # for the Time Stamper program. If this is the case, then the program
         # will change its configuration to reflect that an OUTPUT file is active.
-        self.macros["button_output_select"](file_full_path=self.settings["output"]["path"])
+        classes.macros["button_output_select"](file_full_path=classes.settings["output"]["path"])
+
+        # Create an object of type vlc.MediaPlayer without utilizing it, since the first
+        # time a MediaPlayer is initialized, VLC may raise many error messages on the command
+        # line. The typical end-user will not see these error messages because the command line
+        # will not be visible to them, but the error messages take time to generate, which can
+        # introduce lag into the Time Stamper program. For this reason, we create a MediaPlayer
+        # as soon as the TimeStamper program starts, as this will give the impression that
+        # the program is "booting up" (besides, the error messages themselves are not anything
+        # to be concerned about, as they do not appear to be program-breaking errors).
+        assert MediaPlayer()
 
         # Perform a check to see whether a default MEDIA file path was provided,
         # and if so, whether that path corresponds to a MEDIA file that is suitable
         # for the Time Stamper program. If this is the case, then the program
         # will change its configuration to reflect that a MEDIA file is active.
-        self.macros["button_media_select"](file_full_path=self.settings["media"]["path"])
+        classes.macros["button_media_select"](file_full_path=classes.settings["media"]["path"])
 
-        self.root.mainloop()
+        classes.root.mainloop()

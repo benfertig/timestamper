@@ -1,0 +1,19 @@
+{
+
+    "window_video": {
+
+        "str_key": "window_video",
+        "window_str_key": "window_video",
+
+        "icon_windows": "timestamp_icon.ico",
+        "icon_mac": "timestamp_icon.icns",
+
+        "width": 960,
+        "height": 540,
+
+        "num_columns": 1,
+        "num_rows": 1
+
+    }
+
+}

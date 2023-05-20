@@ -5,6 +5,8 @@ that do not directly rely on class variables of TimeStamperTimer."""
 from fractions import Fraction
 from tkinter import NORMAL, END
 
+import classes
+
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
 
@@ -24,16 +26,17 @@ from tkinter import NORMAL, END
 # Contact: github.cqrde@simplelogin.com
 
 
-def make_playback_button_images_visible(widgets):
+def make_playback_button_images_visible():
     """This method makes the images for the play, rewind and fast-forward buttons visible."""
 
     for button_name, image_name in (("button_play", "play.png"), \
         ("button_rewind", "rewind.png"), ("button_fast_forward", "fast_forward.png")):
-        widgets[button_name].config(image=widgets[image_name])
-        widgets[button_name].image = widgets[image_name]
+
+        classes.widgets[button_name].config(image=classes.widgets[image_name])
+        classes.widgets[button_name].image = classes.widgets[image_name]
 
 
-def get_new_multiplier(playback_type, template, widgets):
+def get_new_multiplier(playback_type):
     """This method returns a value based on the argument playback_type. If playback_type is "play",
     this method will return 1.0. If playback_type is "rewind" or "fast_forward", this method will
     return a float based on the current value in the rewind or fast-forward spinboxes, respectively.
@@ -51,19 +54,19 @@ def get_new_multiplier(playback_type, template, widgets):
         raise ValueError("Argument playback_type must be either",
                         "\"play\", \"rewind\" or \"fast_forward\".")
 
-    spinbox_val = widgets[spinbox_str_key].get()
-    multiplier_str = template[spinbox_str_key]["values"][spinbox_val]
+    spinbox_val = classes.widgets[spinbox_str_key].get()
+    multiplier_str = classes.template[spinbox_str_key]["values"][spinbox_val]
     return float(Fraction(multiplier_str)) * (-1 if is_rewind else 1)
 
 
-def determine_new_play_button_image(subseconds, widgets):
+def determine_new_play_button_image(subseconds):
     """This method determines whether the current image of the play button should
     be changed, and if so, what it should be changed to. If it is determined that the
     image of the play button should not be changed, this method will return None."""
 
-    button_play = widgets["button_play"]
-    button_default_image = widgets["play.png"]
-    button_blank_image = widgets["blank.png"]
+    button_play = classes.widgets["button_play"]
+    button_default_image = classes.widgets["play.png"]
+    button_blank_image = classes.widgets["blank.png"]
 
     # If we are on the 1st half of the current second, the image
     # of the play button should be set to its default image.
@@ -75,15 +78,15 @@ def determine_new_play_button_image(subseconds, widgets):
     return None if button_play.image == button_blank_image else button_blank_image
 
 
-def determine_new_rewind_button_image(multiplier, subseconds, widgets):
+def determine_new_rewind_button_image(multiplier, subseconds):
     """This method determines whether the current image of the rewind button should
     be changed, and if so, what it should be changed to. If it is determined that the
     image of the rewind button should not be changed, this method will return None."""
 
-    rewind_button = widgets["button_rewind"]
-    button_half_image = widgets["rewind_half.png"]
-    button_default_image = widgets["rewind.png"]
-    button_blank_image = widgets["blank.png"]
+    rewind_button = classes.widgets["button_rewind"]
+    button_half_image = classes.widgets["rewind_half.png"]
+    button_default_image = classes.widgets["rewind.png"]
+    button_blank_image = classes.widgets["blank.png"]
 
     # IF WE ARE REWINDING AT A SPEED SLOWER THAN 1X...
     if abs(multiplier) < 1.0:
@@ -114,15 +117,15 @@ def determine_new_rewind_button_image(multiplier, subseconds, widgets):
     return None if rewind_button.image == button_blank_image else button_blank_image
 
 
-def determine_new_fast_forward_button_image(multiplier, subseconds, widgets):
+def determine_new_fast_forward_button_image(multiplier, subseconds):
     """This method determines whether the current image of the fast-forward button should
     be changed, and if so, what it should be changed to. If it is determined that the
     image of the fast-forward button should not be changed, this method will return None."""
 
-    button_fast_forward = widgets["button_fast_forward"]
-    button_half_image = widgets["fast_forward_half.png"]
-    button_default_image = widgets["fast_forward.png"]
-    button_blank_image = widgets["blank.png"]
+    button_fast_forward = classes.widgets["button_fast_forward"]
+    button_half_image = classes.widgets["fast_forward_half.png"]
+    button_default_image = classes.widgets["fast_forward.png"]
+    button_blank_image = classes.widgets["blank.png"]
 
     # IF WE ARE "FAST"-FORWARDING AT A SPEED SLOWER THAN 1X...
     if abs(multiplier) < 1.0:
@@ -154,7 +157,7 @@ def determine_new_fast_forward_button_image(multiplier, subseconds, widgets):
     return None if button_fast_forward.image == button_blank_image else button_blank_image
 
 
-def pulse_button_image(subseconds, multiplier, widgets):
+def pulse_button_image(subseconds, multiplier):
     """This method, which is called by the timer_tick method from the TimeStamperTimer
     class in timing.py, will potentially make the image of one of the media buttons
     visible/invisible depending on the reading of the timer. This provides visual feedback
@@ -164,20 +167,20 @@ def pulse_button_image(subseconds, multiplier, widgets):
     # If the timer is moving at 1X SPEED (i.e., the play button was pressed),
     # we will potentially be manipulating the image of the play button.
     if multiplier == 1.0:
-        button_to_edit = widgets["button_play"]
-        new_button_image = determine_new_play_button_image(subseconds, widgets)
+        button_to_edit = classes.widgets["button_play"]
+        new_button_image = determine_new_play_button_image(subseconds)
 
     # If we are REWINDING, we will potentially be
     # manipulating the image of the rewind button.
     elif multiplier < 0.0:
-        button_to_edit = widgets["button_rewind"]
-        new_button_image = determine_new_rewind_button_image(multiplier, subseconds, widgets)
+        button_to_edit = classes.widgets["button_rewind"]
+        new_button_image = determine_new_rewind_button_image(multiplier, subseconds)
 
     # If we are FAST-FORWARDING, we will potentially be
     # manipulating the image of the fast-forward button.
     else:
-        button_to_edit = widgets["button_fast_forward"]
-        new_button_image = determine_new_fast_forward_button_image(multiplier, subseconds, widgets)
+        button_to_edit = classes.widgets["button_fast_forward"]
+        new_button_image = determine_new_fast_forward_button_image(multiplier, subseconds)
 
     # Update the image of the play/rewind/fast-forward button only
     # if its current image does not match the image it should have.

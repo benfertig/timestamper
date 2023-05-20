@@ -6,7 +6,8 @@ TimeStamper run() method (the method that runs the Time Stamper program)."""
 from dataclasses import dataclass
 from os import getcwd
 from os.path import dirname, join
-from .template_helper_methods import map_all_templates
+
+import methods.template.methods_template_helper as methods_helper
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -37,8 +38,8 @@ class TimeStamperTemplate():
         1) People will be able to locate and/or make changes
            to the attributes of Time Stamper objects quickly.
 
-        2) The amount of code that needs to be written in other modules is reduced. For example,
-           in the main "time_stamper" class, all objects that are of the same type (Buttons,
+        2) The amount of code that needs to be written in other modules is reduced. For
+           example, in the "widgets" class, all objects that are of the same type (Buttons,
            Labels, Entries, Texts, etc.) are placed by running a loop, where for each object
            template "x_template", the row, column, initial state, etc. of its corresponding
            object x can be retrieved by referencing template.mapping["x_template"]["row"],
@@ -57,7 +58,7 @@ class TimeStamperTemplate():
         self.images_dir = join(source_dir, "images")
         self.messages_dir = join(source_dir, "messages")
 
-        self.mapping = map_all_templates(dirname(__file__))
+        self.mapping = methods_helper.map_all_templates(dirname(__file__))
 
     def __getitem__(self, item):
         return self.mapping[item]

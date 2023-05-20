@@ -5,9 +5,11 @@ allows for easy reference of widgets. Also see the "widgets_creation_methods.py"
 "widgets_helper_methods.py" modules for additional methods associated with widgets."""
 
 from traceback import format_exception
-from .widgets_creation_methods import create_button, create_checkbutton, \
-    create_entry, create_label, create_scale, create_spinbox, create_text
-from .widgets_helper_methods import create_image, create_window, determine_widget_text
+
+import classes
+
+import methods.widgets.methods_widgets_creation as methods_creation
+import methods.widgets.methods_widgets_helper as methods_helper
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -32,19 +34,14 @@ class Widgets():
     """This class contains methods associated with various Tkinter widgets as
     well as a mapping of widgets to their string keys. Widgets can be referenced
     based on their string keys. For example, to access the pause button, one would
-    reference Widgets["button_pause"]. Also see the "widgets_creation_methods.py" and
-    "widgets_helper_methods.py" modules for additional methods associated with widgets."""
+    reference Widgets["button_pause"]. Also see the "methods_widgets_creation.py" and
+    "methods_widgets_helper.py" modules for additional methods associated with widgets."""
 
-    def __init__(self, time_stamper, main_window_str):
+    def __init__(self):
 
-        self.time_stamper = time_stamper
-        self.template = time_stamper.template
-        self.settings = time_stamper.settings
-        self.main_window_str = main_window_str
         self.original_colors = {}
-        self.determine_widget_text = determine_widget_text
 
-        self.mapping = {"time_stamper_timer": time_stamper.timer}
+        self.mapping = {}
 
     def __getitem__(self, item):
         return self.mapping[item]
@@ -54,20 +51,20 @@ class Widgets():
         report_callback_exception function for the root window."""
 
         error_message = format_exception(*args)
-        self.template["text_error"]["text"] = error_message
+        classes.template["text_error"]["text"] = error_message
         self.create_entire_window("window_error")
 
-    def create_widgets(self, window_str, macros=None):
+    def create_widgets(self, window_str):
         """This method creates all of the widgets that are meant
         to appear in the window indicated by window_str."""
 
         self.create_extra_images()
-        self.create_buttons(window_str, macros)
-        self.create_checkbuttons(window_str, macros)
-        self.create_entries(window_str, macros)
+        self.create_buttons(window_str)
+        self.create_checkbuttons(window_str)
+        self.create_entries(window_str)
         self.create_labels(window_str)
-        self.create_scales(window_str, macros)
-        self.create_spinboxes(window_str, macros)
+        self.create_scales(window_str)
+        self.create_spinboxes(window_str)
         self.create_texts(window_str)
 
     def create_extra_images(self):
@@ -78,41 +75,41 @@ class Widgets():
             "volume_medium.png", "volume_low.png", "volume_zero.png", "volume_mute.png")
 
         for image_file_name in extra_image_file_names:
-            extra_image = create_image(self.template.images_dir, image_file_name=image_file_name)
+            extra_image = methods_helper.create_image(image_file_name=image_file_name)
             self.mapping[image_file_name] = extra_image
 
-    def create_buttons(self, window_str, macros):
+    def create_buttons(self, window_str):
         """This method creates all of the buttons that are meant
         to appear in the window indicated by window_str."""
 
         button_window = self[window_str]
-        for button_template in self.template["buttons"][window_str]:
+        for button_template in classes.template["buttons"][window_str]:
             str_key = button_template["str_key"]
-            button, button_image, button_orig_color = create_button(\
-                self.time_stamper, button_template, button_window, macros)
+            button, button_image, button_orig_color = \
+                methods_creation.create_button(button_template, button_window)
             button.image = button_image
             self.original_colors[str_key] = button_orig_color
             if button_image:
                 self.mapping[button_template["image_file_name"]] = button_image
             self.mapping[str_key] = button
 
-    def create_checkbuttons(self, window_str, macros):
+    def create_checkbuttons(self, window_str):
         """This method creates all of the checkbuttons that are
         meant to appear in the window indicated by window_str."""
 
         checkbutton_window = self[window_str]
-        for checkbutton_template in self.template["checkbuttons"][window_str]:
-            checkbutton = create_checkbutton(self.template, self.settings, \
-                checkbutton_template, checkbutton_window, macros)
+        for checkbutton_template in classes.template["checkbuttons"][window_str]:
+            checkbutton = \
+                methods_creation.create_checkbutton(checkbutton_template, checkbutton_window)
             self.mapping[checkbutton_template["str_key"]] = checkbutton
 
-    def create_entries(self, window_str, macros):
+    def create_entries(self, window_str):
         """This method creates all of the entries that are meant
         to appear in the window indicated by window_str."""
 
         entry_window = self[window_str]
-        for entry_template in self.template["entries"][window_str]:
-            entry = create_entry(self.time_stamper, entry_template, entry_window, macros)
+        for entry_template in classes.template["entries"][window_str]:
+            entry = methods_creation.create_entry(entry_template, entry_window)
             self.mapping[entry_template["str_key"]] = entry
 
     def create_labels(self, window_str):
@@ -120,30 +117,28 @@ class Widgets():
         to appear in the window indicated by window_str."""
 
         label_window = self[window_str]
-        for label_template in self.template["labels"][window_str]:
-            label, label_image = \
-                create_label(self.template, self.settings, label_template, label_window)
+        for label_template in classes.template["labels"][window_str]:
+            label, label_image = methods_creation.create_label(label_template, label_window)
             if label_image:
                 self.mapping[label_template["image_file_name"]] = label_image
             self.mapping[label_template["str_key"]] = label
 
-    def create_scales(self, window_str, macros):
+    def create_scales(self, window_str):
         """This method creates all of the scales that are meant
         to appear in the window indicated by window_str."""
 
         scale_window = self[window_str]
-        for scale_template in self.template["scales"][window_str]:
-            scale = create_scale(self.time_stamper, scale_template, scale_window, macros)
+        for scale_template in classes.template["scales"][window_str]:
+            scale = methods_creation.create_scale(scale_template, scale_window)
             self.mapping[scale_template["str_key"]] = scale
 
-    def create_spinboxes(self, window_str, macros):
+    def create_spinboxes(self, window_str):
         """This method creates all of the spinboxes that are
         meant to appear in the window indicated by window_str."""
 
         spinbox_window = self[window_str]
-        for spinbox_template in self.template["spinboxes"][window_str]:
-            spinbox = create_spinbox(self.template, self.settings, \
-                spinbox_template, spinbox_window, macros)
+        for spinbox_template in classes.template["spinboxes"][window_str]:
+            spinbox = methods_creation.create_spinbox(spinbox_template, spinbox_window)
             self.mapping[spinbox_template["str_key"]] = spinbox
 
     def create_texts(self, window_str):
@@ -151,30 +146,31 @@ class Widgets():
         to appear in the window indicated by window_str."""
 
         text_window = self[window_str]
-        for text_template in self.template["texts"][window_str]:
-            text = create_text(self.template, self.settings, text_template, text_window)
+        for text_template in classes.template["texts"][window_str]:
+            text = methods_creation.create_text(text_template, text_window)
             self.mapping[text_template["str_key"]] = text
 
-    def create_entire_window(self, window_str, macros=None, close_window_macro=None, macro_args=()):
+    def create_entire_window(self, window_str, is_main_window=False, macro_args=()):
         """This method creates an entire window with all of its widgets
         based on the string key for a particular window (window_str_key)."""
 
         # Create the window.
-        window_template = self.template[window_str]
-        window = create_window(window_template, self.main_window_str, self.template.images_dir)
+        window_template = classes.template[window_str]
+        window = methods_helper.create_window(window_template, is_main_window)
         self.mapping[window_str] = window
 
         # Define how the window should treat error messages
         window.report_callback_exception = self.report_callback_exception
 
         # Create the widgets that should appear in the current window.
-        self.create_widgets(window_str, macros)
+        self.create_widgets(window_str)
 
         # If a function should be executed when this
         # new window is closed, set that function here.
-        if close_window_macro:
+        if f"{window_str}_ONCLOSE" in classes.macros.mapping:
             macro_args = (window,) + macro_args
-            window.protocol("WM_DELETE_WINDOW", lambda: close_window_macro(*macro_args))
+            window.protocol("WM_DELETE_WINDOW", \
+                lambda: classes.macros.mapping[f"{window_str}_ONCLOSE"](*macro_args))
 
         # Return the window object.
         return window

@@ -6,6 +6,8 @@ from os.path import join, splitext
 from sys import platform
 from tkinter import font, Grid, PhotoImage, Tk, Toplevel
 
+import classes
+
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
 
@@ -36,16 +38,17 @@ def pad_number(number, target_length, pad_before):
     return str_number + zeros_to_add
 
 
-def set_value(scale, event):
+def set_value(event):
     """This method can be bound to a button press on a Scale widget, making it so that the
     result of pressing that button while the cursor is hovering over that scale will mimic the
     result of clicking the right mouse button while the cursor is hovering over that scale."""
 
+    scale = event.widget
     scale.event_generate("<Button-3>", x=event.x, y=event.y)
     return "break"
 
 
-def determine_widget_text(widget_template, template, settings):
+def determine_widget_text(widget_template):
     """There are different ways that a widget's text can be set. The widget's text can be
     stored in a file, in its template's "text" key, or be referenced from a setting or another
     template. This method determines where to find the widget's text and returns that text."""
@@ -77,7 +80,7 @@ def determine_widget_text(widget_template, template, settings):
                 f"(i.e., \"{widget_template['text']}\").\n")
 
         # Open the file containing the widget's text.
-        message_file_loc = join(template.messages_dir, widget_template["message_file_name"])
+        message_file_loc = join(classes.template.messages_dir, widget_template["message_file_name"])
         message_encoding = widget_template["message_file_encoding"]
         with open(message_file_loc, "r", encoding=message_encoding) as message_file:
 
@@ -100,7 +103,7 @@ def determine_widget_text(widget_template, template, settings):
     # attribute, retrieve the value of the linked attribute.
     elif isinstance(widget_template["text"], dict):
 
-        widget_text = determine_widget_attribute(widget_template, "text", template, settings)
+        widget_text = determine_widget_attribute(widget_template, "text")
         return widget_text if widget_text else ""
 
     # If there is no file associated with this widget and this widget's text
@@ -111,7 +114,7 @@ def determine_widget_text(widget_template, template, settings):
         return "" if widget_template["text"] is None else widget_template["text"]
 
 
-def determine_widget_attribute(widget_template, attribute_str, template, settings):
+def determine_widget_attribute(widget_template, attribute_str):
     """This method determines what a particular attribute (indicated by "state") of a widget
     should be set to. Sometimes, a widget's attribute is stored directly in the value associated
     with a key ("state") in its template. Other times, the widget's attribute is associated
@@ -125,7 +128,8 @@ def determine_widget_attribute(widget_template, attribute_str, template, setting
 
         linked_dict = state["linked_dict"]
         linked_attribute = state["linked_attribute"]
-        dict_to_reference = settings if linked_dict in settings.user else template
+        dict_to_reference = \
+            classes.settings if linked_dict in classes.settings.user else classes.template
         state = dict_to_reference[linked_dict][linked_attribute]
 
     if isinstance(widget_template[attribute_str], dict):
@@ -166,12 +170,12 @@ def grid_widget(widget, widget_template):
         sticky=widget_template["sticky"])
 
 
-def create_window(window_template, main_window_str, images_dir):
+def create_window(window_template, is_main_window=False):
     """This method creates the main window for the Time Stamper program."""
 
     # If we are creating the main window, it should be an instance of tkinter.Tk.
     # Otherwise, the window should be an instance of tkinter.Toplevel.
-    if window_template["str_key"] == main_window_str:
+    if is_main_window:
         window = Tk()
     else:
         window = Toplevel()
@@ -191,7 +195,7 @@ def create_window(window_template, main_window_str, images_dir):
         icon_file_name = window_template["icon_windows"]
 
     # Set the main window icon.
-    window.iconbitmap(join(images_dir, icon_file_name))
+    window.iconbitmap(join(classes.template.images_dir, icon_file_name))
 
     # Configure the main window's columns.
     for col_num in range(window_template["num_columns"]):
@@ -208,18 +212,18 @@ def create_window(window_template, main_window_str, images_dir):
     return window
 
 
-def create_image(images_dir, obj_template=None, image_file_name=None):
+def create_image(obj_template=None, image_file_name=None):
     """This method creates an image object for the Time Stamper program."""
 
     # If an image file name was passed, return a new PhotoImage from the corresponding image file.
     if image_file_name is not None:
-        return PhotoImage(file=join(images_dir, image_file_name))
+        return PhotoImage(file=join(classes.template.images_dir, image_file_name))
 
     # If there is no image file name but there is an object template, return
     # an image only if an image file name was specified in the object template.
     if obj_template is not None \
         and "image_file_name" in obj_template and obj_template["image_file_name"]:
-        return PhotoImage(file=join(images_dir, obj_template["image_file_name"]))
+        return PhotoImage(file=join(classes.template.images_dir, obj_template["image_file_name"]))
 
     # If there was neither a passed image file name nor an image
     # file name associated with the object template, return None.
