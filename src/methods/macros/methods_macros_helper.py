@@ -181,7 +181,7 @@ def toggle_widgets(widget_template, toggle_bool):
 
 
 def rebind_playback_buttons():
-    """This method rebinds the playback buttons (play, rewind and fast/forward)
+    """This method rebinds the playback buttons (play, rewind and fast-forward)
     to their respective macros for when they are pressed/released."""
 
     for button_str_key in ("button_play", "button_rewind", "button_fast_forward"):
