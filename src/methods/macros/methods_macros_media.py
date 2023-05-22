@@ -175,7 +175,7 @@ def final_media_handler(file_full_path, media_player):
     toggle_media_buttons(True)
 
     # Save the MediaPlayer as an attribute of the TimeStamper class.
-    classes.media_player = media_player
+    classes.time_stamper.media_player = media_player
 
     # Configure and enable the widgets associated with media.
     set_media_widgets(file_full_path)
@@ -190,7 +190,7 @@ def final_media_handler(file_full_path, media_player):
     # Close the logfile.
     instance = media_player.get_instance()
     instance.log_unset()
-    cdll.msvcrt.fclose(classes.log_file)
+    cdll.msvcrt.fclose(classes.time_stamper.log_file)
 
 
 def second_post_playing_handler(file_full_path, media_player):
@@ -205,7 +205,7 @@ def second_post_playing_handler(file_full_path, media_player):
 
     # Wait for a longer period, after which the program will be able
     # to confirm whether the media has any video output streams.
-    classes.root.after(500, final_media_handler, file_full_path, media_player)
+    classes.time_stamper.root.after(500, final_media_handler, file_full_path, media_player)
 
 
 def second_post_parsing_handler( _, file_full_path, media_player):
@@ -216,7 +216,7 @@ def second_post_parsing_handler( _, file_full_path, media_player):
     media_player.play()
 
     # Allow the media to play for a very brief period (~1 millisecond) before proceeding.
-    classes.root.after(1, second_post_playing_handler, file_full_path, media_player)
+    classes.time_stamper.root.after(1, second_post_playing_handler, file_full_path, media_player)
 
 
 def first_post_playing_handler(_, file_full_path, media_player, iteration):
@@ -270,7 +270,7 @@ def first_post_playing_handler(_, file_full_path, media_player, iteration):
             # Close the logfile.
             instance = media_player.get_instance()
             instance.log_unset()
-            cdll.msvcrt.fclose(classes.log_file)
+            cdll.msvcrt.fclose(classes.time_stamper.log_file)
 
         # If a message about VLC not being able to identify the audio/video codec
         # WAS NOT found in the log file, then this file IS valid for playback by
@@ -319,7 +319,7 @@ def first_post_parsing_handler(_, file_full_path, media_player, iteration):
         # Close the logfile.
         instance = media_player.get_instance()
         instance.log_unset()
-        cdll.msvcrt.fclose(classes.log_file)
+        cdll.msvcrt.fclose(classes.time_stamper.log_file)
 
 
 def validate_media_player(file_full_path, iteration=1):
@@ -357,7 +357,7 @@ def validate_media_player(file_full_path, iteration=1):
             # validated, only the media buttons will be re-enabled and the remaining
             # widgets that were disabled in this code block will NOT be re-enabled).
             toggle_media_buttons(False)
-            classes.media_player = None
+            classes.time_stamper.media_player = None
             reset_media_widgets()
             methods_helper.toggle_widgets(classes.template["button_media_select"], False)
 
@@ -371,8 +371,8 @@ def validate_media_player(file_full_path, iteration=1):
             fopen = cdll.msvcrt.fopen
             fopen.restype = FILE_ptr
             fopen.argtypes = (c_char_p, c_char_p)
-            classes.log_file = fopen(bytes(log_file_path, "utf-8"), b"w")
-            instance.log_set_file(classes.log_file)
+            classes.time_stamper.log_file = fopen(bytes(log_file_path, "utf-8"), b"w")
+            instance.log_set_file(classes.time_stamper.log_file)
 
         # Set the program to execute first_post_parsing_handler
         # once VLC has finished parsing the selected media.
@@ -386,11 +386,11 @@ def validate_media_player(file_full_path, iteration=1):
     else:
 
         # Stop the Time Stamper program's media player if it exists.
-        if isinstance(classes.media_player, MediaPlayer):
-            classes.media_player.stop()
+        if isinstance(classes.time_stamper.media_player, MediaPlayer):
+            classes.time_stamper.media_player.stop()
 
         # Erase the Time Stamper program's media player.
-        classes.media_player = None
+        classes.time_stamper.media_player = None
 
         # Reset and disable the widgets associated with media.
         reset_media_widgets()

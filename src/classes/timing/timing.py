@@ -47,8 +47,8 @@ class TimeStamperTimer():
         maximum time will be 359999.99 seconds unless a media player is loaded, in which case
         the maximum time will be the minimum of 359999.99 and the duration of the media player."""
 
-        if classes.media_player:
-            media = classes.media_player.get_media()
+        if classes.time_stamper.media_player:
+            media = classes.time_stamper.media_player.get_media()
             return min(359999.99, round(media.get_duration() / 1000, 2))
 
         return 359999.99
@@ -115,11 +115,11 @@ class TimeStamperTimer():
 
         # If a media player exists, update the position of the media time
         # slider as well as the displays of elapsed and remaining time.
-        if classes.media_player:
+        if classes.time_stamper.media_player:
 
             # Update the start time of the media if it is not playing.
-            if not classes.media_player.is_playing():
-                classes.media_player.set_time(int(new_time * 1000))
+            if not classes.time_stamper.media_player.is_playing():
+                classes.time_stamper.media_player.set_time(int(new_time * 1000))
 
             # Update the media time slider.
             classes.widgets["scale_media_time"].variable.set(new_time)
@@ -144,37 +144,37 @@ class TimeStamperTimer():
         if self.is_running:
 
             # Pause the media player.
-            classes.media_player.set_pause(True)
+            classes.time_stamper.media_player.set_pause(True)
 
             # If the current media player has not played before, adjust the media start time.
-            if classes.media_player.get_time() == -1:
-                media = classes.media_player.get_media()
+            if classes.time_stamper.media_player.get_time() == -1:
+                media = classes.time_stamper.media_player.get_media()
                 media.add_option(f"start-time={new_time}")
 
             # If the current media player has ended, we need to
             # initialize a new media player with the current media.
-            elif classes.media_player.get_state() == State.Ended:
-                media = classes.media_player.get_media()
-                classes.media_player = MediaPlayer()
-                classes.media_player.set_media(media)
+            elif classes.time_stamper.media_player.get_state() == State.Ended:
+                media = classes.time_stamper.media_player.get_media()
+                classes.time_stamper.media_player = MediaPlayer()
+                classes.time_stamper.media_player.set_media(media)
 
             # If the current media player has played before and has
             # not ended, adjust the media player using set_time.
             else:
-                classes.media_player.set_time(int(new_time * 1000))
+                classes.time_stamper.media_player.set_time(int(new_time * 1000))
 
             # If the volume is currently muted, set the media player's volume to zero.
             if classes.widgets["button_mute"].image == classes.widgets["volume_mute.png"]:
-                classes.media_player.audio_set_volume(0)
+                classes.time_stamper.media_player.audio_set_volume(0)
 
             # If the volume is not currently muted, set the media
             # player's volume to the value of the volume slider.
             else:
                 new_vol = int(100 - classes.widgets["scale_media_volume"].variable.get())
-                classes.media_player.audio_set_volume(new_vol)
+                classes.time_stamper.media_player.audio_set_volume(new_vol)
 
             # Play the media.
-            classes.media_player.play()
+            classes.time_stamper.media_player.play()
 
     def update_timer(self, new_time):
         """This method updates the timer to the new time passed
@@ -190,7 +190,7 @@ class TimeStamperTimer():
         self.display_time(new_time, pad=2)
 
         # Play the current media file if one is loaded.
-        if classes.media_player:
+        if classes.time_stamper.media_player:
             self.update_media(new_time)
 
     def timer_tick(self, prev_multiplier):
@@ -206,7 +206,9 @@ class TimeStamperTimer():
 
                 # Only tick the timer if the precise internal time
                 # is greater than 0 or if a media file is loaded.
-                media_playing = classes.media_player and classes.media_player.is_playing()
+                media_playing = classes.time_stamper.media_player \
+                    and classes.time_stamper.media_player.is_playing()
+
                 if internal_time > 0.0 or media_playing:
 
                     # Display the updated time.
@@ -233,8 +235,8 @@ class TimeStamperTimer():
 
                     # After the next hundreth second has elapsed, tick the timer again.
                     if self.multiplier == prev_multiplier:
-                        classes.root.after(thousandth_seconds_to_next_tick, \
-                            self.timer_tick, self.multiplier)
+                        classes.time_stamper.root.after(\
+                            thousandth_seconds_to_next_tick, self.timer_tick, self.multiplier)
 
                 # If the timer's currently displayed time is greater than 0, pause the timer.
                 else:
@@ -272,14 +274,14 @@ class TimeStamperTimer():
                 # cancelled, as this effectively means that the user was previously scrolling
                 # the media slider or timer entries but has not yet finished editing the time.
                 if self.scheduled_id:
-                    classes.root.after_cancel(self.scheduled_id)
+                    classes.time_stamper.root.after_cancel(self.scheduled_id)
 
                 # If a positive play delay was provided, schedule
                 # the timer to play after the play delay.
                 if play_delay > 0:
 
                     self.scheduled_id = \
-                        classes.root.after(int(play_delay * 1000), self.play, "prev")
+                        classes.time_stamper.root.after(int(play_delay * 1000), self.play, "prev")
 
                 # If a positive play delay was not provided, this effectively means
                 # that the user edited the media time scale by clicking on it instead of
@@ -302,8 +304,8 @@ class TimeStamperTimer():
             methods_helper.make_playback_button_images_visible()
 
             # Pause the media if it exists.
-            if classes.media_player:
-                classes.media_player.set_pause(True)
+            if classes.time_stamper.media_player:
+                classes.time_stamper.media_player.set_pause(True)
 
     def play(self, playback_type="play"):
         """This method starts the timer and is typically run when the play, rewind or
@@ -344,8 +346,8 @@ class TimeStamperTimer():
             current_time_seconds = self.get_current_seconds()
 
             # Play the current media file if one is loaded and we are not rewinding.
-            if classes.media_player and new_multiplier > 0.0:
-                classes.media_player.set_rate(new_multiplier)
+            if classes.time_stamper.media_player and new_multiplier > 0.0:
+                classes.time_stamper.media_player.set_rate(new_multiplier)
                 self.update_media(current_time_seconds)
 
             # Save the current raw time.

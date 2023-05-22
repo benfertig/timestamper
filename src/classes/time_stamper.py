@@ -31,12 +31,18 @@ class TimeStamper():
     """To run the Time Stamper program, first create an instance
     of this class. Then, call this class' run() method."""
 
+    def __init__(self):
+        self.root = None
+        self.media_player = None
+        self.log_file = None
+        self.play_press_time = 0.0
+
     def remove_func(self):
         """This method is used as the command for the Tkinter "Button"
         which, when placed, will remove the menu bar submenus from
         Mac computers while the Time Stamper program is running."""
 
-        classes.root.config(menu=Menu(classes.root))
+        self.root.config(menu=Menu(self.root))
 
     def remove_mac_menu_bar_submenus(self):
         """This method removes the menu bar submenus from Mac computers while
@@ -44,11 +50,11 @@ class TimeStamper():
         to be provided is the Time Stamper program's root window."""
 
         # Initialize the menu bar for the root window.
-        menubar = Menu(classes.root)
-        classes.root.config(menu=menubar)
+        menubar = Menu(self.root)
+        self.root.config(menu=menubar)
 
         # Create the "button" which, once placed, will remove the menu bar submenus.
-        remove_button = Button(classes.root, text="Remove", command = self.remove_func)
+        remove_button = Button(self.root, text="Remove", command = self.remove_func)
 
         # "Grid" the "button" that will remove the menu bar submenus (although
         # this "button" will neither be visible nor take up any space).
@@ -58,7 +64,7 @@ class TimeStamper():
         """This method runs the Time Stamper program."""
 
         # Create the main window and all of its widgets.
-        classes.root = classes.widgets.create_entire_window("window_main", is_main_window=True)
+        self.root = classes.widgets.create_entire_window("window_main", is_main_window=True)
 
         # If we are on a Mac, remove all of the submenus from the menu bar.
         if platform.startswith("darwin"):
@@ -86,4 +92,4 @@ class TimeStamper():
         # will change its configuration to reflect that a MEDIA file is active.
         classes.macros["button_media_select"](file_full_path=classes.settings["media"]["path"])
 
-        classes.root.mainloop()
+        self.root.mainloop()

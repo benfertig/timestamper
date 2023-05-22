@@ -38,14 +38,14 @@ def on_close_window_video_macro(window_video):
     classes.macros["button_pause"]()
 
     # Stop the media player.
-    if isinstance(classes.media_player, MediaPlayer):
-        classes.media_player.stop()
+    if isinstance(classes.time_stamper.media_player, MediaPlayer):
+        classes.time_stamper.media_player.stop()
 
     # Destroy the video window.
     window_video.destroy()
 
     # Configure the program to reflect that a media file is NOT enabled.
-    classes.media_player = None
+    classes.time_stamper.media_player = None
     methods_media.reset_media_widgets()
     methods_helper.toggle_widgets(classes.template["button_media_select"], False)
 

@@ -36,9 +36,12 @@ def playback_press_macro(playback_type):
 
     button_str_key = f"button_{playback_type}"
 
-    if isinstance(classes.media_player, MediaPlayer):
-        classes.media_player.set_fullscreen(False)
-        classes.media_player.video_set_scale(0)
+    # Rebind all of the playback buttons to their respective press/release macros.
+    methods_helper.rebind_playback_buttons()
+
+    if isinstance(classes.time_stamper.media_player, MediaPlayer):
+        classes.time_stamper.media_player.set_fullscreen(False)
+        classes.time_stamper.media_player.video_set_scale(0)
 
     # Enable and disable the relevant widgets for when this button is pressed.
     methods_helper.button_enable_disable_macro(classes.template[button_str_key])
@@ -47,11 +50,12 @@ def playback_press_macro(playback_type):
     classes.widgets[button_str_key].config(relief=SUNKEN)
 
     # Record the time that the button was pressed.
-    classes.play_press_time = classes.timer.get_current_seconds()
+    classes.time_stamper.play_press_time = classes.timer.get_current_seconds()
 
     # Schedule the timer to start after a short delay (this scheduled start will be
     # cancelled if the current button is released before the delay period has ended).
-    classes.timer.scheduled_id = classes.root.after(250, classes.timer.play, playback_type)
+    classes.timer.scheduled_id = \
+        classes.time_stamper.root.after(250, classes.timer.play, playback_type)
 
     return "break"
 
@@ -63,7 +67,8 @@ def playback_release_macro(playback_type):
     different parameters are passed depending on where this method is being called from."""
 
     button_str_key = f"button_{playback_type}"
-    classes.widgets[button_str_key].config(relief=RAISED)
+    button = classes.widgets[button_str_key]
+    button.config(relief=RAISED)
 
     # If the playback button HAS NOT been held long enough to initiate the timer...
     if classes.timer.scheduled_id:
@@ -74,6 +79,10 @@ def playback_release_macro(playback_type):
         # Start the timer.
         classes.timer.play(playback_type=playback_type)
 
+        # Unbind the button from its play/release macros temporarily.
+        button.unbind("<Button-1>")
+        button.unbind("<ButtonRelease-1>")
+
         # Return the timestamp, indicating that playback has started.
         return timestamp
 
@@ -83,7 +92,7 @@ def playback_release_macro(playback_type):
     classes.macros["button_pause"](force_suppress_message=True)
 
     # Reset the timer to where it was at when the current playback button was pressed.
-    classes.timer.display_time(classes.play_press_time)
+    classes.timer.display_time(classes.time_stamper.play_press_time)
 
     # Return None, indicating that playback has stopped.
     return None

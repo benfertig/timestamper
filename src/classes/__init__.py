@@ -25,16 +25,12 @@ import classes.template.template
 import classes.widgets.widgets
 import classes.timing.timing
 import classes.macros.macros
-
-root = None
-media_player = None
-log_file = None
-play_press_time = 0.0
+import classes.time_stamper
 
 settings = classes.settings.settings.TimeStamperSettings()
 template = classes.template.template.TimeStamperTemplate()
-
 widgets = classes.widgets.widgets.Widgets()
 timer = classes.timing.timing.TimeStamperTimer()
-
 macros = classes.macros.macros.Macros()
+
+time_stamper = classes.time_stamper.TimeStamper()

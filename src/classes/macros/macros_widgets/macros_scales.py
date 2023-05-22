@@ -33,7 +33,7 @@ def scale_media_time_macro(scale_value, called_from_scroll_function=False):
     the left, middle or right mouse button from the media slider)."""
 
     # If a media player was successfully retrieved...
-    if classes.media_player:
+    if classes.time_stamper.media_player:
 
         # If this method IS being called from scale_media_time_mousewheel_macro, then the
         # user is currently scrolling the media time scale, which means that the timer
@@ -77,7 +77,7 @@ def scale_media_time_mousewheel_macro(event):
     # On Mac platforms, the registered scroll amount does not need to be divided be 120.
     event_delta = event.delta if platform.startswith("darwin") else event.delta / 120
 
-    media = classes.media_player.get_media()
+    media = classes.time_stamper.media_player.get_media()
     scroll_sensitivity = (media.get_duration() / 1000) / 180
     # Adjust the media time slider's position to reflect the mousewheel scrolling.
     scroll_amount = event_delta * float(scroll_sensitivity) * \
@@ -90,8 +90,8 @@ def scale_media_time_mousewheel_macro(event):
     scale_media_time_macro(new_scale_value, called_from_scroll_function=True)
 
     # Determine whether media is playing/scheduled to play.
-    media_playing = classes.media_player \
-        and (classes.media_player.is_playing() or classes.timer.scheduled_id)
+    media_playing = classes.time_stamper.media_player \
+        and (classes.time_stamper.media_player.is_playing() or classes.timer.scheduled_id)
 
     # If media is currently playing/scheduled to play and the
     # timer was adjusted to the max time, pause the timer.
@@ -109,10 +109,10 @@ def scale_media_volume_macro(volume_scale_value):
     volume_scale_value = int(100 - float(volume_scale_value))
 
     # If a media player was successfully retrieved...
-    if classes.media_player:
+    if classes.time_stamper.media_player:
 
         # Adjust the volume of the media.
-        classes.media_player.audio_set_volume(volume_scale_value)
+        classes.time_stamper.media_player.audio_set_volume(volume_scale_value)
 
         # Update the label that displays the current volume level.
         classes.widgets["label_media_volume"]["text"] = str(volume_scale_value)

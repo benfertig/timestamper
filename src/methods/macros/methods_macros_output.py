@@ -76,7 +76,7 @@ def validate_output_file(file_full_path):
 
         # The rewind/fast-forward buttons should NOT be enabled when a
         # media file is loaded, even when a valid output file IS loaded.
-        if classes.media_player:
+        if classes.time_stamper.media_player:
             methods_helper.disable_button(classes.widgets["button_rewind"], \
                 classes.template["button_rewind"]["mac_disabled_color"])
             methods_helper.disable_button(classes.widgets["button_fast_forward"], \

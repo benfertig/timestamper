@@ -180,6 +180,17 @@ def toggle_widgets(widget_template, toggle_bool):
                 widget_toggle["state"] = DISABLED if toggle_bool else NORMAL
 
 
+def rebind_playback_buttons():
+    """This method rebinds the playback buttons (play, rewind and fast/forward)
+    to their respective macros for when they are pressed/released."""
+
+    for button_str_key in ("button_play", "button_rewind", "button_fast_forward"):
+        button = classes.widgets[button_str_key]
+        if not button.bind():
+            button.bind("<Button-1>", classes.macros[button_str_key])
+            button.bind("<ButtonRelease-1>", classes.macros[f"{button_str_key}_ONRELEASE"])
+
+
 def checkbutton_enable_disable_macro(checkbutton_template):
     """This method, which is called upon by several checkbutton macros, will either
     enable (if the user has just checked the checkbutton) or disable (if the user has

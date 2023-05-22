@@ -32,6 +32,9 @@ import methods.macros.methods_macros_timing as methods_timing
 def button_pause_macro(*_, force_suppress_message=False):
     """This method will be executed when the pause button is pressed."""
 
+    # Rebind all of the playback buttons to their respective press/release macros.
+    methods_helper.rebind_playback_buttons()
+
     # Enable and disable the relevant widgets for when the pause button is pressed.
     methods_helper.button_enable_disable_macro(classes.template["button_pause"])
 
@@ -50,6 +53,7 @@ def button_play_press_macro(*_):
     released on the play button, as is the default case with other buttons)."""
 
     methods_timing.playback_press_macro("play")
+    return "break"
 
 
 def button_rewind_press_macro(*_):
@@ -58,6 +62,7 @@ def button_rewind_press_macro(*_):
     released on the rewind button, as is the default case with other buttons)."""
 
     methods_timing.playback_press_macro("rewind")
+    return "break"
 
 
 def button_fast_forward_press_macro(*_):
@@ -66,6 +71,7 @@ def button_fast_forward_press_macro(*_):
     released on the fast-forward button, as is the default case with other buttons)."""
 
     methods_timing.playback_press_macro("fast_forward")
+    return "break"
 
 
 def button_play_release_macro(*_, force_suppress_message=False):
@@ -79,6 +85,8 @@ def button_play_release_macro(*_, force_suppress_message=False):
     if timestamp and not force_suppress_message:
         methods_output.attempt_button_message("button_play", timestamp=timestamp)
 
+    return "break"
+
 
 def button_rewind_release_macro(*_, force_suppress_message=False):
     """This method will be executed when the user releases
@@ -91,6 +99,8 @@ def button_rewind_release_macro(*_, force_suppress_message=False):
     if timestamp and not force_suppress_message:
         methods_output.attempt_button_message("button_rewind", timestamp=timestamp)
 
+    return "break"
+
 
 def button_fast_forward_release_macro(*_, force_suppress_message=False):
     """This method will be executed when the user releases the
@@ -102,6 +112,8 @@ def button_fast_forward_release_macro(*_, force_suppress_message=False):
     # of this method and the button message should not be force overridden.
     if timestamp and not force_suppress_message:
         methods_output.attempt_button_message("button_fast_forward", timestamp=timestamp)
+
+    return "break"
 
 
 def button_skip_backward_macro(*_):
@@ -132,7 +144,7 @@ def button_mute_macro(*_):
     """This method will be executed when the mute button is pressed."""
 
     # If a media player was successfully retrieved...
-    if classes.media_player:
+    if classes.time_stamper.media_player:
 
         # The way that the name of the current mute button image is
         # referenced changes depending on whether we are currently using a Mac.
@@ -148,7 +160,7 @@ def button_mute_macro(*_):
             volume_scale_value = int(100 - classes.widgets["scale_media_volume"].variable.get())
 
             # Set the volume to the current value of the volume slider.
-            classes.media_player.audio_set_volume(volume_scale_value)
+            classes.time_stamper.media_player.audio_set_volume(volume_scale_value)
 
             # The mute button image should reflect the current value of the volume slider.
             updated_image_str_key = methods_media.updated_mute_button_image(volume_scale_value)
@@ -157,7 +169,7 @@ def button_mute_macro(*_):
         else:
 
             # Mute the volume.
-            classes.media_player.audio_set_volume(0)
+            classes.time_stamper.media_player.audio_set_volume(0)
 
             # The mute button image should show that the media is now muted.
             updated_image_str_key = "volume_mute.png"
