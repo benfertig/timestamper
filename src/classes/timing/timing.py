@@ -146,18 +146,13 @@ class TimeStamperTimer():
             # Pause the media player.
             classes.time_stamper.media_player.set_pause(True)
 
-            # If the current media player has not played before, adjust the media start time.
-            if classes.time_stamper.media_player.get_time() == -1:
+            # If the current media player has not played before or the
+            # current media player has ended, adjust the media start time.
+            if classes.time_stamper.media_player.get_time() == -1 \
+                or classes.time_stamper.media_player.get_state() == State.Ended:
+
                 media = classes.time_stamper.media_player.get_media()
                 media.add_option(f"start-time={new_time}")
-
-            # If the current media player has ended, we need to
-            # initialize a new media player with the current media.
-            elif classes.time_stamper.media_player.get_state() == State.Ended:
-
-                media = classes.time_stamper.media_player.get_media()
-                methods_helper.attempt_media_player_release()
-                classes.time_stamper.media_player = MediaPlayer()
                 classes.time_stamper.media_player.set_media(media)
 
             # If the current media player has played before and has

@@ -188,12 +188,18 @@ def final_media_handler(file_full_path):
     set_media_widgets(file_full_path)
     methods_helper.toggle_widgets(classes.template["button_media_select"], True)
 
-    # If the selected media file is not a video, destroy the video window if it exists.
+    # If the selected media file IS NOT a video, destroy the video window if it exists.
     if not classes.time_stamper.media_player.has_vout() and \
         ("window_video" in classes.widgets.mapping \
         and classes.widgets.mapping["window_video"].winfo_exists()):
 
         classes.widgets["window_video"].destroy()
+
+    # If the selected media file IS a video, rebind the function for X-ing out the video window.
+    else:
+        window_video = classes.widgets["window_video"]
+        window_video.protocol("WM_DELETE_WINDOW", \
+            lambda: classes.macros.mapping["window_video_ONCLOSE"](window_video))
 
     # Close the logfile.
     instance = classes.time_stamper.media_player.get_instance()
@@ -238,6 +244,7 @@ def parse_second_time(file_full_path):
     # Reinitialize a MediaPlayer now that we know our media file is valid.
     classes.time_stamper.media_player = MediaPlayer(file_full_path)
     create_video_window()
+    classes.widgets["window_video"].protocol("WM_DELETE_WINDOW", lambda: None)
     media = classes.time_stamper.media_player.get_media()
     events = media.event_manager()
 
@@ -374,6 +381,7 @@ def validate_media_player(file_full_path, iteration=1):
         # get destroyed later if it is discovered that the selected
         # media file is either invalid or does not contain any video).
         create_video_window()
+        classes.widgets["window_video"].protocol("WM_DELETE_WINDOW", lambda: None)
 
         # Get the vlc.Media object associated with the new media player.
         media = classes.time_stamper.media_player.get_media()
