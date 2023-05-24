@@ -26,6 +26,16 @@ import classes
 # Contact: github.cqrde@simplelogin.com
 
 
+def attempt_media_player_release():
+    """This method tries to release the current media player. If this method
+    is unable to release the current media player, then nothing will happen."""
+
+    try:
+        classes.time_stamper.media_player.release()
+    except (AttributeError, OSError):
+        pass
+
+
 def make_playback_button_images_visible():
     """This method makes the images for the play, rewind and fast-forward buttons visible."""
 

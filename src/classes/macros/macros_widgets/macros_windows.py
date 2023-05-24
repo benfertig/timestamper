@@ -45,6 +45,7 @@ def on_close_window_video_macro(window_video):
     window_video.destroy()
 
     # Configure the program to reflect that a media file is NOT enabled.
+    methods_media.attempt_media_player_release()
     classes.time_stamper.media_player = None
     methods_media.reset_media_widgets()
     methods_helper.toggle_widgets(classes.template["button_media_select"], False)

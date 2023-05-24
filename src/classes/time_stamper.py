@@ -33,7 +33,7 @@ class TimeStamper():
 
     def __init__(self):
         self.root = None
-        self.media_player = None
+        self.media_player = MediaPlayer()
         self.log_file = None
         self.play_press_time = 0.0
 
@@ -75,16 +75,6 @@ class TimeStamper():
         # for the Time Stamper program. If this is the case, then the program
         # will change its configuration to reflect that an OUTPUT file is active.
         classes.macros["button_output_select"](file_full_path=classes.settings["output"]["path"])
-
-        # Create an object of type vlc.MediaPlayer without utilizing it, since the first
-        # time a MediaPlayer is initialized, VLC may raise many error messages on the command
-        # line. The typical end-user will not see these error messages because the command line
-        # will not be visible to them, but the error messages take time to generate, which can
-        # introduce lag into the Time Stamper program. For this reason, we create a MediaPlayer
-        # as soon as the TimeStamper program starts, as this will give the impression that
-        # the program is "booting up" (besides, the error messages themselves are not anything
-        # to be concerned about, as they do not appear to be program-breaking errors).
-        assert MediaPlayer()
 
         # Perform a check to see whether a default MEDIA file path was provided,
         # and if so, whether that path corresponds to a MEDIA file that is suitable

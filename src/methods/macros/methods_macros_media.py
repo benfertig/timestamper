@@ -55,7 +55,17 @@ def updated_mute_button_image(volume_scale_value):
     return "volume_high.png"
 
 
-def create_video_window(media_player):
+def attempt_media_player_release():
+    """This method tries to release the current media player. If this method
+    is unable to release the current media player, then nothing will happen."""
+
+    try:
+        classes.time_stamper.media_player.release()
+    except (AttributeError, OSError):
+        pass
+
+
+def create_video_window():
     """This method creates a video window for
     media_player (an object of type vlc.MediaPlayer)."""
 
@@ -72,14 +82,14 @@ def create_video_window(media_player):
     # TODO: set_hwnd likely needs to be replaced with
     # set_nsobject on Mac and set_xwindow on Linux.
     if platform.startswith("win"):
-        media_player.set_hwnd(classes.widgets["window_video"].winfo_id())
+        classes.time_stamper.media_player.set_hwnd(classes.widgets["window_video"].winfo_id())
     elif platform.startswith("darwin"):
-        media_player.set_nsobject(classes.widgets["window_video"].winfo_id())
+        classes.time_stamper.media_player.set_nsobject(classes.widgets["window_video"].winfo_id())
     else:
-        media_player.set_xwindow(classes.widgets["window_video"].winfo_id())
+        classes.time_stamper.media_player.set_xwindow(classes.widgets["window_video"].winfo_id())
 
-    media_player.set_fullscreen(False)
-    media_player.video_set_scale(0)
+    classes.time_stamper.media_player.set_fullscreen(False)
+    classes.time_stamper.media_player.video_set_scale(0)
 
 
 def toggle_media_buttons(to_enable):
@@ -166,7 +176,7 @@ def reset_media_widgets():
     button_mute.image = button_mute_image_new
 
 
-def final_media_handler(file_full_path, media_player):
+def final_media_handler(file_full_path):
     """This is the final method involved in the media file validation procedure. This method
     enables and configures all widgets relevant to media playback. If this method determines
     that the selected media file is not a video file, it will destroy the video window."""
@@ -174,66 +184,89 @@ def final_media_handler(file_full_path, media_player):
     # Re-enable all media widgets which were temporarily disabled during media file validation.
     toggle_media_buttons(True)
 
-    # Save the MediaPlayer as an attribute of the TimeStamper class.
-    classes.time_stamper.media_player = media_player
-
     # Configure and enable the widgets associated with media.
     set_media_widgets(file_full_path)
     methods_helper.toggle_widgets(classes.template["button_media_select"], True)
 
     # If the selected media file is not a video, destroy the video window if it exists.
-    if not media_player.has_vout() and ("window_video" in classes.widgets.mapping \
+    if not classes.time_stamper.media_player.has_vout() and \
+        ("window_video" in classes.widgets.mapping \
         and classes.widgets.mapping["window_video"].winfo_exists()):
 
         classes.widgets["window_video"].destroy()
 
     # Close the logfile.
-    instance = media_player.get_instance()
+    instance = classes.time_stamper.media_player.get_instance()
     instance.log_unset()
     cdll.msvcrt.fclose(classes.time_stamper.log_file)
 
 
-def second_post_playing_handler(file_full_path, media_player):
+def second_post_playing_handler(file_full_path):
     """This method gets executed once the selected media has both been completely
     verified as valid and has been playing for approximately one millisecond."""
 
     # Pause the media.
-    media_player.set_pause(True)
+    classes.time_stamper.media_player.set_pause(True)
 
     # Reset the media back to its start time.
-    media_player.set_time(0)
+    classes.time_stamper.media_player.set_time(0)
 
     # Wait for a longer period, after which the program will be able
     # to confirm whether the media has any video output streams.
-    classes.time_stamper.root.after(500, final_media_handler, file_full_path, media_player)
+    classes.time_stamper.root.after(500, final_media_handler, file_full_path)
 
 
-def second_post_parsing_handler( _, file_full_path, media_player):
+def second_post_parsing_handler(_, file_full_path):
     """This method gets executed once VLC has both verified that the selected
     media file is valid for playback and finished parsing the media source."""
 
     # Play the media.
-    media_player.play()
+    classes.time_stamper.media_player.play()
 
     # Allow the media to play for a very brief period (~1 millisecond) before proceeding.
-    classes.time_stamper.root.after(1, second_post_playing_handler, file_full_path, media_player)
+    classes.time_stamper.root.after(1, second_post_playing_handler, file_full_path)
 
 
-def first_post_playing_handler(_, file_full_path, media_player, iteration):
+def parse_second_time(file_full_path):
+    """If a message about VLC not being able to identify the audio/video
+    codec WAS NOT found in the log file, then the selected media file
+    IS valid for playback by VLC and this method will be executed."""
+
+    # Try to release the current media player.
+    attempt_media_player_release()
+
+    # Reinitialize a MediaPlayer now that we know our media file is valid.
+    classes.time_stamper.media_player = MediaPlayer(file_full_path)
+    create_video_window()
+    media = classes.time_stamper.media_player.get_media()
+    events = media.event_manager()
+
+    # Set the program to configure and enable/disable the relevant widgets to reflect
+    # that a valid output file IS active once the media has finished parsing.
+    events.event_attach(EventType.MediaParsedChanged, \
+        second_post_parsing_handler, file_full_path)
+
+    # Parse the media.
+    media.parse_with_options(1, -1)
+
+
+def first_post_playing_handler(_, file_full_path, iteration):
     """If VLC has successfully parsed the selected media file, then this
     method will get executed once the state of the media player switches
     to vlc.State.Playing. This method will then examine the libvlc logfiles
     to determine whether the selected file is valid for playback in VLC."""
 
     # Pause the media player.
-    media_player.set_pause(True)
+    classes.time_stamper.media_player.set_pause(True)
 
     # If this method is being called for the first time on the selected media file, we should
     # run through the validation procedure again to give the program more time to fill out the
     # logfile, as the text we are looking for in the logfile has likely not yet been printed.
     if iteration == 1:
 
-        validate_media_player(file_full_path, iteration=2)
+        classes.time_stamper.root.after(5, validate_media_player, file_full_path, 2)
+
+        #validate_media_player(file_full_path, iteration=2)
 
     # If this method is being called for the second time on the selected
     # media file, we should scan the logfile to ensure that no error messages
@@ -268,46 +301,37 @@ def first_post_playing_handler(_, file_full_path, media_player, iteration):
             toggle_media_buttons(True)
 
             # Close the logfile.
-            instance = media_player.get_instance()
+            instance = classes.time_stamper.media_player.get_instance()
             instance.log_unset()
             cdll.msvcrt.fclose(classes.time_stamper.log_file)
 
-        # If a message about VLC not being able to identify the audio/video codec
-        # WAS NOT found in the log file, then this file IS valid for playback by
-        # VLC, so we should change the configuration of the program to reflect this.
+            # Try to release the current media player.
+            attempt_media_player_release()
+            classes.time_stamper.media_player = None
+
+        # If a message about VLC not being able to identify the
+        # audio/video codec WAS NOT found in the log file...
         else:
 
-            # Reinitialize a MediaPlayer now that we know our media file is valid.
-            media_player = MediaPlayer(file_full_path)
-            create_video_window(media_player)
-            media = media_player.get_media()
-            events = media.event_manager()
-
-            # Set the program to configure and enable/disable the relevant widgets to reflect
-            # that a valid output file IS active once the media has finished parsing.
-            events.event_attach(EventType.MediaParsedChanged, \
-                second_post_parsing_handler, file_full_path, media_player)
-
-            # Parse the media.
-            media.parse_with_options(1, -1)
+            classes.time_stamper.root.after(5, parse_second_time, file_full_path)
 
 
-def first_post_parsing_handler(_, file_full_path, media_player, iteration):
+def first_post_parsing_handler(_, file_full_path, iteration):
     """This method gets executed when VLC's parsing of the selected media
     file has terminated. If the parsing was successful, the program will then
     try to play the media. If the parsing was unsuccessful, the program will
     change its configuration to reflect that a valid media file IS NOT active."""
 
     # If a parsed media file WAS generated...
-    if media_player.get_media().get_parsed_status() == MediaParsedStatus.done:
+    if classes.time_stamper.media_player.get_media().get_parsed_status() == MediaParsedStatus.done:
 
         # Attach an event handler for when the media starts playing.
-        events = media_player.event_manager()
+        events = classes.time_stamper.media_player.event_manager()
         events.event_attach(EventType.MediaPlayerPlaying, \
-            first_post_playing_handler, file_full_path, media_player, iteration)
+            first_post_playing_handler, file_full_path, iteration)
 
         # Play the media.
-        media_player.play()
+        classes.time_stamper.media_player.play()
 
     # If a parsed media file WAS NOT generated...
     else:
@@ -317,9 +341,13 @@ def first_post_parsing_handler(_, file_full_path, media_player, iteration):
         toggle_media_buttons(True)
 
         # Close the logfile.
-        instance = media_player.get_instance()
+        instance = classes.time_stamper.media_player.get_instance()
         instance.log_unset()
         cdll.msvcrt.fclose(classes.time_stamper.log_file)
+
+        # Try to release the current media player.
+        attempt_media_player_release()
+        classes.time_stamper.media_player = None
 
 
 def validate_media_player(file_full_path, iteration=1):
@@ -336,16 +364,19 @@ def validate_media_player(file_full_path, iteration=1):
 
     if file_full_path:
 
+        # Try to release the current media player.
+        attempt_media_player_release()
+
         # Create a new media player using the selected media file.
-        media_player = MediaPlayer(file_full_path)
+        classes.time_stamper.media_player = MediaPlayer(file_full_path)
 
         # Create a window for the media player (which will potentially
         # get destroyed later if it is discovered that the selected
         # media file is either invalid or does not contain any video).
-        create_video_window(media_player)
+        create_video_window()
 
         # Get the vlc.Media object associated with the new media player.
-        media = media_player.get_media()
+        media = classes.time_stamper.media_player.get_media()
 
         # Get the event manager associated with the media.
         events = media.event_manager()
@@ -357,7 +388,6 @@ def validate_media_player(file_full_path, iteration=1):
             # validated, only the media buttons will be re-enabled and the remaining
             # widgets that were disabled in this code block will NOT be re-enabled).
             toggle_media_buttons(False)
-            classes.time_stamper.media_player = None
             reset_media_widgets()
             methods_helper.toggle_widgets(classes.template["button_media_select"], False)
 
@@ -367,7 +397,7 @@ def validate_media_player(file_full_path, iteration=1):
                 remove(log_file_path)
 
             # Set libvlc to publish its log to a location which we can reference later.
-            instance = media_player.get_instance()
+            instance = classes.time_stamper.media_player.get_instance()
             fopen = cdll.msvcrt.fopen
             fopen.restype = FILE_ptr
             fopen.argtypes = (c_char_p, c_char_p)
@@ -377,7 +407,7 @@ def validate_media_player(file_full_path, iteration=1):
         # Set the program to execute first_post_parsing_handler
         # once VLC has finished parsing the selected media.
         events.event_attach(EventType.MediaParsedChanged, \
-            first_post_parsing_handler, file_full_path, media_player, iteration)
+            first_post_parsing_handler, file_full_path, iteration)
 
         # Attempt to parse the selected media.
         media.parse_with_options(1, -1)
@@ -389,7 +419,8 @@ def validate_media_player(file_full_path, iteration=1):
         if isinstance(classes.time_stamper.media_player, MediaPlayer):
             classes.time_stamper.media_player.stop()
 
-        # Erase the Time Stamper program's media player.
+        # Try to release the current media player.
+        attempt_media_player_release()
         classes.time_stamper.media_player = None
 
         # Reset and disable the widgets associated with media.
