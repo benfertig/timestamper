@@ -4,7 +4,7 @@ for keeping track of time in the Time Stamper program."""
 
 from math import ceil
 from time import perf_counter
-from vlc import MediaPlayer, State
+from vlc import State
 
 import classes
 import methods.timing.methods_timing_helper as methods_helper
