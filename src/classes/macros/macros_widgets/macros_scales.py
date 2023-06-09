@@ -71,34 +71,37 @@ def scale_media_time_release_macro(*_):
 def scale_media_time_mousewheel_macro(event):
     """This method gets executed when the mousewheel is moved over the media time slider."""
 
-    scale = classes.widgets["scale_media_time"]
-    scale_template = classes.template["scale_media_time"]
+    # Only run the method if a media player is currently active.
+    if classes.time_stamper.media_player:
 
-    # On Mac platforms, the registered scroll amount does not need to be divided be 120.
-    event_delta = event.delta if platform.startswith("darwin") else event.delta / 120
+        scale = classes.widgets["scale_media_time"]
+        scale_template = classes.template["scale_media_time"]
 
-    media = classes.time_stamper.media_player.get_media()
-    scroll_sensitivity = (media.get_duration() / 1000) / 180
-    # Adjust the media time slider's position to reflect the mousewheel scrolling.
-    scroll_amount = event_delta * float(scroll_sensitivity) * \
-        (-1 if scale_template["reverse_scroll_direction"] else 1)
-    scale_current_value = scale.get()
+        # On Mac platforms, the registered scroll amount does not need to be divided be 120.
+        event_delta = event.delta if platform.startswith("darwin") else event.delta / 120
 
-    # Set the media time slider to its adjusted position.
-    new_scale_value = scale_current_value + scroll_amount
-    new_scale_value = min(classes.timer.get_max_time(), max(0.0, new_scale_value))
-    scale_media_time_macro(new_scale_value, called_from_scroll_function=True)
+        # Calculate the amount that the media time slider should be adjusted by.
+        media = classes.time_stamper.media_player.get_media()
+        scroll_sensitivity = (media.get_duration() / 1000) / 180
+        scroll_amount = event_delta * float(scroll_sensitivity) * \
+            (-1 if scale_template["reverse_scroll_direction"] else 1)
 
-    # Determine whether media is playing/scheduled to play.
-    media_playing = classes.time_stamper.media_player \
-        and (classes.time_stamper.media_player.is_playing() or classes.timer.scheduled_id)
+        # Set the media time slider to its adjusted position.
+        scale_current_value = scale.get()
+        new_scale_value = scale_current_value + scroll_amount
+        new_scale_value = min(classes.timer.get_max_time(), max(0.0, new_scale_value))
+        scale_media_time_macro(new_scale_value, called_from_scroll_function=True)
 
-    # If media is currently playing/scheduled to play and the
-    # timer was adjusted to the max time, pause the timer.
-    max_time = classes.timer.get_max_time()
-    if media_playing and classes.timer.get_current_seconds() >= max_time:
-        classes.timer.display_time(max_time, pad=2)
-        classes.macros["button_pause"]()
+        # Determine whether media is playing/scheduled to play.
+        media_playing = classes.time_stamper.media_player \
+            and (classes.time_stamper.media_player.is_playing() or classes.timer.scheduled_id)
+
+        # If media is currently playing/scheduled to play and the
+        # timer was adjusted to the max time, pause the timer.
+        max_time = classes.timer.get_max_time()
+        if media_playing and classes.timer.get_current_seconds() >= max_time:
+            classes.timer.display_time(max_time, pad=2)
+            classes.macros["button_pause"]()
 
 
 def scale_media_volume_macro(volume_scale_value):
