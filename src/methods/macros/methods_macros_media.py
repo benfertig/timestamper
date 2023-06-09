@@ -74,6 +74,10 @@ def create_video_window():
         and classes.widgets.mapping["window_video"].winfo_exists():
         classes.widgets["window_video"].destroy()
 
+    # Set the window properties for the media player.
+    classes.time_stamper.media_player.set_fullscreen(False)
+    classes.time_stamper.media_player.video_set_scale(0)
+
     # Create the video window.
     classes.widgets.create_entire_window("window_video")
 
@@ -87,9 +91,6 @@ def create_video_window():
         classes.time_stamper.media_player.set_nsobject(classes.widgets["window_video"].winfo_id())
     else:
         classes.time_stamper.media_player.set_xwindow(classes.widgets["window_video"].winfo_id())
-
-    classes.time_stamper.media_player.set_fullscreen(False)
-    classes.time_stamper.media_player.video_set_scale(0)
 
 
 def toggle_media_buttons(to_enable):
@@ -243,8 +244,14 @@ def parse_second_time(file_full_path):
 
     # Reinitialize a MediaPlayer now that we know our media file is valid.
     classes.time_stamper.media_player = MediaPlayer(file_full_path)
+
+    # Create a window for the media player (which will potentially
+    # get destroyed later if it is discovered that the selected
+    # media file is either invalid or does not contain any video).
     create_video_window()
     classes.widgets["window_video"].protocol("WM_DELETE_WINDOW", lambda: None)
+
+    # Retrieve the media and the media's event manager from the media player.
     media = classes.time_stamper.media_player.get_media()
     events = media.event_manager()
 
