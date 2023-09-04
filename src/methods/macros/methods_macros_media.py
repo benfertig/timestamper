@@ -235,8 +235,8 @@ def second_post_parsing_handler(_, file_full_path):
 
 
 def parse_second_time(file_full_path):
-    """If a message about VLC not being able to identify the audio/video
-    codec WAS NOT found in the log file, then the selected media file
+    """If a message about the selected media file not being an audio/video
+    file WAS NOT found in the log file, then the selected media file
     IS valid for playback by VLC and this method will be executed."""
 
     # Try to release the current media player.
@@ -280,29 +280,37 @@ def first_post_playing_handler(_, file_full_path, iteration):
 
         classes.time_stamper.root.after(5, validate_media_player, file_full_path, 2)
 
-        #validate_media_player(file_full_path, iteration=2)
-
     # If this method is being called for the second time on the selected
     # media file, we should scan the logfile to ensure that no error messages
     # were recorded that indicate this file is not suitable for VLC playback.
     else:
 
-        # Scan the log file for a message about VLC not
-        # being able to identify the audio/video codec.
-        bad_codec = False
+        # Scan the log file for any messages indicating that
+        # the selected media file is not an audio/video file.
+        good_media_file = True
         with open(join(dirname(classes.settings.user_json_path), \
             "out.log"), "r", encoding="utf-8") as log_file:
 
             lines = log_file.readlines()
+            bad_line_starts = \
+                ("garbage at input from", "VLC could not identify the audio or video codec")
             for line in lines:
-                if line == "VLC could not identify the audio or video codec\n":
-                    bad_codec = True
-                    break
+                for bad_start in bad_line_starts:
+                    if len(line) >= len(bad_start) and line[:len(bad_start)] == bad_start:
+                        good_media_file = False
+                        break
 
-        # If a message about VLC not being able to identify the audio/video codec
+        # If a message about the selected media file not being an audio/video
+        # file WAS NOT found in the log file, proceed with the media
+        # file validation by parsing the media file a second time.
+        if good_media_file:
+
+            classes.time_stamper.root.after(5, parse_second_time, file_full_path)
+
+        # If a message about the selected media file not being an audio/video file
         # WAS found in the log file, then this file IS NOT valid for playback by
-        # VLC, so we should NOT enable the widgets associated with media playback.
-        if bad_codec:
+        # VLC so we should NOT enable the widgets associated with media playback.
+        else:
 
             # Destroy the video window if it exists.
             if "window_video" in classes.widgets.mapping \
@@ -320,14 +328,8 @@ def first_post_playing_handler(_, file_full_path, iteration):
             cdll.msvcrt.fclose(classes.time_stamper.log_file)
 
             # Try to release the current media player.
-            attempt_media_player_release()
+            #attempt_media_player_release()
             classes.time_stamper.media_player = None
-
-        # If a message about VLC not being able to identify the
-        # audio/video codec WAS NOT found in the log file...
-        else:
-
-            classes.time_stamper.root.after(5, parse_second_time, file_full_path)
 
 
 def first_post_parsing_handler(_, file_full_path, iteration):
