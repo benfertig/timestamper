@@ -150,10 +150,11 @@ If you would like to run and build this program from the source code, check out 
             * Specifically, the following images were used:
                 * [Pause icon](https://www.iconfinder.com/icons/211871/pause_icon)
                 * [Play icon](https://www.iconfinder.com/icons/211801/play_icon)
-                * [Stop icon](https://www.iconfinder.com/icons/211931/stop_icon)
                 * [Rewind icon](https://www.iconfinder.com/icons/211816/rewind_icon)
                 * [Fastforward icon](https://www.iconfinder.com/icons/211741/fastforward_icon)
-                * [Record icon](https://www.iconfinder.com/icons/211881/record_icon)
+                * [Skipbackward icon](https://www.iconfinder.com/icons/211820/skipbackward_icon)
+                * [Skipforward icon](https://www.iconfinder.com/icons/211822/skipforward_icon)
+                * [Close icon](https://www.iconfinder.com/icons/211652/close_icon)
                 * [Gear icon](https://www.iconfinder.com/icons/211751/gear_icon)
                 * [Volume, mute icon](https://www.iconfinder.com/icons/211942/volume_mute_icon)
                 * [Volume, low icon](https://www.iconfinder.com/icons/211845/volume_low_icon)
