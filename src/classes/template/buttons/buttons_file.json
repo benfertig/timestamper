@@ -22,6 +22,22 @@
 
     },
 
+    "button_cancel_output": {
+
+        "str_key": "button_cancel_output",
+
+        "image_file_name": "close.png",
+
+        "width": 12,
+        "height": 12,
+
+        "column": 9,
+        "row": 2,
+
+        "sticky": "ne"
+
+    },
+
     "button_merge_output_files": {
 
         "str_key": "button_merge_output_files",
@@ -61,6 +77,22 @@
                 "ipadx": 12
             }
         }
+
+    },
+
+    "button_cancel_media": {
+
+        "str_key": "button_cancel_media",
+
+        "image_file_name": "close.png",
+
+        "width": 12,
+        "height": 12,
+
+        "column": 16,
+        "row": 2,
+
+        "sticky": "ne"
 
     }
 
