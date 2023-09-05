@@ -4,7 +4,10 @@ file buttons in the Time Stamper program are pressed."""
 
 from tkinter import filedialog
 
+from vlc import MediaPlayer
+
 import classes
+import methods.macros.methods_macros_helper as methods_helper
 import methods.macros.methods_macros_media as methods_media
 import methods.macros.methods_macros_output as methods_output
 
@@ -34,8 +37,10 @@ finally:
 # Contact: github.cqrde@simplelogin.com
 
 
-def button_output_select_macro(*_, file_full_path=None):
-    """This method will be executed when the "Choose output location" button is pressed."""
+def button_output_select_macro(*_, file_full_path=None, erase_if_empty=False):
+    """This method will be executed when the "Choose output location" button is pressed.
+    The optional argument erase_if_empty, which is set to False by default, determines
+    whether the previous output file should be cancelled if no output file is specified."""
 
     if file_full_path is None:
 
@@ -47,8 +52,24 @@ def button_output_select_macro(*_, file_full_path=None):
             initialdir=classes.template.starting_dir, filetypes=file_types)
 
     # Check whether or not the selected output file is valid and respond accordingly.
-    methods_output.validate_output_file(file_full_path)
+    methods_output.validate_output_file(file_full_path, erase_if_empty=erase_if_empty)
 
+
+def button_cancel_output_macro(*_):
+    """This method will be executed when the cancel output button is pressed."""
+
+    # Enable and disable the relevant widgets for when the cancel output button is pressed.
+    methods_helper.button_enable_disable_macro(classes.template["button_cancel_output"])
+
+    # Reset the output path in the TimeStamper class.
+    classes.time_stamper.output_path = ""
+
+    # Configure the relevant widgets to reflect that a valid output
+    # file IS NOT active (distinct from enabling/disabling widgets).
+    methods_output.reset_output_widgets()
+
+    # Enable/disable the relevant widgets to reflect that a valid output file IS NOT active.
+    methods_helper.toggle_widgets(classes.template["button_output_select"], False)
 
 def button_merge_output_files_macro(*_):
     """This method will be executed when the "Merge output files" button is pressed."""
@@ -62,14 +83,16 @@ def button_merge_output_files_macro(*_):
     window_merge_first_message.mainloop()
 
 
-def button_media_select_macro(*_, file_full_path=None):
+def button_media_select_macro(*_, file_full_path=None, erase_if_empty=False):
     """This method will be executed when the "Select synced media file" button is pressed.
     This method can also be called independently of pressing of the "Select synced media
-    file" button (as is done in the run() method of TimeStamper in time_stamper.py). When
+    file" button, as is done in the run() method of TimeStamper in time_stamper.py. When
     calling this method from TimeStamper.run() in time_stamper.py, file_full_path is set
     to the value of TimeStamper.settings["media"]["path"]. Even if the initial media file
     validation fails on this value, it is imporant to at least attempt this initial media
-    file validation (see the docstring for validate_media_player for more information)."""
+    file validation (see the docstring for validate_media_player for more information).
+    The optional argument erase_if_empty, which is set to False by default, determines
+    whether the previous media file should be cancelled if no media file is specified."""
 
     if file_full_path is None:
 
@@ -119,4 +142,23 @@ def button_media_select_macro(*_, file_full_path=None):
             initialdir=classes.template.starting_dir, filetypes=file_types)
 
     # Check whether or not the selected media file is valid and respond accordingly.
-    methods_media.validate_media_player(file_full_path)
+    methods_media.validate_media_player(file_full_path, erase_if_empty=erase_if_empty)
+
+
+def button_cancel_media_macro(*_):
+    """This method will be executed when the cancel media button is pressed."""
+
+    # Enable and disable the relevant widgets for when the cancel media button is pressed.
+    methods_helper.button_enable_disable_macro(classes.template["button_cancel_media"])
+
+    # Stop the Time Stamper program's media player if it exists.
+    if isinstance(classes.time_stamper.media_player, MediaPlayer):
+        classes.time_stamper.media_player.stop()
+
+    # Try to release the current media player.
+    methods_media.attempt_media_player_release()
+    classes.time_stamper.media_player = None
+
+    # Reset and disable the widgets associated with media.
+    methods_media.reset_media_widgets()
+    methods_helper.toggle_widgets(classes.template["button_media_select"], False)

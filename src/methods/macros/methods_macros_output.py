@@ -56,38 +56,47 @@ def attempt_button_message(button_str_key, timestamp=None, **user_variables):
             print_timestamped_message(f"{button_message}\n", timestamp)
 
 
-def validate_output_file(file_full_path):
-    """This method will check the validity of the path that is
-    currently displayed in the output path entry widget to make sure
-    it corresponds to a valid text file that can be read and written to.
-    This method will then edit the configuration of the program depending
-    on whether or not that path corresponds to a valid text file."""
+def validate_output_file(file_full_path, erase_if_empty=False):
+    """This method will check the validity of the path that is currently displayed in
+    the output path entry widget to make sure it corresponds to a valid text file that
+    can be read and written to. This method will then edit the configuration of the
+    program depending on whether or not that path corresponds to a valid text file.
+    The optional argument erase_if_empty, which is set to False by default, determines
+    whether the previous output file should be cancelled if no output file is specified."""
 
-    # If the current path in the output path entry widget DOES correspond to a valid text
-    # file, edit the configuration of the program to reflect that an output file is active.
-    if file_full_path and verify_text_file(file_full_path, True, True):
+    valid_text_file = True
 
-        # Store the output path as a class attribute of the TimeStamper class.
-        classes.time_stamper.output_path = file_full_path
+    # If the a non-empty value was specified for the file path...
+    if file_full_path:
 
-        # Configure the relevant widgets to reflect that a valid output
-        # file IS active (distinct from enabling/disabling widgets).
-        set_output_widgets(file_full_path)
+        # Check whether the specified file path corresponds to a valid text file.
+        valid_text_file = verify_text_file(file_full_path, True, True)
 
-        # Enable/disable the relevant widgets to reflect that a valid output file IS active.
-        methods_helper.toggle_widgets(classes.template["button_output_select"], True)
+        # If the specified file path corresponds to a valid text file...
+        if valid_text_file:
 
-        # The rewind/fast-forward buttons should NOT be enabled when a
-        # media file is loaded, even when a valid output file IS loaded.
-        if classes.time_stamper.media_player:
-            methods_helper.disable_button(classes.widgets["button_rewind"], \
-                classes.template["button_rewind"]["mac_disabled_color"])
-            methods_helper.disable_button(classes.widgets["button_fast_forward"], \
-                classes.template["button_fast_forward"]["mac_disabled_color"])
+            # Store the output path as a class attribute of the TimeStamper class.
+            classes.time_stamper.output_path = file_full_path
 
-    # If the current path in the output path entry widget DOES NOT correspond
-    # to a valid text file, reset and disable the relevant widgets.
-    else:
+            # Configure the relevant widgets to reflect that a valid output
+            # file IS active (distinct from enabling/disabling widgets).
+            set_output_widgets(file_full_path)
+
+            # Enable/disable the relevant widgets to reflect that a valid output file IS active.
+            methods_helper.toggle_widgets(classes.template["button_output_select"], True)
+
+            # The rewind/fast-forward buttons should NOT be enabled when a
+            # media file is loaded, even when a valid output file IS loaded.
+            if classes.time_stamper.media_player:
+                methods_helper.disable_button(classes.widgets["button_rewind"], \
+                    classes.template["button_rewind"]["mac_disabled_color"])
+                methods_helper.disable_button(classes.widgets["button_fast_forward"], \
+                    classes.template["button_fast_forward"]["mac_disabled_color"])
+
+    # If EITHER no file path was specified and it was requested that the current output file be
+    # disabled when no file path is specified, OR if a file path was specified and the file path
+    # does not correspond to a valid text file, then reset and disable the relevant widgets.
+    if (erase_if_empty and not file_full_path) or not valid_text_file:
 
         # Reset the output path in the TimeStamper class.
         classes.time_stamper.output_path = ""

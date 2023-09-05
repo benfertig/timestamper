@@ -366,11 +366,13 @@ def first_post_parsing_handler(_, file_full_path, iteration):
         classes.time_stamper.media_player = None
 
 
-def validate_media_player(file_full_path, iteration=1):
+def validate_media_player(file_full_path, iteration=1, erase_if_empty=False):
     """This method will try to create a media player based on the file path provided
     in file_full_path. If a media player was successfully created, then this method
     will configure the program to reflect that a media player IS active. Otherwise, this
-    method will configure the program to reflect that a media player IS NOT active."""
+    method will configure the program to reflect that a media player IS NOT active.
+    The optional argument erase_if_empty, which is set to False by default, determines
+    whether the previous media file should be cancelled if no media file is specified."""
 
     # Destroy the video window if it exists.
     if "window_video" in classes.widgets.mapping and \
@@ -429,8 +431,9 @@ def validate_media_player(file_full_path, iteration=1):
         # Attempt to parse the selected media.
         media.parse_with_options(1, -1)
 
-    # If no media file was selected, no media will be loaded.
-    else:
+    # If no media path was specified and it was requested that the current media file be
+    # disabled when no media path is specified, then reset and disable the relevant widgets.
+    elif erase_if_empty:
 
         # Stop the Time Stamper program's media player if it exists.
         if isinstance(classes.time_stamper.media_player, MediaPlayer):

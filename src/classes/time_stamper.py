@@ -46,9 +46,8 @@ class TimeStamper():
         self.root.config(menu=Menu(self.root))
 
     def remove_mac_menu_bar_submenus(self):
-        """This method removes the menu bar submenus from Mac computers while
-        the Time Stamper program is running. The only argument that needs
-        to be provided is the Time Stamper program's root window."""
+        """This method removes the menu bar submenus from Mac
+        computers while the Time Stamper program is running."""
 
         # Initialize the menu bar for the root window.
         menubar = Menu(self.root)
@@ -71,16 +70,20 @@ class TimeStamper():
         if platform.startswith("darwin"):
             self.remove_mac_menu_bar_submenus()
 
-        # Perform a check to see whether a default OUTPUT file path was provided,
-        # and if so, whether that path corresponds to a TEXT file that is suitable
-        # for the Time Stamper program. If this is the case, then the program
-        # will change its configuration to reflect that an OUTPUT file is active.
-        classes.macros["button_output_select"](file_full_path=classes.settings["output"]["path"])
+        # Perform a check to see whether a default OUTPUT file path was provided, and
+        # if so, whether that path corresponds to a TEXT file that is suitable for the
+        # Time Stamper program. If this is the case, then the program will change its
+        # configuration to reflect that an OUTPUT file IS active. Otherwise, the program
+        # will change its configuration to reflect that an OUTPUT file IS NOT active.
+        classes.macros["button_output_select"](\
+            file_full_path=classes.settings["output"]["path"], erase_if_empty=True)
 
-        # Perform a check to see whether a default MEDIA file path was provided,
-        # and if so, whether that path corresponds to a MEDIA file that is suitable
-        # for the Time Stamper program. If this is the case, then the program
-        # will change its configuration to reflect that a MEDIA file is active.
-        classes.macros["button_media_select"](file_full_path=classes.settings["media"]["path"])
+        # Perform a check to see whether a default MEDIA file path was provided, and
+        # if so, whether that path corresponds to a MEDIA file that is suitable for the
+        # Time Stamper program. If this is the case, then the program will change its
+        # configuration to reflect that a MEDIA file IS active. Otherwise, the program
+        # will change its configuration to reflect that a MEDIA file IS NOT active.
+        classes.macros["button_media_select"](\
+            file_full_path=classes.settings["media"]["path"], erase_if_empty=True)
 
         self.root.mainloop()
