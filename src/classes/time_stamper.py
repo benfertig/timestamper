@@ -33,6 +33,7 @@ class TimeStamper():
 
     def __init__(self):
         self.root = None
+        self.output_path = ""
         self.media_player = MediaPlayer()
         self.log_file = None
         self.play_press_time = 0.0

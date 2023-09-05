@@ -14,7 +14,7 @@
             "print_message_attribute": "message"
         },
 
-        "to_enable": ["button_play", "button_rewind", "button_fast_forward", "button_output_select", "button_cancel_output", "button_merge_output_files", "button_media_select", "button_cancel_media", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
+        "to_enable": ["button_play", "button_rewind", "button_fast_forward", "button_output_select", "button_merge_output_files", "button_media_select", "entry_hours", "entry_minutes", "entry_seconds", "entry_subseconds"],
         "to_disable": ["button_pause"],
 
         "width": 48,

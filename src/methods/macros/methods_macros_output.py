@@ -67,6 +67,9 @@ def validate_output_file(file_full_path):
     # file, edit the configuration of the program to reflect that an output file is active.
     if file_full_path and verify_text_file(file_full_path, True, True):
 
+        # Store the output path as a class attribute of the TimeStamper class.
+        classes.time_stamper.output_path = file_full_path
+
         # Configure the relevant widgets to reflect that a valid output
         # file IS active (distinct from enabling/disabling widgets).
         set_output_widgets(file_full_path)
@@ -85,6 +88,9 @@ def validate_output_file(file_full_path):
     # If the current path in the output path entry widget DOES NOT correspond
     # to a valid text file, reset and disable the relevant widgets.
     else:
+
+        # Reset the output path in the TimeStamper class.
+        classes.time_stamper.output_path = ""
 
         # Configure the relevant widgets to reflect that a valid output
         # file IS NOT active (distinct from enabling/disabling widgets).

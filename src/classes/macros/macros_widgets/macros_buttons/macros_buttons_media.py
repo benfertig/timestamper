@@ -43,6 +43,20 @@ def button_pause_macro(*_, force_suppress_message=False):
     # Enable and disable the relevant widgets for when the pause button is pressed.
     methods_helper.button_enable_disable_macro(classes.template["button_pause"])
 
+    # Enable the cancel output button only if there is an output file.
+    if classes.time_stamper.output_path:
+        original_cancel_output_color = classes.widgets.original_colors["button_cancel_output"] \
+            if "button_cancel_output" in classes.widgets.original_colors else None
+        methods_helper.enable_button(\
+            classes.widgets["button_cancel_output"], original_color=original_cancel_output_color)
+
+    # Enable the cancel media button only if there is a media file.
+    if classes.time_stamper.media_player:
+        original_cancel_media_color = classes.widgets.original_colors["button_cancel_media"] \
+            if "button_cancel_media" in classes.widgets.original_colors else None
+        methods_helper.enable_button(\
+            classes.widgets["button_cancel_media"], original_color=original_cancel_media_color)
+
     # Only attempt to print a button message if the
     # button message should not be force overridden.
     if not force_suppress_message:

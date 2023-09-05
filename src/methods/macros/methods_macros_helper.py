@@ -137,7 +137,8 @@ def button_enable_disable_macro(button_template):
 
 
 def toggle_widgets(widget_template, toggle_bool):
-    """This method enables/disables the widgets in a template's to_enable_toggle attribute."""
+    """This method enables/disables the widgets in a template's
+    to_enable_toggle and to_disable_toggle attributes."""
 
     # Iterate through the widget string keys in this template's "to_enable_toggle" attribute.
     if "to_enable_toggle" in widget_template:

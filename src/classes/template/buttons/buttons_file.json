@@ -18,7 +18,7 @@
 
         "sticky": "nsew",
 
-        "to_enable_toggle": ["button_save_note", "button_hotkey_1", "button_hotkey_2", "button_hotkey_3"]
+        "to_enable_toggle": ["button_cancel_output", "button_save_note", "button_hotkey_1", "button_hotkey_2", "button_hotkey_3"]
 
     },
 
@@ -27,6 +27,8 @@
         "str_key": "button_cancel_output",
 
         "image_file_name": "close.png",
+
+        "to_disable": ["button_cancel_output"],
 
         "width": 12,
         "height": 12,
@@ -69,7 +71,7 @@
 
         "sticky": "nsew",
 
-        "to_enable_toggle": ["button_mute", "scale_media_time", "scale_media_volume"],
+        "to_enable_toggle": ["button_cancel_media", "button_mute", "scale_media_time", "scale_media_volume"],
         "to_disable_toggle": [],
 
         "os_specific_settings": {
@@ -85,6 +87,8 @@
         "str_key": "button_cancel_media",
 
         "image_file_name": "close.png",
+
+        "to_disable": ["button_cancel_media"],
 
         "width": 12,
         "height": 12,
