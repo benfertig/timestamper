@@ -3,6 +3,7 @@
 media buttons in the Time Stamper program are pressed."""
 
 from sys import platform
+from tkinter import RAISED
 
 import classes
 import methods.macros.methods_macros_helper as methods_helper
@@ -31,6 +32,10 @@ import methods.macros.methods_macros_timing as methods_timing
 
 def button_pause_macro(*_, force_suppress_message=False):
     """This method will be executed when the pause button is pressed."""
+
+    # Make the playback buttons appear raised if any of them don't already appear raised.
+    for playback_str in ("play", "rewind", "fast_forward"):
+        classes.widgets[f"button_{playback_str}"].config(relief=RAISED)
 
     # Rebind all of the playback buttons to their respective press/release macros.
     methods_helper.rebind_playback_buttons()

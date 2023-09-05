@@ -73,6 +73,10 @@ def playback_release_macro(playback_type):
     # If the playback button HAS NOT been held long enough to initiate the timer...
     if classes.timer.scheduled_id:
 
+        # Cancel the upcoming, scheduled, automatic play function.
+        classes.time_stamper.root.after_cancel(classes.timer.scheduled_id)
+        classes.timer.scheduled_id = None
+
         # Get the current timestamp.
         timestamp = classes.timer.current_time_to_timestamp()
 
