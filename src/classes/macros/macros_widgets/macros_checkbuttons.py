@@ -38,6 +38,20 @@ def checkbutton_play_settings_macro():
         classes.template["checkbutton_play_settings"])
 
 
+def checkbutton_rewind_settings_macro():
+    """This method will be executed when the rewind settings checkbutton is pressed."""
+
+    methods_helper.checkbutton_enable_disable_macro(\
+        classes.template["checkbutton_rewind_settings"])
+
+
+def checkbutton_fast_forward_settings_macro():
+    """This method will be executed when the fast-forward settings checkbutton is pressed."""
+
+    methods_helper.checkbutton_enable_disable_macro(\
+        classes.template["checkbutton_fast_forward_settings"])
+
+
 def checkbutton_skip_backward_settings_macro():
     """This method will be executed when the skip backward settings checkbutton is pressed."""
 

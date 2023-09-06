@@ -54,6 +54,8 @@ class Macros():
             # Checkbuttons
             "checkbutton_pause_settings": check.checkbutton_pause_settings_macro,
             "checkbutton_play_settings": check.checkbutton_play_settings_macro,
+            "checkbutton_rewind_settings": check.checkbutton_rewind_settings_macro,
+            "checkbutton_fast_forward_settings": check.checkbutton_fast_forward_settings_macro,
             "checkbutton_skip_backward_settings": check.checkbutton_skip_backward_settings_macro,
             "checkbutton_skip_forward_settings": check.checkbutton_skip_forward_settings_macro,
 

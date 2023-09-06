@@ -58,6 +58,34 @@
 
     },
 
+    "label_rewind_settings": {
+
+        "str_key": "label_rewind_settings",
+        "window_str_key": "window_settings",
+
+        "text": "Rewind button:",
+
+        "column": 0,
+        "row": 3,
+
+        "sticky": "e"
+
+    },
+
+    "label_fast_forward_settings": {
+
+        "str_key": "label_fast_forward_settings",
+        "window_str_key": "window_settings",
+
+        "text": "Fast-forward button:",
+
+        "column": 0,
+        "row": 4,
+
+        "sticky": "e"
+
+    },
+
     "label_skip_backward_settings": {
 
         "str_key": "label_sckip_backward_settings",
@@ -66,7 +94,7 @@
         "text": "Skip backward button:",
 
         "column": 0,
-        "row": 3,
+        "row": 5,
 
         "sticky": "e"
 
@@ -80,7 +108,7 @@
         "text": "$amount (skip backward amount), $dest (destination time)",
 
         "column": 5,
-        "row": 3,
+        "row": 5,
 
         "columnspan": 1,
 
@@ -96,7 +124,7 @@
         "text": "Skip forward button:",
 
         "column": 0,
-        "row": 4,
+        "row": 6,
 
         "sticky": "e"
 
@@ -110,7 +138,7 @@
         "text": "$amount (skip forward amount), $dest (destination time)",
 
         "column": 5,
-        "row": 4,
+        "row": 6,
 
         "columnspan": 1,
 
@@ -126,7 +154,7 @@
         "text": "Hotkey 1:",
 
         "column": 0,
-        "row": 5,
+        "row": 7,
 
         "columnspan": 2,
 
@@ -144,7 +172,7 @@
         "text": "Hotkey 2:",
 
         "column": 0,
-        "row": 6,
+        "row": 8,
 
         "columnspan": 2,
 
@@ -162,7 +190,7 @@
         "text": "Hotkey 3:",
 
         "column": 0,
-        "row": 7,
+        "row": 9,
 
         "columnspan": 2,
 

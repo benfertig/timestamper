@@ -60,6 +60,66 @@
 
     },
 
+    "checkbutton_rewind_settings": {
+
+        "str_key": "checkbutton_rewind_settings",
+        "window_str_key": "window_settings",
+
+        "is_checked": {
+            "linked_dict": "rewind",
+            "linked_attribute": "message_enabled"
+        },
+
+        "is_checked_loaded_value": null,
+
+        "linked_setting": {
+            "linked_dict": "rewind",
+            "linked_attribute": "message_enabled",
+            "attribute_to_copy": "is_checked_loaded_value"
+        },
+
+        "to_enable_toggle": ["entry_rewind_settings"],
+        "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
+
+        "column": 1,
+        "row": 3,
+
+        "is_in_settings": true,
+
+        "sticky": "w"
+
+    },
+
+    "checkbutton_fast_forward_settings": {
+
+        "str_key": "checkbutton_fast_forward_settings",
+        "window_str_key": "window_settings",
+
+        "is_checked": {
+            "linked_dict": "fast_forward",
+            "linked_attribute": "message_enabled"
+        },
+
+        "is_checked_loaded_value": null,
+
+        "linked_setting": {
+            "linked_dict": "fast_forward",
+            "linked_attribute": "message_enabled",
+            "attribute_to_copy": "is_checked_loaded_value"
+        },
+
+        "to_enable_toggle": ["entry_fast_forward_settings"],
+        "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
+
+        "column": 1,
+        "row": 4,
+
+        "is_in_settings": true,
+
+        "sticky": "w"
+
+    },
+
     "checkbutton_skip_backward_settings": {
 
         "str_key": "checkbutton_skip_backward_settings",
@@ -82,7 +142,7 @@
         "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
 
         "column": 1,
-        "row": 3,
+        "row": 5,
 
         "is_in_settings": true,
 
@@ -112,7 +172,7 @@
         "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
 
         "column": 1,
-        "row": 4,
+        "row": 6,
 
         "is_in_settings": true,
 
