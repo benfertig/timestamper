@@ -4,6 +4,7 @@
 from sys import platform
 from tkinter import DISABLED, NORMAL, Button
 import classes
+import methods.macros.methods_macros_output as methods_output
 
 if platform.startswith("darwin"):
     from tkmacosx.widget import Button as MacButton
@@ -32,8 +33,6 @@ def entry_trace_method(entry_text, entry_template):
     text is edited in one of several entries (hours, minutes,
     seconds, subseconds, skip backward entry, skip forward entry)."""
 
-    max_val = entry_template["max_val"]
-
     if len(entry_text.get()) > 0:
 
         # If this entry should contain only digits...
@@ -45,9 +44,18 @@ def entry_trace_method(entry_text, entry_template):
             except ValueError:
                 entry_text.set(entry_text.get()[:-1])
 
-            # Remove any digits from the entry that put the entry over max_val.
+            # Remove any digits from the entry that put the entry
+            # under its minimum value or over its maximum value.
             if len(entry_text.get()) > 0:
-                if int(entry_text.get()) > max_val:
+
+                # Define the entry's minimum value, maximum value and current value.
+                min_val = entry_template["min_val"]
+                max_val = entry_template["max_val"]
+                entry_val = int(entry_text.get())
+
+                # Truncate the entry's value if it is out of bounds.
+                if (min_val is not None and entry_val < min_val) or \
+                    (max_val is not None and entry_val > max_val):
                     entry_text.set(entry_text.get()[:-1])
 
     # Enable and disable the relevant buttons for when the entry's text is edited.
@@ -58,6 +66,25 @@ def entry_trace_method(entry_text, entry_template):
 
     # Save the entry's updated text in the entry's template.
     entry_template["text_loaded_value"] = entry_text.get()
+
+
+def adjust_skip_values_on_entry_mousewheel(event, is_skip_backward):
+    """This is a custom method that gets executed when the mousewheel is moved
+    over the entries below the skip backward and skip forward buttons."""
+
+    # On Mac platforms, the registered scroll amount does not need to be divided by 120.
+    event_delta = event.delta if platform.startswith("darwin") else int(event.delta / 120)
+
+    # Define the string key of the entry, the entry itself, and the template of the entry.
+    entry_str_key = "entry_skip_backward" if is_skip_backward else "entry_skip_forward"
+    entry = classes.widgets[entry_str_key]
+    entry_template = classes.template[entry_str_key]
+
+    # If scrolling would not put the entry under its minimum value (1)
+    # or over its maximum value (99), update the value of the entry.
+    new_val = int(entry.get()) + event_delta
+    if entry_template["min_val"] <= new_val <= entry_template["max_val"]:
+        methods_output.print_to_entry(new_val, entry, wipe_clean=True)
 
 
 def change_help_page(next_page):

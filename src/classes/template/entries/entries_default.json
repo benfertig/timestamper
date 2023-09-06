@@ -13,6 +13,7 @@
 
     "message_file_name": null,
 
+    "min_val": null,
     "max_val": null,
 
     "scroll_timer_adjustment": 0,

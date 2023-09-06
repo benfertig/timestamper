@@ -73,6 +73,7 @@
 
         "text": "10",
 
+        "min_val": 1,
         "max_val": 99,
 
         "background": "white",
@@ -109,6 +110,7 @@
 
         "text": "10",
 
+        "min_val": 1,
         "max_val": 99,
 
         "background": "white",

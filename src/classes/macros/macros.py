@@ -61,11 +61,17 @@ class Macros():
 
             # Entries
             "entry_hours_TRACE": entries.entry_hours_trace,
+            "entry_hours_ONMOUSEWHEEL": entries.entry_hours_mousewheel_macro,
             "entry_minutes_TRACE": entries.entry_minutes_trace,
+            "entry_minutes_ONMOUSEWHEEL": entries.entry_minutes_mousewheel_macro,
             "entry_seconds_TRACE": entries.entry_seconds_trace,
+            "entry_seconds_ONMOUSEWHEEL": entries.entry_seconds_mousewheel_macro,
             "entry_subseconds_TRACE": entries.entry_subseconds_trace,
+            "entry_subseconds_ONMOUSEWHEEL": entries.entry_subseconds_mousewheel_macro,
             "entry_skip_backward_TRACE": entries.entry_skip_backward_trace,
+            "entry_skip_backward_ONMOUSEWHEEL": entries.entry_skip_backward_mousewheel_macro,
             "entry_skip_forward_TRACE": entries.entry_skip_forward_trace,
+            "entry_skip_forward_ONMOUSEWHEEL": entries.entry_skip_forward_mousewheel_macro,
             "entry_pause_settings_TRACE": entries.entry_pause_settings_trace,
             "entry_play_settings_TRACE": entries.entry_play_settings_trace,
             "entry_skip_backward_settings_TRACE": entries.entry_skip_backward_settings_trace,
@@ -73,10 +79,6 @@ class Macros():
             "entry_hotkey_1_settings_TRACE": entries.entry_hotkey_1_settings_trace,
             "entry_hotkey_2_settings_TRACE": entries.entry_hotkey_2_settings_trace,
             "entry_hotkey_3_settings_TRACE": entries.entry_hotkey_3_settings_trace,
-            "entry_hours_ONMOUSEWHEEL": entries.entry_hours_mousewheel_macro,
-            "entry_minutes_ONMOUSEWHEEL": entries.entry_minutes_mousewheel_macro,
-            "entry_seconds_ONMOUSEWHEEL": entries.entry_seconds_mousewheel_macro,
-            "entry_subseconds_ONMOUSEWHEEL": entries.entry_subseconds_mousewheel_macro,
 
             # Scales
             "scale_media_time": scales.scale_media_time_macro,
