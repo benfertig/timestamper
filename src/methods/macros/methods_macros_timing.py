@@ -73,19 +73,19 @@ def playback_release_macro(playback_type):
     # If the playback button HAS NOT been held long enough to initiate the timer...
     if classes.timer.scheduled_id:
 
-        # Cancel the upcoming, scheduled, automatic play function.
+        # Cancel the upcoming, scheduled play function.
         classes.time_stamper.root.after_cancel(classes.timer.scheduled_id)
         classes.timer.scheduled_id = None
 
         # Get the current timestamp.
         timestamp = classes.timer.current_time_to_timestamp()
 
-        # Start the timer.
-        classes.timer.play(playback_type=playback_type)
-
         # Unbind the button from its play/release macros temporarily.
         button.unbind("<Button-1>")
         button.unbind("<ButtonRelease-1>")
+
+        # Start the timer.
+        classes.timer.play(playback_type=playback_type)
 
         # Return the timestamp, indicating that playback has started.
         return timestamp
