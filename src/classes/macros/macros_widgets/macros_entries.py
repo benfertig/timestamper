@@ -117,6 +117,18 @@ def entry_play_settings_trace(entry_text):
     methods_helper.entry_trace_method(entry_text, classes.template["entry_play_settings"])
 
 
+def entry_rewind_settings_trace(entry_text):
+    """This method gets executed when the text is edited in the rewind settings entry."""
+
+    methods_helper.entry_trace_method(entry_text, classes.template["entry_rewind_settings"])
+
+
+def entry_fast_forward_settings_trace(entry_text):
+    """This method gets executed when the text is edited in the fast-forward settings entry."""
+
+    methods_helper.entry_trace_method(entry_text, classes.template["entry_fast_forward_settings"])
+
+
 def entry_skip_backward_settings_trace(entry_text):
     """This method gets executed when the text is edited in the skip backward settings entry."""
 

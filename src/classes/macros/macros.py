@@ -74,6 +74,8 @@ class Macros():
             "entry_skip_forward_ONMOUSEWHEEL": entries.entry_skip_forward_mousewheel_macro,
             "entry_pause_settings_TRACE": entries.entry_pause_settings_trace,
             "entry_play_settings_TRACE": entries.entry_play_settings_trace,
+            "entry_rewind_settings_TRACE": entries.entry_rewind_settings_trace,
+            "entry_fast_forward_settings_TRACE": entries.entry_fast_forward_settings_trace,
             "entry_skip_backward_settings_TRACE": entries.entry_skip_backward_settings_trace,
             "entry_skip_forward_settings_TRACE": entries.entry_skip_forward_settings_trace,
             "entry_hotkey_1_settings_TRACE": entries.entry_hotkey_1_settings_trace,

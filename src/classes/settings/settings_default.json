@@ -16,11 +16,11 @@
     },
     "rewind": {
         "message_enabled": false,
-        "message": "REWIND"
+        "message": "REWIND at $speedX speed"
     },
     "fast_forward": {
         "message_enabled": false,
-        "message": "FAST-FORWARD"
+        "message": "FAST-FORWARD at $speedX speed"
     },
     "skip_backward": {
         "message_enabled": false,

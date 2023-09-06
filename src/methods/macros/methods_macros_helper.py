@@ -84,7 +84,7 @@ def adjust_skip_values_on_entry_mousewheel(event, is_skip_backward):
     # or over its maximum value (99), update the value of the entry.
     new_val = int(entry.get()) + event_delta
     if entry_template["min_val"] <= new_val <= entry_template["max_val"]:
-        methods_output.print_to_entry(new_val, entry, wipe_clean=True)
+        methods_output.print_to_entry(str(new_val), entry, wipe_clean=True)
 
 
 def change_help_page(next_page):

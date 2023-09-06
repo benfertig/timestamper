@@ -83,7 +83,7 @@ def button_play_release_macro(*_, force_suppress_message=False):
     """This method will be executed when the user releases
     the mouse after having clicked on the play button."""
 
-    timestamp = methods_timing.playback_release_macro("play")
+    timestamp = methods_timing.playback_release_macro("play")[0]
 
     # Only attempt to print a button message if the timer started as a result
     # of this method and the button message should not be force overridden.
@@ -97,12 +97,20 @@ def button_rewind_release_macro(*_, force_suppress_message=False):
     """This method will be executed when the user releases
     the mouse after having clicked on the rewind button."""
 
-    timestamp = methods_timing.playback_release_macro("rewind")
+    # Get the current timestamp and the rewind speed.
+    timestamp, new_multiplier = methods_timing.playback_release_macro("rewind")
+
+    # Modify the representation of the rewind speed.
+    if new_multiplier % 1 == 0:
+        rewind_speed = abs(int(new_multiplier))
+    else:
+        rewind_speed = abs(round(new_multiplier, 2))
 
     # Only attempt to print a button message if the timer started as a result
     # of this method and the button message should not be force overridden.
     if timestamp and not force_suppress_message:
-        methods_output.attempt_button_message("button_rewind", timestamp=timestamp)
+        methods_output.attempt_button_message(\
+            "button_rewind", timestamp=timestamp, speed=str(rewind_speed))
 
     return "break"
 
@@ -111,12 +119,20 @@ def button_fast_forward_release_macro(*_, force_suppress_message=False):
     """This method will be executed when the user releases the
     mouse after having clicked on the fast-forward button."""
 
-    timestamp = methods_timing.playback_release_macro("fast_forward")
+    # Get the current timestamp and the fast-forward speed.
+    timestamp, new_multiplier = methods_timing.playback_release_macro("fast_forward")
+
+    # Modify the representation of the fast-forward speed.
+    if new_multiplier % 1 == 0:
+        fast_forward_speed = abs(int(new_multiplier))
+    else:
+        fast_forward_speed = abs(round(new_multiplier, 2))
 
     # Only attempt to print a button message if the timer started as a result
     # of this method and the button message should not be force overridden.
     if timestamp and not force_suppress_message:
-        methods_output.attempt_button_message("button_fast_forward", timestamp=timestamp)
+        methods_output.attempt_button_message(\
+            "button_fast_forward", timestamp=timestamp, speed=str(fast_forward_speed))
 
     return "break"
 

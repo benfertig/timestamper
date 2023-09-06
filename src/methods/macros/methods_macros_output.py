@@ -124,6 +124,19 @@ def print_timestamped_message(message, timestamp=None):
     # Generate the complete message that should be printed, including the timestamp.
     to_print = f"{timestamp} {message}"
 
+    # Open the output file.
+    with open(output_path, "rb+") as output_file:
+
+        # Determine the last character of the output file.
+        output_file.seek(-1, 2)
+        last_char_var = output_file.read(1)
+        last_char = str(last_char_var, classes.settings["output"]["file_encoding"])
+
+        # If the last character of the output file is not a
+        # new line, add a new line to the upcoming message.
+        if last_char != "\n":
+            to_print = f"\n{to_print}"
+
     # Print the message passed in the argument "message" along with
     # the current timestamp to the notes log and the output file.
     print_to_text(to_print, classes.widgets["text_log"])

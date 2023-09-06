@@ -72,6 +72,22 @@
 
     },
 
+    "label_rewind_optional_variables": {
+
+        "str_key": "label_rewind_optional_variables",
+        "window_str_key": "window_settings",
+
+        "text": "$speed (rewind speed)",
+
+        "column": 5,
+        "row": 3,
+
+        "columnspan": 1,
+
+        "sticky": "w"
+
+    },
+
     "label_fast_forward_settings": {
 
         "str_key": "label_fast_forward_settings",
@@ -83,6 +99,22 @@
         "row": 4,
 
         "sticky": "e"
+
+    },
+
+    "label_fast_forward_optional_variables": {
+
+        "str_key": "label_fast_forward_optional_variables",
+        "window_str_key": "window_settings",
+
+        "text": "$speed (fast-forward speed)",
+
+        "column": 5,
+        "row": 4,
+
+        "columnspan": 1,
+
+        "sticky": "w"
 
     },
 

@@ -356,6 +356,10 @@ class TimeStamperTimer():
             # Begin ticking the timer.
             self.timer_tick(self.multiplier)
 
+        # Return the rate at which the timer is now playing.
+        return new_multiplier
+
+
     def adjust_timer(self, seconds_to_adjust_by, abort_if_out_of_bounds=False):
         """This method skips the timer backward and forward and is typically run when
         the skip backward or skip forward button is pressed or when the user scrolls

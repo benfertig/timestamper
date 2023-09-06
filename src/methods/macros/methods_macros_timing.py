@@ -79,10 +79,10 @@ def playback_release_macro(playback_type):
         button.unbind("<ButtonRelease-1>")
 
         # Start the timer.
-        classes.timer.play(playback_type=playback_type)
+        new_multiplier = classes.timer.play(playback_type=playback_type)
 
-        # Return the timestamp, indicating that playback has started.
-        return timestamp
+        # Return the timestamp and the timer's new speed, indicating that playback has started.
+        return timestamp, new_multiplier
 
     # If the playback button HAS been held long enough to initiate the timer...
 
@@ -92,8 +92,8 @@ def playback_release_macro(playback_type):
     # Reset the timer to where it was at when the current playback button was pressed.
     classes.timer.display_time(classes.time_stamper.play_press_time)
 
-    # Return None, indicating that playback has stopped.
-    return None
+    # Return (None, None), indicating that playback has stopped.
+    return None, None
 
 
 def skip_backward_or_forward_macro(is_skip_backward):
