@@ -2,8 +2,6 @@
 """This module stores some extra methods associated with media."""
 
 from ctypes import cdll, c_char_p
-from ntpath import sep as ntpath_sep
-from posixpath import sep as posixpath_sep
 from os import remove
 from os.path import dirname, isfile, join
 from sys import platform
@@ -125,10 +123,6 @@ def set_media_widgets(file_full_path):
 
         classes.widgets["label_media_path"]["text"] = \
             classes.template["label_media_path"]["text"]["value_if_true"]
-
-    # Change the file path to the Windows format if we are on a Windows computer.
-    if platform.startswith("win"):
-        file_full_path = file_full_path.replace(posixpath_sep, ntpath_sep)
 
     # Print the file path to the entry widget.
     methods_output.print_to_entry(\

@@ -1,11 +1,8 @@
 #-*- coding: utf-8 -*-
 """This module stores some extra methods associated with printing text output."""
 
-from ntpath import sep as ntpath_sep
-from posixpath import sep as posixpath_sep
 from os.path import exists, isdir
 from re import match
-from sys import platform
 from tkinter import NORMAL, END
 
 import classes
@@ -36,7 +33,7 @@ def attempt_button_message(button_str_key, timestamp=None, **user_variables):
     printed, prints that message to the notes log and the output file."""
 
     # Only attempt to print the button's message if there is an output path.
-    if classes.widgets["entry_output_path"].get():
+    if classes.time_stamper.output_path:
 
         # Get the button's message before replacements.
         button_message_pre_replace = get_button_message_input(button_str_key)
@@ -114,9 +111,6 @@ def print_timestamped_message(message, timestamp=None):
     message to the notes log and the output file (if no timestamp is provided,
     then a timestamp will be generated using the timer's current time)."""
 
-    # Get the current output path from the output path entry widget.
-    output_path = classes.widgets["entry_output_path"].get()
-
     # If no timestamp was provided, set the timestamp to the timer's current time.
     if timestamp is None:
         timestamp = classes.timer.current_time_to_timestamp()
@@ -125,7 +119,7 @@ def print_timestamped_message(message, timestamp=None):
     to_print = f"{timestamp} {message}"
 
     # Open the output file.
-    with open(output_path, "rb+") as output_file:
+    with open(classes.time_stamper.output_path, "rb+") as output_file:
 
         # Determine the last character of the output file.
         output_file.seek(-1, 2)
@@ -140,7 +134,7 @@ def print_timestamped_message(message, timestamp=None):
     # Print the message passed in the argument "message" along with
     # the current timestamp to the notes log and the output file.
     print_to_text(to_print, classes.widgets["text_log"])
-    print_to_file(to_print, output_path)
+    print_to_file(to_print, classes.time_stamper.output_path)
 
 
 def get_button_message_input(button_str_key):
@@ -203,10 +197,6 @@ def set_output_widgets(file_full_path):
 
         classes.widgets["label_output_path"]["text"] = \
             classes.template["label_output_path"]["text"]["value_if_true"]
-
-    # Change the file path to the Windows format if we are on a Windows computer.
-    if platform.startswith("win"):
-        file_full_path = file_full_path.replace(posixpath_sep, ntpath_sep)
 
     # Print the file path to the entry widget.
     print_to_entry(file_full_path, classes.widgets["entry_output_path"], wipe_clean=True)

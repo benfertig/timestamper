@@ -2,21 +2,15 @@
 """This module stores the functions that are executed when
 file buttons in the Time Stamper program are pressed."""
 
+from ntpath import sep as ntpath_sep
+from posixpath import sep as posixpath_sep
+from sys import platform
 from tkinter import filedialog
-
-from vlc import MediaPlayer
 
 import classes
 import methods.macros.methods_macros_helper as methods_helper
 import methods.macros.methods_macros_media as methods_media
 import methods.macros.methods_macros_output as methods_output
-
-try:
-    from sys import getwindowsversion
-except ImportError:
-    pass
-finally:
-    from sys import platform
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -38,8 +32,12 @@ finally:
 
 
 def button_output_select_macro(*_, file_full_path=None, erase_if_empty=False):
-    """This method will be executed when the "Choose output location" button is pressed.
-    The optional argument erase_if_empty, which is set to False by default, determines
+    """This method will TYPICALLY be executed when the "Select output file" button is pressed.
+    The optional argument file_full_path, which is set to None by default, accepts a pre-determined
+    file path and will bypass the file dialog menu for output file selection. This argument
+    should only ever be specified when this method is NOT being called as a result of the
+    user having pressed the "Select output file" button (e.g., from the TimeStamper.run()
+    method). The optional argument erase_if_empty, which is set to False by default, determines
     whether the previous output file should be cancelled if no output file is specified."""
 
     if file_full_path is None:
@@ -50,6 +48,10 @@ def button_output_select_macro(*_, file_full_path=None, erase_if_empty=False):
         # Get the path to the selected file.
         file_full_path = filedialog.askopenfilename(title="Select a text file", \
             initialdir=classes.template.starting_dir, filetypes=file_types)
+
+    # Change the file path to the Windows format if we are on a Windows computer.
+    if platform.startswith("win"):
+        file_full_path = file_full_path.replace(posixpath_sep, ntpath_sep)
 
     # Check whether or not the selected output file is valid and respond accordingly.
     methods_output.validate_output_file(file_full_path, erase_if_empty=erase_if_empty)
@@ -70,6 +72,7 @@ def button_cancel_output_macro(*_):
 
     # Enable/disable the relevant widgets to reflect that a valid output file IS NOT active.
     methods_helper.toggle_widgets(classes.template["button_output_select"], False)
+
 
 def button_merge_output_files_macro(*_):
     """This method will be executed when the "Merge output files" button is pressed."""
@@ -96,50 +99,26 @@ def button_media_select_macro(*_, file_full_path=None, erase_if_empty=False):
 
     if file_full_path is None:
 
-        # TODO: SOME POTENTIAL FUTURE AUDIO FORMATS TO INCLUDE ARE (but are not limited to):
-        # *.aiff *.aac *.m4a *.ogg *.alac *.dsd *.mqa
+        # Define all media file types supported by VLC.
+        media_file_types = "*.3g2 *.3gp *.3gp2 *.3gpp *.amv *.asf *.avi *.bik *.bin *.divx " \
+            "*.drc *.dv *.f4v *.flv *.gvi *.gxf *.iso *.m1v *.m2v *.m2t *.m2ts *.m4v *.mkv *.mov " \
+            "*.mp2 *.mp2V *.mp4 *.mp4v *.mpe *.mpeg *.mpeg1 *.mpeg2 *.mpeg4 *.mpg *.mpv2 *.mts " \
+            "*.mtv *.mxf *.mxg *.nsv *.nuv *.ogg *.ogm *.ogv *.ogx *.ps *.rec *.rm *.rmvb " \
+            "*.rpl *.thp *.tod *.ts *.tts *.txd *.vob *.vro *.webm *.wm *.wmv *.wtv *.xesc *.3ga " \
+            "*.669 *.152 *.aac *.ac3 *.adt *.adts *.aif *.aiff *.amr *.aob *.ape *.awb *.caf " \
+            "*.dts *.flac *.it *.kar *.m4a *.m4b *.m4p *.m5p *.mid *.mka *.mlp *.mod *.mpa *.mp1 " \
+            "*.mp2 *.mp3 *.mpc *.mpga *.mus *.oga *.ogg *oma *.opus *.qcp *.ra *.rmi *.s3m *.sid " \
+            "*.spx *.thd *.tta *.voc *vqf *.w64 *.wav *.wma *.wv *.xa *.xm"
 
-        # TODO: RESEARCH POTENTIAL VIDEO FORMATS AS WELL:
-
-        media_file_types = set()
-
-        # If we are on Windows...
-        if platform.startswith("win"):
-
-            # Store the major and minor versions of the current Windows operating system.
-            windows_version_major, windows_version_minor = getwindowsversion()[0:2]
-
-            # If we are on Windows Vista or above...
-            if windows_version_major >= 6:
-
-                media_file_types.update({"*.mp3", "*.wma"})
-
-                # If we are on Windows 7 or above (not Windows Vista)...
-                if not (windows_version_major == 6 and windows_version_minor == 0):
-                    media_file_types.update({"*.aac", "*.adts"})
-
-                    # If we are on Windows 10 or above (not Windows Vista or Windows 7)...
-                    if windows_version_major >= 10:
-                        media_file_types.update({"*.flac"})
-
-        media_file_types.update({"*.au", "*.mp2", "*.mp3", "*.wav", "*.wma"})
-
-        # INCLUDE "Media files" as an option in the file dialog window if ANY of
-        # the media file formats mentioned in this method were determined to be
-        # compatible with the user's installation of the Time Stamper program.
-        if media_file_types:
-            media_file_types = " ".join(sorted(media_file_types))
-            file_types = (("Media files", media_file_types), ("All files", "*.*"))
-
-        # DO NOT INCLUDE "Media files" as an option in the file dialog window if NONE
-        # of the media file formats mentioned in this method were determined to
-        # be compatible with the user's installation of the Time Stamper program.
-        else:
-            file_types = (("All files", "*.*"),)
+        file_types = (("Media files", media_file_types), ("All files", "*.*"))
 
         # Get the path to the selected file.
         file_full_path = filedialog.askopenfilename(title="Select a media file", \
             initialdir=classes.template.starting_dir, filetypes=file_types)
+
+    # Change the file path to the Windows format if we are on a Windows computer.
+    if platform.startswith("win"):
+        file_full_path = file_full_path.replace(posixpath_sep, ntpath_sep)
 
     # Check whether or not the selected media file is valid and respond accordingly.
     methods_media.validate_media_player(file_full_path, erase_if_empty=erase_if_empty)
