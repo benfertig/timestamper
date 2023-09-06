@@ -120,7 +120,7 @@ def skip_backward_or_forward_macro(is_skip_backward):
     # Get the time after skipping backward/forward.
     new_time = classes.timer.current_time_to_timestamp(include_brackets=False)
 
-    # Round the skip amount to the nearest hundreth.
+    # Round the skip amount to the nearest centisecond.
     skip_amount = abs(round(skip_amount, 2))
     if skip_amount % 1 == 0:
         skip_amount = int(skip_amount)

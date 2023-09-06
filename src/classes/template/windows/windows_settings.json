@@ -9,11 +9,11 @@
         "icon_windows": "timestamp_icon.ico",
         "icon_mac": "timestamp_icon.icns",
 
-        "width": 830,
+        "width": 865,
         "height": 300,
 
         "num_columns": 6,
-        "num_rows": 11,
+        "num_rows": 12,
 
         "os_specific_settings": {
             "darwin": {

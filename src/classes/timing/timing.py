@@ -216,24 +216,24 @@ class TimeStamperTimer():
                     subseconds = int(classes.widgets["entry_subseconds"].get())
                     methods_helper.pulse_button_image(subseconds, self.multiplier)
 
-                    # Calculate the number of seconds to the next hundreth of a second.
-                    next_hundreth_second = \
+                    # Calculate the number of seconds to the next centisecond.
+                    next_centisecond = \
                         (int(internal_time * 100) + int(self.multiplier > 0.0)) / 100
-                    seconds_to_next_tick = abs(next_hundreth_second - internal_time)
+                    seconds_to_next_tick = abs(next_centisecond - internal_time)
 
-                    # Convert the number of seconds to the next hundreth of a second to
-                    # the number of thousandth-seconds to the next hundreth of a second.
-                    thousandth_seconds_to_next_tick = max(seconds_to_next_tick, .001) * 1000
+                    # Convert the number of seconds to the next centisecond
+                    # the number of milliseconds to the next centisecond.
+                    milliseconds_to_next_tick = max(seconds_to_next_tick, .001) * 1000
 
-                    # Consider the time dilation from rewinding/fast-forwarding when calculating
-                    # the number of thousandth-seconds to the next hundreth of a second.
-                    thousandth_seconds_to_next_tick = \
-                        ceil(thousandth_seconds_to_next_tick * abs(1 / self.multiplier))
+                    # Consider the time dilation from rewinding/fast-forwarding when
+                    # calculating the number of milliseconds to the next centisecond.
+                    milliseconds_to_next_tick = \
+                        ceil(milliseconds_to_next_tick * abs(1 / self.multiplier))
 
-                    # After the next hundreth second has elapsed, tick the timer again.
+                    # After the next centisecond has elapsed, tick the timer again.
                     if self.multiplier == prev_multiplier:
                         classes.time_stamper.root.after(\
-                            thousandth_seconds_to_next_tick, self.timer_tick, self.multiplier)
+                            milliseconds_to_next_tick, self.timer_tick, self.multiplier)
 
                 # If the timer's currently displayed time is greater than 0, pause the timer.
                 else:

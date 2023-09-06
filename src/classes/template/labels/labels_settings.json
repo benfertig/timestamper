@@ -190,7 +190,7 @@
 
         "columnspan": 2,
 
-        "padx": [0, 9],
+        "padx": [0, 5],
 
         "sticky": "e"
 
@@ -208,7 +208,7 @@
 
         "columnspan": 2,
 
-        "padx": [0, 9],
+        "padx": [0, 5],
 
         "sticky": "e"
 
@@ -226,7 +226,25 @@
 
         "columnspan": 2,
 
-        "padx": [0, 9],
+        "padx": [0, 5],
+
+        "sticky": "e"
+
+    },
+
+    "label_round_timestamp_settings": {
+
+        "str_key": "label_round_timestamp_settings",
+        "window_str_key": "window_settings",
+
+        "text": "Round timestamp to nearest",
+
+        "column": 0,
+        "row": 10,
+
+        "columnspan": 2,
+
+        "padx": [0, 5],
 
         "sticky": "e"
 
