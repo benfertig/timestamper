@@ -193,7 +193,6 @@ def final_media_handler(file_full_path):
     if not classes.time_stamper.media_player.has_vout() and \
         ("window_video" in classes.widgets.mapping \
         and classes.widgets.mapping["window_video"].winfo_exists()):
-
         classes.widgets["window_video"].destroy()
 
     # If the selected media file IS a video, rebind the function for X-ing out the video window.
@@ -315,7 +314,6 @@ def first_post_playing_handler(_, file_full_path, iteration):
             # Destroy the video window if it exists.
             if "window_video" in classes.widgets.mapping \
                 and classes.widgets.mapping["window_video"].winfo_exists():
-
                 classes.widgets["window_video"].destroy()
 
             # Re-enable the media buttons, which had been
@@ -377,7 +375,6 @@ def validate_media_player(file_full_path, iteration=1, erase_if_empty=False):
     # Destroy the video window if it exists.
     if "window_video" in classes.widgets.mapping and \
         classes.widgets.mapping["window_video"].winfo_exists():
-
         classes.widgets["window_video"].destroy()
 
     if file_full_path:

@@ -4,8 +4,6 @@
 from sys import platform
 from tkinter import RAISED, SUNKEN
 
-from vlc import MediaPlayer
-
 import classes
 import methods.macros.methods_macros_helper as methods_helper
 
@@ -38,10 +36,6 @@ def playback_press_macro(playback_type):
 
     # Rebind all of the playback buttons to their respective press/release macros.
     methods_helper.rebind_playback_buttons()
-
-    if isinstance(classes.time_stamper.media_player, MediaPlayer):
-        classes.time_stamper.media_player.set_fullscreen(False)
-        classes.time_stamper.media_player.video_set_scale(0)
 
     # Enable and disable the relevant widgets for when this button is pressed.
     methods_helper.button_enable_disable_macro(classes.template[button_str_key])

@@ -276,7 +276,6 @@ class TimeStamperTimer():
                 # If a positive play delay was provided, schedule
                 # the timer to play after the play delay.
                 if play_delay > 0:
-
                     self.scheduled_id = \
                         classes.time_stamper.root.after(int(play_delay * 1000), self.play, "prev")
 

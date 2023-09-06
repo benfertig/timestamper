@@ -151,9 +151,10 @@ def button_cancel_media_macro(*_):
     # Enable and disable the relevant widgets for when the cancel media button is pressed.
     methods_helper.button_enable_disable_macro(classes.template["button_cancel_media"])
 
-    # Stop the Time Stamper program's media player if it exists.
-    if isinstance(classes.time_stamper.media_player, MediaPlayer):
-        classes.time_stamper.media_player.stop()
+    # Destroy the video window if it exists.
+    if "window_video" in classes.widgets.mapping \
+        and classes.widgets.mapping["window_video"].winfo_exists():
+        classes.widgets["window_video"].destroy()
 
     # Try to release the current media player.
     methods_media.attempt_media_player_release()
