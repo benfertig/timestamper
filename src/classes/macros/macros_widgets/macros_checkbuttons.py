@@ -64,3 +64,11 @@ def checkbutton_skip_forward_settings_macro():
 
     methods_helper.checkbutton_enable_disable_macro(\
         classes.template["checkbutton_skip_forward_settings"])
+
+
+def checkbutton_always_include_hours_in_timestamp_settings_macro():
+    """This method will be executed when the settings checkbutton
+    labeled "Include hours in timestamp before 1-hour mark" is pressed."""
+
+    methods_helper.checkbutton_enable_disable_macro(\
+        classes.template["checkbutton_always_include_hours_in_timestamp_settings"])

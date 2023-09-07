@@ -58,6 +58,8 @@ class Macros():
             "checkbutton_fast_forward_settings": check.checkbutton_fast_forward_settings_macro,
             "checkbutton_skip_backward_settings": check.checkbutton_skip_backward_settings_macro,
             "checkbutton_skip_forward_settings": check.checkbutton_skip_forward_settings_macro,
+            "checkbutton_always_include_hours_in_timestamp_settings": \
+                check.checkbutton_always_include_hours_in_timestamp_settings_macro,
 
             # Entries
             "entry_hours_TRACE": entries.entry_hours_trace,

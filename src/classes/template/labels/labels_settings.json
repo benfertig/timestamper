@@ -237,10 +237,32 @@
         "str_key": "label_round_timestamp_settings",
         "window_str_key": "window_settings",
 
-        "text": "Round timestamp to nearest",
+        "text": "Round timestamp to last",
 
         "column": 0,
         "row": 10,
+
+        "columnspan": 2,
+
+        "padx": [0, 5],
+
+        "sticky": "e"
+
+    },
+
+    "label_always_include_hours_in_timestamp_settings": {
+
+        "str_key": "label_always_include_hours_in_timestamp_settings",
+        "window_str_key": "window_settings",
+
+        "text": "Include hours in timestamp before 1-hour mark:",
+
+        "wraplength": 170,
+
+        "justify": "right",
+
+        "column": 0,
+        "row": 11,
 
         "columnspan": 2,
 

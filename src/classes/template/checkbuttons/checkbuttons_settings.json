@@ -178,6 +178,36 @@
 
         "sticky": "w"
 
+    },
+
+    "checkbutton_always_include_hours_in_timestamp_settings": {
+
+        "str_key": "checkbutton_always_include_hours_in_timestamp_settings",
+        "window_str_key": "window_settings",
+
+        "is_checked": {
+            "linked_dict": "always_include_hours_in_timestamp",
+            "linked_attribute": "is_enabled"
+        },
+
+        "is_checked_loaded_value": null,
+
+        "linked_setting": {
+            "linked_dict": "always_include_hours_in_timestamp",
+            "linked_attribute": "is_enabled",
+            "attribute_to_copy": "is_checked_loaded_value"
+        },
+
+        "to_enable_toggle": [],
+        "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
+
+        "column": 2,
+        "row": 11,
+
+        "is_in_settings": true,
+
+        "sticky": "w"
+
     }
 
 }

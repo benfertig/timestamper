@@ -13,7 +13,7 @@
         "height": 300,
 
         "num_columns": 6,
-        "num_rows": 12,
+        "num_rows": 13,
 
         "os_specific_settings": {
             "darwin": {
