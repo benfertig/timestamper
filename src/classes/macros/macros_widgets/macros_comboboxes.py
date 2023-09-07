@@ -42,6 +42,7 @@ def combobox_round_timestamp_settings_mousewheel_macro(_):
     """This method will be executed when the mousewheel is moved over the
     combobox that alters the increment to which the timestamp gets rounded."""
 
+    # Save the timestamp rounding combobox and its current selection.
     combobox = classes.widgets["combobox_round_timestamp_settings"]
     selection = combobox.current()
 
