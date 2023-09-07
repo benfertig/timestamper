@@ -10,8 +10,6 @@
 
         "text": "1x",
 
-        "scroll_to_move": true,
-
         "readonlybackground": "white",
 
         "width": 2,
@@ -38,8 +36,6 @@
         "values": {"\u00BCx": "1/4", "\u00BDx": "1/2", "\u00BEx": "3/4", "1\u00BCx": "1.25", "1\u00BDx": "1.5", "1\u00BEx": "1.75", "2x": "2", "2\u00BCx": "2.25", "2\u00BDx": "2.5", "2\u00BEx": "11/4", "3x": "3", "3\u00BCx": "3.25", "3\u00BDx": "3.5", "3\u00BEx": "15/4", "4x": "4"},
 
         "text": "2x",
-
-        "scroll_to_move": true,
 
         "readonlybackground": "white",
 

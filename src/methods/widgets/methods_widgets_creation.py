@@ -359,6 +359,8 @@ def create_spinbox(spinbox_template, spinbox_window):
     # Determine any macros for the spinbox.
     spinbox_macro = \
         classes.macros[str_key] if classes.macros and str_key in classes.macros.mapping else None
+    scroll_macro = classes.macros[f"{str_key}_ONMOUSEWHEEL"] \
+        if classes.macros and f"{str_key}_ONMOUSEWHEEL" in classes.macros.mapping else None
 
     # Create the Spinbox object.
     spinbox = Spinbox(spinbox_window, width=spinbox_template["width"], textvariable=spinbox_text, \
@@ -373,14 +375,13 @@ def create_spinbox(spinbox_template, spinbox_window):
 
     # Allow for the spinbox to be manipulated with the mousewheel if it was
     # indicated that this should be the case in the spinbox's template.
-    if spinbox_template["scroll_to_move"]:
+    if scroll_macro:
 
         mousewheel_strs = \
             ("<Button-4>", "<Button-5>") if platform.startswith("linux") else ("<MouseWheel>",)
 
         for mw_str in mousewheel_strs:
-            spinbox.bind(mw_str, \
-                lambda event: spinbox.invoke("buttonup" if event.delta > 0 else "buttondown"))
+            spinbox.bind(mw_str, scroll_macro)
 
     # Place the Spinbox.
     methods_helper.grid_widget(spinbox, spinbox_template)

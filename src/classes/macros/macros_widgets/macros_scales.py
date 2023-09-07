@@ -69,7 +69,7 @@ def scale_media_time_release_macro(*_):
 
 
 def scale_media_time_mousewheel_macro(event):
-    """This method gets executed when the mousewheel is moved over the media time slider."""
+    """This method will be executed when the mousewheel is moved over the media time slider."""
 
     # Only run the method if a media player is currently active.
     if classes.time_stamper.media_player:
@@ -138,7 +138,7 @@ def scale_media_volume_macro(volume_scale_value):
 
 
 def scale_media_volume_mousewheel_macro(event):
-    """This method gets executed when the mousewheel is moved over the media volume slider."""
+    """This method will be executed when the mousewheel is moved over the media volume slider."""
 
     scale = classes.widgets["scale_media_volume"]
     scale_template = classes.template["scale_media_volume"]

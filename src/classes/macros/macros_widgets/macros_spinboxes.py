@@ -49,6 +49,12 @@ def spinbox_rewind_macro():
             methods_output.attempt_button_message("button_rewind", speed=str(rewind_speed))
 
 
+def spinbox_rewind_mousehweel_macro(event):
+    """This method will be executed when the mousewheel is moved over the rewind spinbox."""
+
+    classes.widgets["spinbox_rewind"].invoke("buttonup" if event.delta > 0 else "buttondown")
+
+
 def spinbox_fast_forward_macro():
     """This method will be executed when the user clicks
     the up/down arrow on the fast-forward spinbox."""
@@ -75,3 +81,9 @@ def spinbox_fast_forward_macro():
             # Attempt to print the fast-forward button message.
             methods_output.attempt_button_message(\
                 "button_fast_forward", speed=str(fast_forward_speed))
+
+
+def spinbox_fast_forward_mousehweel_macro(event):
+    """This method will be executed when the mousewheel is moved over the fast-forward spinbox."""
+
+    classes.widgets["spinbox_fast_forward"].invoke("buttonup" if event.delta > 0 else "buttondown")

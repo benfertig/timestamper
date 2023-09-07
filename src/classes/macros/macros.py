@@ -97,7 +97,9 @@ class Macros():
 
             # Spinboxes
             "spinbox_rewind": spinboxes.spinbox_rewind_macro,
+            "spinbox_rewind_ONMOUSEWHEEL": spinboxes.spinbox_rewind_mousehweel_macro,
             "spinbox_fast_forward": spinboxes.spinbox_fast_forward_macro,
+            "spinbox_fast_forward_ONMOUSEWHEEL": spinboxes.spinbox_fast_forward_mousehweel_macro,
 
             # Windows
             "window_video_ONCLOSE": windows.on_close_window_video_macro,
