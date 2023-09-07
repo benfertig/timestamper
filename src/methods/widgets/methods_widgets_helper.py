@@ -115,9 +115,9 @@ def determine_widget_text(widget_template):
 
 
 def determine_widget_attribute(widget_template, attribute_str):
-    """This method determines what a particular attribute (indicated by "state") of a widget
+    """This method determines what a particular attribute (indicated by attribute_str) of a widget
     should be set to. Sometimes, a widget's attribute is stored directly in the value associated
-    with a key ("state") in its template. Other times, the widget's attribute is associated
+    with a key (attribute_str) in its template. Other times, the widget's attribute is associated
     with a value stored in the settings or in another template. In either case, this method
     will locate the correct setting for an attribute and return the value of that setting."""
 

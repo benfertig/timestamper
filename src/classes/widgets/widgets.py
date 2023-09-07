@@ -61,6 +61,7 @@ class Widgets():
         self.create_extra_images()
         self.create_buttons(window_str)
         self.create_checkbuttons(window_str)
+        self.create_comboboxes(window_str)
         self.create_entries(window_str)
         self.create_labels(window_str)
         self.create_scales(window_str)
@@ -102,6 +103,15 @@ class Widgets():
             checkbutton = \
                 methods_creation.create_checkbutton(checkbutton_template, checkbutton_window)
             self.mapping[checkbutton_template["str_key"]] = checkbutton
+
+    def create_comboboxes(self, window_str):
+        """This method creates all of the comboboxes that are
+        meant to appear in the window indicated by window_str."""
+
+        combobox_window = self[window_str]
+        for combobox_template in classes.template["comboboxes"][window_str]:
+            combobox = methods_creation.create_combobox(combobox_template, combobox_window)
+            self.mapping[combobox_template["str_key"]] = combobox
 
     def create_entries(self, window_str):
         """This method creates all of the entries that are meant
@@ -159,7 +169,7 @@ class Widgets():
         window = methods_helper.create_window(window_template, is_main_window)
         self.mapping[window_str] = window
 
-        # Define how the window should treat error messages
+        # Define how the window should treat error messages.
         window.report_callback_exception = self.report_callback_exception
 
         # Create the widgets that should appear in the current window.

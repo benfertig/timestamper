@@ -101,3 +101,24 @@ def refresh_settings_window_values():
 
         # Set the text value of the current entry to the previously determined value.
         methods_output.print_to_entry(entry_text, entry_obj, wipe_clean=True)
+
+    # Loop through all of the comboboxes in the settings window.
+    for combobox_template in classes.template["comboboxes"]["window_settings"]:
+
+        # Retrieve the combobox widget associated with the current combobox template's string key.
+        combobox_obj = classes.widgets[combobox_template["str_key"]]
+
+        # If it is determined that the combobox should initially be enabled, enable the combobox.
+        if methods_helper.determine_widget_attribute(combobox_template, "initial_state"):
+            combobox_obj["state"] = NORMAL
+
+        # If it is determined that the combobox should initially be disabled, disable the combobox.
+        else:
+            combobox_obj["state"] = DISABLED
+
+        # Determine what the combobox's text should be and then set that to the combobox's text.
+        combobox_text = methods_helper.determine_widget_attribute(combobox_template, "text")
+        combobox_obj.set(combobox_text)
+
+        # Reset the combobox's text in its template.
+        combobox_template["text_loaded_value"] = combobox_text

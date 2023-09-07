@@ -39,6 +39,9 @@
     "hotkey_3": {
         "message": "HOTKEY 3"
     },
+    "round_timestamp": {
+        "round_to_last": "centisecond"
+    },
     "always_include_hours_in_timestamp": {
         "is_enabled": true
     }

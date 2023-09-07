@@ -1,0 +1,48 @@
+{
+
+    "window_str_key": "window_main",
+
+    "initial_state": true,
+
+    "values": [],
+
+    "message_file_name": null,
+
+    "text": null,
+
+    "linked_setting": null,
+
+    "to_enable": [],
+    "to_disable": [],
+
+    "background": null,
+    "foreground": null,
+
+    "width": null,
+
+    "column": 0,
+    "row": 0,
+
+    "rowspan": 1,
+    "columnspan": 1,
+
+    "padx": null,
+    "pady": null,
+
+    "ipadx": null,
+    "ipady": null,
+
+    "is_in_settings": false,
+
+    "sticky": "",
+
+    "font_family": "",
+    "font_size": 12,
+    "font_weight": "normal",
+    "font_slant": "roman",
+    "font_underline": 0,
+    "font_overstrike": 0,
+
+    "os_specific_settings": {}
+
+}

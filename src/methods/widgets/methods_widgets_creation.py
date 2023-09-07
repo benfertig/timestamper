@@ -4,6 +4,7 @@
 from sys import platform
 from tkinter import DISABLED, NORMAL, HORIZONTAL, VERTICAL, END, Button, \
     Checkbutton, DoubleVar, Entry, IntVar, Label, StringVar, Scale, Spinbox, Text
+from tkinter.ttk import Combobox
 from tkinter.ttk import Scale as ttk_scale
 
 import classes
@@ -133,6 +134,47 @@ def create_checkbutton(checkbutton_template, checkbutton_window):
     return checkbutton
 
 
+def create_combobox(combobox_template, combobox_window):
+    """This method creates a Combobox object for the Time Stamper program."""
+
+    str_key = combobox_template["str_key"]
+
+    # Create the Combobox's font.
+    combobox_font = methods_helper.create_font(combobox_template)
+
+    # Determine the Combobox's initial state.
+    combobox_template_initial_state = \
+        methods_helper.determine_widget_attribute(combobox_template, "initial_state")
+    if combobox_template_initial_state == "readonly":
+        initial_state = "readonly"
+    elif combobox_template_initial_state:
+        initial_state = NORMAL
+    else:
+        initial_state = DISABLED
+
+    # Create the Combobox object.
+    combobox = Combobox(combobox_window, width=combobox_template["width"], font=combobox_font, \
+        background=combobox_template["background"], foreground=combobox_template["foreground"], \
+        state=initial_state, values=combobox_template["values"])
+
+    # Set the macro for the combobox if there is one.
+    if classes.macros and str_key in classes.macros.mapping:
+        combobox.bind("<<ComboboxSelected>>", classes.macros[str_key])
+
+    # Determine what the Combobox object's initial text should
+    # be and then set that to the Combobox's initial text.
+    combobox_text_str = methods_helper.determine_widget_text(combobox_template)
+    combobox.set(combobox_text_str)
+
+    # Load the Combobox's initial text into its template.
+    combobox_template["text_loaded_value"] = combobox_text_str
+
+    # Place the Combobox.
+    methods_helper.grid_widget(combobox, combobox_template)
+
+    return combobox
+
+
 def create_entry(entry_template, entry_window):
     """This method creates an Entry object for the Time Stamper program."""
 
@@ -157,8 +199,7 @@ def create_entry(entry_template, entry_window):
         entry_window, width=entry_template["width"], textvariable=entry_text, font=entry_font, \
         background=entry_template["background"], foreground=entry_template["foreground"], \
         disabledbackground=entry_template["disabledbackground"], \
-        disabledforeground=entry_template["disabledforeground"],
-        state=initial_state)
+        disabledforeground=entry_template["disabledforeground"], state=initial_state)
 
     # Determine any macros for the entry.
     trace_macro = classes.macros[f"{str_key}_TRACE"] \

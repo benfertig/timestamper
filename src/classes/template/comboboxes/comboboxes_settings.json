@@ -1,0 +1,51 @@
+{
+
+    "combobox_round_timestamp_settings": {
+
+        "str_key": "combobox_round_timestamp_settings",
+        "window_str_key": "window_settings",
+
+        "initial_state": "readonly",
+
+        "values": ["second", "decisecond", "centisecond"],
+
+        "text": {
+            "linked_dict": "round_timestamp",
+            "linked_attribute": "round_to_last"
+        },
+        "text_loaded_value": "",
+
+        "linked_setting": {
+            "linked_dict": "round_timestamp",
+            "linked_attribute": "round_to_last",
+            "attribute_to_copy": "text_loaded_value"
+        },
+
+        "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
+
+        "background": null,
+        "foreground": null,
+
+        "width": 10,
+
+        "column": 2,
+        "row": 10,
+
+        "rowspan": 1,
+        "columnspan": 1,
+
+        "padx": null,
+        "pady": null,
+
+        "ipadx": null,
+        "ipady": null,
+
+        "is_in_settings": true,
+
+        "sticky": "w",
+
+        "font_size": 10
+
+    }
+
+}

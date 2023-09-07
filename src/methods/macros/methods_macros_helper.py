@@ -256,6 +256,13 @@ def checkbutton_enable_disable_macro(checkbutton_template):
             to_disable["state"] = DISABLED
 
 
+def combobox_enable_disable_macro(combobox_template):
+    """This method, which is called upon by combobox macros, will enable/disable the widgets
+    that are referenced in the combobox template's "to_enable" and "to_disable" attributes."""
+
+    button_enable_disable_macro(combobox_template)
+
+
 def determine_widget_attribute(widget_template, attribute_str):
     """This method determines what a particular attribute (attribute_str) of a widget should
     be set to. Sometimes, a widget's attribute is stored directly in the value associated with

@@ -6,6 +6,7 @@ manipulated. The actual macros are stored in submodules (all of which are import
 from dataclasses import dataclass
 
 import classes.macros.macros_widgets.macros_checkbuttons as check
+import classes.macros.macros_widgets.macros_comboboxes as comboboxes
 import classes.macros.macros_widgets.macros_entries as entries
 import classes.macros.macros_widgets.macros_scales as scales
 import classes.macros.macros_widgets.macros_spinboxes as spinboxes
@@ -60,6 +61,9 @@ class Macros():
             "checkbutton_skip_forward_settings": check.checkbutton_skip_forward_settings_macro,
             "checkbutton_always_include_hours_in_timestamp_settings": \
                 check.checkbutton_always_include_hours_in_timestamp_settings_macro,
+
+            # Comboboxes
+            "combobox_round_timestamp_settings": comboboxes.combobox_round_timestamp_settings_macro,
 
             # Entries
             "entry_hours_TRACE": entries.entry_hours_trace,
