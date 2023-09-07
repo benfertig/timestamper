@@ -202,7 +202,7 @@
         "to_enable": ["button_reset_to_default", "button_cancel_changes", "button_save_settings"],
 
         "column": 2,
-        "row": 11,
+        "row": 12,
 
         "is_in_settings": true,
 

@@ -1,8 +1,8 @@
 {
 
-    "label_button_messages": {
+    "label_button_messages_settings": {
 
-        "str_key": "label_button_messages",
+        "str_key": "label_button_messages_settings",
         "window_str_key": "window_settings",
 
         "text": "Button messages:",
@@ -10,15 +10,17 @@
         "column": 0,
         "row": 0,
 
-        "sticky": "e",
+        "columnspan": 2,
+
+        "sticky": "s",
 
         "font_weight": "bold"
 
     },
 
-    "label_optional_variables": {
+    "label_optional_variables_settings": {
 
-        "str_key": "label_optional_variables",
+        "str_key": "label_optional_variables_settings",
         "window_str_key": "window_settings",
 
         "text": "Optional variables:",
@@ -72,9 +74,9 @@
 
     },
 
-    "label_rewind_optional_variables": {
+    "label_rewind_optional_variables_settings": {
 
-        "str_key": "label_rewind_optional_variables",
+        "str_key": "label_rewind_optional_variables_settings",
         "window_str_key": "window_settings",
 
         "text": "$speed (rewind speed)",
@@ -102,9 +104,9 @@
 
     },
 
-    "label_fast_forward_optional_variables": {
+    "label_fast_forward_optional_variables_settings": {
 
-        "str_key": "label_fast_forward_optional_variables",
+        "str_key": "label_fast_forward_optional_variables_settings",
         "window_str_key": "window_settings",
 
         "text": "$speed (fast-forward speed)",
@@ -132,9 +134,9 @@
 
     },
 
-    "label_skip_backward_optional_variables": {
+    "label_skip_backward_optional_variables_settings": {
 
-        "str_key": "label_skip_backward_optional_variables",
+        "str_key": "label_skip_backward_optional_variables_settings",
         "window_str_key": "window_settings",
 
         "text": "$amount (skip backward amount), $dest (destination time)",
@@ -162,9 +164,9 @@
 
     },
 
-    "label_skip_forward_optional_variables": {
+    "label_skip_forward_optional_variables_settings": {
 
-        "str_key": "label_skip_forward_optional_variables",
+        "str_key": "label_skip_forward_optional_variables_settings",
         "window_str_key": "window_settings",
 
         "text": "$amount (skip forward amount), $dest (destination time)",
@@ -232,6 +234,24 @@
 
     },
 
+    "label_timestamp_settings": {
+
+        "str_key": "label_timestamp_settings",
+        "window_str_key": "window_settings",
+
+        "text": "Timestamp settings:",
+
+        "column": 0,
+        "row": 10,
+
+        "columnspan": 2,
+
+        "sticky": "s",
+
+        "font_weight": "bold"
+
+    },
+
     "label_round_timestamp_settings": {
 
         "str_key": "label_round_timestamp_settings",
@@ -240,7 +260,7 @@
         "text": "Round timestamp to last",
 
         "column": 0,
-        "row": 10,
+        "row": 11,
 
         "columnspan": 2,
 
@@ -262,7 +282,7 @@
         "justify": "right",
 
         "column": 0,
-        "row": 11,
+        "row": 12,
 
         "columnspan": 2,
 
