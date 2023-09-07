@@ -157,9 +157,23 @@ def create_combobox(combobox_template, combobox_window):
         background=combobox_template["background"], foreground=combobox_template["foreground"], \
         state=initial_state, values=combobox_template["values"])
 
-    # Set the macro for the combobox if there is one.
+    # Set the macro for the Combobox if there is one.
     if classes.macros and str_key in classes.macros.mapping:
         combobox.bind("<<ComboboxSelected>>", classes.macros[str_key])
+
+    # Determine whether there is a scroll macro for the combobox.
+    scroll_macro = classes.macros[f"{str_key}_ONMOUSEWHEEL"] \
+        if classes.macros and f"{str_key}_ONMOUSEWHEEL" in classes.macros.mapping else None
+
+    # Allow for the combobox to be manipulated with the mousewheel
+    # if it was indicated that this should be the case in macros.py.
+    if scroll_macro:
+
+        mousewheel_strs = \
+            ("<Button-4>", "<Button-5>") if platform.startswith("linux") else ("<MouseWheel>",)
+
+        for mw_str in mousewheel_strs:
+            combobox.bind(mw_str, scroll_macro)
 
     # Determine what the Combobox object's initial text should
     # be and then set that to the Combobox's initial text.
@@ -212,8 +226,8 @@ def create_entry(entry_template, entry_window):
     if trace_macro:
         entry_text.trace("w", lambda *_: trace_macro(entry_text))
 
-    # Allow for the timer to be manipulated when the mousewheel is moved over
-    # this entry if it was indicated that this should be the case in macros.py.
+    # Allow for the entry to be manipulated with the mousewheel if
+    # it was indicated that this should be the case in macros.py.
     if scroll_macro:
 
         mousewheel_strs = \
@@ -306,8 +320,8 @@ def create_scale(scale_template, scale_window):
     # Map the left-mouse-click to the right-mouse-click.
     scale.bind("<Button-1>", methods_helper.set_value)
 
-    # Allow for the scale to be manipulated with the mousewheel if it was
-    # indicated that this should be the case in the scale's template.
+    # Allow for the scale to be manipulated with the mousewheel if
+    # it was indicated that this should be the case in the macros.py.
     if scroll_macro:
 
         mousewheel_strs = \
@@ -373,8 +387,8 @@ def create_spinbox(spinbox_template, spinbox_window):
 
     spinbox_text.set(spinbox_text_str)
 
-    # Allow for the spinbox to be manipulated with the mousewheel if it was
-    # indicated that this should be the case in the spinbox's template.
+    # Allow for the spinbox to be manipulated with the mousewheel
+    # if it was indicated that this should be the case in macros.py.
     if scroll_macro:
 
         mousewheel_strs = \

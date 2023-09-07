@@ -64,6 +64,8 @@ class Macros():
 
             # Comboboxes
             "combobox_round_timestamp_settings": comboboxes.combobox_round_timestamp_settings_macro,
+            "combobox_round_timestamp_settings_ONMOUSEWHEEL": \
+                comboboxes.combobox_round_timestamp_settings_mousewheel_macro,
 
             # Entries
             "entry_hours_TRACE": entries.entry_hours_trace,

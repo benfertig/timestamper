@@ -24,7 +24,7 @@ import methods.macros.methods_macros_helper as methods_helper
 # Contact: github.cqrde@simplelogin.com
 
 
-def combobox_round_timestamp_settings_macro(*_):
+def combobox_round_timestamp_settings_macro(_):
     """This method will be executed when the combobox that alters the
     increment to which the timestamp gets rounded is manipulated."""
 
@@ -36,3 +36,16 @@ def combobox_round_timestamp_settings_macro(*_):
     combobox = classes.widgets["combobox_round_timestamp_settings"]
     combobox_template = classes.template["combobox_round_timestamp_settings"]
     combobox_template["text_loaded_value"] = combobox.get()
+
+
+def combobox_round_timestamp_settings_mousewheel_macro(_):
+    """This method will be executed when the mousewheel is moved over the
+    combobox that alters the increment to which the timestamp gets rounded."""
+
+    combobox = classes.widgets["combobox_round_timestamp_settings"]
+    selection = combobox.current()
+
+    # TODO: It is unknown why this does not need to be "selection - 1" (if
+    # event.delta was positive) or "selection + 1" (if event.delta was negative).
+    # This command should be thoroughly tested on other operating systems.
+    combobox.current(selection)
