@@ -2,8 +2,6 @@
 """This module stores the functions that are executed when
 note buttons in the Time Stamper program are pressed."""
 
-from tkinter import END
-
 import classes
 import methods.macros.methods_macros_output as methods_output
 
@@ -31,7 +29,7 @@ def button_hotkey_1_macro(*_):
 
     # Timestamp and print the message associated with hotkey 1.
     button_hotkey_1_message = methods_output.get_button_message_input("button_hotkey_1")
-    methods_output.print_timestamped_message(f"{button_hotkey_1_message}\n")
+    methods_output.print_timestamped_message(button_hotkey_1_message)
 
 
 def button_hotkey_2_macro(*_):
@@ -39,7 +37,7 @@ def button_hotkey_2_macro(*_):
 
     # Timestamp and print the message associated with hotkey 2.
     button_hotkey_2_message = methods_output.get_button_message_input("button_hotkey_2")
-    methods_output.print_timestamped_message(f"{button_hotkey_2_message}\n")
+    methods_output.print_timestamped_message(button_hotkey_2_message)
 
 
 def button_hotkey_3_macro(*_):
@@ -47,7 +45,7 @@ def button_hotkey_3_macro(*_):
 
     # Timestamp and print the message associated with hotkey 3.
     button_hotkey_3_message = methods_output.get_button_message_input("button_hotkey_3")
-    methods_output.print_timestamped_message(f"{button_hotkey_3_message}\n")
+    methods_output.print_timestamped_message(button_hotkey_3_message)
 
 
 def button_cancel_note_macro(*_):
@@ -62,7 +60,7 @@ def button_save_note_macro(*_):
 
     # Get the current text in the input text box.
     obj_current_note = classes.widgets["text_current_note"]
-    current_note = obj_current_note.get(1.0, END)
+    current_note = obj_current_note.get(1.0, "end-1c")
 
     # Clear the current text in the input text box.
     methods_output.print_to_text("", obj_current_note, wipe_clean=True)

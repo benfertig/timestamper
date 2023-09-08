@@ -223,21 +223,33 @@ def pad_number(number, target_length, pad_before):
     return str_number + zeros_to_add
 
 
-def h_m_s_to_seconds(hours, minutes, seconds, subseconds):
+def h_m_s_to_seconds(hours=0, minutes=0, seconds=0, subseconds=0):
     """This method converts a time in hours, minutes,
     seconds and subseconds to a time in seconds."""
 
     return (hours * 3600) + (minutes * 60) + seconds + (subseconds / 100)
 
 
-def h_m_s_to_timestamp(hours, minutes, seconds, subseconds=None, include_brackets=True):
+def h_m_s_to_timestamp(hours=None, minutes=None, \
+    seconds=None, subseconds=None, include_brackets=True):
     """This method converts a time in hours, minutes, seconds and subseconds to
     a timestamp with the following format: [hours:minutes:seconds:subseconds].
     The optional argument, include_brackets, which is set to True by default,
     determines whether the returned string will be enclosed in square brackets."""
 
-    return f"{'[' if include_brackets else ''}{hours}:{minutes}:{seconds}" \
-        f"{f'.{subseconds}' if subseconds is not None else ''}{']' if include_brackets else ''}"
+    # If brackets were requested, add the opening bracket.
+    timestamp = "[" if include_brackets else ""
+
+    # Loop through the denominations and add those that were provided as arguments.
+    denominations = (hours, minutes, seconds, subseconds)
+    for i, denom in enumerate(denominations):
+        if denom:
+            if any(denominations[:i]):
+                timestamp = f"{timestamp}:"
+            timestamp = f"{timestamp}{denom}"
+
+    # If brackets were requested, add the closing bracket. Otherwise, add nothing.
+    return f"{timestamp}]" if include_brackets else timestamp
 
 
 def seconds_to_h_m_s(seconds_exact, pad=0, include_subseconds=True):
@@ -264,14 +276,23 @@ def seconds_to_h_m_s(seconds_exact, pad=0, include_subseconds=True):
             subseconds = pad_number(subseconds, pad, True)
 
     if include_subseconds:
-        return str(hours), str(minutes), str(seconds), str(subseconds)
+        return [str(hours), str(minutes), str(seconds), str(subseconds)]
 
-    return str(hours), str(minutes), str(seconds)
+    return [str(hours), str(minutes), str(seconds)]
 
 
-def seconds_to_timestamp(seconds, pad=0, include_subseconds=True, include_brackets=True):
+def seconds_to_timestamp(seconds, pad=0, force_include_hours=True, \
+    include_subseconds=True, include_brackets=True):
     """This method converts a time in seconds to a timestamp with
     the following format: [hours:minutes:seconds:subseconds]"""
 
+    # Convert the seconds into hours, minutes, seconds and (potentially) subseconds.
     h_m_s = seconds_to_h_m_s(seconds, pad=pad, include_subseconds=include_subseconds)
+
+    # If the time is under one hour and it was specified that the
+    # inclusion of hours should not be forced, omit the hours.
+    if seconds < 3600 and not force_include_hours:
+        h_m_s[0] = None
+
+    # Convert the time to a timestamp and return it.
     return h_m_s_to_timestamp(*h_m_s, include_brackets=include_brackets)

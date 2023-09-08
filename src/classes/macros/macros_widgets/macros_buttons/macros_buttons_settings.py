@@ -115,5 +115,10 @@ def button_save_settings_macro(*_):
     classes.settings.dump_dict_to_json(\
         classes.settings.user, classes.settings.user_json_path, indent=4)
 
+    # If the current settings are the same as the default
+    # settings, disable the "Reset to default" button.
+    if classes.settings.user == classes.settings.default:
+        classes.widgets["button_reset_to_default"]["state"] = DISABLED
+
     # Enable and disable the relevant widgets for when the "Save settings" button is pressed.
     methods_helper.button_enable_disable_macro(classes.template["button_save_settings"])

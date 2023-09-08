@@ -43,14 +43,25 @@ def attempt_button_message(button_str_key, timestamp=None, **user_variables):
 
             # Generate a timestamp if one was not provided.
             if timestamp is None:
-                timestamp = classes.timer.current_time_to_timestamp()
+
+                # Determine whether hours should be included in the
+                # timestamp even when the time is below one hour.
+                force_include_hours = \
+                    classes.settings["always_include_hours_in_timestamp"]["is_enabled"]
+
+                # Determine what increment the timestamp should be rounded to.
+                round_to = classes.settings["round_timestamp"]["round_to_last"]
+
+                # Generate the current timestamp.
+                timestamp = classes.timer.current_time_to_timestamp(\
+                    force_include_hours=force_include_hours, round_to=round_to)
 
             # Replace any variables in the button's message.
             button_message = replace_button_message_variables(\
                 button_message_pre_replace, **user_variables)
 
             # Print the button's message.
-            print_timestamped_message(f"{button_message}\n", timestamp)
+            print_timestamped_message(button_message, timestamp)
 
 
 def validate_output_file(file_full_path, erase_if_empty=False):
@@ -113,23 +124,20 @@ def print_timestamped_message(message, timestamp=None):
 
     # If no timestamp was provided, set the timestamp to the timer's current time.
     if timestamp is None:
-        timestamp = classes.timer.current_time_to_timestamp()
+
+        # Determine whether hours should be included in the
+        # timestamp even when the time is below one hour.
+        force_include_hours = classes.settings["always_include_hours_in_timestamp"]["is_enabled"]
+
+        # Determine what increment the timestamp should be rounded to.
+        round_to = classes.settings["round_timestamp"]["round_to_last"]
+
+        # Generate the current timestamp.
+        timestamp = classes.timer.current_time_to_timestamp(\
+            force_include_hours=force_include_hours, round_to=round_to)
 
     # Generate the complete message that should be printed, including the timestamp.
-    to_print = f"{timestamp} {message}"
-
-    # Open the output file.
-    with open(classes.time_stamper.output_path, "rb+") as output_file:
-
-        # Determine the last character of the output file.
-        output_file.seek(-1, 2)
-        last_char_var = output_file.read(1)
-        last_char = str(last_char_var, classes.settings["output"]["file_encoding"])
-
-        # If the last character of the output file is not a
-        # new line, add a new line to the upcoming message.
-        if last_char != "\n":
-            to_print = f"\n{to_print}"
+    to_print = f"\n{timestamp} {message}"
 
     # Print the message passed in the argument "message" along with
     # the current timestamp to the notes log and the output file.
