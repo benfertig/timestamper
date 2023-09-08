@@ -2,7 +2,6 @@
 """This module stores the functions that are executed when
 timestamping buttons in the Time Stamper program are pressed."""
 
-import classes
 import methods.macros.methods_macros_timing as methods_timing
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
