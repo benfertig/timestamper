@@ -2,11 +2,11 @@
 """This module stores some extra methods associated with printing text output."""
 
 from os.path import exists, isdir
-from re import match
 from tkinter import NORMAL, END
 
 import classes
 import methods.macros.methods_macros_helper as methods_helper
+import methods.timing.methods_timing_helper as methods_timing_helper
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -137,7 +137,31 @@ def print_timestamped_message(message, timestamp=None):
             force_include_hours=force_include_hours, round_to=round_to)
 
     # Generate the complete message that should be printed, including the timestamp.
-    to_print = f"\n{timestamp} {message}"
+    to_print = f"{timestamp} {message}"
+
+    # Open the output file.
+    with open(classes.time_stamper.output_path, "rb+") as output_file:
+
+        # See if there is any text in the output file.
+        try:
+            output_file.seek(-1, 2)
+
+        # If there is NO text currently in the output file, do
+        # not add a new line to the beginning of the next note.
+        except OSError:
+            pass
+
+        # If there IS text currently in the output file...
+        else:
+
+            # Determine the last character of the output file.
+            last_char_var = output_file.read(1)
+            last_char = str(last_char_var, classes.settings["output"]["file_encoding"])
+
+            # If the last character of the output file is not a
+            # new line, add a new line to the upcoming message.
+            if last_char != "\n":
+                to_print = f"\n{to_print}"
 
     # Print the message passed in the argument "message" along with
     # the current timestamp to the notes log and the output file.
@@ -347,29 +371,95 @@ def replace_button_message_variables(button_message, **user_variables):
     return button_message
 
 
+def make_timestamp_formats_consistent(original_h_m_s):
+    """This method takes a list of lists, where each constituent list has the form [hours,
+    minutes, seconds, subseconds] (if any of these four values is None, that is okay). This
+    method then modifies the input list so that the precision of each [hours, minutes,
+    seconds, subseconds] entry becomes as precise as the most precise entry in the list."""
+
+    # Check whether minutes were included in any of the timestamps,
+    # and if they were, ensure that all timestamps include minutes.
+    for orig_outer in original_h_m_s:
+        if orig_outer[1] is not None:
+            for i, orig_inner in enumerate(original_h_m_s):
+                original_h_m_s[i][1] = "00" if orig_inner[1] is None else orig_inner[1]
+            break
+
+    # Check whether hours were included in any of the timestamps,
+    # and if they were, ensure that all timestamps include hours.
+    for orig_outer in original_h_m_s:
+        if orig_outer[0] is not None:
+            for i, orig_inner in enumerate(original_h_m_s):
+                original_h_m_s[i][0] = "00" if orig_inner[0] is None else orig_inner[0]
+            break
+
+    # Check the precision of the decimal of the most precise timestamp.
+    most_precise_subsecond = 0
+    for orig in original_h_m_s:
+        if orig[3] is not None:
+            most_precise_subsecond = max(most_precise_subsecond, len(orig[3]))
+
+    # Ensure that the decimals of each timestamp are as
+    # precise as the decimal of the most precise timestamp.
+    if most_precise_subsecond > 0:
+        for i, orig in enumerate(original_h_m_s):
+            if orig[3] is None or len(orig[3]) < most_precise_subsecond:
+                orig[3] = methods_timing_helper.pad_number(\
+                    orig[3] if orig[3] else "0", most_precise_subsecond, False)
+
+    return original_h_m_s
+
+
 def store_timestamper_output(output_file_paths):
     """This method reads through timestamper output files saved in "all_files" (which should
     be a list of file paths) and saves the notes stored in these files to a list."""
 
-    header, notes_body, cur_note = [], [], ""
+    header, notes_body, original_h_m_s= [], [], []
+    cur_note = ""
 
     # Iterate over every file specified in "output_file_paths".
     for input_file in output_file_paths:
 
+        # Assume that any new lines at the beginning of the current file are part
+        # of the header (until we reach a timestamped line in the current file).
         on_header = True
 
-        file_encoding = classes.settings["output"]["file_encoding"]
-        with open(input_file, "r", encoding=file_encoding) as in_file:
+        # Open the current file.
+        with open(input_file, "r", encoding=classes.settings["output"]["file_encoding"]) as in_file:
 
             # Iterate over every line in the current file.
             for line in in_file:
 
-                # If the current line begins with a timestamp...
-                if match("\\[\\d{2}:\\d{2}:\\d{2}.\\d{2}\\]", line[:13]):
+                # If the last character of the current line is not a new line
+                # character, add a new line character to the end of the current line.
+                if line[-1] != "\n":
+                    line = f"{line}\n"
 
-                    # If the current line begins with a timestamp, we can be certain that the
-                    # program is finished reading in any non-timestamped lines at the top of the
-                    # current file, so new lines should NOT be considered part of the header.
+                is_timestamped_line = False
+
+                # If the current line begins with an open square bracket and contains a closed
+                # square bracket somewhere later, it could potentially be a timestamped line.
+                if line[0] == "[" and line.find("]") != -1:
+
+                    # If the characters in the current line up to the first
+                    # closed square bracket were successfully parsed as a
+                    # timestamp, then that means this is a timestamped line.
+                    original_timestamp = line[:line.find("]") + 1]
+                    print(f"original_timestamp: {original_timestamp}")
+                    h_m_s = methods_timing_helper.timestamp_to_h_m_s(\
+                        original_timestamp, pad=2, pad_subseconds=False)
+                    print(f"h_m_s: {h_m_s}\n")
+                    if h_m_s is not None:
+
+                        is_timestamped_line = True
+                        original_h_m_s.append(h_m_s)
+
+                # If the current line begins with a timestamp...
+                if is_timestamped_line:
+
+                    # We can now be certain that the program is finished reading
+                    # in any non-timestamped lines at the top of the current file,
+                    # so new lines should NOT be considered part of the header.
                     on_header = False
 
                     # If a current note exists, append it to the
@@ -393,10 +483,16 @@ def store_timestamper_output(output_file_paths):
                 else:
                     cur_note += line
 
+    # Flush out any final note that has not yet been added to the notes list.
     if cur_note:
         notes_body.append(cur_note)
 
-    return header, notes_body
+    # Make the degree of precision of all [hours, minutes, seconds, subseconds]
+    # lists from the output consistent with the degree of precision
+    # of the most precise [hours, minutes, seconds, subseconds] list.
+    consistent_h_m_s = make_timestamp_formats_consistent(original_h_m_s)
+
+    return header, consistent_h_m_s, notes_body
 
 
 def merge_notes(files_to_read):
@@ -404,9 +500,16 @@ def merge_notes(files_to_read):
     those files into one list sorted according the time each note was written."""
 
     # Read through the input files of notes and save the lines to a list.
-    header, notes_body = store_timestamper_output(files_to_read)
+    header, consistent_h_m_s, notes_body = store_timestamper_output(files_to_read)
 
-    # Sort the list of notes gathered from all requested files.
-    notes_body.sort()
+    # Make the degree of precision of all timestamps in the output
+    # consistent with the degree of precision of the most precise timestamp.
+    for i, note in enumerate(notes_body):
+        consistent_timestamp = methods_timing_helper.h_m_s_to_timestamp(*consistent_h_m_s[i])
+        notes_body[i] = f"{consistent_timestamp}{note[note.find(']') + 1:]}"
+
+    # Sort the notes gathered from all requested files according to their precise timestamps.
+    notes_body = \
+        [note for _, note in sorted(zip(consistent_h_m_s, notes_body), key=lambda pair: pair[0])]
 
     return header + notes_body

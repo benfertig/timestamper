@@ -232,21 +232,54 @@ def h_m_s_to_seconds(hours=0, minutes=0, seconds=0, subseconds=0):
 
 def h_m_s_to_timestamp(hours=None, minutes=None, \
     seconds=None, subseconds=None, include_brackets=True):
-    """This method converts a time in hours, minutes, seconds and subseconds to
-    a timestamp with the following format: [hours:minutes:seconds:subseconds].
-    The optional argument, include_brackets, which is set to True by default,
-    determines whether the returned string will be enclosed in square brackets."""
+    """This method converts a time in hours, minutes, seconds and subseconds to a timestamp. All
+    arguments are optional. However, at the very least, seconds will always be included in the
+    timestamp (and set to "00" if they were not provided). If the hours were provided, but not the
+    minutes, then the minutes will be set to "00" and will also be included in the timestamp. This
+    method DOES NOT pad or truncate any values or perform any check to determine whether the passed
+    values are valid. It is therefore the responsibility of the function that calls this method to
+    ensure that the values it passes to this method (which would preferably be strings) are already
+    formatted in the desired way. The optional argument include_brackets, which is set to True
+    by default, determines whether the returned string will be enclosed in square brackets."""
 
     # If brackets were requested, add the opening bracket.
     timestamp = "[" if include_brackets else ""
 
-    # Loop through the denominations and add those that were provided as arguments.
-    denominations = (hours, minutes, seconds, subseconds)
-    for i, denom in enumerate(denominations):
-        if denom:
-            if any(denominations[:i]):
-                timestamp = f"{timestamp}:"
-            timestamp = f"{timestamp}{denom}"
+    # If the hours were provided, include the hours.
+    if hours:
+        timestamp = f"{timestamp}{hours}:"
+
+    # If the minutes should be included...
+    if minutes or hours:
+
+        # If the hours were included and the minutes should also be included...
+        if hours:
+
+            # If the hours AND the minutes were provided, add the minutes to the timestamp.
+            if minutes:
+                timestamp = f"{timestamp}{minutes}"
+
+            # If the hours were provided, but NOT the minutes, set the
+            # minutes to "00" and then add the minutes to the timestamp.
+            else:
+                minutes = "00"
+                timestamp = f"{timestamp}00"
+
+        # If the minutes, but NOT the hours, should be included, just add the minutes.
+        else:
+            timestamp = f"{timestamp}{minutes}"
+
+    # If the minutes were included, add a colon before adding the seconds.
+    if minutes:
+        timestamp = f"{timestamp}:"
+
+    # If the seconds were included, add the seconds to the timestamp. Otherwise, add "00" in place
+    # of the seconds (seconds are the only thing that get included in the timestamp no matter what).
+    timestamp = f"{timestamp}{seconds if seconds else '00'}"
+
+    # If the subseconds were included, add the subseconds to the timestamp.
+    if subseconds:
+        timestamp = f"{timestamp}.{subseconds}"
 
     # If brackets were requested, add the closing bracket. Otherwise, add nothing.
     return f"{timestamp}]" if include_brackets else timestamp
@@ -296,3 +329,72 @@ def seconds_to_timestamp(seconds, pad=0, force_include_hours=True, \
 
     # Convert the time to a timestamp and return it.
     return h_m_s_to_timestamp(*h_m_s, include_brackets=include_brackets)
+
+
+def timestamp_to_h_m_s(timestamp, pad=0, pad_subseconds=False):
+    """This method takes a timetsamp and converts it to a time in hours, minutes, seconds and
+    subseconds. The returned value is a list of the form [hours, minutes, seconds, subseconds].
+    Any of those four values which were not detected in the timestamp will be equal to None."""
+
+    hours, minutes, seconds, subseconds = None, None, None, None
+
+    # Split the provided timestamp.
+    timestamp_split = timestamp.split(":")
+
+    # Remove the first and last brackets if they exist.
+    if timestamp_split[0] and timestamp_split[0][0] == "[":
+        timestamp_split[0] = timestamp_split[0][1:]
+    if timestamp_split[-1] and timestamp_split[-1][-1] == "]":
+        timestamp_split[-1] = timestamp_split[-1][:-1]
+
+    # If minutes were included in the timestamp...
+    if len(timestamp_split) > 1:
+
+        # If hours AND minutes were included in the timestamp...
+        if len(timestamp_split) > 2:
+            hours = timestamp_split[0] if timestamp_split[0] else None
+            minutes = timestamp_split[1] if timestamp_split[1] else None
+
+        # If minutes, but NOT hours, were included in the timestamp...
+        else:
+            minutes = timestamp_split[0] if timestamp_split[0] else None
+
+    # If subseconds WERE included in the timestamp...
+    seconds_split = timestamp_split[-1].split(".")
+    if len(seconds_split) == 2:
+
+        # Store the subseconds.
+        subseconds = seconds_split[1] if seconds_split[1] else None
+
+        # Update the split timestamp.
+        timestamp_split[-1] = seconds_split[0]
+        timestamp_split.append(seconds_split[1])
+
+        # Pad the subseconds if necessary.
+        if pad and pad_subseconds:
+            subseconds = pad_number(subseconds, 2, False)
+
+    # Store the seconds.
+    seconds = seconds_split[0] if seconds_split[0] else None
+
+    # Ensure that the timestamp contains only values that can be interpreted as numbers
+    # and that those numbers are not longer than two characters long. If this is not the
+    # case for any values in the timestamp, then this method will return None, as the
+    # timestamp will not be convertible into hours, minutes, seconds and subseconds.
+    for denom in timestamp_split:
+        if len(denom) > 2:
+            return None
+        if denom != "":
+            try:
+                int(denom)
+            except ValueError:
+                return None
+
+    # Pad all of the time values if padding was requested (besides subseconds, which
+    # were padded earlier if it was determined that they should have been padded).
+    if pad:
+        hours = pad_number(hours, pad, True) if hours else hours
+        minutes = pad_number(minutes, pad, True) if minutes else minutes
+        seconds = pad_number(seconds, pad, True) if seconds else seconds
+
+    return [hours, minutes, seconds, subseconds]
