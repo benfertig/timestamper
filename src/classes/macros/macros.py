@@ -10,6 +10,7 @@ import classes.macros.macros_widgets.macros_comboboxes as comboboxes
 import classes.macros.macros_widgets.macros_entries as entries
 import classes.macros.macros_widgets.macros_scales as scales
 import classes.macros.macros_widgets.macros_spinboxes as spinboxes
+import classes.macros.macros_widgets.macros_texts as texts
 import classes.macros.macros_widgets.macros_windows as windows
 
 import classes.macros.macros_widgets.macros_buttons.macros_buttons_file as file
@@ -102,6 +103,9 @@ class Macros():
             "spinbox_rewind_ONMOUSEWHEEL": spinboxes.spinbox_rewind_mousehweel_macro,
             "spinbox_fast_forward": spinboxes.spinbox_fast_forward_macro,
             "spinbox_fast_forward_ONMOUSEWHEEL": spinboxes.spinbox_fast_forward_mousehweel_macro,
+
+            # Texts
+            "text_current_note_ONRETURN": texts.text_current_note_return_key_macro,
 
             # Windows
             "window_video_ONCLOSE": windows.on_close_window_video_macro,

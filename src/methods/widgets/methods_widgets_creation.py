@@ -405,6 +405,8 @@ def create_spinbox(spinbox_template, spinbox_window):
 def create_text(text_template, text_window):
     """This method creates a Text object for the Time Stamper program."""
 
+    str_key = text_template["str_key"]
+
     # Create the Text's font.
     text_font = methods_helper.create_font(text_template)
 
@@ -425,6 +427,16 @@ def create_text(text_template, text_window):
     text["state"] = NORMAL
     text.insert(END, text_text)
     text["state"] = initial_state
+
+    # Determine whether a macro should be executed when the return
+    # key is pressed while the user has selected this Text object.
+    return_macro = classes.macros[f"{str_key}_ONRETURN"] \
+        if classes.macros and f"{str_key}_ONRETURN" in classes.macros.mapping else None
+
+    # If it was determined that a macro should be executed when the return key is
+    # pressed while the user has selected this Text object, bind that macro here.
+    if return_macro:
+        text.bind("<Return>", return_macro)
 
     # Place the Text.
     methods_helper.grid_widget(text, text_template)
