@@ -12,7 +12,7 @@
         "column": 0,
         "row": 4,
 
-        "columnspan": 17,
+        "columnspan": 18,
         "rowspan": 2,
 
         "padx": [5, 0],
@@ -33,7 +33,7 @@
         "column": 2,
         "row": 6,
 
-        "columnspan": 15,
+        "columnspan": 16,
         "rowspan": 2,
 
         "pady": [6, 0],

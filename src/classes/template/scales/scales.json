@@ -17,7 +17,7 @@
         "row": 3,
 
         "rowspan": 1,
-        "columnspan": 16,
+        "columnspan": 17,
 
         "padx": [5, 5],
 
@@ -41,7 +41,7 @@
         "from_": 0,
         "to": 100,
 
-        "column": 17,
+        "column": 18,
         "row": 5,
 
         "columnspan": 2,

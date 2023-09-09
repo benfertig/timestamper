@@ -113,8 +113,9 @@ class Macros():
 
             # File buttons
             "button_output_select": file.button_output_select_macro,
-            "button_cancel_output": file.button_cancel_output_macro,
+            "button_reconcile_timestamps": file.button_reconcile_timestamps_macro,
             "button_sort_output": file.button_sort_output_macro,
+            "button_cancel_output": file.button_cancel_output_macro,
             "button_media_select": file.button_media_select_macro,
             "button_cancel_media": file.button_cancel_media_macro,
 

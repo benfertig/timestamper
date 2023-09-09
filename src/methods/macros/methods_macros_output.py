@@ -6,7 +6,7 @@ from tkinter import NORMAL, END
 
 import classes
 import methods.macros.methods_macros_helper as methods_helper
-import methods.timing.methods_timing_helper as methods_timing_helper
+from methods.timing import methods_timing_helper
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -108,6 +108,25 @@ def validate_output_file(file_full_path, erase_if_empty=False):
         methods_helper.toggle_widgets(classes.template["button_output_select"], False)
 
 
+def determine_last_character(file_name):
+    """This method efficiently determines the last character in a text
+    file. If the text file is empty, this method will return None."""
+
+    # Open the file.
+    with open(file_name, "rb+") as file:
+
+        # See if there is any text in the file.
+        try:
+            file.seek(-1, 2)
+
+        # If there is NO text currently in the file, return None.
+        except OSError:
+            return None
+
+        # If there IS text currently in the file, return the last character of the file.
+        return str(file.read(1), classes.settings["output"]["file_encoding"])
+
+
 def print_timestamped_message(message, timestamp=None):
     """This method takes a message, timestamps it, and then prints that timestamped
     message to the notes log and the output file (if no timestamp is provided,
@@ -120,29 +139,10 @@ def print_timestamped_message(message, timestamp=None):
     # Generate the complete message that should be printed, including the timestamp.
     to_print = f"{timestamp} {message}"
 
-    # Open the output file.
-    with open(classes.time_stamper.output_path, "rb+") as output_file:
-
-        # See if there is any text in the output file.
-        try:
-            output_file.seek(-1, 2)
-
-        # If there is NO text currently in the output file, do
-        # not add a new line to the beginning of the next note.
-        except OSError:
-            pass
-
-        # If there IS text currently in the output file...
-        else:
-
-            # Determine the last character of the output file.
-            last_char_var = output_file.read(1)
-            last_char = str(last_char_var, classes.settings["output"]["file_encoding"])
-
-            # If the last character of the output file is not a
-            # new line, add a new line to the upcoming message.
-            if last_char != "\n":
-                to_print = f"\n{to_print}"
+    # If the last character of the current output file is not
+    # a new line, add a new line before the upcoming message.
+    if determine_last_character(classes.time_stamper.output_path) != "\n":
+        to_print = f"\n{to_print}"
 
     # Print the message passed in the argument "message" along with
     # the current timestamp to the notes log and the output file.
@@ -333,6 +333,56 @@ def replace_button_message_variables(button_message, **user_variables):
     return button_message
 
 
+def reconcile_or_sort_macro(is_reconcile):
+    """This method contains the entire functionality for the "Reconcile" and "Sort"
+    buttons. The functions performed by these two buttons are very similar, so their
+    procedures have been condensed down to a single method here and different parameters
+    are passed depending on whether the skip backward or skip forward button was pressed."""
+
+    out_path, text_log = classes.time_stamper.output_path, classes.widgets["text_log"]
+
+    # If the output file is valid (this should already be the case, but just double-checking)...
+    if verify_text_file(out_path, True, True):
+
+        # Determine the last character of the output file (before reconciling/sorting).
+        last_character_of_file = determine_last_character(out_path)
+
+        # Read through the input files of notes and save the lines to a list.
+        header, consistent_h_m_s, body = store_timestamper_output([out_path])
+
+        # If we are RECONCILING notes, make the degree of precision of all timestamps in
+        # the output consistent with the degree of precision of the most precise timestamp.
+        if is_reconcile:
+            for i, note in enumerate(body):
+                consistent_timestamp = \
+                    methods_timing_helper.h_m_s_to_timestamp(*consistent_h_m_s[i])
+                body[i] = f"{consistent_timestamp}{note[note.find(']') + 1:]}"
+
+        # If we are not reconciling notes but are instead SORTING notes, sort the notes
+        # gathered from all requested files according to their precise timestamps.
+        else:
+            body = [ln for _, ln in sorted(zip(consistent_h_m_s, body), key=lambda pair: pair[0])]
+
+        # Erase the current contents of the notes log and the output file.
+        print_to_text("", text_log, wipe_clean=True)
+        print_to_file("", out_path, access_mode="w+")
+
+        # Print the sorted notes to the notes log and to the output file (except for the last note).
+        all_lines = header + body
+        for line_index in range(len(all_lines) - 1):
+            print_to_text(all_lines[line_index], text_log, wipe_clean=False)
+            print_to_file(all_lines[line_index], out_path, access_mode="a+")
+
+        # If the last character of the file WAS NOT originally a new line, then
+        # erase the final new line character from the last note if it exists.
+        if last_character_of_file != "\n" and all_lines[-1][-1] == "\n":
+            all_lines[-1] = all_lines[-1][:-1]
+
+        # Print the final line to the notes log and the output file.
+        print_to_text(all_lines[-1], text_log, wipe_clean=False)
+        print_to_file(all_lines[-1], out_path, access_mode="a+")
+
+
 def make_timestamp_formats_consistent(original_h_m_s):
     """This method takes a list of lists, where each constituent list has the form [hours,
     minutes, seconds, subseconds] (if any of these four values is None, that is okay). This
@@ -453,23 +503,3 @@ def store_timestamper_output(output_file_paths):
     consistent_h_m_s = make_timestamp_formats_consistent(original_h_m_s)
 
     return header, consistent_h_m_s, notes_body
-
-
-def merge_notes(files_to_read):
-    """This method takes a list of file paths and merges the notes written to
-    those files into one list sorted according the time each note was written."""
-
-    # Read through the input files of notes and save the lines to a list.
-    header, consistent_h_m_s, notes_body = store_timestamper_output(files_to_read)
-
-    # Make the degree of precision of all timestamps in the output
-    # consistent with the degree of precision of the most precise timestamp.
-    for i, note in enumerate(notes_body):
-        consistent_timestamp = methods_timing_helper.h_m_s_to_timestamp(*consistent_h_m_s[i])
-        notes_body[i] = f"{consistent_timestamp}{note[note.find(']') + 1:]}"
-
-    # Sort the notes gathered from all requested files according to their precise timestamps.
-    notes_body = \
-        [note for _, note in sorted(zip(consistent_h_m_s, notes_body), key=lambda pair: pair[0])]
-
-    return header + notes_body

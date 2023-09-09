@@ -29,7 +29,7 @@ import methods.macros.methods_macros_helper as methods_helper
 def playback_press_macro(playback_type):
     """This method is called by button_play_press_macro, button_rewind_press_macro and
     button_fast_forward_press_macro. The functions performed by these three methods are
-    very similar, so their procedures have been condensed down to a single method here, and
+    very similar, so their procedures have been condensed down to a single method here and
     different parameters are passed depending on where this method is being called from."""
 
     button_str_key = f"button_{playback_type}"
@@ -57,7 +57,7 @@ def playback_press_macro(playback_type):
 def playback_release_macro(playback_type):
     """This method is called by button_play_release_macro, button_rewind_release_macro and
     button_fast_forward_release_macro. The functions performed by these three methods are
-    very similar, so their procedures have been condensed down to a single method here, and
+    very similar, so their procedures have been condensed down to a single method here and
     different parameters are passed depending on where this method is being called from."""
 
     button_str_key = f"button_{playback_type}"

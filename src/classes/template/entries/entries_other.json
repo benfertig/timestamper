@@ -22,7 +22,7 @@
         "column": 8,
         "row": 2,
 
-        "columnspan": 2,
+        "columnspan": 3,
         "rowspan": 2,
 
         "padx": [2, 19],
@@ -50,7 +50,7 @@
         "disabledbackground": "white",
         "disabledforeground": "black",
 
-        "column": 10,
+        "column": 11,
         "row": 2,
 
         "columnspan": 7,

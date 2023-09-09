@@ -13,7 +13,7 @@
             "print_message_attribute": "message"
         },
 
-        "column": 14,
+        "column": 15,
         "row": 0,
 
         "rowspan": 2,
@@ -37,7 +37,7 @@
             "print_message_attribute": "message"
         },
 
-        "column": 15,
+        "column": 16,
         "row": 0,
 
         "rowspan": 2,
@@ -61,7 +61,7 @@
             "print_message_attribute": "message"
         },
 
-        "column": 16,
+        "column": 17,
         "row": 0,
 
         "rowspan": 2,
@@ -114,10 +114,10 @@
         "column": 8,
         "row": 8,
 
-        "columnspan": 2,
+        "columnspan": 3,
         "rowspan": 2,
 
-        "padx": [4, 3],
+        "padx": [4, 0],
         "pady": [8, 8],
 
         "sticky": "nsew",

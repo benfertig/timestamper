@@ -11,6 +11,7 @@ import classes
 import methods.macros.methods_macros_helper as methods_helper
 import methods.macros.methods_macros_media as methods_media
 import methods.macros.methods_macros_output as methods_output
+import methods.timing.methods_timing_helper as methods_timing_helper
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -57,6 +58,18 @@ def button_output_select_macro(*_, file_full_path=None, erase_if_empty=False):
     methods_output.validate_output_file(file_full_path, erase_if_empty=erase_if_empty)
 
 
+def button_reconcile_timestamps_macro(*_):
+    """This method will be executed when the "Reconcile" button is pressed."""
+
+    methods_output.reconcile_or_sort_macro(True)
+
+
+def button_sort_output_macro(*_):
+    """This method will be executed when the "Sort" button is pressed."""
+
+    methods_output.reconcile_or_sort_macro(False)
+
+
 def button_cancel_output_macro(*_):
     """This method will be executed when the cancel output button is pressed."""
 
@@ -72,27 +85,6 @@ def button_cancel_output_macro(*_):
 
     # Enable/disable the relevant widgets to reflect that a valid output file IS NOT active.
     methods_helper.toggle_widgets(classes.template["button_output_select"], False)
-
-
-def button_sort_output_macro(*_):
-    """This method will be executed when the "Sort output" button is pressed."""
-
-    output_path, text_log = classes.time_stamper.output_path, classes.widgets["text_log"]
-
-    # If the output file is valid (this should already be the case, but just double-checking)...
-    if methods_output.verify_text_file(output_path, True, True):
-
-        # Sort all the notes from the current output file.
-        sorted_notes = methods_output.merge_notes([output_path])
-
-        # Erase the current contents of the notes log and the output file.
-        methods_output.print_to_text("", text_log, wipe_clean=True)
-        methods_output.print_to_file("", output_path, access_mode="w+")
-
-        # Print the sorted notes to the notes log and to the output file.
-        for note in sorted_notes:
-            methods_output.print_to_text(note, text_log, wipe_clean=False)
-            methods_output.print_to_file(note, output_path, access_mode="a+")
 
 
 def button_media_select_macro(*_, file_full_path=None, erase_if_empty=False):

@@ -10,7 +10,7 @@
             "linked_dict": "output",
             "linked_attribute": "path",
             "value_if_true": "Saving notes to:",
-            "value_if_false": "PLEASE SELECT AN OUTPUT FILE"
+            "value_if_false": "SELECT AN OUTPUT FILE"
         },
 
         "wraplength": 264,
@@ -23,7 +23,7 @@
         "column": 8,
         "row": 1,
 
-        "columnspan": 2,
+        "columnspan": 3,
 
         "padx": [2, 0],
 
@@ -39,7 +39,7 @@
 
         "justify": "left",
 
-        "column": 10,
+        "column": 11,
         "row": 1,
 
         "columnspan": 5,
@@ -56,7 +56,7 @@
 
         "text": "Hotkeys:",
 
-        "column": 14,
+        "column": 15,
         "row": 0,
 
         "columnspan": 2,
@@ -130,7 +130,7 @@
 
         "justify": "center",
 
-        "column": 17,
+        "column": 18,
         "row": 3,
 
         "columnspan": 2,
@@ -172,7 +172,7 @@
 
         "justify": "center",
 
-        "column": 17,
+        "column": 18,
         "row": 4,
 
         "columnspan": 2,

@@ -4,21 +4,47 @@
 
         "str_key": "button_output_select",
 
-        "text": "Select output file",
-
-        "width": 14,
+        "text": "Select output",
 
         "column": 8,
         "row": 0,
-
-        "rowspan": 1,
 
         "padx": [2, 0],
         "pady": [5, 0],
 
         "sticky": "nsew",
 
-        "to_enable_toggle": ["button_cancel_output", "button_save_note", "button_hotkey_1", "button_hotkey_2", "button_hotkey_3"]
+        "to_enable_toggle": ["button_reconcile_timestamps", "button_sort_output", "button_cancel_output", "button_save_note", "button_hotkey_1", "button_hotkey_2", "button_hotkey_3"]
+
+    },
+
+    "button_reconcile_timestamps": {
+
+        "str_key": "button_reconcile_timestamps",
+
+        "text": "Reconcile",
+
+        "column": 9,
+        "row": 0,
+
+        "pady": [5, 0],
+
+        "sticky": "nsew"
+
+    },
+
+    "button_sort_output": {
+
+        "str_key": "button_sort_output",
+
+        "text": "Sort",
+
+        "column": 10,
+        "row": 0,
+
+        "pady": [5, 0],
+
+        "sticky": "nsew"
 
     },
 
@@ -33,27 +59,10 @@
         "width": 12,
         "height": 12,
 
-        "column": 9,
+        "column": 10,
         "row": 2,
 
         "sticky": "ne"
-
-    },
-
-    "button_sort_output": {
-
-        "str_key": "button_sort_output",
-
-        "text": "Sort output",
-
-        "column": 9,
-        "row": 0,
-
-        "pady": [5, 0],
-
-        "ipadx": 20,
-
-        "sticky": "nsew"
 
     },
 
@@ -63,7 +72,7 @@
 
         "text": "Select synced media file",
 
-        "column": 10,
+        "column": 11,
         "row": 0,
 
         "columnspan": 4,
@@ -95,7 +104,7 @@
         "width": 12,
         "height": 12,
 
-        "column": 16,
+        "column": 17,
         "row": 2,
 
         "sticky": "ne"
