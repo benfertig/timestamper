@@ -7,6 +7,7 @@ from tkinter import DISABLED, NORMAL
 import classes
 import methods.macros.methods_macros_helper as methods_helper
 import methods.macros.methods_macros_settings as methods_settings
+import methods.timing.methods_timing_helper as methods_timing_helper
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -114,6 +115,9 @@ def button_save_settings_macro(*_):
     # Write the changed settings to settings_user.json.
     classes.settings.dump_dict_to_json(\
         classes.settings.user, classes.settings.user_json_path, indent=4)
+
+    # Update the current timestamp.
+    classes.timer.update_timestamp()
 
     # If the current settings are the same as the default
     # settings, disable the "Reset to default" button.

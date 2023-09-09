@@ -41,20 +41,11 @@ def attempt_button_message(button_str_key, timestamp=None, **user_variables):
         # Only attempt to print a message if there is a message associated with the button.
         if button_message_pre_replace is not None:
 
-            # Generate a timestamp if one was not provided.
+            # If a timestamp was not provided, generate a timestamp from the current time.
             if timestamp is None:
 
-                # Determine whether hours should be included in the
-                # timestamp even when the time is below one hour.
-                force_include_hours = \
-                    classes.settings["always_include_hours_in_timestamp"]["is_enabled"]
-
-                # Determine what increment the timestamp should be rounded to.
-                round_to = classes.settings["round_timestamp"]["round_to_last"]
-
                 # Generate the current timestamp.
-                timestamp = classes.timer.current_time_to_timestamp(\
-                    force_include_hours=force_include_hours, round_to=round_to)
+                timestamp = classes.timer.current_time_to_timestamp()
 
             # Replace any variables in the button's message.
             button_message = replace_button_message_variables(\
@@ -122,19 +113,9 @@ def print_timestamped_message(message, timestamp=None):
     message to the notes log and the output file (if no timestamp is provided,
     then a timestamp will be generated using the timer's current time)."""
 
-    # If no timestamp was provided, set the timestamp to the timer's current time.
+    # If no timestamp was provided, generate a timestamp using the timer's current time.
     if timestamp is None:
-
-        # Determine whether hours should be included in the
-        # timestamp even when the time is below one hour.
-        force_include_hours = classes.settings["always_include_hours_in_timestamp"]["is_enabled"]
-
-        # Determine what increment the timestamp should be rounded to.
-        round_to = classes.settings["round_timestamp"]["round_to_last"]
-
-        # Generate the current timestamp.
-        timestamp = classes.timer.current_time_to_timestamp(\
-            force_include_hours=force_include_hours, round_to=round_to)
+        timestamp = classes.timer.current_time_to_timestamp()
 
     # Generate the complete message that should be printed, including the timestamp.
     to_print = f"{timestamp} {message}"

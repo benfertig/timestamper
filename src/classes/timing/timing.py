@@ -86,9 +86,17 @@ class TimeStamperTimer():
 
         return methods_helper.h_m_s_to_seconds(*self.read_timer())
 
-    def current_time_to_timestamp(self, force_include_hours=True, \
-        round_to="centisecond", include_brackets=True):
-        """This method converts the currently diplayed time to a timestamp."""
+    def current_time_to_timestamp(self, include_brackets=True):
+        """This method converts the currently diplayed time to a timestamp, factoring
+        in user settings as well as whether a fixed timestamp has been set."""
+
+        # Determine whether hours should be included in the
+        # timestamp even when the time is below one hour.
+        force_include_hours = \
+            classes.settings["always_include_hours_in_timestamp"]["is_enabled"]
+
+        # Determine what increment the timestamp should be rounded to.
+        round_to = classes.settings["round_timestamp"]["round_to_last"]
 
         # Get the timer reading from the time fields.
         h_m_s = self.read_timer(raw=True)
@@ -108,12 +116,61 @@ class TimeStamperTimer():
 
         return methods_helper.h_m_s_to_timestamp(*h_m_s, include_brackets=include_brackets)
 
+    def update_timestamp(self):
+        """This method updates the current timestamp, factoring in the user
+        settings as well as whether a fixed timestamp has been set."""
+
+        # If a timestamp HAS been set, get the timestamp from the timestamp itself.
+        if classes.template["label_timestamp"]["timestamp_set"]:
+            hours, minutes, seconds, subseconds = \
+                methods_helper.timestamp_to_h_m_s(classes.widgets["label_timestamp"]["text"])
+
+        # If a timestamp HAS NOT been set, get the current time from the time fields.
+        else:
+            hours, minutes, seconds, subseconds = classes.timer.read_timer(raw=True)
+
+        # Determine whether hours should be included in the
+        # timestamp even when the time is below one hour.
+        force_timestamp_hours = classes.settings["always_include_hours_in_timestamp"]["is_enabled"]
+
+        # If hours are not currently part of the timestamp but need to be part
+        # of the new timestamp, set the hours in the new timestamp to "00".
+        if hours is None and force_timestamp_hours:
+            hours = "00"
+
+        # Omit the hours from the timestamp if the time is less than one hour and the user
+        # set hours to be omitted from the timestamp when the time is less than one hour.
+        if (hours is None or int(hours) < 3600) and not force_timestamp_hours:
+            hours = None
+
+        # Set the timestamp's subseconds.
+        timestamp_rounding = classes.settings["round_timestamp"]["round_to_last"]
+
+        # If we should round to the last second.
+        if timestamp_rounding == "second":
+            subseconds = None
+
+        # If we should round to the last decisecond.
+        elif timestamp_rounding == "decisecond":
+            if not subseconds:
+                subseconds = "0"
+            elif len(subseconds) == 2:
+                subseconds = str(int(subseconds) // 10)
+
+        # If we should round to the last centisecond.
+        else:
+            if subseconds is None:
+                subseconds = "00"
+            elif len(subseconds) == 1:
+                subseconds = f"{subseconds}0"
+
+        # Update the timestamp.
+        classes.widgets["label_timestamp"]["text"] = \
+            methods_helper.h_m_s_to_timestamp(hours, minutes, seconds, subseconds)
+
     def display_time(self, new_time, pad=2):
         """This method, after converting the provided time in seconds to hours, minutes,
         seconds and subseconds, will display this time to timer fields of self.time_stamper."""
-
-        # Determine whether hours should be forced to be included in the timestamp.
-        force_timestamp_hours = classes.settings["always_include_hours_in_timestamp"]["is_enabled"]
 
         # Convert the provided time in seconds to hours, minutes, seconds and subseconds.
         h_m_s = methods_helper.seconds_to_h_m_s(new_time, pad=pad)
@@ -128,24 +185,9 @@ class TimeStamperTimer():
             if h_m_s[i] != current_timer_entry.get():
                 methods_helper.print_to_entry(h_m_s[i], current_timer_entry)
 
-        # Omit the hours from the timestamp if the time is less than one hour and the user
-        # set hours to be omitted from the timestamp when the time is less than one hour.
-        if new_time < 3600 and not force_timestamp_hours:
-            h_m_s[0] = None
-
-        # For the timestamp, either round down the subseconds, omit the subseconds or leave
-        # the subseconds unaltered depending on what the user specified in the settings.
-        timestamp_rounding = classes.settings["round_timestamp"]["round_to_last"]
-        if timestamp_rounding == "decisecond":
-            h_m_s[3] = str(int(h_m_s[3]) % 10)
-        elif timestamp_rounding == "second":
-            h_m_s[3] = None
-
-        # If a timestamp has not been set, make the timestamp label reflect the current time.
+        # Update the timestamp if a fixed timestamp has not been set.
         if not classes.template["label_timestamp"]["timestamp_set"]:
-
-            obj_timestamp = classes.widgets["label_timestamp"]
-            obj_timestamp["text"] = methods_helper.h_m_s_to_timestamp(*h_m_s)
+            self.update_timestamp()
 
         # If a media player exists, update the position of the media time
         # slider as well as the displays of elapsed and remaining time.
@@ -162,6 +204,11 @@ class TimeStamperTimer():
             media_elapsed_to_timestamp = \
                 methods_helper.h_m_s_to_timestamp(*h_m_s[:3], include_brackets=False)
             classes.widgets["label_media_elapsed"]["text"] = media_elapsed_to_timestamp
+
+            # Determine whether hours should be included in the
+            # timestamp even when the time is below one hour.
+            force_timestamp_hours = \
+                classes.settings["always_include_hours_in_timestamp"]["is_enabled"]
 
             # Update the remaining time.
             media_seconds_remaining = max(0.0, self.get_max_time() - new_time)

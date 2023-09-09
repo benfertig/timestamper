@@ -71,16 +71,8 @@ def playback_release_macro(playback_type):
         classes.time_stamper.root.after_cancel(classes.timer.scheduled_id)
         classes.timer.scheduled_id = None
 
-        # Determine whether hours should be included in the
-        # timestamp even when the time is below one hour.
-        force_include_hours = classes.settings["always_include_hours_in_timestamp"]["is_enabled"]
-
-        # Determine what increment the timestamp should be rounded to.
-        round_to = classes.settings["round_timestamp"]["round_to_last"]
-
-        # Get the current timestamp.
-        timestamp = classes.timer.current_time_to_timestamp(\
-            force_include_hours=force_include_hours, round_to=round_to)
+        # Generate a timestamp using the timer's current time.
+        timestamp = classes.timer.current_time_to_timestamp()
 
         # Unbind the button from its play/release macros temporarily.
         button.unbind("<Button-1>")
@@ -117,16 +109,8 @@ def skip_backward_or_forward_macro(is_skip_backward):
     # the skip backward/forward button is pressed.
     methods_helper.button_enable_disable_macro(classes.template[button_str_key])
 
-    # Determine whether hours should be included in the
-    # timestamp even when the time is below one hour.
-    force_include_hours = classes.settings["always_include_hours_in_timestamp"]["is_enabled"]
-
-    # Determine what increment the timestamp should be rounded to.
-    round_to = classes.settings["round_timestamp"]["round_to_last"]
-
     # Get the timestamp before skipping backward/forward.
-    timestamp = classes.timer.current_time_to_timestamp(\
-        force_include_hours=force_include_hours, round_to=round_to)
+    timestamp = classes.timer.current_time_to_timestamp()
 
     # Skip the timer backward/forward the specified number of seconds.
     adjust_amount = float(classes.widgets[f"entry_skip_{direction}"].get())
@@ -134,8 +118,7 @@ def skip_backward_or_forward_macro(is_skip_backward):
         classes.timer.adjust_timer(adjust_amount * -1 if is_skip_backward else adjust_amount)
 
     # Get the time after skipping backward/forward.
-    new_time = classes.timer.current_time_to_timestamp(\
-        force_include_hours=force_include_hours, round_to=round_to, include_brackets=False)
+    new_time = classes.timer.current_time_to_timestamp(include_brackets=False)
 
     # Round the skip amount to the nearest centisecond.
     skip_amount = abs(round(skip_amount, 2))
@@ -180,16 +163,8 @@ def set_or_clear_timestamp(is_set_timestamp):
     # Make note of the fact that a timestamp has been set.
     classes.template["label_timestamp"]["timestamp_set"] = is_set_timestamp
 
-    # Determine whether hours should be included in the
-    # timestamp even when the time is below one hour.
-    force_include_hours = classes.settings["always_include_hours_in_timestamp"]["is_enabled"]
-
-    # Determine what increment the timestamp should be rounded to.
-    round_to = classes.settings["round_timestamp"]["round_to_last"]
-
     # Set the timestamp.
-    classes.widgets["label_timestamp"]["text"] = classes.timer.current_time_to_timestamp(\
-        force_include_hours=force_include_hours, round_to=round_to)
+    classes.widgets["label_timestamp"]["text"] = classes.timer.current_time_to_timestamp()
 
     # Enable and disable the relevant buttons for when
     # the timestamp/clear timestamp button is pressed.
