@@ -74,16 +74,25 @@ def button_cancel_output_macro(*_):
     methods_helper.toggle_widgets(classes.template["button_output_select"], False)
 
 
-def button_merge_output_files_macro(*_):
-    """This method will be executed when the "Merge output files" button is pressed."""
+def button_sort_output_macro(*_):
+    """This method will be executed when the "Sort output" button is pressed."""
 
-    # Call the function that will display the first window with instructions
-    # on how to merge output files, passing a macro that will make the first
-    # file explorer window appear when the instructions window is closed,
-    # wherein the user should select all output files they would like to merge.
-    window_merge_first_message = \
-        classes.widgets.create_entire_window("window_merge_first_message")
-    window_merge_first_message.mainloop()
+    output_path, text_log = classes.time_stamper.output_path, classes.widgets["text_log"]
+
+    # If the output file is valid (this should already be the case, but just double-checking)...
+    if methods_output.verify_text_file(output_path, True, True):
+
+        # Sort all the notes from the current output file.
+        sorted_notes = methods_output.merge_notes([output_path])
+
+        # Erase the current contents of the notes log and the output file.
+        methods_output.print_to_text("", text_log, wipe_clean=True)
+        methods_output.print_to_file("", output_path, access_mode="w+")
+
+        # Print the sorted notes to the notes log and to the output file.
+        for note in sorted_notes:
+            methods_output.print_to_text(note, text_log, wipe_clean=False)
+            methods_output.print_to_file(note, output_path, access_mode="a+")
 
 
 def button_media_select_macro(*_, file_full_path=None, erase_if_empty=False):

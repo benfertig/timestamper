@@ -40,16 +40,18 @@
 
     },
 
-    "button_merge_output_files": {
+    "button_sort_output": {
 
-        "str_key": "button_merge_output_files",
+        "str_key": "button_sort_output",
 
-        "text": "Merge output files",
+        "text": "Sort output",
 
         "column": 9,
         "row": 0,
 
         "pady": [5, 0],
+
+        "ipadx": 20,
 
         "sticky": "nsew"
 

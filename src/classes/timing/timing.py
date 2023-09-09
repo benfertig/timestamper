@@ -146,18 +146,18 @@ class TimeStamperTimer():
         # Set the timestamp's subseconds.
         timestamp_rounding = classes.settings["round_timestamp"]["round_to_last"]
 
-        # If we should round to the last second.
+        # If we should round to the last second...
         if timestamp_rounding == "second":
             subseconds = None
 
-        # If we should round to the last decisecond.
+        # If we should round to the last decisecond...
         elif timestamp_rounding == "decisecond":
             if not subseconds:
                 subseconds = "0"
             elif len(subseconds) == 2:
                 subseconds = str(int(subseconds) // 10)
 
-        # If we should round to the last centisecond.
+        # If we should round to the last centisecond...
         else:
             if subseconds is None:
                 subseconds = "00"

@@ -236,25 +236,6 @@ def reset_output_widgets():
     print_to_text("", classes.widgets["text_log"], wipe_clean=True)
 
 
-def merge_success_message(merged_output_file_name):
-    """This method generates the message that is displayed
-    when the program has successfully merged output files."""
-
-    return "MERGE SUCCESS\n\nYour merged notes have been saved in:\n" \
-        f"\"{merged_output_file_name}\".\n\nClose this window to proceed."
-
-
-def merge_failure_message_file_not_readable(unreadable_files):
-    """This method generates the message that is displayed when the program
-    cannot read one or more of the files that have been selected for a merge."""
-
-    unreadable_files_str = \
-        "\n".join(unreadable_files) if isinstance(unreadable_files, list) else unreadable_files
-
-    return "MERGE FAILED\n\nThe following file(s) could not be opened:\n\n" \
-        f"{unreadable_files_str}\n\nAre you sure you selected only text files?"
-
-
 def copy_text_file_to_text_widget(file_full_path, file_encoding, text_obj, wipe_clean=True):
     """This method prints the entire contents of the text file indicated by
     file_full_path to the text widget text_obj. An optional argument wipe_clean,
@@ -399,17 +380,17 @@ def store_timestamper_output(output_file_paths):
     cur_note = ""
 
     # Iterate over every file specified in "output_file_paths".
-    for input_file in output_file_paths:
+    for file_path in output_file_paths:
 
         # Assume that any new lines at the beginning of the current file are part
         # of the header (until we reach a timestamped line in the current file).
         on_header = True
 
         # Open the current file.
-        with open(input_file, "r", encoding=classes.settings["output"]["file_encoding"]) as in_file:
+        with open(file_path, "r", encoding=classes.settings["output"]["file_encoding"]) as out_file:
 
             # Iterate over every line in the current file.
-            for line in in_file:
+            for line in out_file:
 
                 # If the last character of the current line is not a new line
                 # character, add a new line character to the end of the current line.
@@ -426,10 +407,8 @@ def store_timestamper_output(output_file_paths):
                     # closed square bracket were successfully parsed as a
                     # timestamp, then that means this is a timestamped line.
                     original_timestamp = line[:line.find("]") + 1]
-                    print(f"original_timestamp: {original_timestamp}")
                     h_m_s = methods_timing_helper.timestamp_to_h_m_s(\
                         original_timestamp, pad=2, pad_subseconds=False)
-                    print(f"h_m_s: {h_m_s}\n")
                     if h_m_s is not None:
 
                         is_timestamped_line = True

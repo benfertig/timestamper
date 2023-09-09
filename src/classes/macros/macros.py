@@ -105,15 +105,12 @@ class Macros():
 
             # Windows
             "window_video_ONCLOSE": windows.on_close_window_video_macro,
-            "window_merge_first_message_ONCLOSE": windows.on_close_window_merge_first_message_macro,
-            "window_merge_second_message_ONCLOSE": \
-                windows.on_close_window_merge_second_message_macro,
             "window_help_ONCLOSE": windows.on_close_window_help_macro,
 
             # File buttons
             "button_output_select": file.button_output_select_macro,
             "button_cancel_output": file.button_cancel_output_macro,
-            "button_merge_output_files": file.button_merge_output_files_macro,
+            "button_sort_output": file.button_sort_output_macro,
             "button_media_select": file.button_media_select_macro,
             "button_cancel_media": file.button_cancel_media_macro,
 
