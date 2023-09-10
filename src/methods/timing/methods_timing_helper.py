@@ -236,11 +236,11 @@ def h_m_s_to_timestamp(hours=None, minutes=None, \
     arguments are optional. However, at the very least, seconds will always be included in the
     timestamp (and set to "00" if they were not provided). If the hours were provided, but not the
     minutes, then the minutes will be set to "00" and will also be included in the timestamp. This
-    method DOES NOT pad or truncate any values or perform any check to determine whether the passed
-    values are valid. It is therefore the responsibility of the function that calls this method to
-    ensure that the values it passes to this method (which would preferably be strings) are already
-    formatted in the desired way. The optional argument include_brackets, which is set to True
-    by default, determines whether the returned string will be enclosed in square brackets."""
+    method DOES NOT pad or truncate any passed values or perform any check to determine whether the
+    passed values are valid. It is therefore the responsibility of the function that calls this
+    method to ensure that the values passed to this method (which would preferably be strings) are
+    already formatted in the desired way. The optional argument include_brackets, which is set to
+    True by default, determines whether the returned string will be enclosed in square brackets."""
 
     # If brackets were requested, add the opening bracket.
     timestamp = "[" if include_brackets else ""
@@ -372,7 +372,7 @@ def timestamp_to_h_m_s(timestamp, pad=0, pad_subseconds=False):
 
         # Pad the subseconds if necessary.
         if pad and pad_subseconds:
-            subseconds = pad_number(subseconds, 2, False)
+            subseconds = pad_number(subseconds, pad, False)
 
     # Store the seconds.
     seconds = seconds_split[0] if seconds_split[0] else None

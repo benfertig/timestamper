@@ -117,7 +117,7 @@ def button_save_settings_macro(*_):
         classes.settings.user, classes.settings.user_json_path, indent=4)
 
     # Update the current timestamp.
-    classes.timer.update_timestamp()
+    classes.timer.update_timestamp(truncate_to=2)
 
     # If the current settings are the same as the default
     # settings, disable the "Reset to default" button.

@@ -116,11 +116,14 @@ class TimeStamperTimer():
 
         return methods_helper.h_m_s_to_timestamp(*h_m_s, include_brackets=include_brackets)
 
-    def update_timestamp(self):
-        """This method updates the current timestamp, factoring in the user
-        settings as well as whether a fixed timestamp has been set."""
+    def update_timestamp(self, truncate_to=None):
+        """This method updates the current timestamp, factoring in the user settings as well as
+        whether a fixed timestamp has been set. The optional argument truncate_to, which is set
+        to None by default, determines the length that any values in the timestamp should be
+        truncated to IF they go over that length (e.g., if one of the timestamp values initially
+        evaluates to "456" and truncate_to is set to 2, then "456" will become "45")."""
 
-        # If a timestamp HAS been set, get the timestamp from the timestamp itself.
+        # If a timestamp HAS been set, get the time from the timestamp itself.
         if classes.template["label_timestamp"]["timestamp_set"]:
             hours, minutes, seconds, subseconds = \
                 methods_helper.timestamp_to_h_m_s(classes.widgets["label_timestamp"]["text"])
@@ -138,9 +141,9 @@ class TimeStamperTimer():
         if hours is None and force_timestamp_hours:
             hours = "00"
 
-        # Omit the hours from the timestamp if the time is less than one hour and the user
-        # set hours to be omitted from the timestamp when the time is less than one hour.
-        if (hours is None or int(hours) < 3600) and not force_timestamp_hours:
+        # If the time is less than one hour and the user set hours to be omitted from the
+        # timestamp when the time is less than one hour, omit the hours from the timestamp.
+        elif int(hours) == 0 and not force_timestamp_hours:
             hours = None
 
         # Set the timestamp's subseconds.
@@ -164,9 +167,17 @@ class TimeStamperTimer():
             elif len(subseconds) == 1:
                 subseconds = f"{subseconds}0"
 
+        h_m_s = [hours, minutes, seconds, subseconds]
+
+        # Truncate any values that need to be truncated.
+        if truncate_to:
+            for i, denom in enumerate(h_m_s):
+                h_m_s[i] = \
+                    denom[:truncate_to] if denom is not None and len(denom) > truncate_to else denom
+
         # Update the timestamp.
         classes.widgets["label_timestamp"]["text"] = \
-            methods_helper.h_m_s_to_timestamp(hours, minutes, seconds, subseconds)
+            methods_helper.h_m_s_to_timestamp(*h_m_s)
 
     def display_time(self, new_time, pad=2):
         """This method, after converting the provided time in seconds to hours, minutes,
@@ -184,10 +195,6 @@ class TimeStamperTimer():
             # updated value is not equal to the current value.
             if h_m_s[i] != current_timer_entry.get():
                 methods_helper.print_to_entry(h_m_s[i], current_timer_entry)
-
-        # Update the timestamp if a fixed timestamp has not been set.
-        if not classes.template["label_timestamp"]["timestamp_set"]:
-            self.update_timestamp()
 
         # If a media player exists, update the position of the media time
         # slider as well as the displays of elapsed and remaining time.
@@ -328,15 +335,15 @@ class TimeStamperTimer():
                 classes.macros.mapping["button_pause"]()
 
     def pause(self, play_delay=None):
-        """This method halts the timer and is typically run when the pause button is
-        pressed, when the media time slider is dragged/scrolled and media is playing
-        or when the timer entries are scrolled. An optional argument, play_delay (which
-        is set to None by default), determines the amount of time after which the timer
-        should resume once it is paused. This argument should only ever be set to a value
-        other than None from the scale_media_time_macro and adjust_timer_on_entry_mousewheel
-        methods in widgets_helper_methods.py (i.e., whenever the user manipulates the
-        media time scale or timer entries). Note that play_delay only has an effect if
-        this method is called when the timer is already running or is scheduled to run."""
+        """This method halts the timer and is typically run when the pause button is pressed, when
+        the media time slider is dragged/scrolled and media is playing or when the timer entries
+        are scrolled. An optional argument, play_delay (which is set to None by default), determines
+        the amount of time after which the timer should resume once it is paused. This argument
+        should only ever be set to a value other than None from the scale_media_time_macro and
+        adjust_timer_on_entry_mousewheel methods in widgets_helper_methods.py (i.e., whenever
+        the user either manipulates the media time scale with the mouse or the mousewheel or
+        manipulates timer entries with the mousewheel). Note that play_delay only has an effect
+        if this method is called when the timer is already running or is scheduled to run."""
 
         # Only pause the timer if it is currently running/scheduled to run.
         if self.is_running or self.scheduled_id:
@@ -444,14 +451,14 @@ class TimeStamperTimer():
         """This method skips the timer backward and forward and is typically run when
         the skip backward or skip forward button is pressed or when the user scrolls
         the mousewheel while the cursor is hovering over one of the timer entries. This
-        method takes one optional argument, abort_if_out_of_bounds, which is set to False
-        by default. When abort_if_out_of_bounds is set to True, this method will not adjust
-        the timer if the passed adjustment amount would put the timer below 0 or above the
-        maximum time (as can be the case when the user scrolls the timer entries with the
-        mousewheel). When abort_if_out_of_bounds is set to False, this method will reduce
-        the passed adjustment amount to put the timer at either 0 or its maximum time if the
-        passed adjustment amount would have otherwise put the timer below 0 or above its maximum
-        time (as is the case when the user presses the skip backward or skip forward buttons)."""
+        method takes one optional argument, abort_if_out_of_bounds, which is set to False by
+        default. When abort_if_out_of_bounds is set to True, this method will not adjust the
+        timer if the passed adjustment amount would put the timer below 0 or above the maximum
+        time (as can be the case when the user scrolls the timer entries with the mousewheel).
+        When abort_if_out_of_bounds is set to False, this method will reduce the passed
+        adjustment amount to put the timer at either 0 or its maximum time if the passed
+        adjustment amount would have otherwise put the timer below 0 or above its maximum time
+        (as can be the case when the user presses the skip backward or skip forward buttons)."""
 
         if seconds_to_adjust_by != 0:
 

@@ -67,7 +67,7 @@ class TimeStamper():
         self.root = classes.widgets.create_entire_window("window_main", is_main_window=True)
 
         # Ensure that the initial timestamp format matches user specifications.
-        classes.timer.update_timestamp()
+        classes.timer.update_timestamp(truncate_to=2)
 
         # If we are on a Mac, remove all of the submenus from the menu bar.
         if platform.startswith("darwin"):

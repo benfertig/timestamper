@@ -32,6 +32,10 @@ def entry_hours_trace(entry_text):
 
     methods_helper.entry_trace_method(entry_text, classes.template["entry_hours"])
 
+    # Update the timestamp if a fixed timestamp has not been set.
+    if not classes.template["label_timestamp"]["timestamp_set"]:
+        classes.timer.update_timestamp(truncate_to=2)
+
 
 def entry_hours_mousewheel_macro(event):
     """This method gets executed when the mousewheel is moved over the hours entry."""
@@ -43,6 +47,10 @@ def entry_minutes_trace(entry_text):
     """This method gets executed when the text is edited in the minutes entry."""
 
     methods_helper.entry_trace_method(entry_text, classes.template["entry_minutes"])
+
+    # Update the timestamp if a fixed timestamp has not been set.
+    if not classes.template["label_timestamp"]["timestamp_set"]:
+        classes.timer.update_timestamp(truncate_to=2)
 
 
 def entry_minutes_mousewheel_macro(event):
@@ -56,6 +64,10 @@ def entry_seconds_trace(entry_text):
 
     methods_helper.entry_trace_method(entry_text, classes.template["entry_seconds"])
 
+    # Update the timestamp if a fixed timestamp has not been set.
+    if not classes.template["label_timestamp"]["timestamp_set"]:
+        classes.timer.update_timestamp(truncate_to=2)
+
 
 def entry_seconds_mousewheel_macro(event):
     """This method gets executed when the mousewheel is moved over the seconds entry."""
@@ -67,6 +79,10 @@ def entry_subseconds_trace(entry_text):
     """This method gets executed when the text is edited in the subseconds entry."""
 
     methods_helper.entry_trace_method(entry_text, classes.template["entry_subseconds"])
+
+    # Update the timestamp if a fixed timestamp has not been set.
+    if not classes.template["label_timestamp"]["timestamp_set"]:
+        classes.timer.update_timestamp(truncate_to=2)
 
 
 def entry_subseconds_mousewheel_macro(event):
