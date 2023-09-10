@@ -144,14 +144,17 @@ def adjust_timer_on_entry_mousewheel(event, entry_template):
     classes.timer.pause(play_delay=0.25)
 
     # Adjust the timer according to the direction the user scrolled.
-    scroll_timer_adjustment = event_delta * float(entry_template["scroll_timer_adjustment"])
-    classes.timer.adjust_timer(scroll_timer_adjustment, abort_if_out_of_bounds=True)
+    scroll_adjustment = event_delta * float(entry_template["scroll_timer_adjustment"])
+    scroll_adjustment = classes.timer.adjust_timer(scroll_adjustment, abort_if_out_of_bounds=True)
 
     # Pause the timer if it is playing and was adjusted to the max time.
     max_time = classes.timer.get_max_time()
     if timer_is_playing and classes.timer.get_current_seconds() >= max_time:
         classes.timer.display_time(max_time, pad=2)
         classes.macros["button_pause"]()
+
+    # Return the amount of seconds that the timer was adjusted by.
+    return scroll_adjustment
 
 
 def set_or_clear_timestamp(is_set_timestamp):
