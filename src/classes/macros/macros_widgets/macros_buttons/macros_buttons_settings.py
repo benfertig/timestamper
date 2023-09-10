@@ -7,7 +7,6 @@ from tkinter import DISABLED, NORMAL
 import classes
 import methods.macros.methods_macros_helper as methods_helper
 import methods.macros.methods_macros_settings as methods_settings
-import methods.timing.methods_timing_helper as methods_timing_helper
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
