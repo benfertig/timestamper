@@ -6,6 +6,8 @@ from tkinter import RAISED, SUNKEN
 
 import classes
 import methods.macros.methods_macros_helper as methods_helper
+import methods.macros.methods_macros_media as methods_media
+from methods.timing import methods_timing_helper
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -128,9 +130,63 @@ def skip_backward_or_forward_macro(is_skip_backward):
     return timestamp, skip_amount, new_time
 
 
-def adjust_timer_on_entry_mousewheel(event, entry_template):
-    """This is a custom method that gets executed when the mousewheel is moved
-    over one of the timer entries (hours, minutes, seconds or subseconds)."""
+def timer_entry_trace_method(entry_text, entry_template):
+    """This method contains the entire functionality for the trace methods of the hours entry,
+    the minutes entry, the seconds entry and the subseconds entry. The functions performed by
+    these four methods are very similar, so their procedures have been condensed down to a single
+    method here and different parameters are passed depending on which trace method was invoked."""
+
+    # Call the generic entry trace method, removing any non-digits
+    # or any digits that put the entry over its maximum value.
+    methods_helper.entry_trace_method(entry_text, entry_template)
+
+    # Generate a list of timer values that will be passed to h_m_s_to_seconds. All timer entry
+    # values will be retrieved using entry.get() except for the timer value that is currently
+    # being edited, which will be retrieved using entry_text.get(). This is necessary due to
+    # the limitations of Tkinter. At this point in the program, we have successfully truncated
+    # only the textvariable of the current entry and not the .get() value of the entry itself.
+    # It is unclear to me why this is the case, although it seems that the entry's .get() method
+    # accurately reflects the true updated text of the entry shortly after this method terminates.
+    h_m_s = [entry_text.get() if f"entry_{denom}" == entry_template["str_key"] \
+             else classes.widgets[f"entry_{denom}"].get() \
+             for denom in ("hours", "minutes", "seconds", "subseconds")]
+
+    # Get the timer's current time in seconds (factoring in the potentially modified entry).
+    current_time_seconds = methods_timing_helper.h_m_s_to_seconds(*h_m_s)
+
+    # If adding the most recently added character to the
+    # timer entry put the timer over its maximum time...
+    if current_time_seconds > classes.timer.get_max_time():
+
+        # Set the value of the entry to its current value, but with the last character removed.
+        entry_text.set(entry_text.get()[:-1])
+
+        # Generate the timer values using the same strategy outlined
+        # earlier in this method (see long comment several lines above).
+        h_m_s = [entry_text.get() if f"entry_{denom}" == entry_template["str_key"] \
+                else classes.widgets[f"entry_{denom}"].get() \
+                for denom in ("hours", "minutes", "seconds", "subseconds")]
+
+        # Regenerate the timer's new time, factoring in the removed character.
+        current_time_seconds = methods_timing_helper.h_m_s_to_seconds(*h_m_s)
+
+    # Update the timestamp if a fixed timestamp has not been set.
+    if not classes.template["label_timestamp"]["timestamp_set"]:
+        classes.timer.update_timestamp(seconds_override=current_time_seconds, truncate_to=2)
+
+    # If a media player exists, update the position of the media time
+    # slider, the displays of elapsed and remaining time and (if the media
+    # file is not currently playing) the start time of the media file.
+    if classes.time_stamper.media_player:
+        methods_media.refresh_media_time(current_time_seconds, pad=2)
+
+
+def timer_entry_mousewheel_method(event, entry_template):
+    """This method contains the entire functionality of the methods that get executed
+    when the mousewheel is moved over the hours entry, the minutes entry, the seconds
+    entry and the subseconds entry. The functions performed by these four methods are
+    very similar, so their procedures have been condensed down to a single method here
+    and different parameters are passed depending on which mousewheel method was invoked."""
 
     # On Mac platforms, the registered scroll amount does not need to be divided by 120.
     event_delta = event.delta if platform.startswith("darwin") else int(event.delta / 120)
@@ -153,8 +209,10 @@ def adjust_timer_on_entry_mousewheel(event, entry_template):
         classes.timer.display_time(max_time, pad=2)
         classes.macros["button_pause"]()
 
-    # Return the amount of seconds that the timer was adjusted by.
-    return scroll_adjustment
+    # If the timer was not adjusted, ensure that the current time is displayed in its entirety.
+    if scroll_adjustment == 0:
+        h_m_s = classes.timer.read_timer()
+        classes.timer.display_time(methods_timing_helper.h_m_s_to_seconds(*h_m_s))
 
 
 def set_or_clear_timestamp(is_set_timestamp):

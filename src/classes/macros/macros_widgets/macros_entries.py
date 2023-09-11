@@ -5,7 +5,6 @@ entries in the Time Stamper program are manipulated."""
 import classes
 import methods.macros.methods_macros_helper as methods_helper
 import methods.macros.methods_macros_timing as methods_timing
-from methods.timing import methods_timing_helper
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -31,101 +30,49 @@ from methods.timing import methods_timing_helper
 def entry_hours_trace(entry_text):
     """This method gets executed when the text is edited in the hours entry."""
 
-    methods_helper.entry_trace_method(entry_text, classes.template["entry_hours"])
-
-    # Update the timestamp if a fixed timestamp has not been set.
-    if not classes.template["label_timestamp"]["timestamp_set"]:
-        classes.timer.update_timestamp(truncate_to=2)
+    methods_timing.timer_entry_trace_method(entry_text, classes.template["entry_hours"])
 
 
 def entry_hours_mousewheel_macro(event):
     """This method gets executed when the mousewheel is moved over the hours entry."""
 
-    # Store the template for the hours entry.
-    entry_template = classes.template["entry_hours"]
-
-    # Adjust the timer.
-    adjustment_amount = methods_timing.adjust_timer_on_entry_mousewheel(event, entry_template)
-
-    # If the timer was not adjusted, ensure that the current time is displayed in its entirety.
-    if adjustment_amount == 0:
-        h_m_s = classes.timer.read_timer()
-        classes.timer.display_time(methods_timing_helper.h_m_s_to_seconds(*h_m_s))
+    methods_timing.timer_entry_mousewheel_method(event, classes.template["entry_hours"])
 
 
 def entry_minutes_trace(entry_text):
     """This method gets executed when the text is edited in the minutes entry."""
 
-    methods_helper.entry_trace_method(entry_text, classes.template["entry_minutes"])
-
-    # Update the timestamp if a fixed timestamp has not been set.
-    if not classes.template["label_timestamp"]["timestamp_set"]:
-        classes.timer.update_timestamp(truncate_to=2)
+    methods_timing.timer_entry_trace_method(entry_text, classes.template["entry_minutes"])
 
 
 def entry_minutes_mousewheel_macro(event):
     """This method gets executed when the mousewheel is moved over the minutes entry."""
 
-    # Store the template for the minutes entry.
-    entry_template = classes.template["entry_minutes"]
-
-    # Adjust the timer.
-    adjustment_amount = methods_timing.adjust_timer_on_entry_mousewheel(event, entry_template)
-
-    # If the timer was not adjusted, ensure that the current time is displayed in its entirety.
-    if adjustment_amount == 0:
-        h_m_s = classes.timer.read_timer()
-        classes.timer.display_time(methods_timing_helper.h_m_s_to_seconds(*h_m_s))
+    methods_timing.timer_entry_mousewheel_method(event, classes.template["entry_minutes"])
 
 
 def entry_seconds_trace(entry_text):
     """This method gets executed when the text is edited in the seconds entry."""
 
-    methods_helper.entry_trace_method(entry_text, classes.template["entry_seconds"])
-
-    # Update the timestamp if a fixed timestamp has not been set.
-    if not classes.template["label_timestamp"]["timestamp_set"]:
-        classes.timer.update_timestamp(truncate_to=2)
+    methods_timing.timer_entry_trace_method(entry_text, classes.template["entry_seconds"])
 
 
 def entry_seconds_mousewheel_macro(event):
     """This method gets executed when the mousewheel is moved over the seconds entry."""
 
-    # Store the template for the seconds entry.
-    entry_template = classes.template["entry_seconds"]
-
-    # Adjust the timer.
-    adjustment_amount = methods_timing.adjust_timer_on_entry_mousewheel(event, entry_template)
-
-    # If the timer was not adjusted, ensure that the current time is displayed in its entirety.
-    if adjustment_amount == 0:
-        h_m_s = classes.timer.read_timer()
-        classes.timer.display_time(methods_timing_helper.h_m_s_to_seconds(*h_m_s))
+    methods_timing.timer_entry_mousewheel_method(event, classes.template["entry_seconds"])
 
 
 def entry_subseconds_trace(entry_text):
     """This method gets executed when the text is edited in the subseconds entry."""
 
-    methods_helper.entry_trace_method(entry_text, classes.template["entry_subseconds"])
-
-    # Update the timestamp if a fixed timestamp has not been set.
-    if not classes.template["label_timestamp"]["timestamp_set"]:
-        classes.timer.update_timestamp(truncate_to=2)
+    methods_timing.timer_entry_trace_method(entry_text, classes.template["entry_subseconds"])
 
 
 def entry_subseconds_mousewheel_macro(event):
     """This method gets executed when the mousewheel is moved over the subseconds entry."""
 
-    # Store the template for the subseconds entry.
-    entry_template = classes.template["entry_subseconds"]
-
-    # Adjust the timer.
-    adjustment_amount = methods_timing.adjust_timer_on_entry_mousewheel(event, entry_template)
-
-    # If the timer was not adjusted, ensure that the current time is displayed in its entirety.
-    if adjustment_amount == 0:
-        h_m_s = classes.timer.read_timer()
-        classes.timer.display_time(methods_timing_helper.h_m_s_to_seconds(*h_m_s))
+    methods_timing.timer_entry_mousewheel_method(event, classes.template["entry_subseconds"])
 
 
 #################### SKIP BACKWARD/FORWARD ENTRIES MACROS ####################

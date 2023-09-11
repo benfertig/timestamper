@@ -223,19 +223,50 @@ def pad_number(number, target_length, pad_before):
     return str_number + zeros_to_add
 
 
+def modify_subsecond_representation(subseconds, rounding_str):
+    """This method modifies the representation of a subseconds timer value to
+    match the degree of precision specified in rounding_str, which should be a
+    string that is equal to "second", "decisecond" or "centisecond". If rounding_str
+    is not equal to one of these values, then a ValueError will be raised."""
+
+    # If we should round to the last second...
+    if rounding_str == "second":
+        return None
+
+    # If we should round to the last decisecond...
+    if rounding_str == "decisecond":
+        if subseconds:
+            return str(subseconds)[:1]
+        return "0"
+
+    # If we should round to the last centisecond...
+    if rounding_str == "centisecond":
+        if subseconds:
+            if len(subseconds) == 1:
+                return f"{subseconds}0"
+            return subseconds[:2]
+        return "00"
+
+    # If rounding_str was not "second", "decisecond" or "centisecond", raise a ValueError.
+    raise ValueError("Argument rounding_str must be either",
+                        "\"second\", \"decisecond\" or \"centisecond\".")
+
+
 def h_m_s_to_seconds(hours=0, minutes=0, seconds=0, subseconds=0):
     """This method converts a time in hours, minutes,
     seconds and subseconds to a time in seconds."""
 
-    return (hours * 3600) + (minutes * 60) + seconds + (subseconds / 100)
+    return (int(hours or 0) * 3600) + (int(minutes or 0) * 60) + \
+        int(seconds or 0) + (int(subseconds or 0) / 100)
 
 
 def h_m_s_to_timestamp(hours=None, minutes=None, \
     seconds=None, subseconds=None, include_brackets=True):
     """This method converts a time in hours, minutes, seconds and subseconds to a timestamp. All
     arguments are optional. However, at the very least, seconds will always be included in the
-    timestamp (and set to "00" if they were not provided). If the hours were provided, but not the
-    minutes, then the minutes will be set to "00" and will also be included in the timestamp. This
+    timestamp (and set to "00" if they were not provided). If the hours were provided, but not
+    the minutes, then the minutes will be set to "00" and will also be included in the timestamp.
+    Otherwise, any arguments that were NOT provided will NOT be included in the timestamp. This
     method DOES NOT pad or truncate any passed values or perform any check to determine whether the
     passed values are valid. It is therefore the responsibility of the function that calls this
     method to ensure that the values passed to this method (which would preferably be strings) are
@@ -252,7 +283,7 @@ def h_m_s_to_timestamp(hours=None, minutes=None, \
     # If the minutes should be included...
     if minutes or hours:
 
-        # If the hours were included and the minutes should also be included...
+        # If the hours were provided and the minutes should also be included...
         if hours:
 
             # If the hours AND the minutes were provided, add the minutes to the timestamp.
@@ -265,7 +296,7 @@ def h_m_s_to_timestamp(hours=None, minutes=None, \
                 minutes = "00"
                 timestamp = f"{timestamp}00"
 
-        # If the minutes, but NOT the hours, should be included, just add the minutes.
+        # If the minutes, but NOT the hours, were provided, just add the minutes.
         else:
             timestamp = f"{timestamp}{minutes}"
 

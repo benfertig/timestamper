@@ -82,7 +82,9 @@ class TimeStamperTimer():
         return [int(hours), int(minutes), int(seconds), int(subseconds)]
 
     def get_current_seconds(self):
-        """This method returns the timer's current time in seconds."""
+        """This method returns the timer's current time in seconds. All arguments
+        (hours, minutes, seconds and subseconds) are optional. Any provided
+        arguments will override their corresponding values from the timer entries."""
 
         return methods_helper.h_m_s_to_seconds(*self.read_timer())
 
@@ -116,21 +118,35 @@ class TimeStamperTimer():
 
         return methods_helper.h_m_s_to_timestamp(*h_m_s, include_brackets=include_brackets)
 
-    def update_timestamp(self, truncate_to=None):
+    def update_timestamp(self, seconds_override=None, truncate_to=None):
         """This method updates the current timestamp, factoring in the user settings as well as
         whether a fixed timestamp has been set. The optional argument truncate_to, which is set
         to None by default, determines the length that any values in the timestamp should be
         truncated to IF they go over that length (e.g., if one of the timestamp values initially
         evaluates to "456" and truncate_to is set to 2, then "456" will become "45")."""
 
-        # If a timestamp HAS been set, get the time from the timestamp itself.
-        if classes.template["label_timestamp"]["timestamp_set"]:
+        # Determine whether a timestamp has been set.
+        timestamp_set = classes.template["label_timestamp"]["timestamp_set"]
+
+        # If a timestamp HAS been set, generate time values from the timestamp itself.
+        if timestamp_set:
             hours, minutes, seconds, subseconds = \
                 methods_helper.timestamp_to_h_m_s(classes.widgets["label_timestamp"]["text"])
 
-        # If a timestamp HAS NOT been set, get the current time from the time fields.
+        # If a timestamp HAS NOT been set...
         else:
-            hours, minutes, seconds, subseconds = classes.timer.read_timer(raw=True)
+
+            # If a value in seconds WAS provided to override the timer
+            # readings, generate time values by converting the passed
+            # time in seconds to hours, minutes, seconds and subseconds.
+            if seconds_override is not None:
+                hours, minutes, seconds, subseconds = \
+                    methods_helper.seconds_to_h_m_s(seconds_override, pad=2)
+
+            # If a value in seconds WAS NOT provided to override the timer readings,
+            # generate time values by retrieving the current values from the timer entries.
+            else:
+                hours, minutes, seconds, subseconds = classes.timer.read_timer(raw=True)
 
         # Determine whether hours should be included in the
         # timestamp even when the time is below one hour.
@@ -148,32 +164,15 @@ class TimeStamperTimer():
 
         # Set the timestamp's subseconds.
         timestamp_rounding = classes.settings["round_timestamp"]["round_to_last"]
-
-        # If we should round to the last second...
-        if timestamp_rounding == "second":
-            subseconds = None
-
-        # If we should round to the last decisecond...
-        elif timestamp_rounding == "decisecond":
-            if not subseconds:
-                subseconds = "0"
-            elif len(subseconds) == 2:
-                subseconds = str(int(subseconds) // 10)
-
-        # If we should round to the last centisecond...
-        else:
-            if subseconds is None:
-                subseconds = "00"
-            elif len(subseconds) == 1:
-                subseconds = f"{subseconds}0"
+        subseconds = methods_helper.modify_subsecond_representation(subseconds, timestamp_rounding)
 
         h_m_s = [hours, minutes, seconds, subseconds]
 
         # Truncate any values that need to be truncated.
         if truncate_to:
             for i, denom in enumerate(h_m_s):
-                h_m_s[i] = \
-                    denom[:truncate_to] if denom is not None and len(denom) > truncate_to else denom
+                if denom is not None and len(denom) > truncate_to:
+                    h_m_s[i] = denom[:truncate_to]
 
         # Update the timestamp.
         classes.widgets["label_timestamp"]["text"] = \
@@ -195,34 +194,6 @@ class TimeStamperTimer():
             # updated value is not equal to the current value.
             if h_m_s[i] != current_timer_entry.get():
                 methods_helper.print_to_entry(h_m_s[i], current_timer_entry)
-
-        # If a media player exists, update the position of the media time
-        # slider as well as the displays of elapsed and remaining time.
-        if classes.time_stamper.media_player:
-
-            # Update the start time of the media if it is not playing.
-            if not classes.time_stamper.media_player.is_playing():
-                classes.time_stamper.media_player.set_time(int(new_time * 1000))
-
-            # Update the media time slider.
-            classes.widgets["scale_media_time"].variable.set(new_time)
-
-            # Update the elapsed time.
-            media_elapsed_to_timestamp = \
-                methods_helper.h_m_s_to_timestamp(*h_m_s[:3], include_brackets=False)
-            classes.widgets["label_media_elapsed"]["text"] = media_elapsed_to_timestamp
-
-            # Determine whether hours should be included in the
-            # timestamp even when the time is below one hour.
-            force_timestamp_hours = \
-                classes.settings["always_include_hours_in_timestamp"]["is_enabled"]
-
-            # Update the remaining time.
-            media_seconds_remaining = max(0.0, self.get_max_time() - new_time)
-            media_remaining_to_timestamp = methods_helper.seconds_to_timestamp(\
-                media_seconds_remaining, pad=pad, force_include_hours=force_timestamp_hours, \
-                include_subseconds=False, include_brackets=False)
-            classes.widgets["label_media_remaining"]["text"] = media_remaining_to_timestamp
 
     def update_media(self, new_time):
         """This method adjusts the start time of the current media
@@ -335,13 +306,13 @@ class TimeStamperTimer():
                 classes.macros.mapping["button_pause"]()
 
     def pause(self, play_delay=None):
-        """This method halts the timer and is typically run when the pause button is pressed, when
-        the media time slider is dragged/scrolled and media is playing or when the timer entries
-        are scrolled. An optional argument, play_delay (which is set to None by default), determines
-        the amount of time after which the timer should resume once it is paused. This argument
-        should only ever be set to a value other than None from the scale_media_time_macro and
-        adjust_timer_on_entry_mousewheel methods in widgets_helper_methods.py (i.e., whenever
-        the user either manipulates the media time scale with the mouse or the mousewheel or
+        """This method halts the timer and is typically run when the pause button is pressed,
+        when the media time slider is dragged/scrolled and media is playing, or when the timer
+        entries are scrolled. An optional argument, play_delay (which is set to None by default),
+        determines the amount of time after which the timer should resume once it is paused. This
+        argument should only ever be set to a value other than None from scale_media_time_macro
+        in macros_scales.py and timer_entry_mousewheel_method in methods_macros_timing.py (i.e.,
+        whenever the user either manipulates the media time scale with the mouse/mousewheel or
         manipulates timer entries with the mousewheel). Note that play_delay only has an effect
         if this method is called when the timer is already running or is scheduled to run."""
 

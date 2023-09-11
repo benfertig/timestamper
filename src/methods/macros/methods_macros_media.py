@@ -12,6 +12,7 @@ from vlc import FILE_ptr, EventType, MediaParsedStatus, MediaPlayer
 import classes
 import methods.macros.methods_macros_helper as methods_helper
 import methods.macros.methods_macros_output as methods_output
+from methods.timing import methods_timing_helper
 
 # Time Stamper: Run a timer and write automatically timestamped notes.
 # Copyright (C) 2022 Benjamin Fertig
@@ -51,6 +52,41 @@ def updated_mute_button_image(volume_scale_value):
 
     # If the volume is between 66.6 and 100 return "volume_high.png".
     return "volume_high.png"
+
+
+def refresh_media_time(new_time, pad=2):
+    """This method updates the display of the media time scale as well as the labels displaying
+    the amount of elapsed and remaining time in the current media file based on the number of
+    seconds provided in new_time. If the current media file is not currently playing, then the
+    start time of the media file will be updated to new_time as well. The optional argument pad,
+    which is set to 2 by default, determines the length that any values in the generated timestamps
+    for the amount of elapsed and remaining time in the current media file should be padded to."""
+
+    # Update the start time of the media if it is not playing.
+    if not classes.time_stamper.media_player.is_playing():
+        classes.time_stamper.media_player.set_time(int(new_time * 1000))
+
+    # Update the media time slider.
+    classes.widgets["scale_media_time"].variable.set(new_time)
+
+    # Determine whether hours should be included in the
+    # timestamp even when the time is below one hour.
+    force_timestamp_hours = \
+        classes.settings["always_include_hours_in_timestamp"]["is_enabled"]
+
+    # Update the elapsed time.
+    media_elapsed_to_timestamp = \
+        methods_timing_helper.seconds_to_timestamp(\
+            new_time, pad=pad, force_include_hours=force_timestamp_hours, \
+            include_subseconds=False, include_brackets=False)
+    classes.widgets["label_media_elapsed"]["text"] = media_elapsed_to_timestamp
+
+    # Update the remaining time.
+    media_seconds_remaining = max(0.0, classes.timer.get_max_time() - new_time)
+    media_remaining_to_timestamp = methods_timing_helper.seconds_to_timestamp(\
+        media_seconds_remaining, pad=pad, force_include_hours=force_timestamp_hours, \
+        include_subseconds=False, include_brackets=False)
+    classes.widgets["label_media_remaining"]["text"] = media_remaining_to_timestamp
 
 
 def attempt_media_player_release():
@@ -112,7 +148,7 @@ def toggle_media_buttons(to_enable):
                 classes.template[button_str_key]["mac_disabled_color"])
 
 
-def set_media_widgets(file_full_path):
+def set_media_widgets(file_full_path, pad=2):
     """This method alters all of the relevant widgets in the Time Stamper program to
     indicate that a valid media file IS currently active. Note that this method does
     not handle the actual enabling/disabling of widgets associated with a media file."""
@@ -132,8 +168,26 @@ def set_media_widgets(file_full_path):
     # of 359999.99 and the duration of the media player.
     classes.widgets["scale_media_time"]["to"] = classes.timer.get_max_time()
 
-    # Reset the timer and the media slider.
+    # Reset the timer.
     classes.timer.display_time(0.0, pad=2)
+
+    # Determine whether hours should be included in the
+    # timestamp even when the time is below one hour.
+    force_timestamp_hours = \
+        classes.settings["always_include_hours_in_timestamp"]["is_enabled"]
+
+    # Update the elapsed time.
+    media_elapsed_to_timestamp = \
+        methods_timing_helper.seconds_to_timestamp(\
+            0, pad=pad, force_include_hours=force_timestamp_hours, \
+            include_subseconds=False, include_brackets=False)
+    classes.widgets["label_media_elapsed"]["text"] = media_elapsed_to_timestamp
+
+    # Update the remaining time.
+    media_remaining_to_timestamp = methods_timing_helper.seconds_to_timestamp(\
+        classes.timer.get_max_time(), pad=pad, force_include_hours=force_timestamp_hours, \
+        include_subseconds=False, include_brackets=False)
+    classes.widgets["label_media_remaining"]["text"] = media_remaining_to_timestamp
 
 
 def reset_media_widgets():
