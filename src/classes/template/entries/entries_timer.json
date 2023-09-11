@@ -8,8 +8,9 @@
         "digits_only": true,
 
         "text": "00",
+        "previous_value": "00",
 
-        "max_val": 99,
+        "max_value": 99,
 
         "scroll_timer_adjustment": 3600,
 
@@ -43,8 +44,9 @@
         "digits_only": true,
 
         "text": "00",
+        "previous_value": "00",
 
-        "max_val": 59,
+        "max_value": 59,
 
         "scroll_timer_adjustment": 60,
 
@@ -77,8 +79,9 @@
         "digits_only": true,
 
         "text": "00",
+        "previous_value": "00",
 
-        "max_val": 59,
+        "max_value": 59,
 
         "scroll_timer_adjustment": 1,
 
@@ -111,8 +114,9 @@
         "digits_only": true,
 
         "text": "00",
+        "previous_value": "00",
 
-        "max_val": 99,
+        "max_value": 99,
 
         "scroll_timer_adjustment": "0.01",
 

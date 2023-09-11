@@ -33,30 +33,32 @@ def entry_trace_method(entry_text, entry_template):
     text is edited in one of several entries (hours, minutes,
     seconds, subseconds, skip backward entry, skip forward entry)."""
 
+    is_valid = True
+
     if len(entry_text.get()) > 0:
 
         # If this entry should contain only digits...
         if entry_template["digits_only"]:
 
-            # Remove any non-digits from the entry.
+            # Ensure that the entry's text can be converted into an integer.
             try:
-                int(entry_text.get()[-1])
-            except ValueError:
-                entry_text.set(entry_text.get()[:-1])
-
-            # Remove any digits from the entry that put the entry
-            # under its minimum value or over its maximum value.
-            if len(entry_text.get()) > 0:
-
-                # Define the entry's minimum value, maximum value and current value.
-                min_val = entry_template["min_val"]
-                max_val = entry_template["max_val"]
                 entry_val = int(entry_text.get())
+            except ValueError:
+                is_valid = False
+            else:
 
-                # Truncate the entry's value if it is out of bounds.
-                if (min_val is not None and entry_val < min_val) or \
-                    (max_val is not None and entry_val > max_val):
-                    entry_text.set(entry_text.get()[:-1])
+                # Ensure that the entry is not below its
+                # minimum value or above its maximum value.
+                if len(entry_text.get()) > 0:
+
+                    # Define the entry's minimum and maximum value.
+                    min_value = entry_template["min_value"]
+                    max_value = entry_template["max_value"]
+
+                    # Ensure that the entry's value is not out of bounds.
+                    if (min_value and entry_val < min_value) or \
+                        (max_value and entry_val > max_value):
+                        is_valid = False
 
     # Enable and disable the relevant buttons for when the entry's text is edited.
     for str_to_enable in entry_template["to_enable"]:
@@ -64,8 +66,7 @@ def entry_trace_method(entry_text, entry_template):
     for str_to_disable in entry_template["to_disable"]:
         classes.widgets[str_to_disable]["state"] = DISABLED
 
-    # Save the entry's updated text in the entry's template.
-    entry_template["text_loaded_value"] = entry_text.get()
+    return is_valid
 
 
 def adjust_skip_values_on_entry_mousewheel(event, is_skip_backward):
@@ -83,14 +84,14 @@ def adjust_skip_values_on_entry_mousewheel(event, is_skip_backward):
     # Try to interpret the current value of the skip backward/forward entry as an
     # integer and interpret it as zero if it cannot be interpreted as an integer.
     try:
-        cur_val = int(entry.get())
+        cur_val = int(entry.textvariable.get())
     except ValueError:
         cur_val = 0
 
     # If scrolling would not put the entry under its minimum value (1)
     # or over its maximum value (99), update the value of the entry.
     new_val = cur_val + event_delta
-    if entry_template["min_val"] <= new_val <= entry_template["max_val"]:
+    if entry_template["min_value"] <= new_val <= entry_template["max_value"]:
         methods_output.print_to_entry(str(new_val), entry, wipe_clean=True)
 
 

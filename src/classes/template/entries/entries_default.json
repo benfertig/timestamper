@@ -13,8 +13,8 @@
 
     "message_file_name": null,
 
-    "min_val": null,
-    "max_val": null,
+    "min_value": null,
+    "max_value": null,
 
     "to_enable": [],
     "to_disable": [],

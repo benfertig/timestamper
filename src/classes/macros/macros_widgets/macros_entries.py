@@ -81,7 +81,7 @@ def entry_subseconds_mousewheel_macro(event):
 def entry_skip_backward_trace(entry_text):
     """This method gets executed when the text is edited in the skip backward entry."""
 
-    methods_helper.entry_trace_method(entry_text, classes.template["entry_skip_backward"])
+    methods_timing.skip_backward_or_forward_entry_trace_method(entry_text, True)
 
 
 def entry_skip_backward_mousewheel_macro(event):
@@ -93,7 +93,7 @@ def entry_skip_backward_mousewheel_macro(event):
 def entry_skip_forward_trace(entry_text):
     """This method gets executed when the text is edited in the skip forward entry."""
 
-    methods_helper.entry_trace_method(entry_text, classes.template["entry_skip_forward"])
+    methods_timing.skip_backward_or_forward_entry_trace_method(entry_text, False)
 
 
 def entry_skip_forward_mousewheel_macro(event):

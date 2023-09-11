@@ -295,8 +295,9 @@ def print_to_entry(to_print, entry_obj, wipe_clean=False):
     initial_state = entry_obj["state"]
     entry_obj["state"] = NORMAL
     if wipe_clean:
-        entry_obj.delete(0, END)
-    entry_obj.insert(END, to_print)
+        entry_obj.textvariable.set(to_print)
+    else:
+        entry_obj.textvariable.set(f"{entry_obj.textvariable.get()}{to_print}")
     entry_obj["state"] = initial_state
 
 

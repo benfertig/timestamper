@@ -42,6 +42,8 @@ class TimeStamperTimer():
 
         self.scheduled_id = None
 
+        self.is_being_scrolled = False
+
     def get_max_time(self):
         """This method returns the timer's current maximum time in seconds. Typically, the
         maximum time will be 359999.99 seconds unless a media player is loaded, in which case
@@ -62,10 +64,10 @@ class TimeStamperTimer():
         raw is True, but the values will be converted to integers before being returned."""
 
         # Get the current values from the timer's time fields.
-        hours = classes.widgets["entry_hours"].get()
-        minutes = classes.widgets["entry_minutes"].get()
-        seconds = classes.widgets["entry_seconds"].get()
-        subseconds = classes.widgets["entry_subseconds"].get()
+        hours = classes.widgets["entry_hours"].textvariable.get()
+        minutes = classes.widgets["entry_minutes"].textvariable.get()
+        seconds = classes.widgets["entry_seconds"].textvariable.get()
+        subseconds = classes.widgets["entry_subseconds"].textvariable.get()
 
         # The timer's values may need to be padded if they contain user-entered numbers.
         hours = methods_helper.pad_number(hours, 2, True)
@@ -82,9 +84,7 @@ class TimeStamperTimer():
         return [int(hours), int(minutes), int(seconds), int(subseconds)]
 
     def get_current_seconds(self):
-        """This method returns the timer's current time in seconds. All arguments
-        (hours, minutes, seconds and subseconds) are optional. Any provided
-        arguments will override their corresponding values from the timer entries."""
+        """This method returns the timer's current time in seconds."""
 
         return methods_helper.h_m_s_to_seconds(*self.read_timer())
 
@@ -109,7 +109,7 @@ class TimeStamperTimer():
 
         # Round the timestamp to the specified increment.
         if round_to == "decisecond":
-            h_m_s[3] = str(int(h_m_s[3]) // 10)
+            h_m_s[3] = h_m_s[3][:1]
         elif round_to == "second":
             h_m_s[3] = None
         elif round_to != "centisecond":
@@ -179,8 +179,8 @@ class TimeStamperTimer():
             methods_helper.h_m_s_to_timestamp(*h_m_s)
 
     def display_time(self, new_time, pad=2):
-        """This method, after converting the provided time in seconds to hours, minutes,
-        seconds and subseconds, will display this time to timer fields of self.time_stamper."""
+        """This method, after converting the provided time in seconds to hours,
+        minutes, seconds and subseconds, will display this time to the time fields."""
 
         # Convert the provided time in seconds to hours, minutes, seconds and subseconds.
         h_m_s = methods_helper.seconds_to_h_m_s(new_time, pad=pad)
@@ -419,17 +419,15 @@ class TimeStamperTimer():
 
 
     def adjust_timer(self, seconds_to_adjust_by, abort_if_out_of_bounds=False):
-        """This method skips the timer backward and forward and is typically run when
-        the skip backward or skip forward button is pressed or when the user scrolls
-        the mousewheel while the cursor is hovering over one of the timer entries. This
-        method takes one optional argument, abort_if_out_of_bounds, which is set to False by
-        default. When abort_if_out_of_bounds is set to True, this method will not adjust the
-        timer if the passed adjustment amount would put the timer below 0 or above the maximum
-        time (as can be the case when the user scrolls the timer entries with the mousewheel).
-        When abort_if_out_of_bounds is set to False, this method will reduce the passed
-        adjustment amount to put the timer at either 0 or its maximum time if the passed
-        adjustment amount would have otherwise put the timer below 0 or above its maximum time
-        (as can be the case when the user presses the skip backward or skip forward buttons)."""
+        """This method takes an integer (seconds_to_adjust_by) representing the desired
+        number of seconds to adjust the timer by. When the optional argument
+        abort_if_out_of_bounds is set to True, this method will return the provided number
+        of seconds if adjusting the timer by that amount would not put the timer out of
+        bounds, and return 0 otherwise. When abort_if_out_of_bounds is set to False, this
+        method will return the provided number of seconds if adjusting the timer by that
+        amount would not put the timer out of bounds, and otherwise will return a reduced
+        version of the provided number of seconds representing the maximum number of seconds
+        the timer could be adjusted by without putting it below 0 or above its maximum time."""
 
         if seconds_to_adjust_by != 0:
 

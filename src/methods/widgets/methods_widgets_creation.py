@@ -215,6 +215,8 @@ def create_entry(entry_template, entry_window):
         disabledbackground=entry_template["disabledbackground"], \
         disabledforeground=entry_template["disabledforeground"], state=initial_state)
 
+    entry.textvariable = entry_text
+
     # Determine any macros for the entry.
     trace_macro = classes.macros[f"{str_key}_TRACE"] \
         if classes.macros and f"{str_key}_TRACE" in classes.macros.mapping else None

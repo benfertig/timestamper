@@ -115,7 +115,7 @@ def skip_backward_or_forward_macro(is_skip_backward):
     timestamp = classes.timer.current_time_to_timestamp()
 
     # Skip the timer backward/forward the specified number of seconds.
-    adjust_amount = float(classes.widgets[f"entry_skip_{direction}"].get())
+    adjust_amount = float(classes.widgets[f"entry_skip_{direction}"].textvariable.get())
     skip_amount = \
         classes.timer.adjust_timer(adjust_amount * -1 if is_skip_backward else adjust_amount)
 
@@ -136,39 +136,52 @@ def timer_entry_trace_method(entry_text, entry_template):
     these four methods are very similar, so their procedures have been condensed down to a single
     method here and different parameters are passed depending on which trace method was invoked."""
 
-    # Call the generic entry trace method, removing any non-digits
-    # or any digits that put the entry over its maximum value.
-    methods_helper.entry_trace_method(entry_text, entry_template)
+    # If this method was called EITHER from an automatic update of the timer because it is currently
+    # running OR from the user scrolling the mousewheel over one of the timer entries, then
+    # this entry's text has already been validated elsewhere, so we know that the text is valid.
+    if classes.timer.is_running or classes.timer.is_being_scrolled:
 
-    # Generate a list of timer values that will be passed to h_m_s_to_seconds. All timer entry
-    # values will be retrieved using entry.get() except for the timer value that is currently
-    # being edited, which will be retrieved using entry_text.get(). This is necessary due to
-    # the limitations of Tkinter. At this point in the program, we have successfully truncated
-    # only the textvariable of the current entry and not the .get() value of the entry itself.
-    # It is unclear to me why this is the case, although it seems that the entry's .get() method
-    # accurately reflects the true updated text of the entry shortly after this method terminates.
-    h_m_s = [entry_text.get() if f"entry_{denom}" == entry_template["str_key"] \
-             else classes.widgets[f"entry_{denom}"].get() \
-             for denom in ("hours", "minutes", "seconds", "subseconds")]
+        # Mark the entry's text as valid.
+        entry_text_is_valid = True
 
-    # Get the timer's current time in seconds (factoring in the potentially modified entry).
-    current_time_seconds = methods_timing_helper.h_m_s_to_seconds(*h_m_s)
+        # Get the timer's current time in seconds.
+        current_time_seconds = classes.timer.get_current_seconds()
 
-    # If adding the most recently added character to the
-    # timer entry put the timer over its maximum time...
-    if current_time_seconds > classes.timer.get_max_time():
+    # If this method was called NEITHER from an automatic update of the timer
+    # because it is currently running NOR from the user scrolling the mousewheel
+    # over one of the timer entries, then this method must have been called from
+    # the user having edited one of the timer entries manually, so we need to
+    # ensure that the value the user entered makes the timer reflect a valid time.
+    else:
 
-        # Set the value of the entry to its current value, but with the last character removed.
-        entry_text.set(entry_text.get()[:-1])
+        # Call the generic entry trace method to see whether the entry contains
+        # any non-digits or any digits that put the entry over its maximum value.
+        entry_text_is_valid = methods_helper.entry_trace_method(entry_text, entry_template)
 
-        # Generate the timer values using the same strategy outlined
-        # earlier in this method (see long comment several lines above).
-        h_m_s = [entry_text.get() if f"entry_{denom}" == entry_template["str_key"] \
-                else classes.widgets[f"entry_{denom}"].get() \
-                for denom in ("hours", "minutes", "seconds", "subseconds")]
+        # Only perform further checks on the entry text if the
+        # generic entry_trace_method did not detect any problems.
+        if entry_text_is_valid:
 
-        # Regenerate the timer's new time, factoring in the removed character.
-        current_time_seconds = methods_timing_helper.h_m_s_to_seconds(*h_m_s)
+            # Get the timer's current time in seconds.
+            current_time_seconds = classes.timer.get_current_seconds()
+
+            # If adding the most recently added character to the timer entry put the
+            # timer over its maximum time, then the entry's current text is not valid.
+            if current_time_seconds > classes.timer.get_max_time():
+                entry_text_is_valid = False
+
+    # If the user-entered text IS valid, store the entry's value for potential referencing later.
+    if entry_text_is_valid:
+        entry_template["previous_value"] = entry_text.get()
+
+    # If the user-entered text IS NOT valid...
+    else:
+
+        # Set the entry's value to its previous value
+        entry_text.set(entry_template["previous_value"])
+
+        # Regenerate the timer's new time, factoring in the modified entry.
+        current_time_seconds = classes.timer.get_current_seconds()
 
     # Update the timestamp if a fixed timestamp has not been set.
     if not classes.template["label_timestamp"]["timestamp_set"]:
@@ -180,6 +193,10 @@ def timer_entry_trace_method(entry_text, entry_template):
     if classes.time_stamper.media_player:
         methods_media.refresh_media_time(current_time_seconds, pad=2)
 
+    # Store the updated value of the timer entry so that we can (potentially) revert
+    # back to it should the user later enter an invalid value into this entry.
+    entry_template["previous_value"] = entry_text.get()
+
 
 def timer_entry_mousewheel_method(event, entry_template):
     """This method contains the entire functionality of the methods that get executed
@@ -187,6 +204,9 @@ def timer_entry_mousewheel_method(event, entry_template):
     entry and the subseconds entry. The functions performed by these four methods are
     very similar, so their procedures have been condensed down to a single method here
     and different parameters are passed depending on which mousewheel method was invoked."""
+
+    # Indicate that the timer is being scrolled.
+    classes.timer.is_being_scrolled = True
 
     # On Mac platforms, the registered scroll amount does not need to be divided by 120.
     event_delta = event.delta if platform.startswith("darwin") else int(event.delta / 120)
@@ -213,6 +233,31 @@ def timer_entry_mousewheel_method(event, entry_template):
     if scroll_adjustment == 0:
         h_m_s = classes.timer.read_timer()
         classes.timer.display_time(methods_timing_helper.h_m_s_to_seconds(*h_m_s))
+
+    # Indicate that the timer is no longer being scrolled.
+    classes.timer.is_being_scrolled = False
+
+
+def skip_backward_or_forward_entry_trace_method(entry_text, is_skip_backward):
+    """This method contains the entire functionality for the trace methods of the skip
+    backward and skip forward entries. The functions performed by both of these methods
+    are very similar, so their procedures have been condensed down to a single method
+    here and different parameters are passed depending on which trace method was invoked."""
+
+    # Store the string key and the template for the current entry.
+    entry_str_key = "entry_skip_backward" if is_skip_backward else "entry_skip_forward"
+    entry_template = classes.template[entry_str_key]
+
+    # Check whether the text that the user entered into the entry is valid.
+    entry_text_is_valid = methods_helper.entry_trace_method(entry_text, entry_template)
+
+    # If the user-entered text IS valid, store the entry's value for potential referencing later.
+    if entry_text_is_valid:
+        entry_template["previous_value"] = entry_text.get()
+
+    # If the user-entered text IS NOT valid, set the entry's value to its previous value.
+    else:
+        entry_text.set(entry_template["previous_value"])
 
 
 def set_or_clear_timestamp(is_set_timestamp):
