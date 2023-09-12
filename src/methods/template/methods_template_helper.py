@@ -105,7 +105,9 @@ def store_jsons_in_mapping(mapping, json_dir):
         for widget_str_key, widget_template in cur_json_mapping.items():
 
             # Change any os-specific template values.
-            if platform in widget_template["os_specific_settings"]:
+            if "os_specific_settings" in widget_template \
+                and platform in widget_template["os_specific_settings"]:
+
                 for key, value in widget_template["os_specific_settings"][platform].items():
                     widget_template[key] = value
 

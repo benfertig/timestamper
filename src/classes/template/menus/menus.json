@@ -1,0 +1,33 @@
+{
+
+    "menu_file": {
+
+        "str_key": "menu_file",
+
+        "label": "File",
+
+        "position": 0,
+
+        "labels": [
+            [["file_menu_new", "New", "Ctrl+N"], ["file_menu_open", "Open", "Ctrl+O"], ["file_menu_recent", "Recent", ""]],
+            [["file_menu_save", "Save", "Ctrl+S"], ["file_menu_save_as", "Save As...", "Ctrl+Shift+S"]],
+            [["file_menu_export", "Export", ""]]
+        ]
+
+    },
+
+    "menu_edit": {
+
+        "str_key": "menu_edit",
+
+        "label": "Edit",
+
+        "position": 1,
+
+        "labels": [
+            [["edit_menu_undo", "Undo", "Ctrl+Z"], ["edit_menu_redo", "Redo", "Ctrl+Y"]]
+        ]
+
+    }
+
+}

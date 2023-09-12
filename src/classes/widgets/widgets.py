@@ -4,6 +4,7 @@ various Tkinter widgets as well as a mapping of widgets to their string keys. Th
 allows for easy reference of widgets. Also see the "widgets_creation_methods.py" and
 "widgets_helper_methods.py" modules for additional methods associated with widgets."""
 
+from tkinter import Menu
 from traceback import format_exception
 
 import classes
@@ -64,6 +65,7 @@ class Widgets():
         self.create_comboboxes(window_str)
         self.create_entries(window_str)
         self.create_labels(window_str)
+        self.create_menus(window_str)
         self.create_scales(window_str)
         self.create_spinboxes(window_str)
         self.create_texts(window_str)
@@ -83,11 +85,10 @@ class Widgets():
         """This method creates all of the buttons that are meant
         to appear in the window indicated by window_str."""
 
-        button_window = self[window_str]
         for button_template in classes.template["buttons"][window_str]:
             str_key = button_template["str_key"]
             button, button_image, button_orig_color = \
-                methods_creation.create_button(button_template, button_window)
+                methods_creation.create_button(button_template, self[window_str])
             button.image = button_image
             self.original_colors[str_key] = button_orig_color
             if button_image:
@@ -98,66 +99,75 @@ class Widgets():
         """This method creates all of the checkbuttons that are
         meant to appear in the window indicated by window_str."""
 
-        checkbutton_window = self[window_str]
         for checkbutton_template in classes.template["checkbuttons"][window_str]:
             checkbutton = \
-                methods_creation.create_checkbutton(checkbutton_template, checkbutton_window)
+                methods_creation.create_checkbutton(checkbutton_template, self[window_str])
             self.mapping[checkbutton_template["str_key"]] = checkbutton
 
     def create_comboboxes(self, window_str):
         """This method creates all of the comboboxes that are
         meant to appear in the window indicated by window_str."""
 
-        combobox_window = self[window_str]
         for combobox_template in classes.template["comboboxes"][window_str]:
-            combobox = methods_creation.create_combobox(combobox_template, combobox_window)
+            combobox = methods_creation.create_combobox(combobox_template, self[window_str])
             self.mapping[combobox_template["str_key"]] = combobox
 
     def create_entries(self, window_str):
         """This method creates all of the entries that are meant
         to appear in the window indicated by window_str."""
 
-        entry_window = self[window_str]
         for entry_template in classes.template["entries"][window_str]:
-            entry = methods_creation.create_entry(entry_template, entry_window)
+            entry = methods_creation.create_entry(entry_template, self[window_str])
             self.mapping[entry_template["str_key"]] = entry
 
     def create_labels(self, window_str):
         """This method creates all of the labels that are meant
         to appear in the window indicated by window_str."""
 
-        label_window = self[window_str]
         for label_template in classes.template["labels"][window_str]:
-            label, label_image = methods_creation.create_label(label_template, label_window)
+            label, label_image = methods_creation.create_label(label_template, self[window_str])
             if label_image:
                 self.mapping[label_template["image_file_name"]] = label_image
             self.mapping[label_template["str_key"]] = label
+
+    def create_menus(self, window_str):
+        """This method creates all of the menus that are meant
+        to appear in the window indicated by window_str."""
+
+        # Only create a menu if any menus were specified for the current window.
+        if window_str in classes.template["menus"]:
+
+            menu_window = self[window_str]
+
+            # Create the menubar.
+            menubar = methods_creation.create_menubar(menu_window, window_str)
+            self.mapping[f"menubar_{window_str}"] = menubar
+
+            # Add the menu to the window.
+            menu_window.config(menu=menubar)
 
     def create_scales(self, window_str):
         """This method creates all of the scales that are meant
         to appear in the window indicated by window_str."""
 
-        scale_window = self[window_str]
         for scale_template in classes.template["scales"][window_str]:
-            scale = methods_creation.create_scale(scale_template, scale_window)
+            scale = methods_creation.create_scale(scale_template, self[window_str])
             self.mapping[scale_template["str_key"]] = scale
 
     def create_spinboxes(self, window_str):
         """This method creates all of the spinboxes that are
         meant to appear in the window indicated by window_str."""
 
-        spinbox_window = self[window_str]
         for spinbox_template in classes.template["spinboxes"][window_str]:
-            spinbox = methods_creation.create_spinbox(spinbox_template, spinbox_window)
+            spinbox = methods_creation.create_spinbox(spinbox_template, self[window_str])
             self.mapping[spinbox_template["str_key"]] = spinbox
 
     def create_texts(self, window_str):
         """This method creates all of the texts that are meant
         to appear in the window indicated by window_str."""
 
-        text_window = self[window_str]
         for text_template in classes.template["texts"][window_str]:
-            text = methods_creation.create_text(text_template, text_window)
+            text = methods_creation.create_text(text_template, self[window_str])
             self.mapping[text_template["str_key"]] = text
 
     def create_entire_window(self, window_str, is_main_window=False, macro_args=()):

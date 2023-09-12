@@ -3,7 +3,7 @@
 
 from sys import platform
 from tkinter import DISABLED, NORMAL, HORIZONTAL, VERTICAL, END, Button, \
-    Checkbutton, DoubleVar, Entry, IntVar, Label, StringVar, Scale, Spinbox, Text
+    Checkbutton, DoubleVar, Entry, IntVar, Label, Menu, Scale, StringVar, Spinbox, Text
 from tkinter.ttk import Combobox
 from tkinter.ttk import Scale as ttk_scale
 
@@ -270,6 +270,60 @@ def create_label(label_template, label_window):
     methods_helper.grid_widget(label, label_template)
 
     return label, label_image
+
+
+def create_menu_button(menu_button_info, menu):
+    """This method creates a single menu button within a
+    specified drop-down menu in the Time Stamper program."""
+
+    str_key, menu_button_label, accelerator = menu_button_info
+
+    menu_button_macro = \
+        classes.macros[str_key] if classes.macros and str_key in classes.macros.mapping else None
+
+    menu.add_command(label=menu_button_label, command=menu_button_macro, accelerator=accelerator)
+
+
+def create_menu_drop_down(menu_template, menubar):
+    """This method creates a single drop-down menu within
+    a specified menubar in the Time Stamper program."""
+
+    # Create the drop-down menu.
+    menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label=menu_template["label"], menu=menu)
+
+    # Loop through the buttons that should appear within the drop-down menu.
+    for i, menu_section in enumerate(menu_template["labels"]):
+
+        # Loop through the button sections.
+        for menu_button_info in menu_section:
+
+            # Create a button for the drop-down menu.
+            create_menu_button(menu_button_info, menu)
+
+        # Place a separator between button sections.
+        if i != len(menu_template["labels"]) - 1:
+            menu.add_separator()
+
+    # Store the drop-down menu in the mapping.
+    return menu
+
+
+def create_menubar(menu_window, window_str):
+    """This method creates a menubar for the Time Stamper program."""
+
+    # Create and map the menubar.
+    menubar = Menu(menu_window)
+
+    classes.template["menus"][window_str].sort(key=lambda tmpl: tmpl["position"])
+
+    # Loop through the drop-down menus that should be created.
+    for menu_template in classes.template["menus"][window_str]:
+
+        # Create a drop-down menu for the menubar.
+        create_menu_drop_down(menu_template, menubar)
+
+    return menubar
 
 
 def create_scale(scale_template, scale_window):
