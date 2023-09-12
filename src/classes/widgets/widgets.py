@@ -4,7 +4,6 @@ various Tkinter widgets as well as a mapping of widgets to their string keys. Th
 allows for easy reference of widgets. Also see the "widgets_creation_methods.py" and
 "widgets_helper_methods.py" modules for additional methods associated with widgets."""
 
-from tkinter import Menu
 from traceback import format_exception
 
 import classes
