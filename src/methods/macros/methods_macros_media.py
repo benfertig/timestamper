@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 """This module stores some extra methods associated with media."""
 
-from ctypes import cdll, c_char_p
+from ctypes import cdll, CDLL, c_char_p
 from os import remove
 from os.path import dirname, isfile, join
 from sys import platform
@@ -252,7 +252,10 @@ def final_media_handler(file_full_path):
     # Close the logfile.
     instance = classes.time_stamper.media_player.get_instance()
     instance.log_unset()
-    cdll.msvcrt.fclose(classes.time_stamper.log_file)
+    if platform.startswith("darwin"):
+        CDLL("libc.dylib").fclose(classes.time_stamper.log_file)
+    else:
+        cdll.msvcrt.fclose(classes.time_stamper.log_file)
 
 
 def second_post_playing_handler(file_full_path):
@@ -371,7 +374,10 @@ def first_post_playing_handler(_, file_full_path, iteration):
             # Close the logfile.
             instance = classes.time_stamper.media_player.get_instance()
             instance.log_unset()
-            cdll.msvcrt.fclose(classes.time_stamper.log_file)
+            if platform.startswith("darwin"):
+                CDLL("libc.dylib").fclose(classes.time_stamper.log_file)
+            else:
+                cdll.msvcrt.fclose(classes.time_stamper.log_file)
 
             # Try to release the current media player.
             #attempt_media_player_release()
@@ -405,7 +411,10 @@ def first_post_parsing_handler(_, file_full_path, iteration):
         # Close the logfile.
         instance = classes.time_stamper.media_player.get_instance()
         instance.log_unset()
-        cdll.msvcrt.fclose(classes.time_stamper.log_file)
+        if platform.startswith("darwin"):
+            CDLL("libc.dylib").fclose(classes.time_stamper.log_file)
+        else:
+            cdll.msvcrt.fclose(classes.time_stamper.log_file)
 
         # Try to release the current media player.
         attempt_media_player_release()
@@ -462,7 +471,7 @@ def validate_media_player(file_full_path, iteration=1, erase_if_empty=False):
 
             # Set libvlc to publish its log to a location which we can reference later.
             instance = classes.time_stamper.media_player.get_instance()
-            fopen = cdll.msvcrt.fopen
+            fopen = CDLL("libc.dylib").fopen if platform.startswith("darwin") else cdll.msvcrt.fopen
             fopen.restype = FILE_ptr
             fopen.argtypes = (c_char_p, c_char_p)
             classes.time_stamper.log_file = fopen(bytes(log_file_path, "utf-8"), b"w")
