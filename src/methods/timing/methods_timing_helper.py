@@ -3,7 +3,7 @@
 that do not directly rely on class variables of TimeStamperTimer."""
 
 from fractions import Fraction
-from tkinter import NORMAL, END
+from tkinter import NORMAL
 
 import classes
 

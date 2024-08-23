@@ -76,6 +76,9 @@ def create_button(button_template, button_window):
     else:
         button.configure(command=button_macro)
 
+    # Save the color that the button has before potentially being disabled as its original color.
+    original_color = button.cget("background")
+
     # Disable the button if it should initially be disabled.
     if not is_enabled:
         button["state"] = DISABLED
@@ -92,7 +95,7 @@ def create_button(button_template, button_window):
 
     # Return the button, the button's image and the button's
     # default, non-disabled (i.e., original) color.
-    return button, button_image, button.cget("background")
+    return button, button_image, original_color
 
 
 def create_checkbutton(checkbutton_template, checkbutton_window):
